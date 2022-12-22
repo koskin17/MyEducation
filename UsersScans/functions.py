@@ -1,11 +1,9 @@
 import os
 import pandas as pd
-# import xlsxwriter
-# from prettytable import PrettyTable as pt
 from datetime import datetime, timedelta  # удалил date, как неиспользуемую
 import time
 
-''' Столбцы в DataFrame по сканам
+''' Name of columns in DataFrame about scans
 'UF_PERIOD',
 'UF_TYPE',
 'UF_POINTS',
@@ -26,7 +24,7 @@ import time
 'Монтажник.1',
 'Комментарий' '''
 
-''' Шаблон наименований столбцов по данным о пользователях '''
+''' Sample oа columns name in data about users '''
 columns_name = ['ID',
                 'Баллы',
                 'Последняя авторизация в приложении',
@@ -56,7 +54,7 @@ columns_name = ['ID',
 exclude_list = []  # список исключаемых аккаунтов из подсчёта: тестовые, аксоровские и т.д.
 countries = []  # список стран в базе
 
-''' Список признаков аккаунтов, которые добавляются в exclude_list и которые исключаются из подсчёта '''
+''' Sings of account for add in exclude_list '''
 exclude_users = ['kazah89', 'sanin, ''samoilov', 'axorindustry', 'kreknina', 'zeykin', 'berdnikova', 'ostashenko',
                  'skalar', 'test', 'malyigor', 'ihormaly', 'axor']
 
@@ -86,9 +84,7 @@ today = datetime.now().date()
 
 
 def check_file():
-    """
-    Проверка доступа к файлу.
-    """
+    """ Проверка доступа к файлу """
     if os.listdir('..'):
         print('Доступ к папке: OK')
     else:
@@ -114,9 +110,7 @@ def check_file():
 
 
 def exclude():
-    """
-    Формирование списка исключаемых из подсчёта пользователей.
-    """
+    """ Формирование списка исключаемых из подсчёта пользователей """
 
     for email in df_users['E-Mail']:
         if email == '':
@@ -130,9 +124,7 @@ def exclude():
 
 
 def countries_list():
-    """
-    Формирование списка стран в базе.
-    """
+    """ Формирование списка стран в базе """
 
     for country in df_users['Страна']:
         if country == '':
@@ -143,9 +135,7 @@ def countries_list():
 
 
 def total_stat():
-    """
-    Формирование статистики по пользователям и странам.
-
+    """ Формирование статистики по пользователям и странам
     : return: вывод итоговой таблицы
     """
 
@@ -174,9 +164,8 @@ def total_stat():
     os.startfile(f'total_stat {today}.xlsx')
 
 
-def total_amount_users(country):
-    """
-    Подсчёт общего кол-ва пользователей по стране.
+def total_amount_users(country: str):
+    """ Подсчёт общего кол-ва пользователей по стране.
 
     : param country: Страна
     : type country: str
