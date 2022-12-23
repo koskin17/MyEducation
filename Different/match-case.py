@@ -23,8 +23,9 @@ match http_status:
         print("Other")
 
 """
-"Проверка дня недели """
 from datetime import datetime
+
+"Проверка дня недели """
 
 week = {0: "Monday",
         1: "Tuesday",
@@ -37,6 +38,9 @@ week = {0: "Monday",
 
 day = week.get(datetime.isoweekday(datetime.now()))
 print(f"Сегодня {day}")
+print()
+
+print("Вариант через if - else:")
 if day == "Sunday":
     print("Take it easy")
 elif day == "Monday":
@@ -51,3 +55,69 @@ elif day == "Friday":
     print("Interviews and party")
 elif day == "Saturday":
     print("Time to do sports")
+"""
+В данном случае используется много проверок одного выражения (обращение к переменной) day == ...
+Правильно использовать метод match-case"""
+print()
+print("Вариант через match - case:")
+match day:
+    case "Sunday":
+        print("Take it easy")
+    case "Monday":
+        print("Go to work")
+    case "Tuesday":
+        print("Work + Hobbies")
+    case "Wednesday":
+        print("Meetings")
+    case "Thursday":
+        print("Presentations")
+    case "Friday":
+        print("Interviews and party")
+    case "Saturday":
+        print("Time to do sports")
+
+
+# Конструкцию match-case можно использовать с различными шаблонами.
+
+# Шаблон литерал (literal) - это пример показан в варианте с днём недели.
+
+# Шаблон захвата (capture) - использовать для сохранения (захвата) совпавшего значения в переменную.
+# Пример - приветствие человека, если совпало его имя:
+def greet(name=None):
+    match name:
+        case None:
+            return "Приветствую, неизвестный человек!"
+        case "Kostia":
+            return f"Приветствую, {name}"
+
+
+print()
+print(greet())
+print(greet(name="Kostia"))
+
+# Шаблон подстановки (wildcard).
+# При использовании выражения match-case можно применять знак подстановки для сопоставления,
+# без привязки к конкретному значению. При этом подстановка соответствует всему,
+# что не включено в выражения case. В некотором смысле подстановка — это блок else выражения match-case.
+# Для знака подстановки используется символ подчеркивания _.
+# Пример - проверка результата подбрасывания монеты
+print()
+print("Проверка результата подбрасывания монеты:")
+# conflip = int(input("Введите 0 - Решка или 1 - Орёл: "))
+conflip = 0
+match conflip:
+    case 0: print("Tails")
+    case 1: print("Heads")
+    case _: print("Must be 0 or 1.")
+
+# Подстановка, пример 2: есть коллекция, в которое не важны сами элементы, а важно их кол-во и что они существуют.
+# Проверяется размер кортежа, не рассматривая его содержимое
+print()
+location = (0, 0)
+match location:
+    case (_,): print("1D location found.")
+    case (_, _,): print("2D location found.")
+    case (_, _, _,): print("3D location found.")
+
+# Шаблон постоянных значений (constant value).
+# Шаблон последовательностей (sequence).
