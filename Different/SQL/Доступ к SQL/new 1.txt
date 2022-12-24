@@ -1,0 +1,11 @@
+Для авторизации на сервере необходимо:
+1. Запустить PuTTy.
+2. Создать соединение по инструкции https://hostiq.ua/wiki/faq-remote-connection-to-mysql-on-shared-hosting/
+3. Авторизироваться как root пользователь:
+	- ввести команду mysql -u roditeli -p;
+	- пароль от roditeli
+
+for_python
+581For19Python30
+
+Общий IP-адрес	31.131.18.34
