@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from datetime import datetime, timedelta  # удалил date, как неиспользуемую
+from datetime import datetime, timedelta
 import time
 
 ''' Name of columns in DataFrame about scans
@@ -84,7 +84,7 @@ today = datetime.now().date()
 
 
 def check_file():
-    """ Проверка доступа к файлу """
+    """ Check access to file """
     if os.listdir('..'):
         print('Доступ к папке: OK')
     else:
@@ -110,7 +110,7 @@ def check_file():
 
 
 def exclude():
-    """ Формирование списка исключаемых из подсчёта пользователей """
+    """ Making list of exclude users """
 
     for email in df_users['E-Mail']:
         if email == '':
@@ -124,7 +124,7 @@ def exclude():
 
 
 def countries_list():
-    """ Формирование списка стран в базе """
+    """ Making list of countries in base """
 
     for country in df_users['Страна']:
         if country == '':
