@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from datetime import datetime, timedelta  # удалил date, как неиспользуемую
+from datetime import datetime, timedelta
 import time
 
 ''' Name of columns in DataFrame about scans
