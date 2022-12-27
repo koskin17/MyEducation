@@ -25,3 +25,13 @@ for a, b, c, in product(list_a, list_b, list_c):
 
     if a + b + c == 2008:
         print(f"Сумма 2008 складывается из чисел: {a, b, c}")
+
+str1 = "jkl"
+str2 = "iop"
+str3 = "asd"
+str4 = "rty"
+str5 = "uio"
+str6 = "asf"
+for l1, l2, l3, l4, l5, l6 in product(str1, str2, str3, str4, str5, str6):
+    if l1+l2+l3+l4+l5+l6 == "kostia":
+        print("Name kostia can be made from letter in sequences.")
