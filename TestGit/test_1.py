@@ -1,3 +1,5 @@
+# Проба product из модуля itertools
+
 from itertools import product
 
 list_a = [1, 2020, 7]
