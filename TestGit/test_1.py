@@ -11,3 +11,4 @@ for a, b, c, in product(list_a, list_b, list_c):
         print(a, b, c)
 
 # Сделана первая ветка из Pycharm
+# Тестовые изменения в тестовой ветке
