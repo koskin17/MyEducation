@@ -1,3 +1,5 @@
+# https://pythonworld.ru/moduli/modul-itertools.html
+
 from itertools import product
 
 # Модуль product in itertools позволяет заменить вложенные циклы
