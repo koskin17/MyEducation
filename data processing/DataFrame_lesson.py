@@ -20,5 +20,5 @@ data.fillna(0, axis=1, inplace=True)
 print(data.head())
 # Для того, чтобы получить данные в виде массива numpy мы вызываем свойство values у данных
 data_array = data.values
-# В этом сдучае data_array уже будет содержать numpy-массив
+# В этом случае data_array уже будет содержать numpy-массив
 print(data_array)

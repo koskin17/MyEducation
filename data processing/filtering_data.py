@@ -1,4 +1,4 @@
-# Фильтрация данных без индексов. Общие механизмы фильтарции данных, которые заложены в pandas.
+# Фильтрация данных без индексов. Общие механизмы фильтрации данных, которые заложены в pandas.
 import pandas as pd
 
 data = pd.read_csv("https://video.ittensive.com/python-advanced/internet-2017.csv",
@@ -38,7 +38,7 @@ data.fillna(0, axis=1, inplace=True)
 # Теперь можно выбрать все строки, в которых отсутствуют нули
 # В данном случае метод any выбирает все строки, т.е. обрабатывает построчно из-за наличия
 # параметра axis=1.
-# По умолчанию метод any работет со столбцами
+# По умолчанию метод any работает со столбцами
 data_notnull = data.loc[data.any(axis=1)]
 print()
 print("Данные, в которых нет нулей / пустых значение:")
@@ -51,5 +51,5 @@ data = pd.read_csv("https://video.ittensive.com/python-advanced/internet-2017.cs
                    na_values="NA", decimal=",", names=["Регион", "2017"], skiprows=1, index_col="Регион")
 data_notnull = data.dropna()
 print()
-print("Все отсутствующие данные из массива удалены методов dropna():")
+print("Все отсутствующие данные из массива удалены методом dropna():")
 print(data_notnull)

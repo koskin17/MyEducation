@@ -47,7 +47,7 @@ data_null = data[data["За 2018 год"].isnull()].fillna(0, axis=1)
 # Отбираем регионы с проникновением интернета меньше 5
 data_less5 = data[data["За 2018 год"] < 5]
 # Теперь можно сделать новый DataFrame, в котором данные 0 или меньше 5
-# У данным с нулями добавляем через метод append данные меньше 5
+# У данных с нулями добавляем через метод append данные меньше 5
 # data_null_less5 = data_null.append(data_less5)
 data_null_less5 = pd.concat([data_less5, data_less5])
 print()
