@@ -22,7 +22,8 @@ print(timetracker(int(time_driving)))
 # def car_timer(n):
 #     return sum(map(int, str(n // 60) + str(n % 60)))
 #
-# Вариант 5def car_timer(n):
+# Вариант 5
+# def car_timer(n):
 #     h, m = divmod(n, 60)
 #     H = str(h).zfill(2)
 #     M = str(m).zfill(2)
