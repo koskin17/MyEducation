@@ -21,9 +21,14 @@ def sequence_sum(begin_number, end_number, step):
 print(sequence_sum(2, 2, 2))
 
 
-# Можно без условия - если старт в range больше end, то последовательность будет равна 0и сумму равна 0
+# Можно без условия - если старт в range больше end, то последовательность будет равна 0 и сумму равна 0
 def sequence_sum2(begin_number, end_number, step):
     return sum(number for number in range(begin_number, end_number + 1, step))
 
 
 print(sequence_sum2(2, 2, 2))
+
+# Вариант 3
+# Просто проссумировать range
+def sequence_sum(start, end, step):
+    return sum(range(start, end+1, step))
