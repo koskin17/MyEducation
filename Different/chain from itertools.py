@@ -13,10 +13,11 @@ lst_c = [5]
 for _ in chain(lst_a, lst_b, lst_c):
     print(_, end=" ")   # вывод элементов в одну строку благодаря наличию end=""
 
-# Сам chain создаёт и возвращает объект-итератор
 print()
-print("Сам chain создаёт и возвращает объект-итератор")
+print("Chain itself creates and returns the object - iterator")
 sample = chain(lst_a, lst_b, lst_c)
 print(sample)
-print("Для конвертации объекта-итератора в список применяется list():")
+print("For convert the object - iterator to the list is used list():")
 print(list(sample))
+
+# [1, 22, 3, 20, 30, 40, 55, 5]
