@@ -11,7 +11,7 @@ lst_b = [3, 20, 30, 40, 55]
 lst_c = [5]
 
 for _ in chain(lst_a, lst_b, lst_c):
-    print(_, end=" ")   # вывод элементов в одну строку благодаря наличию end=""
+    print(_, end=" ")   # в одну строку элементы выводят благодаря наличию end=""
 
 print()
 print("Chain itself creates and returns the object - iterator")
