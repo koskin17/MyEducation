@@ -1,3 +1,5 @@
+import openpyxl
+
 """Открытие файла CSV"""
 """
 Первый аргумент - адрес файла.
@@ -9,7 +11,7 @@
 f = open(r"E:\Мой Python\Обучение\Курсы\Python для бизнес-аналитики\Занятие 1\Книга1.csv", "r")
 print(f"У функции open есть дополнительный аргумент для исправления проблем с кодировкой."
       f"Он называется encoding и позволяет указать кодировку, в которой открыть файл."
-      f"{open(r"E:\Мой Python\Обучение\Курсы\Python для бизнес-аналитики\Занятие 1\Книга1.csv", "r", encoding='utf-8')}")
+      f"{open(r'../../Обучение/Курсы/Python для бизнес-аналитики/Занятие 1/Книга1.csv', "r", encoding='utf-8')}")
 print()
 porsche = open(r"E:\Мой Python\Обучение\Курсы\Python для бизнес-аналитики\Занятие 1\Porsche.csv", "r", encoding='utf-8')
 # print(porsche.readlines())
@@ -52,13 +54,13 @@ porsche = open(r"E:\Мой Python\Обучение\Курсы\Python для би
 porsche.readline()
 
 for line in porsche.readlines():
-      """Также можно распечатать конкретный столбец"""
-      row = line.split(";")
-      kmage = row[1].replace(" ", "").replace("км", "")
-      if kmage == "Новый":
-            print(0)
-      else:
-            print(int(kmage) * 0.621371)
+    """Также можно распечатать конкретный столбец"""
+    row = line.split(";")
+    kmage = row[1].replace(" ", "").replace("км", "")
+    if kmage == "Новый":
+        print(0)
+    else:
+        print(int(kmage) * 0.621371)
 
 print()
 
@@ -67,25 +69,82 @@ porsche = open(r"E:\Мой Python\Обучение\Курсы\Python для би
 porsche.readline()
 
 for line in porsche.readlines():
-      engine = line.split(";")[-1]
-      engine = engine.split("/")
-      print(float(engine[0].removesuffix(" л")), int(engine[1].removesuffix("л.с.")), str(engine[2][:-1]))
-# print()
-# """Чтение файла"""
-# lines = f.readlines()  # s на конце обязательно, иначе прочитается только одна, первая строка
-# print("Мы получаем список list из строк str")
-# for line in lines:
-#     print(line.split(";"))
-# print(f)
-# print(lines)
-# print("Соответственно, к каждой строке, как к элементу списка, можно обратиться по индексу")
-# print(f"Первая строка: {lines[0]}, пятая строка: {lines[5]}, последняя строка {lines[-1]}")
-# print(f"Как и каждая строка, эти строки имеют метод split: {lines[-1].split(";")}")
-# print(f"Естественно, мы можем получить по индексу и доступ к элементу списка из строки: {lines[-1].split(";")[-3]}")
-# print(f"Но важно помнить, что тип данных у всех этих данных - str: {type(lines[-1].split(";")[-3])}")
-# line = lines[-1].split(";")[1]
-# print(f"Соответственно, данные нужно превратить в числа в int: {int(line)}, тип данных у это числа: {type(int(line))}")
-# print(f"Если число с запятой, то нужно использовать метод replace для строки:"
-#       f"{lines[-1].split(";")[2].replace(",", ".")} и потом уже менять методом float на дробное число:"
-#       f"{float(lines[-1].split(";")[2].replace(",", "."))} тип данных:"
-#       f"{type(float(lines[-1].split(";")[2].replace(",", ".")))}")
+    engine = line.split(";")[-1]
+    engine = engine.split("/")
+    print(float(engine[0].removesuffix(" л")), int(engine[1].removesuffix("л.с.")), str(engine[2][:-1]))
+# print() """Чтение файла""" lines = f.readlines()  # s на конце обязательно, иначе прочитается только одна,
+# первая строка print("Мы получаем список list из строк str") for line in lines: print(line.split(";")) print(f)
+# print(lines) print("Соответственно, к каждой строке, как к элементу списка, можно обратиться по индексу") print(
+# f"Первая строка: {lines[0]}, пятая строка: {lines[5]}, последняя строка {lines[-1]}") print(f"Как и каждая строка,
+# эти строки имеют метод split: {lines[-1].split(";")}") print(f"Естественно, мы можем получить по индексу и доступ к
+# элементу списка из строки: {lines[-1].split(";")[-3]}") print(f"Но важно помнить, что тип данных у всех этих данных
+# - str: {type(lines[-1].split(";")[-3])}") line = lines[-1].split(";")[1] print(f"Соответственно, данные нужно
+# превратить в числа в int: {int(line)}, тип данных у это числа: {type(int(line))}") print(f"Если число с запятой,
+# то нужно использовать метод replace для строки:" f"{lines[-1].split(";")[2].replace(",", ".")} и потом уже менять
+# методом float на дробное число:" f"{float(lines[-1].split(";")[2].replace(",", "."))} тип данных:" f"{type(float(
+# lines[-1].split(";")[2].replace(",", ".")))}")
+
+print()
+print("""Выгрузка данных из python в csv""")
+"""Выгрузка данных из python в csv"""
+a = [12, 57, 79, 85, 896, 84, 78, 102, 45.8]
+b = [85, 96, 74, 41, 52, 63, 91, -58, -3.14]
+
+"""Открываем / создаем файл для записи данных"""
+f = open('test_data.csv', 'w', encoding="utf-8")  # если файла нет, то он создастся
+"""Создаем шапку в файле"""
+f.write("a; b\n")
+
+"""Обход сразу двух списков при помощи функции zip"""
+for ai, bi in zip(a, b):
+    # print(ai, bi)
+    """Теперь просто собираем строчку из двух чисел для сохранения массива данных в csv формате.
+    Также сразу в числе с точкой меняем точку на запятую"""
+    # s = str(ai).replace(".", ",") + ";" + str(bi).replace(".", ",")  + "\n"
+    """Также строку можно собрать через f-строку.
+    Также в самой f-строке можно написать кол-вр символов после запятой или общее кол-во символов"""
+    s = f"{ai:0.4f}, {bi:10.1f}\n"
+    print(s)
+    """И записываем собранную строку в файл"""
+    f.write(s)
+
+"""После цикла обязательно закрываем файл"""
+f.close()
+"""Если списки не равны по длинне, то используется функция ziplongest() из модуля iterrools"""
+
+""""Работа с excel напрямую"""
+wb = openpyxl.Workbook() #Книга Excel
+ws = wb.active #текущий лист в книге
+"""Дальше идёт заполнение ячеек прям с указанием их адресов, как на листе Excel"""
+ws['A1'] = 'Hello'
+ws['B2'] = 'Hi'
+
+"""Обходим ячейки в цикле и заполняем значением"""
+for row in ws['A3' : 'B10']:
+    for cell in row:
+        cell.value = 0
+
+a = [12, 57, 79, 85, 896, 84, 78, 102, 45.8]
+b = [85, 96, 74, 41, 52, 63, 91, -58, -3.14]
+
+i = 0
+for row in ws['C2' : 'C9']:
+    for cell in row:
+        cell.value = a[i]
+    i += 1
+
+for v, cell in zip(b, ws['D']):
+    cell.value = v
+
+ws['C12'].value = '=SUM(C2:C11)'
+
+i = 1
+for cell in ws['E']:
+    cell.value = f'=D{i} * 2'
+    i += 1
+
+header_font = openpyxl.styles.Font(bold = True, color = '800000')
+ws['A1'].font = header_font
+
+"""Записываем файл Excel с указанием имени"""
+wb.save('Example.xlsx')
