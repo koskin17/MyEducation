@@ -1,229 +1,182 @@
+from random import randint
+
+
 class User:
-    def __init__(self, username):
-        self.username = username
-        self.decks = []
+    """Class for create new user and implement different methods for process user information"""
 
-    def create_deck(self, deck_name):
-        deck = Deck(deck_name)
-        self.decks.append(deck)
-        return deck
+    users = []  # List / Database of existing users
+    existing_user_id = [] #List for fixation used id
 
-    def get_deck(self, deck_name):
-        for deck in self.decks:
-            if deck.name == deck_name:
-                return deck
-        return None
+    def __init__(self, user_id, name, email, password):
+        self.id = user_id
+        self.name = name
+        self.email = email
+        self.password = password
 
-    def delete_deck(self, deck_name):
-        self.decks = [deck for deck in self.decks if deck.name != deck_name]
+    @classmethod
+    def user_create(cls, name, email, password):
+        """Function for create a new user and append him to the database of existing users"""
 
-    def update_deck(self, old_name, new_name):
-        deck = self.get_deck(old_name)
-        if deck:
-            deck.name = new_name
-            return deck
-        return None
+        user_id = randint(0, 1000000000)
+        while user_id in cls.existing_user_id:
+            user_id = randint(0, 1000000000)
 
-    def list_decks(self):
-        return [deck.name for deck in self.decks]
+        cls.existing_user_id.append(user_id)
+        user = cls(user_id, name, email, password)
+        cls.users.append(user)
+        return user
+
+    @classmethod
+    def user_get_by_id(cls, user_id):
+        """Function for getting information about user by user ID"""
+
+        for user in cls.users:
+            if user.id == user_id:
+                return user
+            return f"User with specified ID={user_id} not found."
+
+    @classmethod
+    def user_update_name(cls, user_id, new_name):
+        """Function for update user's name"""
+
+        user = cls.user_get_by_id(user_id)
+        if user:
+            user.name = new_name
+            return user
+        return f"User with specified ID={user_id} not found"
+
+    @classmethod
+    def user_change_password(cls, user_id, old_password, new_password):
+        """Function for update the user's password"""
+
+        user = cls.user_get_by_id(user_id)
+        if user and user.password == old_password:
+            user.password = new_password
+            return "Password was successfully  changed"
+        return f"You have entered an incorrect ID of user = {user_id} or old password = {old_password}."
+
+    @classmethod
+    def user_delete_by_id(cls, user_id):
+        """Function for delete user by his ID"""
+
+        user = cls.user_get_by_id(user_id)
+        if user:
+            cls.users.remove(user)
+            return f"User with ID={user_id} deleting  successful"
+        return f"User with id={user_id} not found."
 
 
 class Deck:
-    def __init__(self, name):
+    """Class for create new desk and implement different methods for process information about desk"""
+
+    users_desks = []  # List / Database of existing desks
+    existing_deck_id = []  # List for fixation deck id
+
+    def __init__(self, deck_id, name, user_id):
+        self.id = deck_id
         self.name = name
-        self.cards = []
+        self.user_id = user_id
 
-    def create_card(self, english_word, ukrainian_word, tip):
-        card = Card(english_word, ukrainian_word, tip)
-        self.cards.append(card)
-        return card
+    @classmethod
+    def deck_create(cls, name, user_id):
+        """Function for create deck"""
 
-    def get_card(self, english_word):
-        for card in self.cards:
-            if card.english_word == english_word:
-                return card
-        return None
+        deck_id = randint(0, 1000000000)
 
-    def update_card(self, english_word, new_english_word=None, new_ukrainian_word=None, new_tip=None):
-        card = self.get_card(english_word)
-        if card:
-            if new_english_word:
-                card.english_word = new_english_word
-            if new_ukrainian_word:
-                card.ukrainian_word = new_ukrainian_word
-            if new_tip:
-                card.tip = new_tip
-            return card
-        return None
+        while deck_id in cls.existing_deck_id:
+            deck_id = randint(0, 1000000000)
 
-    def delete_card(self, english_word):
-        self.cards = [card for card in self.cards if card.english_word != english_word]
-
-    def list_cards(self):
-        return [(card.english_word, card.ukrainian_word, card.tip) for card in self.cards]
-
-
-class Card:
-    def __init__(self, english_word, ukrainian_word, tip):
-        self.english_word = english_word
-        self.ukrainian_word = ukrainian_word
-        self.tip = tip
-
-
-# Example Usage
-
-# Create a user
-user = User("john_doe")
-
-# Create a deck for the user
-deck = user.create_deck("Basic Ukrainian")
-
-# Add cards to the deck
-deck.create_card("Hello", "Привіт", "Sounds like 'Privet' in Russian")
-deck.create_card("Thank you", "Дякую", "Imagine you're thanking someone with a 'Yak'")
-deck.create_card("Please", "Будь ласка", "Think of 'bud' as in a flower bud")
-
-# List cards in the deck
-print("Cards in deck:", deck.list_cards())
-
-# Update a card
-deck.update_card("Hello", new_ukrainian_word="Вітаю", new_tip="Sounds more formal like 'Vitayu'")
-
-# List updated cards in the deck
-print("Updated cards in deck:", deck.list_cards())
-
-# Delete a card
-deck.delete_card("Please")
-
-# List cards after deletion
-print("Cards after deletion:", deck.list_cards())
-
-# List all decks of the user
-print("User's decks:", user.list_decks())
-
-"""
-
-Here is the structure of the linguist application in Python using object-oriented programming (OOP) principles, which includes three models: User, Deck, and Card. Each model supports CRUD (Create, Read, Update, Delete) operations.
-
-python
-Копировать код
-class User:
-    def __init__(self, username):
-        self.username = username
-        self.decks = []
-
-    def create_deck(self, deck_name):
-        deck = Deck(deck_name)
-        self.decks.append(deck)
+        deck = cls(deck_id, name, user_id)
+        cls.users_desks.append(deck)
         return deck
 
-    def get_deck(self, deck_name):
-        for deck in self.decks:
-            if deck.name == deck_name:
+    @classmethod
+    def deck_get_by_id(cls, deck_id):
+        """Function for getting information about deck by deck id"""
+
+        for deck in cls.users_desks:
+            if deck.id == deck_id:
                 return deck
         return None
 
-    def delete_deck(self, deck_name):
-        self.decks = [deck for deck in self.decks if deck.name != deck_name]
+    @classmethod
+    def deck_update(cls, deck_id, name):
+        """"Function for update user's deck"""
 
-    def update_deck(self, old_name, new_name):
-        deck = self.get_deck(old_name)
+        deck = cls.deck_get_by_id(deck_id)
         if deck:
-            deck.name = new_name
+            deck.name = name
             return deck
+        return f"Deck with ID = {deck_id} not found."
+
+    @classmethod
+    def deck_delete_by_id(cls, deck_id):
+        """Function for delete deck by deck id"""
+
+        deck = cls.deck_get_by_id(deck_id)
+        if deck:
+            cls.users_desks.remove(deck)
+            return f"Deck with ID = {deck_id} was successfully delete."
         return None
 
-    def list_decks(self):
-        return [deck.name for deck in self.decks]
+class Card:
+    """Class for create cards for user's deck and implement different methods for process information about card"""
 
+    deck_cards = []  # List / Database of existing cards in deck
+    existing_cards_id = []  # List for fixation cards id
 
-class Deck:
-    def __init__(self, name):
-        self.name = name
-        self.cards = []
+    def __init__(self, card_id, user_id, word, translation, tip):
+        self.id = card_id
+        self.user_id = user_id
+        self.word = word
+        self.translation = translation
+        self.tip = tip
 
-    def create_card(self, english_word, ukrainian_word, tip):
-        card = Card(english_word, ukrainian_word, tip)
-        self.cards.append(card)
+    @classmethod
+    def card_create(cls, user_id, word, translation, tip):
+        """Function for create card"""
+
+        card_id = randint(0, 1000000000)
+        while card_id in cls.existing_cards_id:
+            card_id = randint(0, 1000000000)
+
+        card = cls(card_id, user_id, word, translation, tip)
+        cls.deck_cards.append(card)
         return card
 
-    def get_card(self, english_word):
-        for card in self.cards:
-            if card.english_word == english_word:
+    @classmethod
+    def card_get_by_id(cls, card_id):
+        """Function for getting information about card by card id"""
+
+        for card in cls.deck_cards:
+            if card.id == card_id:
                 return card
         return None
 
-    def update_card(self, english_word, new_english_word=None, new_ukrainian_word=None, new_tip=None):
-        card = self.get_card(english_word)
+    @classmethod
+    def card_filter(cls, sub_word):
+        result = []
+        for card in cls.deck_cards:
+            if sub_word in card.word or sub_word in card.translation or sub_word in card.tip:
+                result.append(card)
+        return tuple(result)
+
+    @classmethod
+    def card_update(cls, card_id, word=None, translation=None, tip=None):
+        card = cls.card_get_by_id(card_id)
         if card:
-            if new_english_word:
-                card.english_word = new_english_word
-            if new_ukrainian_word:
-                card.ukrainian_word = new_ukrainian_word
-            if new_tip:
-                card.tip = new_tip
-            return card
-        return None
+            if word:
+                card.word = word
+            if translation:
+                card.translation = translation
+            if tip:
+                card.tip = tip
+        return card
 
-    def delete_card(self, english_word):
-        self.cards = [card for card in self.cards if card.english_word != english_word]
-
-    def list_cards(self):
-        return [(card.english_word, card.ukrainian_word, card.tip) for card in self.cards]
-
-
-class Card:
-    def __init__(self, english_word, ukrainian_word, tip):
-        self.english_word = english_word
-        self.ukrainian_word = ukrainian_word
-        self.tip = tip
-
-
-# Example Usage
-
-# Create a user
-user = User("john_doe")
-
-# Create a deck for the user
-deck = user.create_deck("Basic Ukrainian")
-
-# Add cards to the deck
-deck.create_card("Hello", "Привіт", "Sounds like 'Privet' in Russian")
-deck.create_card("Thank you", "Дякую", "Imagine you're thanking someone with a 'Yak'")
-deck.create_card("Please", "Будь ласка", "Think of 'bud' as in a flower bud")
-
-# List cards in the deck
-print("Cards in deck:", deck.list_cards())
-
-# Update a card
-deck.update_card("Hello", new_ukrainian_word="Вітаю", new_tip="Sounds more formal like 'Vitayu'")
-
-# List updated cards in the deck
-print("Updated cards in deck:", deck.list_cards())
-
-# Delete a card
-deck.delete_card("Please")
-
-# List cards after deletion
-print("Cards after deletion:", deck.list_cards())
-
-# List all decks of the user
-print("User's decks:", user.list_decks())
-Breakdown of Models:
-User:
-Has a username and a list of decks.
-CRUD operations for managing decks (creating, reading, updating, deleting).
-Deck:
-Has a name and a list of cards.
-CRUD operations for managing cards within the deck.
-Card:
-Represents a flashcard with an English word, its Ukrainian translation, and a memory tip.
-"""
-
-"""
-Example Output:
-Cards in deck: [('Hello', 'Привіт', "Sounds like 'Privet' in Russian"), ('Thank you', 'Дякую', "Imagine you're thanking someone with a 'Yak'"), ('Please', 'Будь ласка', "Think of 'bud' as in a flower bud")]
-Updated cards in deck: [('Hello', 'Вітаю', "Sounds more formal like 'Vitayu'"), ('Thank you', 'Дякую', "Imagine you're thanking someone with a 'Yak'"), ('Please', 'Будь ласка', "Think of 'bud' as in a flower bud")]
-Cards after deletion: [('Hello', 'Вітаю', "Sounds more formal like 'Vitayu'"), ('Thank you', 'Дякую', "Imagine you're thanking someone with a 'Yak'")]
-User's decks: ['Basic Ukrainian']
-"""
+    @classmethod
+    def card_delete_by_id(cls, card_id):
+        card = cls.card_get_by_id(card_id)
+        if card:
+            cls.deck_cards.remove(card)
+            return True
+        return False
