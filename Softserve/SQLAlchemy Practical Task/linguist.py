@@ -155,6 +155,8 @@ class Card:
 
     @classmethod
     def card_filter(cls, sub_word):
+        """Function to output all flashcards that contain a word as a tuple of Card objects"""
+
         result = []
         for card in cls.deck_cards:
             if sub_word in card.word or sub_word in card.translation or sub_word in card.tip:
@@ -163,7 +165,10 @@ class Card:
 
     @classmethod
     def card_update(cls, card_id, word=None, translation=None, tip=None):
+        """Function for update card"""
+
         card = cls.card_get_by_id(card_id)
+
         if card:
             if word:
                 card.word = word
@@ -175,6 +180,8 @@ class Card:
 
     @classmethod
     def card_delete_by_id(cls, card_id):
+        """Function for delete card by card id"""
+
         card = cls.card_get_by_id(card_id)
         if card:
             cls.deck_cards.remove(card)

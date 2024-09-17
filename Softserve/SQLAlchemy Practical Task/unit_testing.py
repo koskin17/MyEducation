@@ -37,7 +37,6 @@ def test():
 
     # Delete Deck
     Deck.deck_delete_by_id(deck1.id)
-    print(deck1.id)
     assert Deck.deck_get_by_id(deck1.id) is None
 
     print("All tests passed.")
