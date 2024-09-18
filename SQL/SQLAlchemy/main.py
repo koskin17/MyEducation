@@ -2,8 +2,6 @@ from sqlalchemy import create_engine, MetaData, Table, Column, insert, Select, u
 from sqlalchemy.types import Integer, Unicode, UnicodeText
 from sqlalchemy.schema import ForeignKey
 
-from Softserve.lesson08.my_regex import result
-
 engine = create_engine(r"sqlite:///main.db", echo=True)
 
 metadata = MetaData()

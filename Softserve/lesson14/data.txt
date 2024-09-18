@@ -1,0 +1,4 @@
+In order to open a file for reading it is enough to specify the name of the file
+open(filename) this code is the same as open(filename, rt). There are four different
+methods (modes) for opening a file, also you can specify if the file should be handled
+as binary or text mode. 

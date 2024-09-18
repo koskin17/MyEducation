@@ -339,3 +339,4 @@ b = B()
 b.foo()
 b.boo()
 b.old_boo()
+Exception
