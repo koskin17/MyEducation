@@ -1,7 +1,5 @@
 import unittest
 
-from funk import cout_chen, quadratic_expression
-
 class CoutChenTests(unittest.TestCase):
 
     def test_1(self):

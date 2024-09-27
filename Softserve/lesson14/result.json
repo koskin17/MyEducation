@@ -1,0 +1,14 @@
+[
+    {
+        "model": "random_model",
+        "max_speed": 91
+    },
+    {
+        "model": "random_model",
+        "max_speed": 163
+    },
+    {
+        "model": "Volkswagen Amarok 2.0",
+        "max_speed": 179
+    }
+]
