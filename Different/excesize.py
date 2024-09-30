@@ -39,8 +39,9 @@ b = [3, 4]
     При этом создаётся объект в памяти.
     Для его получения нужно его преобразовать в список, кортеж и т.д.
     """
-print(f"Список кортежей: {list(product(a, b))}")
-print(f"Кортеж кортежей: {tuple(product(a, b))}")
-print(f"Множество кортежей: {set(product(a, b))}")
-cort = tuple(product(a, b))
-print(sum(sum(cort, (0,))))
+# print(f"Список кортежей: {list(product(a, b))}")
+# print(f"Кортеж кортежей: {tuple(product(a, b))}")
+# print(f"Множество кортежей: {set(product(a, b))}")
+# cort = tuple(product(a, b))
+# print(sum(sum(cort, (0,))))
+
