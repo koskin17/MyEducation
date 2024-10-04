@@ -1,0 +1,63 @@
+/* Додайте медіа-запит таким чином, щоб тег p мав font-size 10px,
+якщо висота пристрою менша або ж дорівнює 800px. */
+
+@media (max-height: 800px){ 
+    p {
+    font-size: 10px;
+      }
+  }
+
+  /* Додайте правила стилю до класу responsive-img, щоб зробити його адаптивним.
+  Він ніколи не повинен бути ширшим за контейнер (в цьому випадку це вікно попереднього перегляду) та зберігати вихідне співвідношення сторін. Після додавання коду, змініть розмір вікна попереднього перегляду, щоб подивитись як ведуть себе ваші зображення. */
+
+<style>
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+}
+
+img {
+  width: 600px;
+}
+</style>
+
+<img class="responsive-img" src="https://cdn.freecodecamp.org/curriculum/responsive-web-design-principles/FCCStickerPack.jpg" alt="freeCodeCamp stickers set">
+<img src="https://cdn.freecodecamp.org/curriculum/responsive-web-design-principles/FCCStickerPack.jpg" alt="freeCodeCamp stickers set">
+
+/* Використання зображень Retina для дисплеїв із високою роздільною здатністю.
+Встановіть width та height тегу img в половину їх початкових значень. В цьому випадку як вихідна height, так і width дорівнюватимуть 200px.*/
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<img src="https://cdn.freecodecamp.org/curriculum/responsive-web-design-principles/FCCStickers-CamperBot200x200.jpg" alt="freeCodeCamp sticker that says 'Because CamperBot Cares'">
+
+/* Створення адаптивної типографії
+Замість em чи px для визначення розмірів тексту, можна скористатися одиницями області перегляду для адаптивної типографії. Одиниці області перегляду, наприклад, відсотки - це відносні одиниці, але вони базуються на різних елементах. Одиниці області перегляду відносяться до розмірів області перегляду (ширини або висоти) пристрою, а відсотки - до розміру елемента батьківського контейнера.
+
+Чотири різних одиниць області перегляду:
+
+vw (ширина перегляду): 10vw складатиме 10% від ширини області перегляду.
+vh (висота перегляду): 3vh складатиме 3% від висоти області перегляду.
+vmin (мінімальний перегляд): 70vmin складатиме 70% від найменшого розміру області перегляду (висоти чи ширини).
+vmax (максимальний перегляд): 100vmax складатиме 100% від найбільшого розміру області перегляду (висоти чи ширини).
+Ось приклад, який встановлює тег body на 30% від ширини області перегляду.
+
+body { width: 30vw; }
+Встановіть width тегу h2 на 80% від ширини області перегляду, а width абзацу - на 75% від найменшого розміру області перегляду. */
+<style>
+    h2 {
+        width: 80vw;
+    }
+
+    p {
+        width: 75vmin;
+    }
+
+</style>
+
+<h2>Importantus Ipsum</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem. Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.</p>
