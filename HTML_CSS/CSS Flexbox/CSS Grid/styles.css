@@ -1,0 +1,146 @@
+*, ::before, ::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: Baskervville, serif;
+    color: linen;
+    background-color: rgb(20, 30, 40);
+}
+
+/* Використовуйте функцію minmax, щоб ваші стовпчики були адаптивними на будь-якому пристрої.
+Функція minmax приймає два аргументи: перший – мінімальне значення, а другий – максимальне.
+Цими значеннями можуть бути довжина, відсоток, fr або навіть ключове слово, як-от max-content. */
+main {
+    display: grid;
+    grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);
+    row-gap: 3rem;
+}
+
+/* Одним із варіантів є властивість grid-column, яка є скороченою для grid-column-start та grid-column-end.
+Властивість grid-column вказує елементу сітки, на якій лінії починатись та закінчуватись. */
+/* CSS-функцію repeat() використовують для повторення значення, а не для написання його вручну, що корисне для сітки.
+Наприклад, встановлення властивості grid-template-columns на repeat(20, 200px) створить 20 стовпчиків, кожен шириною 200px. */
+.heading {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+}
+
+.hero {
+    grid-column: 1/-1;
+    position: relative;
+}
+
+.hero-title {
+    text-align: center;
+    color: orangered;
+    font-size: 8rem;    
+}
+
+.hero-subtitle {
+    font-size: 2.4rem;
+    color: orangered;
+    text-align: center;
+}
+
+.author {
+    font-size: 2rem;
+    font-family: Raleway, sans-serif;
+}
+
+.author-name a:hover {
+    background-color: #306203;
+}
+
+.text {
+    grid-column: 2/3;
+    font-size: 1.8rem;
+    letter-spacing: 0.6px;
+    column-width: 25rem;
+    text-align: justify;
+}
+
+.first-paragraph::first-letter {
+    font-size: 6rem;
+    color: orangered;
+    float: left;
+    margin-right: 1rem;
+}
+
+h1 {
+    font-family: Anton, sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: Raleway, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: linen;
+}
+
+img {
+    width: 100%;
+    object-fit: cover   ;
+}
+
+hr {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(120, 120, 120, 0.6)
+}
+
+.quote  {
+    color: #00beef;
+    font-size: 2.4rem;
+    text-align: center;
+    font-family: Raleway, sans-serif;
+}
+
+.quote::before {
+    content: '" ' ;
+}
+
+.quote::after   {
+    content: ' "';
+}
+
+.text-with-images {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.lists {
+    list-style-type: none;
+    margin-top: 2rem;
+}
+
+.publish-date {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Якщо ви хочете додати більше іконок, але залишити їх в тому самому рядку, потрібно оновити grid-template-columns, щоб створити додаткові стовпчики. Як альтернатива, можна використати властивість grid-auto-flow.
+
+Ця властивість приймає row або column як перше значення,
+з додатковим другим значенням dense. grid-auto-flow використовує алгоритм автоматичного розміщення для налаштування макета сітки.
+Якщо встановити значення на column, алгоритм створюватиме нові стовпчики для вмісту за потреби.
+Значення dense дозволяє алгоритму відстежувати та заповнювати діри в сітці меншими елементами,
+що може призвести до того, що елементи зображатимуться не за порядком. */
+.social-icons {
+    display: grid;
+    font-size: 3rem;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    align-items: center;
+}
