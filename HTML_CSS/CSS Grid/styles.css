@@ -125,6 +125,74 @@ hr {
     margin-top: 2rem;
 }
 
+.lists li {
+    margin-bottom: 1.5rem;
+}
+
+.list-title, .list-subtitle {
+    color: #00beef;
+}
+/* Властивість gap – це короткий спосіб встановити значення column-gap та row-gap одночасно.
+Якщо задано одне значення, воно встановлене для column-gap та row-gap.
+Якщо задано два значення, то для row-gap встановлюється перше значення, а для column-gap – друге.
+
+Властивість place-items можна використовувати, щоб одночасно встановити значення align-items та justify-items.
+Властивість place-items приймає одне або два значення.
+Якщо вказано одне значення, воно використовується обома властивостями align-items та justify-items.
+Якщо надано два значення, перше значення використовується для властивості align-items,
+а друге значення використовується для властивості justify-items.*/
+.image-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(3, min-content);
+    gap: 2rem;
+    place-items: center;
+}
+
+.image-1, .image-3 {
+    grid-column: 1 / -1;
+}
+
+/* Тепер, коли макет журналу готовий, потрібно зробити його адаптивним.
+Почніть із запиту @media для only screen з max-width зі значенням 720px. Всередині створіть селектор .image-wrapper та надайте йому властивість grid-template-columns зі значенням 1fr.
+Це згорне три зображення в один стовпчик на менших екранах. */
+@media only screen and (max-width: 720px) {
+    .image-wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Створіть ще один запит @media для only screen з max-width зі значенням 600px. Всередині створіть правило .text-with-images та надайте йому властивість grid-template-columns зі значенням 1fr.
+
+Це згорне нижню область тексту в один стовпчик на менших екранах. */
+@media only screen and (max-width: 600px) {
+    .text-with-images {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .hero-title {
+        font-size: 6rem;
+    }
+    .hero-subtitle, .author, .quote, .list-title {
+        font-size: 1.8rem;
+    }
+    .social-icons {
+        font-size: 2rem;
+    }
+    .text {
+        font-size: 1.6rem;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+}
+
 .publish-date {
     color: rgba(255, 255, 255, 0.5);
 }
