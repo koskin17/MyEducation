@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+
+.w-text-content {
+    font-weight: bold;
+    color: #2f2f2f;
+    font-family: "Heebo", sans-serif;
+    font-size: 50px;
+  }
+  
+  .name-customers {
+    font-weight: bold;
+    color: #2877b6;
+    font-family: "Heebo", sans-serif;
+    font-size: 22px;
+  }
+  
+  .customer-say {
+    color: #6c6c6c;
+    font-family: "PT Sans", sans-serif;
+    font-size: 17px;
+  }
+  
+  .customer-date {
+    font-weight: bold;
+    color: #eb5112;
+    font-family: "PT Sans", sans-serif;
+    font-size: 14px;
+  }
+  
+  .testimonials {
+     color: #3b3b3b;
+    font-family: "PT Sans", sans-serif;
+    font-size: 19px;
+  }
+  

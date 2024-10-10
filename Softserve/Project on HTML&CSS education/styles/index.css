@@ -1,0 +1,15 @@
+/* Сторінка для стилів лише index.html. Тут підключаємо css секцій */
+@import url(reset.css);
+@import url(global.css);
+
+/* Index Header | Yehor Honcharenko */
+@import url(sections/index.header.css);
+/* Назва секції | Ім'я Прізвище */
+@import url(out-customers-say.css);
+/* Назва секції | Ім'я Прізвище */
+@import url(features-section.css);
+/* Index Headphones | Liubomyr Kosteniuk */
+@import url(headphones.css);
+
+/* Speakers | Kostyantyn Zeykin */
+@import url(sections/index.speakers.css)

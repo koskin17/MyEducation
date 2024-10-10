@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+
+
+.headphones h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2f2f2f;
+    font-family: "Heebo", sans-serif;
+}
+
+.headphones h3 {
+    font-size: 19px;
+    font-weight: bold;
+    color: #3b3b3b;
+    font-family: "PT Sans", sans-serif;
+}
+
+.catalog-item__name {
+    color: #2a2a2a;
+    font-size: 19px;
+    font-family:"PT Sans", sans-serif;
+}
+
+.catalog-item__price{
+    font-weight: bold;
+    font-size: 20px;
+    color: #2877b6;
+    font-family: "PT Sans", sans-serif;
+}
+
+.catalog-item__button {
+    background-color: #eb5112;
+    color: #ffff;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: "PT Sans", sans-serif;
+}
+
+.product-card h3 {
+    font-weight: bold;
+    font-size: 12px;
+    color: #2877b6;
+    font-family: "PT Sans", sans-serif;
+}
+

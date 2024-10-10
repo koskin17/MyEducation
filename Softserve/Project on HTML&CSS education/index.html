@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Basside Store</title>
+        <link
+            rel="shortcut icon"
+            href="https://placekitten.com/96/139"
+            type="image/x-icon"
+        />
+        <script
+            src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="./styles/index.css" />
+    </head>
+    <body>
+        <!-- Index Header | Yehor Honcharenko -->
+        <header
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.header.partial.html"
+        ></header>
+        <!-- feautures-section | Ferenchuk Andrii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.feautures-section.partial.html"
+        ></section>
+        <!-- products-tabs-section | Ferenchuk Andrii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.products-tabs-section.partial.html"
+        ></section>
+        <!-- general.selection.info | Ishchenko Tetiana -->
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.general.selection.info.partial.html"
+        ></div>
+        <!-- jbl-speaker | Diakov Roman -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.jbl-speaker.partial.html"
+        ></section>
+        <!-- special-offer  | Hrushinskyi Serhii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.special-offer.partial.html"
+        ></section>
+        <!-- headphones | Kosteniuk Liubomyr -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.headphones.partial.html"
+        ></section>
+        <!-- *block name?* | Vasylieva Yuliia -->
+
+        <!-- three-headphone-carousel | Kindzerskyi Andriy -->
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.three-headphone-carousel.partial.html"
+        ></div>
+        <!-- speakers | Kostyantyn Zeykin -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.speakers.partial.html"
+        ></section>
+        <!-- *block name?* | LEBID KHRYSTYNA -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.video.partial.html"
+        ></section>
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.companies-logo-carousel.partial.html"
+        ></div>
+        <!-- out-customers-say | Mykhailo Prihodko -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.out-customers-say.partial.html"
+        ></section>
+        <!-- popular-articles | HULA ANASTASIIA -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.popular-articles.partial.html"
+        ></section>
+        <!-- Footer | Vitalii Baranov -->
+    </body>
+</html>

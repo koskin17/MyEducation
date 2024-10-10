@@ -1,0 +1,10 @@
+/* Global styles for all pages (index, product etc.)  */
+:root {
+    font-family: "Manrope", sans-serif;
+    scroll-behavior: smooth;
+}
+
+img {
+    display: block;
+    width: 100%;
+}

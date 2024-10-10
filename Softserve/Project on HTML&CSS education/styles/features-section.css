@@ -1,0 +1,34 @@
+.features__container {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.features__card {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.features__img-container {
+  width: 70px;
+  height: 70px;
+  color: #2877b6;
+  padding: 15px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.features__text-container {
+  margin: 15px;
+}
+.features__title-container {
+  font-weight: 700;
+  font-size: 1.375rem;
+}
+.features__description-container {
+  font-weight: 400;
+}
