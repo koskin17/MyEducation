@@ -1,5 +1,7 @@
+/* В global.css, который глобальный для всего сайта, мы первым делом импортируем шрифт и ниже в root указываем шрифт */
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
+/* После импорта шрифта мы делаем глобальный reset стилей, которые бразуер применяет по умолчанию */
 *,
 *::before,
 *::after {
@@ -12,14 +14,19 @@
 :root {
     --color-primary: black;
     --color-secondary: #a5c7cf;
+/* Важно определться с кол-вом переменных для цвета. Лучше иметь их больше, под каждый блок или под каждую роль, даже если цвет у них одинаковый. Смысл в том, что в будущем дизайн может как-то поменяться и потребуется менять какой-то конкретный цвет, не затрагивая цвета других элементов, котореы тоже использует один и тот же цвет.
+Т.е. лучше сделать сразу основные цвета: primaty и secondary для основных элементов страницы: text, border, background */
     --primary-text-color: var(--color-primary) ;
     --secondary-text-color: var(--color-secondary);
-    --border-color: var(--color-primary);
-    --secondary-background-color: var(--color-secondary);
+    /* --border-color: var(--color-primary);
+    --secondary-background-color: var(--color-secondary); */
     scroll-behavior: smooth;
-    font-family: "DotGothic16", sans-serif;
+    font-family: "DotGothic16", serif;
 }
 
+/* Также обязательно сразу вложить тэг img в "коробочку". т.е. в display: block,
+чтобы обеспечить правильное отображение картинок.
+И сразу установить ширину этого блока в 100% */
 img {
     display: block;
     width: 100%;
