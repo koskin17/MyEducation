@@ -1,0 +1,45 @@
+:root {
+  scroll-behavior: smooth;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-main: #d78c43;
+  --color-black: #0d0d0d;
+  --color-white: #fff;
+  --color-dark: #252527;
+  --color-light: #e9bf97;
+  --color-lightgrey: #e1e1e1;
+  --color-gray: #bbbbbb;
+  --divider-color:#3d3d3d;
+  --border-color:#39393a;
+  --secondary-divider-color:#f1d1af;
+  --hover-text-color:#e7903b;
+  --primary-footer-background:var(--color-black);
+  --hover-color:rgba(0, 0, 0, 0.6); 
+  --secondary-footer-background:#141414;
+  --gap0: 0px;
+  --gap8: 8px;
+  --gap10: 10px;
+  --gap16: 16px;
+  --gap19: 19px;
+  --gap20: 20px;
+  --gap24: 24px;
+  --gap26: 26px;
+  --gap30: 30px;
+  --gap32: 32px;
+  --gap40: 40px;
+  --gap48: 48px;
+  --gap56: 56px;
+  --gap62: 62px;
+  --gap64: 64px;
+  --gap72: 72px;
+  --gap80: 80px;
+  --gap90: 90px;
+  --gap600: 600px;
+  --trs: all 0.3s ease-in-out;
+
+  --xs: 480px;
+  --sm: 768px;
+  --md: 991px;
+  --lg: 1200px;
+  --xlg: 1400px;
+
+}

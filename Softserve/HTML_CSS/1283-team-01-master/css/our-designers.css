@@ -1,0 +1,101 @@
+.designers {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: var(--gap32);
+    text-align: center;
+
+}
+
+.designers__header {
+    margin-bottom: var(--gap40);
+}
+
+.designers__subtitle {
+    color: var(--color-main);
+    font-weight: 600;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: calc(0.2*0.75rem);
+}
+
+.designers__title {
+    font-size: 62px;
+    font-weight: 700;
+    margin: var(--gap8) 0;
+    letter-spacing: calc(0.2*0.75rem);
+}
+
+.designers__description {
+    color: var(--color-lightgrey);
+    font-size: 19px;
+    margin-top: var(--gap10);
+}
+
+.designers__list {
+    width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: var(--gap32);
+    justify-items: center;
+    margin: 0 auto;
+}
+
+.designer-card {
+    background-color: var(--color-dark);
+    overflow: hidden;
+    display: flex;
+    width: 560px;
+    height: 338px;
+    border-top-right-radius: 150px;
+}
+
+.designer-card__image {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.designer-card__info {
+    width: 50%;
+    padding: var(--gap);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.designer-card__name {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 10px;
+}
+
+.designer-card__experience {
+    color: var(--secondary-divider-color);
+    font-size: 15px;
+    margin: var(--gap8) 0;
+    font-weight: 700;
+}
+
+
+.designer-card__bio {
+    color: var(--color-lightgrey);
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.designer-card__social {
+    margin-top: var(--gap16);
+    display: flex;
+    gap: var(--gap16);
+}
+
+.designer-card--left {
+    flex-direction: row;
+}
+
+.designer-card--right {
+    flex-direction: row-reverse;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/about-us.css" />
+  <title>Lightning Design Studio | Projects</title>
+  <link
+    rel="shortcut icon"
+    href="https://placekitten.com/96/139"
+    type="image/x-icon"
+  />
+  <!--TODO -->
+  <script
+    src="https://unpkg.com/htmx.org@1.9.10"
+    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+    crossorigin="anonymous"
+  ></script>
+</head>
+
+<html lang="en">
+  <body>
+    <div >
+      <header
+        data-hx-trigger="load"
+        data-hx-swap="outerHTML"
+        data-hx-get="partials/header.partial.html"
+      ></header>
+      <section>
+        <h1>Projects</h1>
+        <p>Home > projects</p>
+      </section>
+    </div>
+    <main>
+        <a href="/projects.luminous-harmony.html" class="harmony">Luminous Harmony</a>
+    </main>
+    <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
+   
+  </body>
+</html>

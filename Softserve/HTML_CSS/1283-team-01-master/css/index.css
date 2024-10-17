@@ -1,0 +1,20 @@
+@import url('./_vars.css');
+@import url('./_base.css');
+@import url('./_text.css');
+@import url('./_buttons.css');
+@import url('./_soc.css');
+@import url('./header.css');
+@import url('./hero.css');
+@import url('./footer.css');
+@import url('./_common.css');
+@import url('./features.css');
+@import url('./features.gallery.css');
+@import url('./ourservices.css');
+@import url('./aboutus.css'); 
+@import url('./contact-us.css');
+@import url('./index.projects.css');
+@import url('./global.projects.css');
+@import url('./news-and-articles.css');
+@import url('./collections.css');
+@import url('./catalogs.css');
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="https://placekitten.com/96/139" type="image/x-icon">
+    
+    <link rel="stylesheet" href="css/index.css">
+    
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="hero-wrap">
+        <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/index.hero.partial.html">
+        </section>
+    </div>
+    <main>
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.partial.html"></section>
+        <!-- Features Section -->
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/features.partial.html"></section>
+        <section id="design" data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/features.gallery.partial"></section>
+        <!-- Features Section End -->
+
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/index.services.partial.html"></section>
+
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/index.contact-us.partial.html"></section>
+        
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/index.projects.partial.html"></section>
+
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/global.projects.partial.html"></section>
+
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/collections.partial.html"></section>
+
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/news-and-articles.partial.html"></section>
+        
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.partial.html"></section>
+        
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/index.subscribe-now.partial.html"></section>
+
+         <!-- partial catalogs -->
+         <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/catalogs.partial.html"></section>
+
+        
+
+    </main>
+    <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
+    <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/svg.partial.html"></div>
+
+    <script src="./js/index.js"></script>
+
+</body>
+</html>

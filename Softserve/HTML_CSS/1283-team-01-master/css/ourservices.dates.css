@@ -1,0 +1,33 @@
+.ourservices-dates {
+    padding-top: var(--gap30);
+    padding-bottom: var(--gap30);
+    background-color: var(--color-dark);
+}
+
+.ourservices-dates__list {
+    list-style: none;
+    display: grid;
+    gap: var(--gap30);
+    padding-left: var(--gap30);
+    padding-right: var(--gap30);
+}
+
+.ourservices-dates__title{
+    color: var(--color-main);
+}
+
+.ourservices-dates__description{
+    color: var(--color-gray);
+}
+
+@media (min-width: 769px){
+    .ourservices-dates__list{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 963px){
+    .ourservices-dates__list{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}

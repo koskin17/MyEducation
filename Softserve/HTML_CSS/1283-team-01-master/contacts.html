@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/contacts.css">
+    <title>Contacts</title>
+    <link rel="shortcut icon" href="https://placekitten.com/96/139" type="image/x-icon">
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="hero-wrap header--dark">
+        <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+    </div>
+    <main>
+            <!-- Collaboration/map section by Yevheniia-B -->
+            <div class="collaboration-bg">
+                <section class="collaboration">
+                    <div class="collaboration__textpart">
+                        <h2 class="collaboration__title">\ Let's Collaborate \</h2>
+                        <header class="collaboration__header">
+                            We're Delighted to Connect with You!
+                        </header>                
+                        <p class="collaboration__subheader">
+                            Whether you're ready to embark on a new lighting design project or seeking expert advice, we're here to help.
+                        </p>
+                        <p class="collaboration__description">
+                            Please don't hesitate to reach out to us using the contact information below. We look forward to hearing from you and
+                            bringing your vision to light!
+                        </p>                
+                        <ul class="collaboration__benefits">
+                            <li class="collaboration__benefits-item">
+                                <img alt="done icon" src="/img/icon/done.svg"><p>Schedule a consultation to discuss your ideas and explore our services;</p>
+                            </li>
+                            <li class="collaboration__benefits-item">
+                                <img alt="done icon"  src="/img/icon/done.svg"><p>Receive personalized recommendations and expert guidance;</p></li>
+                            <li class="collaboration__benefits-item">
+                                <img alt="done icon"  src="/img/icon/done.svg"><p>Collaborate with us to bring your vision to life with custom lighting
+                                solutions;</p></li>
+                            <li class="collaboration__benefits-item">
+                                <img alt="done icon"  src="/img/icon/done.svg"><p>Get answers to your questions and inquiries promptly and efficiently.</p></li>
+                        </ul>
+                        <p class="collaboration__slogan">Let's <u>Work</u> Together!</p>
+                    </div>                                      
+                    <form class="contact__form">
+                        <input type="text" class="contact__form-input" placeholder="Enter your full name*" required>
+                        <input type="tel" class="contact__form-input" placeholder="Enter your phone number*" required>
+                        <input type="email" class="contact__form-input" placeholder="Enter your e-mail*" required>
+                        <textarea class="contact__form-text" rows="5" placeholder="Type your message" required></textarea>
+                        <button type="submit" class="contact__form-button">Contact Us</button>
+                    </form>
+                </section>
+                <div class="collaboration-bg-text">CONTACTS</div>
+            </div>
+            <div class="contact__map">
+                <!--<div class="contact__map-hover-popup">
+                    <p class="contact__map-hover-name">Plazma Studio</p>
+                    <p class="contact__map-hover-description">666-4366 Lacinia Avenue, NY</p>
+                </div>-->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126123.52457885493!2d-74.10450548575458!3d40.73260954593709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a26e891fd9d%3A0xc482a6bfb9e73447!2s666+Larchus+Avenue%2C+NY!5e0!3m2!1sen!2sus!4v1634873984000!5m2!1sen!2sus"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+            <!-- Collaboration/map end -->
+
+    </main>
+    <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
+   <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/svg.partial.html"></div>
+</body>
+
+</html>

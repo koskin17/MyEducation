@@ -1,0 +1,118 @@
+.about-us { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.about-us__content--left, 
+.about-us__content--right {
+    flex: 1;
+    padding: 20px;
+}
+
+.about-us__title {
+    color: var(--color-main);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.about-us__subtitle {
+    color: var(--color-white);
+    font-size: 62px;
+    line-height: 74px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.about-us__description {
+    color: var(--color-grey);
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 40px;
+}
+
+.about-us__content--right .about-us__subtitle {
+    font-size: 35px;
+    line-height: 45px;
+    font-weight: 400;
+    color: var(--color-white);
+}
+
+.about-us__text {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 30px;
+    color: var(--color-grey);
+}
+
+.statistic {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 20px 0;
+}
+
+.statistic__item {
+    text-align: center;
+    flex: 1;
+    margin: 10px;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    width: 200px;
+    width: 90%;
+}
+
+.statistic__item:last-child {
+    border-top-right-radius: 100px;
+}
+
+.statistic__number, .statistic__sign {
+    display: inline-flex;
+    align-items: center;
+}
+
+.statistic__number {
+    color: var(--color-white);
+    font-size: 62px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 74px;
+}
+
+.statistic__description {
+    color: var(--color-grey);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.statistic__sign {
+    color: var(--color-main);
+    font-size: 62px;
+    font-weight: 600;
+    line-height: 74px;
+    margin-left: 5px;
+}
+
+@media (max-width: 600px) {
+    .about-us {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .about-us__content--left, 
+    .about-us__content--right {
+        padding: 10px;
+    }
+
+    .statistic {
+        flex-direction: column;
+    }
+
+    .statistic__item {
+        margin-bottom: 20px;
+    }
+}

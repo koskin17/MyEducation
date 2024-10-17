@@ -1,0 +1,123 @@
+.collections {
+  background-color: #0d0d0d;
+  padding: 90px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Manrope", sans-serif;
+}
+
+.collections__lighting-solutions {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.collections__content {
+  max-width: 600px;
+  margin-right: 40px;
+  text-align: left;
+  z-index: 2;
+}
+
+.collections__title {
+  font-size: 10px;
+  color: #d78c43;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.collections__subtitle {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.collections__description {
+  font-size: 19px;
+  color: #e1e1e1;
+  margin-bottom: 20px;
+  line-height: 26px;
+}
+
+.collections__text {
+  font-size: 18px;
+  color:  #bbbbbb;
+  margin-bottom: 30px;
+  line-height: 24px;
+}
+
+.materials {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.materials__item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.materials__image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.materials__name {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.14px;
+}
+
+.materials__description {
+  font-size: 16px;
+  color: #bbbbbb;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+.collections__image {
+  flex: 1;
+}
+
+.collections__room-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .collections {
+    padding: 120px 90px;
+  }
+
+  .collections__lighting-solutions {
+    flex-direction: row;
+    gap: 60px;
+  }
+
+  .collections__content {
+    max-width: 50%;
+  }
+
+  .collections__subtitle {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .collections__content {
+    max-width: 600px;
+  }
+
+  .collections__subtitle {
+    font-size: 72px;
+  }
+}

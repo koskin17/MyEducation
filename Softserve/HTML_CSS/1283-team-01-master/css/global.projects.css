@@ -1,0 +1,166 @@
+.projects__items{
+    padding: 0 24px 25px;
+
+    .projects__item{
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 65px;
+        margin: 75px 0 0;
+        border-bottom: 1px solid var(--border-color);
+
+        .projects__details{
+            display: flex;
+            flex-direction: column;
+
+            .projects__info{
+                display: flex;
+                flex-direction: column;
+                margin: 0 0 50px;
+
+                .projects__name{
+                    font-family: "Manrope", Arial, sans-serif;
+                    font-weight: 600;
+                    font-size: 22px;
+                    line-height: 31px;
+                    color: var(--color-white);
+                    margin: 0 0 20px;
+                }
+
+                .projects__date{
+                    font-family: "Manrope", Arial, sans-serif;
+                    font-weight: 800;
+                    font-size: 10px;
+                    line-height: 15px;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    color: var(--secondary-divider-color);
+                }
+            }
+
+            .projects__description{
+                margin: 0 0 50px;
+
+                .projects__text{
+                    font-family: "Manrope", Arial, sans-serif;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: var(--color-gray);
+                }
+            }
+
+            .projects__action{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                margin: 0 0 90px;
+
+                .projects__btn-arrow{
+                    text-decoration: none;
+
+                    .projects__icon{
+                        width: 50px;
+                        color: var(--color-main);
+                    }
+                }
+            }
+        }
+
+        .projects__images{
+            display: flex;
+            flex-direction: column;
+
+            .projects__image-wrapper{
+                margin: 0 0 50px;
+ 
+                .projects__image{
+                    width: 100%;
+                }
+            }
+            
+            .projects__image-wrapper:last-child{
+                margin: 0;
+            }
+        }
+    }
+
+    .projects__item:last-child{
+        border: none;
+    }
+}
+
+
+@media (min-width: 768px){
+    .projects__items{
+        padding: 0 32px 40px;
+
+        .projects__item .projects__details{
+            flex-direction: row;
+            margin: 0 0 45px;
+
+            .projects__info{
+                width: 33%;
+                margin: 0 30px 0 0;
+
+                .projects__name{
+                    font-size: 24px;
+                    line-height: 33px;
+                }
+            }
+
+            .projects__description{
+                width: 50%;
+                margin: 0 30px 0 0;
+            }
+
+            .projects__action{
+                justify-content: flex-end;
+                width: 17%;
+                margin: 0;
+            }
+        }
+
+        .projects__item .projects__images{
+            flex-direction: row;
+
+            .projects__image-wrapper{
+                margin: 0 15px;
+            }
+
+        }
+    }
+}
+
+@media (min-width: 990px){
+    .projects__items{
+        padding: 0 40px 55px;
+        max-width: 1200px;
+        margin: 0 auto;
+
+        .projects__item .projects__details .projects__info{
+            width: 33%;
+            margin: 0 30px 0 0;
+
+            .projects__name{
+                font-size: 26px;
+                line-height: 36px;
+            }
+        }
+
+        .projects__description{
+            width: 50%;
+            margin: 0 30px 0 0;
+        }
+
+        .projects__action{
+            justify-content: flex-end;
+            width: 17%;
+            margin: 0;
+        }
+    } 
+}
+
+@media (min-width: 1280px){
+    .projects__items{
+        max-width: 1250px;
+    }
+}

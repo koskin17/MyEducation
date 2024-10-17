@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/about-us.css" />
+    <title>Lightning Design Studio | Single Project</title>
+    <link
+      rel="shortcut icon"
+      href="https://placekitten.com/96/139"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/luminous.css" />
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <header
+        class="header"
+        data-hx-trigger="load"
+        data-hx-swap="outerHTML"
+        data-hx-get="partials/header.partial.html"
+      ></header>
+      <section class="breadcrumbs">
+        <h1 class="breadcrumbs__title">Luminous Harmony</h1>
+        <div class="breadcrumbs__path">
+          <p class="breadcrumbs__item">Home</p>
+          <p class="breadcrumbs__separator">></p>
+          <p class="breadcrumbs__item">Projects</p>
+          <p class="breadcrumbs__separator">></p>
+          <p class="breadcrumbs__current">Luminous Harmony</p>
+        </div>
+      </section>
+
+      <main class="main-content">
+        <section class="project">
+          <div class="project__images">
+            <img src="img/index-projects-img-04.jpg" alt="lamp" class="project__image" />
+            <img
+              src="img/index-projects-img-03.jpg"
+              alt="A bed with bedside tables on either side. There is a lamp on each of the bedside tables."
+              class="project__image"
+            />
+          </div>
+          <div class="project__details">
+            <p class="project__details-title">Name:</p>
+            <p class="project__details-value">"Luminous Harmony"</p>
+            <p class="project__details-title">Location:</p>
+            <p class="project__details-value">Chicago, Illinois</p>
+            <p class="project__details-title">Date:</p>
+            <p class="project__details-value">April, 2024</p>
+          </div>
+        </section>
+
+        <section class="overview">
+          <div class="overview__header">
+            <h3 class="overview__title">Brief Overview:</h3>
+          </div>
+          <div class="overview__content">
+            <p>
+              Luminous Harmony is a showcase of innovative lighting design
+              implemented at the prestigious Riverfront Hotel in Chicago...
+            </p>
+          </div>
+        </section>
+
+        <section class="features">
+          <div class="features__header">
+            <h3 class="features__title">Key Features:</h3>
+          </div>
+          <div class="features__list">
+            <ul class="features__items">
+              <li class="features__item">Energy-efficient LED lighting throughout the hotel;</li>
+              <li class="features__item">
+                Custom-designed fixtures tailored to the hotel’s unique themes;
+              </li>
+              <li class="features__item">
+                Smart lighting systems with automated controls for time and intensity;
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="technical-details">
+          <div class="technical-details__header">
+            <h3 class="technical-details__title">Technical Details:</h3>
+          </div>
+          <div class="technical-details__content">
+            <h4 class="technical-details__subtitle">LED Panels:</h4>
+            <p class="technical-details__text">
+              High-efficiency panels with adjustable color temperatures ranging from 2700K to 6500K;
+            </p>
+            <h4 class="technical-details__subtitle">Motion-Sensor LED Pathways:</h4>
+            <p class="technical-details__text">
+              Automatically adjust lighting based on occupancy, reducing energy usage by up to 40%;
+            </p>
+            <h4 class="technical-details__subtitle">Weather-Proof Outdoor Fixtures:</h4>
+            <p class="technical-details__text">
+              Specially designed to withstand extreme weather, ensuring durability and consistent performance;
+            </p>
+          </div>
+        </section>
+
+        <section class="testimonial">
+          <img
+            src="img/emma-img.png"
+            alt="A dark-haired young woman touches her head with her palm."
+            class="testimonial__image"
+          />
+          <p class="testimonial__text">
+            "The expertise and creativity of the Prizma Studio team have transformed our hotel into a beacon of luxury and comfort..."
+          </p>
+          <p class="testimonial__author">— Emma Carter, CEO,</p>
+          <p class="testimonial__company">Riverfront Hotel.</p>
+        </section>
+
+        <section class="cta">
+          <div class="cta__header">
+            <h2 class="cta__subtitle">/ cta /</h2>
+          </div>
+          <h2 class="cta__title">Inspired by What You’ve Seen?</h2>
+          <p class="cta__text">
+            Contact us today to discuss how we can illuminate your space with creativity and efficiency.
+          </p>
+          <div>
+            <a href="/contacts.html" class="cta__button">Contact us</a>
+          </div>
+        </section>
+      </main>
+
+      <footer
+        class="footer"
+        data-hx-trigger="load"
+        data-hx-swap="outerHTML"
+        data-hx-get="partials/footer.partial.html"
+      ></footer>
+    </div>
+  </body>
+</html>

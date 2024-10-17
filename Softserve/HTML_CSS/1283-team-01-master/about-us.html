@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/about-us.css">
+    <title>About us</title>
+    <link rel="shortcut icon" href="https://placekitten.com/96/139" type="image/x-icon">
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="hero-wrap header--dark">
+        <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+    </div>
+    <!-- Our Services section by Borys -->
+    <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/ourservices.partial.html"></section>
+    <!-- Our Services section by Borys end -->
+    <!-- Our Services dates section by Borys-->
+    <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/ourservices-dates.partial.html"></section>
+    <!-- Our Services dates section by Borys end-->
+    <!-- Workfow and video section by Yevheniia-B -->
+
+    <section class="workflow-bg">
+        <div class="workflow">
+            <div class="workflow__header">
+                <h2 class="workflow__title">\ our workflow \</h2>
+                <p class="workflow__subtitle">Bespoke Lighting for Inspired Living</p>
+                <p class="workflow__description">Just four steps from the idea to its implementation.</p>
+            </div>
+
+            <div class="workflow__steps">
+                <article class="workflow__step">
+                    <img src="./img/icon/workflow-meet.svg" alt="meet icon" class="workflow__icon">
+                    <p class="workflow__step-title">01/ Meet</p>
+                    <p class="workflow__step-description">First, we meet with you and define the exact kind of lighting you
+                        need.</p>
+                    <a href="#" class="workflow__learn-more">learn more</a>
+                </article>
+
+                <article class="workflow__step">
+                    <img src="./img/icon/workflow-design.svg" alt="design icon" class="workflow__icon">
+                    <p class="workflow__step-title">02/ Design</p>
+                    <p class="workflow__step-description">Once we understand your aims, we start creating designs for you.
+                    </p>
+                    <a href="#" class="workflow__learn-more">learn more</a>
+                </article>
+
+                <article class="workflow__step">
+                    <img src="./img/icon/workflow-build.svg" alt="build icon" class="workflow__icon">
+                    <p class="workflow__step-title">03/ Build</p>
+                    <p class="workflow__step-description">When the design is finalized, we start creating the items.</p>
+                    <a href="#" class="workflow__learn-more">learn more</a>
+                </article>
+
+                <article class="workflow__step">
+                    <img src="./img/icon/workflow-install.svg" alt="install icon" class="workflow__icon">
+                    <p class="workflow__step-title">04/ Install</p>
+                    <p class="workflow__step-description">We mount the lightning in your space, and you may enjoy it fully!
+                    </p>
+                    <a href="#" class="workflow__learn-more">learn more</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="workflow__video-bg">
+        <div class="workflow__video">
+            <div class="workflow__video-content">
+                <img src="./img/icon/video.svg" alt="Video icon" class="workflow__video-icon" >
+                <p class="workflow__video-title">We Light up Your World</p>
+                <p class="workflow__video-subtitle">Lighting Matters</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- End of Workfow and video section -->
+     
+    <!-- Designers section by Pavlo Svitenko-->
+    <section class="designers">
+        <div class="designers__header">
+            <p class="designers__subtitle">\ OUR DESIGNERS \</p>
+            <h2 class="designers__title">Our Talented Designers</h2>
+            <p class="designers__description">Take a look at their background, inspiration, and most importantly their designs featured here at Prizma Studio!</p>
+        </div>
+    
+        <div class="designers__list">
+            <div class="designer-card designer-card--left">
+                <img src="img/josh-image.jpg" alt="Josh Williams" class="designer-card__image">
+                <div class="designer-card__info">
+                    <h3 class="designer-card__name">Josh Williams</h3>
+                    <p class="designer-card__experience">10 years of experience</p>
+                    <p class="designer-card__bio">Josh has the drive to create unique lighting projects that are inherently recognizable and efficient.</p>
+                    <div class="designer-card__social" data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.designer-social-card.partial.html"></div>
+                </div>
+            </div>
+    
+            <div class="designer-card designer-card--left">
+                <img src="img/julia-image.jpg" alt="Julia Hager" class="designer-card__image">
+                <div class="designer-card__info">
+                    <h3 class="designer-card__name">Julia Hager</h3>
+                    <p class="designer-card__experience">7 years of experience</p>
+                    <p class="designer-card__bio">Julia is a highly-skilled professional designer with over 7 years of experience and an eye for unique lamp designs.</p>
+                    <div class="designer-card__social" data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.designer-social-card.partial.html"></div>
+                </div>
+            </div>
+    
+            <div class="designer-card designer-card--right">
+                <img src="img/jane-image.jpg" alt="Jane Murphy" class="designer-card__image">
+                <div class="designer-card__info">
+                    <h3 class="designer-card__name">Jane Murphy</h3>
+                    <p class="designer-card__experience">5 years of experience</p>
+                    <p class="designer-card__bio">Jane is a design prodigy, who is focused utterly on contemporary lighting projects.</p>
+                    <div class="designer-card__social" data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.designer-social-card.partial.html"></div>
+                </div>
+            </div>
+    
+            <div class="designer-card designer-card--right">
+                <img src="img/gary-image.jpg" alt="Gary Allen" class="designer-card__image">
+                <div class="designer-card__info">
+                    <h3 class="designer-card__name">Gary Allen</h3>
+                    <p class="designer-card__experience">5 years of experience</p>
+                    <p class="designer-card__bio">Gary is passionate about creating energy-efficient lighting systems that preserve our environment.</p>
+                    <div class="designer-card__social" data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/aboutus.designer-social-card.partial.html"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
+    <!-- Designers section end-->
+</body>
+
+</html>

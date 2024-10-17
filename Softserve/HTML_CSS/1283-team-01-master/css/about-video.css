@@ -1,0 +1,65 @@
+.workflow__video-bg{
+    background-color: var(--color-dark);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url(../img/video.png);
+    min-height: 398px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 40% center; 
+}
+
+.workflow__video {
+    min-height: 398px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    max-width: 1170px;
+    margin: 0 auto;
+
+}
+
+.workflow__video-content {  
+    padding-bottom: 60px;
+    padding-left: 24px;   
+}
+
+.workflow__video-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.workflow__video-title {
+    font-size: 2rem;
+    color: var(--color-white);
+    padding-top: 30px;
+    font-weight: 300;
+
+}
+
+.workflow__video-subtitle {
+    padding-top: 25px;
+    font-size: 0.6rem;
+    color: var(--color-main);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: calc(0.2*0.75rem);
+}
+
+@media only screen and (min-width: 760px) {
+    .workflow__video {
+         min-height: 620px;
+    }
+}
+    
+@media only screen and (min-width: 1000px) {
+    .workflow__video {
+         min-height: 750px;
+    }
+    .workflow__video-icon {
+        width: 70px;
+        height: 70px;
+    }
+    .workflow__video-title {
+        font-size: 2.3rem;
+    }
+}

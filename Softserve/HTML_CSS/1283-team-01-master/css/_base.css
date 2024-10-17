@@ -1,0 +1,57 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+/*     outline: 1px solid red;  */
+}
+
+*::selection {
+  background-color: var(--color-main);
+  color: var(--color-black);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background-color: var(--color-black);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-main);
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
+/*html, body {
+  min-height: 100vh;
+*/
+
+img {
+  display: block;
+  max-width: 100%;
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover, a:focus, a:active {
+  text-decoration: none;
+}
+
+button:hover, button:active, button:focus, a:hover, a:active, a:focus, input:not([type=radio]):hover, input:not([type=radio]):active, input:not([type=radio]):focus, input:not([type=checkbox]):hover, input:not([type=checkbox]):active, input:not([type=checkbox]):focus {
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}

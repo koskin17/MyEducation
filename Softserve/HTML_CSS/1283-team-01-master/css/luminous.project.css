@@ -1,0 +1,43 @@
+.breadcrumbs__title {
+  font-family: "Manrope", Arial, sans-serif;
+  font-size: 62px;
+  color: var(--color-main);
+  font-weight: 400;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.breadcrumbs__item {
+  font-family: "Manrope", Arial, sans-serif;
+  color: var(--color-gray);
+  font-size: 10px;
+}
+
+breadcrumbs__separator {
+  font-family: "Manrope", Arial, sans-serif;
+  color: var(--color-gray);
+  font-size: 10px;
+}
+
+.breadcrumbs__current {
+  font-family: "Manrope", Arial, sans-serif;
+  text-transform: uppercase;
+  color: var(--color-white);
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 10px;
+}
+
+.project__details-title {
+  font-family: "Manrope", Arial, sans-serif;
+  color: var(--secondary-divider-color);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.project__details-value {
+  font-family: "Manrope", Arial, sans-serif;
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: 24px;
+}
