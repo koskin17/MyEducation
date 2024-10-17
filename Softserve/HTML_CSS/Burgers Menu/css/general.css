@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap");
+
+:root {
+  --additional-font: Heebo, sans-serif;
+  --default-color: #2a2a2a;
+  --contacts-links-color: rgb(42, 42, 42);
+  --offer-strike-color: #53535373;
+  --in-stock-color: #228b22;
+  --nav-pages-color: #474747;
+  --button-blue-color: #1e90ff;
+  --button-black-color: #000;
+  --button-colorfull-color: #f4a460;
+  --button-after-color: #006400;
+  --banner-h-color: #2f2f2f;
+  --banner-p-color: #3b3b3b;
+  --background-services-color: #faf0e6;
+  --input-color: #f3e8e8f1;
+  --light-text-color: #fff;
+  --header-contacts-light: rgb(242, 242, 242);
+  --offer-jbl-color: #eb5112;
+  --offer-jbl-strike-color: #797878;
+  --out-stock-color: #b22222;
+  scroll-behavior: smooth;
+  color: var(--default-color);
+  font-family: 'PT Sans';
+}
+
+* {
+  border: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
