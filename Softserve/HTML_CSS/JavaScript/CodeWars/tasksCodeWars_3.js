@@ -48,13 +48,27 @@ function Circle(center, radius) {
   this.radius = radius;
 }
 
-// Function to calculate circumference of the circle
 function calculateCircumference(circle) {
-  // Formula for circumference: 2 * Math.PI * radius
   const circumference = 2 * Math.PI * circle.radius;
-  // Rounding to 6 decimal places
   return parseFloat(circumference.toFixed(6));
 }
+  !!!
+  Важно понимать и помнить, что функция toFixed в JS возвращает результат в виде строки и если нужно число, то придётся конвертировать её опять в число.
+  Если в проекте нажен код, который будет работать быстро, то эти мелкие операции будут его тормозить.
+  Текст можно отправлять только на web-страницу.
+  Также тут можно не использовать const, а сразу делать return в виде формулы.
+
+  Если в коде этой функции при передаче параметров взять circle в "{}", то это будет называться деструктуризация объекта.
+  Т.е. ожидается, что на вход функции придёт объект, но мы можем просто указать назване ключа, который я хочу получить из этого объекта, что JS сделал переменную с этим именем.
+  В итоге код сам создаёт переменную radius из объекта со значениями и предварительный расчёт результата, как и указание переменной не нужен.
+  Метод деструктуризации объекта очень часто используется в React.
+  function calculateCircumference({radius}) {
+    return 2 * Marh.PI * radius;
+}
+    Последнее усовершенствование кода - сворачивание функции до стрелочки "=>"
+  const circleCircumference = ({radius}) => 2 * Marh.PI * radius;
+  
+  !!!
 
 // Example usage:
 const center = new Point(0, 0);
@@ -169,9 +183,12 @@ javascript
 function giveMeFive(obj) {
   // создаем пустой массив для хранения ключей и значений длиной 5
   const result = [];
-  
   // используем for..in для перебора всех ключей объекта
-  for (let key in obj) {
+  !!!
+    В JS всегда создаётся переменная не let, а const за исключением случаев, когда мы изначально знаем, что значение переменной будет меняться в коде.
+    По этой причине и в цикле for переменная, которая каждый раз создаётся новая, нужно использовать const.
+  !!!
+  for (const key in obj) {
     // проверяем длину ключа
     if (key.length === 5) {
       result.push(key);
@@ -181,8 +198,7 @@ function giveMeFive(obj) {
     if (obj[key].length === 5) {
       result.push(obj[key]);
     }
-  }
-  
+  }  
   // возвращаем массив с результатами
   return result;
 }
@@ -212,4 +228,141 @@ function giveMeFive(obj){
   }
   return five;
 }
+*/
+
+/* Задача про замыкание
+https://www.codewars.com/kata/understanding-closures-the-basics/train/javascript
+Understanding closures - the basics
+This is a simple exercise to understand the feature in the javascript language called closure.
+The function buildFun will return an array of functions. The single parameter accepted by buildFun is the number of elements N of the array returned.
+The wanted outcome is that when all function in the array are executed, the number from 0 to N should be returned.
+
+В этой задаче нужно написать функцию buildFun, которая принимает параметр N — количество элементов в возвращаемом массиве. Мы хотим, чтобы каждый элемент массива был функцией, которая при вызове возвращает свое значение от 0 до N.
+
+Решение с использованием замыкания
+!!! Замыкание - это защита от очистки памяти.
+Замыкание поможет нам сохранить текущее значение индекса внутри каждой функции, когда она добавляется в массив.
+
+function buildFun(N) {
+  const result = [];
+  
+  for (let i = 0; i < N; i++) {
+    result.push(function(i) {
+      return i;
+    });
+  }
+  return result;
+}
+
+const functions = buildFun(5);
+console.log(functions[0]()); // Выведет 0
+console.log(functions[1]()); // Выведет 1
+console.log(functions[2]()); // Выведет 2
+Почему это работает?
+Использование let для переменной i в цикле for позволяет создать новое лексическое окружение для каждой итерации цикла. Это значит, что каждая функция, добавляемая в result, будет иметь свое собственное значение i, привязанное к конкретному замыканию.
+
+Ещё одно решение:
+const buildFun = n => [...Array(n)].map((v, i) => () => i);
+
+Перед тем, как выполнять весь код, JS находит все var и всем им присваивает undefined.
+После этого JS выполняет код строка за строкой.
+Доходит до for, видит var и переназначает ей значение 0.
+Потом переходит к добавлению в список функции, которая возвращает i. Если этой функции не передать i, то JS значение i из цикла for не увидит и вернуть ему будет нечего. В результате поиск начинается во внешней области видимости, которая как раз и является циклом for.
+Предпоследняя итерация цикла for запишет в переменную i значение 9. Потом выполнит цикл.
+Последняя итераци запишет в переменую i значение 10, но уже цикл не выполнится и в i останется значение 10.
+Если же написать let, то JS не ищет никакие переменные var и не вытаскивает их, не готовит их в качестве коробочки для значений.
+В результате переменная i создаётся только для цикла for и находися в области видимости только этого цикла и функции, которая в нём лежит.
+*/
+
+/* https://www.codewars.com/kata/fun-with-es6-classes-number-2-animals-and-inheritance/train/javascript
+Задача про наследование.
+Fun with ES6 Classes #2 - Animals and Inheritance
+Overview
+Preloaded for you in this Kata is a class Animal:
+
+class Animal {
+  constructor(name, age, legs, species, status) {
+    this.name = name;
+    this.age = age;
+    this.legs = legs;
+    this.species = species;
+    this.status = status;
+  }
+  introduce() {
+    return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+  }
+}
+Task
+Define the following classes that inherit from Animal.
+
+I. Shark
+The constructor function for Shark should accept 3 arguments in total in the following order: name, age, status. All sharks should have a leg count of 0 (since they obviously do not have any legs) and should have a species of "shark".
+
+II. Cat
+The constructor function for Cat should accept the same 3 arguments as with Shark: name, age, status. Cats should always have a leg count of 4 and a species of "cat".
+
+Furthermore, the introduce/Introduce method for Cat should be identical to the original except there should be exactly 2 spaces and the words "Meow meow!" after the phrase. For example:
+
+var example = new Cat("Example", 10, "Happy");
+example.introduce() === "Hello, my name is Example and I am 10 years old.  Meow meow!"; // Notice the TWO spaces - very important
+III. Dog
+The Dog constructor should accept 4 arguments in the specified order: name, age, status, master. master is the name of the dog's master which will be a string. Furthermore, dogs should have 4 legs and a species of "dog".
+
+Dogs have an identical introduce/Introduce method as any other animal, but they have their own method called greetMaster/GreetMaster which accepts no arguments and returns "Hello (insert_master_name_here)" (of course not the literal string but replace the (insert_master_name_here) with the name of the dog's master).
+
+Вот решение для задачи с использованием классов и наследования в JavaScript:
+
+class Animal {
+  constructor(name, age, legs, species, status) {
+    this.name = name;
+    this.age = age;
+    this.legs = legs;
+    this.species = species;
+    this.status = status;
+  }
+  introduce() {
+    return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+  }
+}
+
+class Shark extends Animal {
+  constructor(name, age, status) {
+    super(name, age, 0, "shark", status);
+  }
+}
+
+class Cat extends Animal {
+  constructor(name, age, status) {
+    super(name, age, 4, "cat", status);
+  }
+  introduce() {
+    return `${super.introduce()}  Meow meow!`;
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, age, status, master) {
+    super(name, age, 4, "dog", status);
+    this.master = master;
+  }
+  greetMaster() {
+    return `Hello ${this.master}`;
+  }
+}
+
+// Примеры
+const shark = new Shark("Sammy", 3, "Swimming freely");
+console.log(shark.introduce()); // "Hello, my name is Sammy and I am 3 years old."
+
+const cat = new Cat("Whiskers", 5, "Playful");
+console.log(cat.introduce()); // "Hello, my name is Whiskers and I am 5 years old.  Meow meow!"
+
+const dog = new Dog("Buddy", 4, "Loyal", "Alice");
+console.log(dog.introduce()); // "Hello, my name is Buddy and I am 4 years old."
+console.log(dog.greetMaster()); // "Hello Alice"
+Объяснение:
+Класс Shark: Конструктор принимает name, age, status и устанавливает legs в 0, а species в "shark".
+Класс Cat: Конструктор также принимает name, age, status и устанавливает legs в 4, а species в "cat". Переопределенный метод introduce() добавляет "Meow meow!" после стандартного приветствия.
+Класс Dog: Конструктор дополнительно принимает master, который сохраняется как свойство объекта. Метод greetMaster() возвращает приветствие с именем хозяина.
+
 */
