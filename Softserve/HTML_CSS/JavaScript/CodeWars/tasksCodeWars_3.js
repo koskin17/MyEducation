@@ -1,5 +1,5 @@
-https://www.codewars.com/kata/find-the-smallest-integer-in-the-array/train/javascript
-/* Find the smallest integer in the array
+/* https://www.codewars.com/kata/find-the-smallest-integer-in-the-array/train/javascript
+Find the smallest integer in the array
 Given an array of integers your solution should find the smallest integer.
 
 For example:
@@ -13,8 +13,8 @@ function findSmallestInt(arr) {
 }
 */
 
-https://www.codewars.com/kata/geometry-basics-circle-circumference-in-2d/train/javascript
-/* Geometry Basics: Circle Circumference in 2D
+/* https://www.codewars.com/kata/geometry-basics-circle-circumference-in-2d/train/javascript
+Geometry Basics: Circle Circumference in 2D
 This series of katas will introduce you to basics of doing geometry with computers.
 
 Point objects have x, y attributes. Circle objects have center which is a Point, and radius, which is a number.
@@ -82,8 +82,8 @@ The calculateCircumference function applies the formula for the circumference an
 one more variant const circleCircumference = circle => 2 * Math.PI * circle.radius;
 */
 
-https://www.codewars.com/kata/training-js-number-12-loop-statement-for-dot-in-and-for-dot-of/train/javascript
-/* Training JS #12: loop statement --for..in and for..of
+/* https://www.codewars.com/kata/training-js-number-12-loop-statement-for-dot-in-and-for-dot-of/train/javascript
+Training JS #12: loop statement --for..in and for..of
 In lesson #11, we learned that the for loop can be used to traverse an array.
 If we want to traverse an object, we can use a variant of the for: for..in. This can traverse all the keys of the object. An example:
 
