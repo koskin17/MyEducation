@@ -1,0 +1,47 @@
+.animated-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.animated-carousel__inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.animated-carousel .product-card {
+    flex: 0 0 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .animated-carousel .product-card {
+        flex: 0 0 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .animated-carousel .product-card {
+        flex: 0 0 33.33%;
+    }
+}
+
+.animated-carousel .carousel__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.animated-carousel .carousel__button--prev {
+    left: 10px;
+}
+
+.animated-carousel .carousel__button--next {
+    right: 10px;
+}
