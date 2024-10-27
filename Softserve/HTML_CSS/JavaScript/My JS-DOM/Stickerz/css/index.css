@@ -1,0 +1,7 @@
+/* Первый делом при начале вёрстки мы создаём основной файл index.css,
+в который импортируем глобальные вещи, которые будут использоваться на всём сайте.
+В частности это global.css  */
+@import "globals.css";
+@import "controls.css";
+@import "index.header.css";
+@import "index.products.css";

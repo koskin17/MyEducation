@@ -1,0 +1,39 @@
+/* Если изначально чётко известно кол-во столбцов / строк, то используется не flex, а grid (сетка).
+В браузере, в dev tools, на вкладке CSS Layout есть пункт Grid overlays, где можно увидеть все используемые сетки и если отметить галочки, то все блоки в grid будут отображены на странице. */
+.products {
+
+    /* Padding в родительском контейнере не даёт внутренним элементам прилипать к краям. */
+    padding: 0 5px;
+
+    .products__list {
+        /* Включаем для списка продуктов grid.
+        По умолчанию, это один столбец. */
+        display: grid;
+
+        /* gap - это отступы в grid между столбцами / строками */
+        gap: 5px;
+        
+        .products__item {
+            border: 1px solid var(--border-color);
+            /* Padding устанавливается для того, чтобы контент не прилипал к границам блока */
+            padding: 5px;
+        }
+    }
+
+    @media (min-width: 600px) {
+        .products__list {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    /* @media (min-width: 900px) {
+        .products__list {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    } */
+    @media (min-width: 900px) {
+        .products__list {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+}
