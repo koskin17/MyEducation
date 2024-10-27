@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+} 
+
+:root {
+    --color-primary: black;
+    --color-secondary: #a5c7cf;
+    --primary-text-color: var(--color-primary) ;
+    --secondary-text-color: var(--color-secondary);
+    --border-color: var(--color-primary);
+    --secondary-background-color: var(--color-secondary);
+    scroll-behavior: smooth;
+    font-family: "DotGothic16", sans-serif;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
