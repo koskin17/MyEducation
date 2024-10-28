@@ -4,4 +4,6 @@
 @import "globals.css";
 @import "controls.css";
 @import "index.header.css";
+/* При создании галереи получились гигантские слайды. Для исправления делаем отдельный файл css и в нём прописываем стили */
+@import "index.products-carusel.css";
 @import "index.products.css";

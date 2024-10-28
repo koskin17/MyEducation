@@ -2,6 +2,7 @@ function init() {
   import("./index.header-text.js");
   import("./index.header-clock.js"); /* файл JS для часов в меню */
   import("./index.product-list.js");
+  import("./index.product-carusel.js");
 }
 
 const totalPartials = document.querySelectorAll(
