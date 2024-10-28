@@ -22,6 +22,11 @@ function renderCarousel() {
     const secondSlideIndex =
       currentSlideIndex + 1 >= slides.length ? 0 : currentSlideIndex + 1;
     slideContainer.innerHTML += slides[secondSlideIndex];
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      const thirdSlideIndex =
+        secondSlideIndex + 1 >= slides.length ? 0 : secondSlideIndex + 1;
+      slideContainer.innerHTML += slides[thirdSlideIndex];
+    }
   }
 }
 
