@@ -1,0 +1,58 @@
+<!-- 
+В JS еть глобальная переменная window.
+Если инструментах разработчика браузера, в console написать window, то появится вся информация этого объекта.
+Window - это окно браузера.
+Из этого объекта можно достать любую информацию по имени. 
+К примеру, window innerwidth и будет отображена текущая ширина окна браузера.
+Одним из главных объектов / глобальным переменным window - это document: windows.document.
+Также получить доступ к document можно написав в console просто document.
+Это и есть сама web-страница.
+Если написать специальную команду в console console.dir(document), то страницу будет отображена не как html, а как объект.
+
+Window и document - это объекты. Для них есть специальные названия: BOM и DOM.
+BOM - Browser Object Model.
+DOM - Document Object Model.
+Все теги страницы лежат внутри document и к ним можно получить доступ и изменить их непосредственно на самой веб-станице.
+К примеру, если нужно поменять заголовки, то можно через document получить к ним доступ и изменить их.
+В document есть метод querySelector (document.querySelector()), в котором указывается селектор, по которому отбирать: document.querySelector('h1').
+У него есть свойство innerText, которая показывает текст этого тега: document.querySelector('h1').innerText
+Если указать новый текст, то он изменится уже на странице:
+document.querySelector('h1').innerText = 'Привет, JAVASCRIPT!'
+
+Таким методом можно менять практически всё на веб-странице.
+К примеру, стили.
+Стили находятся в style.color
+document.querySelector('h1').innerText = 'Привет, JAVASCRIPT!'
+document.querySelector('h1').style.color = 'red'
+
+!!! Важно помнить, что менять стили напрямую из JS не хорошо.
+Для этого меняются классы, для которых в JS есть свойство classList (список классов).
+К нему можно добавить новый класс, к примеру selected
+document.querySelector('h1').innerText = 'Привет, JAVASCRIPT!';
+document.querySelector('h1').style.color = 'red';
+document.querySelector('h1').classList.add('selected');
+
+!!! При прсоединении JS к htmx важно помнить, что htmx работает ассинхронно он загружает html-partial позже, чем будет выполнять обычный JS.
+Для того, чтобы этого не было JS присоединяется особенным способом.
+1. Создаётся файл index.js;
+2. В него вставляется код:
+    function init() {
+        import('./index.header-text.js');
+        import('./index.header-clock.js');
+        import('./index.product-list.js');
+        import('./index.product-carousel.js');
+        import('./index.product-carousel-animated.js');
+        import('./index.faq-accordion.js');
+    }
+
+    const totalPartials = document.querySelectorAll('[hx-trigger="load"], [data-hx-trigger="load"]').length;
+    let loadedPartialsCount = 0;
+
+    document.body.addEventListener('htmx:afterOnLoad', () => {
+    loadedPartialsCount++;
+    if (loadedPartialsCount === totalPartials) init();
+    });
+
+    Этот код считает кол-во partial методом querySelectorAll и записывает их в переменную и дальше идёт обработчик событий, который считает кол-во partial и когда этого кол-во соответствует необходимому кол-ву, то выполняется функция init(), которой прописаны все partial с JS, в которых прописан весь JS для всех блоков страницы.
+3. Функция init() уже стартует наш JS.
+-->
