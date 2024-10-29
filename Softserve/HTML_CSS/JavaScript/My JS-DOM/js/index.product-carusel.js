@@ -1,5 +1,5 @@
-/* Первым делом делаем для карусели index.products-carousel.partial.html */
-/* Также создаём массив слайдов */
+/* Первым делом делаем для карусели новый, отдельный partial-файл: index.products-carousel.partial.html */
+/* Создаём массив слайдов */
 const slides = [
   /* Делаем слайды в виде строки, которая включает в себя div.
   Можно было бы не делать div, а сразу вставить картинки, то наличие div показывается, что внутри может быть сколько угодно и какого угодно кода html */
@@ -15,7 +15,7 @@ let currentSlideIndex = 0;
 /* Дальше делаем функцию для карусели */
 function renderCarousel() {
   const slideContainer = document.querySelector(".product-carousel__slides");
-  /* Дальше в контейнер product-carousel__slides в innerHtml вставляется из масса slides элемент, который соответствует индексу currentSlideIndex */
+  /* Дальше в контейнер product-carousel__slides в innerHtml вставляется из массива slides элемент, который соответствует индексу currentSlideIndex */
   slideContainer.innerHTML = slides[currentSlideIndex];
   /* Добавляем проверку ширина окна и в зависимости от этого отображаем определенное кол-во слайдов */
   if (window.matchMedia("(min-width: 768px)").matches) {
@@ -32,6 +32,7 @@ function renderCarousel() {
 
 /* Теперь нужно сделать так, чтобы добавлялся следующий слайд */
 function nextSlide() {
+  /* Увеличиваем индекс текущего слайда на 1 */
   currentSlideIndex++;
   /* Если currentSlideIndex выходит за пределы массива, т.е. кол-ва элементов в массиве, то мы его сбрасываем на ноль */
   if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
@@ -60,3 +61,8 @@ nextBtn.addEventListener("click", nextSlide);
 
 const prevBtn = document.querySelector(".product-carousel__btn-prev");
 prevBtn.addEventListener("click", prevSlide);
+
+/* Для того, чтобы галерея перерисовывалась сама при любом изменении размера окна нужно добавить: */
+window.addEventListener("resize", renderCarousel);
+
+/* Главный минус этой карусели в том, что она меняет innerHtml, а у него нет анимации */

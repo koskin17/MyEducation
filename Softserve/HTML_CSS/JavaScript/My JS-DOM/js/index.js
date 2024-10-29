@@ -3,6 +3,8 @@ function init() {
   import("./index.header-clock.js"); /* файл JS для часов в меню */
   import("./index.product-list.js");
   import("./index.product-carusel.js");
+  import("./index.product-animated-carusel.js");
+  import("./index.faq-accordion.js");
 }
 
 const totalPartials = document.querySelectorAll(

@@ -24,6 +24,7 @@
     --secondary-text-color: var(--color-secondary);
     --border-color: var(--color-primary);
     --secondary-background-color: var(--color-secondary);
+    --background-animated-carusel-carusel-button:  rgba(255, 255, 255, 0.7);
     scroll-behavior: smooth;
     font-family: "DotGothic16", serif;
 }
