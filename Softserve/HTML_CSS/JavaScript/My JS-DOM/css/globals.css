@@ -25,6 +25,10 @@
     --border-color: var(--color-primary);
     --secondary-background-color: var(--color-secondary);
     --background-animated-carusel-carusel-button:  rgba(255, 255, 255, 0.7);
+    --faq-accordion-boder: #ddd;
+    --faq-accordion-item-border-bottom: #ddd;
+    --faq-accordion-title-background-color: #f3f3f3;
+    --faq-accordion-title-hover-background-color: #e0e0e0;
     scroll-behavior: smooth;
     font-family: "DotGothic16", serif;
 }

@@ -2,7 +2,7 @@
 .faq-accordion {
     width: 100%;
     max-width: 600px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--faq-accordion-boder);
     border-radius: 8px;
     overflow: hidden;
     font-family: Arial, sans-serif;
@@ -10,19 +10,19 @@
 
 /* Стиль для кожного елемента аккордеону */
 .faq-accordion__item {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--faq-accordion-item-border-bottom);
 }
 
 .faq-accordion__title {
     cursor: pointer;
     padding: 15px;
     font-size: 1.2em;
-    background-color: #f3f3f3;
+    background-color: var(--faq-accordion-title-background-color);
     transition: background-color 0.3s ease;
 }
 
 .faq-accordion__title:hover {
-    background-color: #e0e0e0;
+    background-color: var(--faq-accordion-title-hover-background-color);
 }
 
 /* Стиль для вмісту, коли аккордеон неактивний */
