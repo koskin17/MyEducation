@@ -1,0 +1,118 @@
+.testimonials {
+  background-color: var(--secondary-color);
+}
+
+.testimonials__wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 120px 20px;
+}
+
+.testimonials__title {
+  font-size: 12px;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.testimonials__subtitle {
+  margin-top: 10px;
+  line-height: 76px;
+}
+
+.testimonials__subtitle {
+  text-align: center;
+  font-size: 40px;
+  font-family: "Bebas Neue", sans-serif;
+
+  @media (min-width: 768px) {
+    font-size: 52px;
+  }
+  @media (min-width: 992px) {
+    font-size: 64px;
+  }
+}
+
+.testimonials__subtitle span {
+  color: var(--secondary-background-color);
+}
+
+.testimonials__description {
+  text-align: center;
+  font-size: 19px;
+  margin-top: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--secondary-border-color);
+  margin-bottom: 15px;
+}
+
+.testimonials__image {
+  background-image: url(../images/testemonials.webp);
+  width: 100%;
+  min-height: 650px;
+  background-position: center center;
+  border-radius: 10px;
+}
+
+.testimonials__slider {
+  margin-top: 50px;
+  position: relative;
+}
+
+.testimonials__slider-buttons {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.testimonials__slider-buttons img {
+  width: 25px;
+  cursor: pointer;
+  height: auto;
+}
+button.testimonials__slider__btn-prev,
+button.testimonials__slider__btn-next {
+  background: none;
+  border: none;
+}
+
+.testimonials__slider-item {
+  text-align: center;
+  display: block;
+  max-width: 770px;
+  margin: 50px auto 0;
+}
+
+.testimonials__slider-item-quotes img {
+  width: 50px;
+  height: auto;
+  margin: auto;
+}
+
+.testimonials__slider-item-name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: var(--primary-text-color);
+  font-weight: 700;
+}
+
+.testimonials__slider-item-text {
+  font-size: 17px;
+  line-height: 23px;
+  font-weight: 300;
+  margin-top: 20px;
+  color: var(--text-color);
+  max-width: 90%;
+  margin: auto;
+  min-height: 100px;
+}
+
+.testimonials__slider-item-date {
+  margin-top: 20px;
+  font-size: 15px;
+  color: var(--secondary-background-color);
+  font-weight: 600;
+}

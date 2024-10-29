@@ -1,0 +1,54 @@
+.positive-aspects {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+.positive-aspects__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+.positive-aspects__item {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 45%; 
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.positive-aspects__item hr {
+    border: 2px solid var(--primary-button-color);
+    width: 40px;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.positive-aspects__icon {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .positive-aspects__item {
+        width: 22%; 
+    }
+}
+
+@media (max-width: 768px) {
+    .positive-aspects__item {
+        width: 100%; 
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .positive-aspects__item hr {
+    margin-right: auto;
+}
+}

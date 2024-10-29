@@ -1,0 +1,136 @@
+/* Block: bestsellers */
+.bestsellers {
+  background: var(--primary-site-background-color);
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+.bestsellers__container {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2%; /* Space between articles */
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: auto;
+}
+
+/* Bestsellers Items */
+.bestsellers__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2%;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+.bestsellers__item--keygo {
+  background-image: url(../images/keygox1.webp);
+  object-fit: cover;
+  width: 100%;
+  background-position: center center;
+  border-radius: 10px;
+}
+
+.bestsellers__item--keygo .bestsellers__item-label {
+  color: var(--brand-color);
+}
+
+.bestsellers__item--keygo .bestsellers__item-text {
+  color: var(--primary-background-color);
+}
+
+.bestsellers__item--keygo .bestsellers__item-description {
+  color: var(--text-description-color);
+}
+
+/* QuantumX1 Item */
+.bestsellers__item--quantum {
+  background-image: url(../images/quantumx1.webp);
+  object-fit: cover;
+  width: 100%;
+  background-position: center center;
+  border-radius: 10px;
+}
+
+.bestsellers__item--quantum .bestsellers__item-label {
+  color: var(--secondary-section-bg-color);
+}
+
+.bestsellers__item--quantum .bestsellers__item-text {
+  color: var(--text-color-light);
+}
+
+.bestsellers__item--quantum .bestsellers__item-description {
+  color: var(--description-text-color);
+}
+
+/* AeroTrack Item */
+.bestsellers__item--aerotrack {
+  background-image: url(../images/aerotrack300.webp);
+  object-fit: cover;
+  width: 100%;
+  background-position: center center;
+  border-radius: 10px;
+}
+
+.bestsellers__item--aerotrack .bestsellers__item-label {
+  color: var(--brand-color);
+}
+
+.bestsellers__item--aerotrack .bestsellers__item-text {
+  color: var(--text-color-light);
+}
+
+.bestsellers__item--aerotrack .bestsellers__item-description {
+  color: var(--text-color-light);
+}
+
+/* Image styling */
+.bestsellers__item-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* The image covers the container */
+  flex-grow: 1;
+}
+
+/* Text block styling */
+.bestsellers__item-text {
+  padding: 80px 40px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Text styles */
+.bestsellers__item-label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.bestsellers__item-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.bestsellers__item-description {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .bestsellers__container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bestsellers__item {
+    max-width: 100%;
+    height: auto;
+  }
+}

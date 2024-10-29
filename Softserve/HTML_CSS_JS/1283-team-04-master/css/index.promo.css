@@ -1,0 +1,217 @@
+.promo {
+  background-color: var(--secondary-color);
+  padding-top: 60px;
+  padding-bottom: 90px;
+}
+
+.promo__wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px 0 24px;
+}
+
+.promo__title {
+  font-size: 12px;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.promo__subtitle {
+  margin-top: 10px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 40px;
+  font-family: var(--subtitle-font-family);
+}
+@media (min-width: 768px) {
+  .promo__subtitle {
+    font-size: 52px;
+    line-height: 76px;
+  }
+}
+
+@media (min-width: 992px) {
+  .promo__subtitle {
+    font-size: 64px;
+  }
+}
+
+.promo__highlight {
+  color: var(--secondary-background-color);
+}
+.promo__description {
+  text-align: center;
+  font-size: 19px;
+  margin-top: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--text-text-description-color);
+  margin-bottom: 15px;
+}
+
+.embla {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 1rem;
+}
+.embla__viewport {
+  overflow: hidden;
+  width: auto;
+}
+.embla__container {
+  display: grid;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  grid-column-gap: 10px;
+}
+@media (min-width: 460px) {
+  .embla__container {
+    grid-auto-columns: 50% 50%;
+  }
+}
+@media (min-width: 720px) {
+  .embla__container {
+    grid-auto-columns: 33% 33% 33%;
+  }
+}
+@media (min-width: 950px) {
+  .embla__container {
+    grid-auto-columns: 25% 25% 25% 25%;
+  }
+}
+.embla__slide {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  height: 100%;
+}
+.embla__slide-link {
+  text-decoration: none;
+}
+.embla__slide-link img {
+  display: inline-block;
+}
+
+.embla__badge--sale {
+  position: absolute;
+  display: inline-block;
+  font-size: 14px;
+  max-width: 196px;
+  margin: 4px;
+  padding: 4px 8px;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  background: var(--hot-badge-sale-background-color);
+  color: var(--text-color-light);
+}
+.embla__control {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+.embla__badge--out-of-stock {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  width: 100%;
+  margin: 4px;
+  padding: 4px 8px;
+  background: var(--hot--badge-out-of-stock-background-color);
+  color: var(--hot--badge-out-of-stock-text-color);
+}
+
+.embla__product-name {
+  margin-top: 8px;
+  color: var(--primary-background-color);
+}
+
+.embla__product-price {
+  justify-content: flex-start;
+  margin-top: 16px;
+}
+
+.embla__price--old {
+  text-decoration: line-through;
+  font-size: clamp(18px, 2vw, 24px);
+}
+
+.embla__price--new {
+  display: flex;
+  margin-top: 16px;
+  column-gap: 16px;
+  row-gap: 8px;
+  font-size: clamp(20px, 2vw, 26px);
+  align-items: center;
+  color: var(--brand-color);
+}
+
+.embla__product-btn {
+  height: 40px;
+  width: 100px;
+  margin-top: 24px;
+  font-weight: lighter;
+  border-radius: 8px;
+  border-width: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: var(--text-color-light);
+  background-color: var(--primary-button-color);
+}
+
+.embla__product-btn:hover {
+  background-color: var(--primary-bar-background-color);
+}
+
+.embla__btn--out-of-stock {
+  position: relative;
+  pointer-events: none;
+}
+
+.embla__btn--out-of-stock::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 110%;
+  height: 110%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.embla__btn--out-of-stock:hover {
+  background-color: var(--primary-button-color);
+  cursor: not-allowed;
+}
+
+.embla__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.embla__arrow-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.embla__arrow--left {
+  margin-right: auto;
+}
+
+.embla__arrow--left .embla__arrow-svg {
+  transform: rotate(180deg);
+}
+
+.embla__arrow--right {
+  margin-left: auto;
+}

@@ -1,0 +1,133 @@
+.news {
+  background: var(--secondary-section-bg-color);
+}
+
+.news__wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 120px 20px;
+}
+
+.news__list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2%;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 992px) {
+    flex-wrap: nowrap;
+  }
+}
+
+.news__list::after {
+  content: "";
+  flex: 49%;
+  margin-bottom: 0;
+}
+
+@media (min-width: 992px) {
+  .news__list::after {
+    flex: 0;
+  }
+}
+
+.news__list__item {
+  flex: 49%;
+  margin-bottom: 40px;
+
+  @media (min-width: 992px) {
+    flex: 100%;
+    margin-bottom: 0;
+  }
+}
+
+.news__list__item:last-child {
+  margin-bottom: 0;
+}
+
+.news__title {
+  font-size: 12px;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.news__subtitle {
+  margin-top: 10px;
+  line-height: 76px;
+  text-align: center;
+  font-size: 40px;
+  font-family: "Bebas Neue", sans-serif;
+
+  @media (min-width: 768px) {
+    font-size: 52px;
+  }
+  @media (min-width: 992px) {
+    font-size: 64px;
+  }
+}
+
+.news__subtitle span {
+  color: var(--secondary-background-color);
+}
+
+.news__description {
+  text-align: center;
+  font-size: 19px;
+  margin-top: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--secondary-border-color);
+  margin-bottom: 15px;
+}
+
+.news__list__item-image img {
+  border-radius: 10px;
+}
+
+.news__list__item-category {
+  font-size: 12px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--secondary-background-color);
+}
+
+.news__list__item-title {
+  font-size: 24px;
+  margin-top: 20px;
+  color: var(--primary-text-color);
+  font-weight: 600;
+}
+
+.news__list__item-description {
+  font-size: 17px;
+  margin-top: 20px;
+  color: var(--text-description-color);
+  font-weight: 300;
+}
+
+.news__list__item-readmore {
+  margin-top: 40px;
+}
+
+.news__list__item-readmore a {
+  background-color: var(--brand-color);
+  padding: 12px 21px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.news__list__item-readmore a:hover {
+  color: var(--btn-primary-alt-hover-color);
+  box-shadow: 0 0 0 0;
+  background-color: var(--btn-primary-alt-hover-bg-color);
+  transition: background-color 0.3s ease;
+}

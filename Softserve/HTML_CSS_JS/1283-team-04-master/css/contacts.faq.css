@@ -1,0 +1,226 @@
+.faq {
+  background-color: var(--secondary-section-bg-color);
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+.faq__wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px 0 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "faq__contact-form";
+  gap: 20px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .faq__wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "faq__accordion-flush"
+      "faq__contact-form";
+  }
+}
+
+.faq__title {
+  font-size: 12px;
+  color: var(--brand-color);
+  text-transform: uppercase;
+  line-height: 40px;
+  text-align: left;
+}
+
+.faq__subtitle {
+  margin-top: 10px;
+  line-height: 40px;
+  text-align: left;
+  font-size: 40px;
+  font-family: var(--subtitle-font-family);
+}
+
+@media (min-width: 768px) {
+  .faq__subtitle {
+    font-size: 52px;
+    line-height: 76px;
+  }
+}
+
+@media (min-width: 992px) {
+  .faq__subtitle {
+    font-size: 64px;
+  }
+}
+
+.faq__highlight {
+  color: var(--secondary-background-color);
+}
+
+.faq__description {
+  text-align: left;
+  font-size: 19px;
+  margin-top: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px var(--text-text-description-color);
+  margin-bottom: 15px;
+}
+
+.faq__accordion-flush {
+  grid-area: "faq__accordion-flush";
+  max-width: 100%;
+  width: 100%;
+}
+
+.accordion-item:last-child {
+  border-bottom: var(--accordion-underline-properties) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: inherit;
+  background-color: var(--secondary-section-bg-color);
+  box-shadow: none;
+  border: none;
+}
+
+.accordion-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.faq__accordion-btn {
+  font-size: 22px;
+  font-weight: 600;
+  background-color: var(--secondary-section-bg-color);
+}
+
+@media (min-width: 992) {
+  .faq__accordion-btn {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 768) {
+  .faq__accordion-btn {
+    font-size: 23px;
+  }
+}
+
+.faq__accordion-body {
+  background-color: var(--secondary-section-bg-color);
+  color: var(--text-description-color);
+}
+
+.faq__contact-form {
+  grid-area: "faq__contact-form";
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--primary-site-background-color);
+  width: 100%;
+  max-width: 528px;
+  box-sizing: border-box;
+}
+
+.faq__form {
+  width: 100%;
+  max-width: 600px;
+  margin: 12px 0 12px 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.faq__form-control {
+  display: flex;
+  flex-direction: column;
+  color: var( --contacts-faq-validation-error-message-color);
+}
+
+.faq__form-control input:focus {
+  outline: 0;
+}
+
+.faq__form-control.success input {
+  border: var(--contacts-faq-validation-success-properties);
+}
+
+.faq__form-control.error input {
+  border: var(--contacts-faq-validation-error-properties);
+}
+
+.faq__form-input,
+.faq__form-textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 24px;
+  background-color: var(--secondary-section-bg-color);
+  border: 2px solid var(--brand-color-light);
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.faq__form-textarea {
+  height: 120px;
+  resize: none;
+}
+
+.faq__form-submit {
+  display: block;
+  width: 100%;
+  background-color: var(--brand-color);
+  color: var(--text-color-light);
+  border: none;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.faq__form-submit:hover {
+  background-color: var(--primary-bar-background-color);
+}
+
+.modal-dialog-centered {
+  justify-content: center;
+}
+
+.modal-content {
+  width: 350px;
+}
+
+.modal-header {
+  font-family: var(--subtitle-font-family);
+  flex-direction: column-reverse;
+  border-bottom: 0;
+}
+
+.modal-title {
+  line-height: 40px;
+}
+
+.modal-header svg {
+  width: 50px;
+  height: 50px;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-footer {
+  border-top: 0;
+  justify-content: center;
+}
+
+.btn-success {
+  width: 18%;
+  border-width: 0;
+  background-color: var(--brand-color);
+}
+
+.btn-success:hover {
+  background-color: var(--primary-bar-background-color);
+}

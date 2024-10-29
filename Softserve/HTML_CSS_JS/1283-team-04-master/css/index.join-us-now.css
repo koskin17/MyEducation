@@ -1,0 +1,93 @@
+/* Join us now section */
+
+/* General container styles */
+.join-us__container {
+  background-image: url('../images/backgroundforjoin.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 30px;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  min-height: 300px;
+}
+
+.join-us {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+}
+
+.join-us__heading {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.join-us__highlight {
+  color: var(--brand-color);
+}
+
+.join-us__description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.join-us__offer {
+  color: var(--primary-subtitle-color); 
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+
+.join-us__btn {
+  color: var(--secondary-text-color);
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: var(--primary-button-color);
+  transition: background-color 0.3s ease;
+  font-weight: 700;
+  width: 140px;
+  text-align: center;
+}
+
+.join-us__btn:hover {
+  background-color: var(--btn-primary-alt-hover-bg-color);
+}
+
+
+@media (max-width: 768px) and (min-width: 600px) {
+  .join-us__container {
+    padding: 20px;
+    max-width: 600px; 
+  }
+
+  .join-us__heading {
+    font-size: 20px; 
+  }
+
+  .join-us__description, .join-us__offer {
+    font-size: 14px; 
+  }
+
+  .join-us__btn {
+    width: 120px;
+    padding: 8px 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .join-us__container {
+    max-width: 1000px; 
+  }
+}

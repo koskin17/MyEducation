@@ -1,0 +1,202 @@
+.promotion-cards {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 24px;
+    padding: 30px 0px 60px;
+    overflow-x: hidden;
+
+}
+
+.promotion-cards__item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+    padding: 0px 24px;
+    min-width: 272px;
+
+}
+
+.promotion-cards__card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    border-radius: 10px;
+    background-size: cover;
+}
+
+.promotion-cards__item--wireless .promotion-cards__card-content {
+    background-image: url('../images/promotion-cards/wireless-mouse-promotion-card.png');
+    min-height: 352.75px;
+    background-position: 54% 0%;
+    flex-basis: 80%;
+    justify-content: space-around;
+    padding: 7% 8%;
+}
+.promotion-cards__item--wireless .promotion-cards__placeholder {
+    flex-basis: 20%;
+}
+
+.promotion-cards__item--keygo .promotion-cards__card-content {
+    background-image: url('../images/promotion-cards/headphones-promotion-card.png.png');
+    min-height: 372.4px;
+    background-position: 87% 0%;
+    flex-basis: 38%;
+    text-align:right;
+    justify-content: space-between;
+    padding: 10% 10%;
+}
+
+.promotion-cards__item--keygo .promotion-cards__placeholder {
+    flex-basis: 62%;
+}
+
+.promotion-cards__item--novascreen .promotion-cards__card-content {
+    background-image: url('../images/promotion-cards/monitor-promotion-card.png');
+    min-height: 455.6px;
+    background-position: 50% 0%;
+    flex-basis: 50%;
+    justify-content:space-around;
+    text-align: center;
+}
+
+.promotion-cards__item--novascreen .promotion-cards__placeholder {
+    flex-basis: 50%;
+    content: "";
+}
+.promotion-cards__countdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3%;
+}
+
+.promotion-cards__countdown-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    outline: 1px solid black;
+    border-radius: 5px;
+    width: 44.55px;
+    max-width: 75.9px;
+    aspect-ratio: 1/1;
+}
+.promotion-cards__item h2 {
+    font-size: 30px;
+    color: var(--primary-text-color);
+}
+
+.promotion-cards__countdown-number{
+    font-family: var(--subtitle-font-family);
+    font-size: 36px;
+}
+
+.promotion-cards__purpose-span{
+    font-size: 17px;
+    color: var(--promotion-cards-subtitle-color);
+}
+
+.promotion-cards__price-value {
+    font-size: 17px;
+    color: var(--text-color)
+}
+
+.promotion-cards__price {
+    font-size: 26px;
+}
+
+.promotion-cards__item--keygo .promotion-cards__price-value {
+    font-size: 36px;
+    color: var(--brand-color);
+    font-weight: bold;
+}
+
+.promotion-cards__price-old {
+    font-size: 21px;
+}
+
+.promotion-cards__card-content p{
+    font-size: 17px;
+}
+
+.promotion-cards__label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.promotion-cards__item--keygo .promotion-cards__label{
+    color: var(--secondary-background-color);
+}
+
+.promotion-cards__item--novascreen .promotion-cards__label{
+    color: var(--brand-color);
+}
+
+@media (min-width: 480px) {
+    .promotion-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0px;
+    }    
+
+    .promotion-cards__item--wireless {
+        flex-basis: 100%;
+        padding-bottom: 15px;
+    }
+
+    .promotion-cards__item--wireless .promotion-cards__card-content {
+        background-position: 54% 100%;
+    }
+
+    .promotion-cards__item--keygo {
+        flex-basis: 50%;
+        min-width: auto;
+        padding-top:0;
+        padding-bottom: 0%;
+        padding-right: 15px;
+    }
+
+    .promotion-cards__item--novascreen {
+        flex-basis: 50%;
+        min-width: auto;
+        padding-left: 15px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .promotion-cards__item--wireless {
+        flex-basis: 33%;
+        padding-bottom: 0px;
+    }
+
+    .promotion-cards__item--keygo {
+        flex-basis: 33%;
+    }
+
+    .promotion-cards__item--novascreen {
+        flex-basis: 33%;
+    }
+
+    .promotion-cards__item--keygo .promotion-cards__card-content {
+        background-position: 86% 0%;
+    }
+
+    .promotion-cards__item h2 {
+        font-size: 36px;
+        padding-bottom: 0px;
+    }
+}
+
+@media (min-width: 1200px){
+    .promotion-cards__card-content{
+        max-height: 375px;
+    }
+
+    .promotion-cards__item--novascreen .promotion-cards__card-content{
+        min-height: 0px;
+    }
+}

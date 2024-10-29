@@ -1,0 +1,95 @@
+Привет! CSS Grid — это мощный инструмент для создания сеток и раскладки элементов на странице. Он позволяет легко размещать и выравнивать элементы в виде столбцов и строк, что делает его идеальным для создания гибких и адаптивных макетов.
+
+Основы CSS Grid
+Чтобы начать работать с Grid, нужно превратить контейнер в grid-контейнер. Это делается с помощью свойства display: grid;, после чего все его дочерние элементы становятся grid-элементами.
+
+css
+Копировать код
+.container {
+  display: grid;
+}
+Основные свойства Grid
+Создание строк и столбцов: Используем свойства grid-template-columns и grid-template-rows для создания сетки. Каждое значение представляет собой ширину столбца или высоту строки.
+
+css
+Копировать код
+.container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px; /* Три столбца шириной 100px каждый */
+  grid-template-rows: 200px 200px; /* Две строки высотой 200px каждая */
+}
+Использование fr для гибкости: fr — это единица измерения, которая распределяет доступное пространство. Например, 1fr занимает одну часть доступного места, а 2fr — две части.
+
+css
+Копировать код
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Два столбца: первый занимает 1 часть, второй — 2 части */
+}
+Пропуск элементов и разметка сетки: Можно задавать для каждого элемента, где именно он будет располагаться в сетке. Для этого указываем начальные и конечные линии с помощью grid-column и grid-row.
+
+css
+Копировать код
+.item1 {
+  grid-column: 1 / 3; /* Занимает первый и второй столбцы */
+  grid-row: 1 / 2; /* Занимает первую строку */
+}
+Шаблонные строки (grid-template-areas): Можно использовать grid-template-areas, чтобы создавать сетку более наглядно. Мы присваиваем каждому элементу область (grid-area), а затем размещаем его по именованным областям.
+
+css
+Копировать код
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header"
+    "sidebar content";
+}
+
+.header {
+  grid-area: header;
+}
+.sidebar {
+  grid-area: sidebar;
+}
+.content {
+  grid-area: content;
+}
+Пример макета с CSS Grid
+HTML:
+
+html
+Копировать код
+<div class="container">
+  <div class="header">Header</div>
+  <div class="sidebar">Sidebar</div>
+  <div class="content">Content</div>
+</div>
+CSS:
+
+css
+Копировать код
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* Сетка из двух столбцов */
+  grid-template-areas:
+    "header header"
+    "sidebar content";
+  gap: 10px; /* Отступы между элементами */
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}
+В этом примере создается макет с заголовком и двумя колонками: боковой панелью и контентом. Grid делает весь макет адаптивным и удобным в настройке.
+
+CSS Grid отлично подходит для создания различных макетов, будь то сетка изображений, адаптивные страницы или более сложные структуры!

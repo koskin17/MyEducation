@@ -1,0 +1,98 @@
+/* Hero Section Styles */
+.hero {
+  padding: 60px 24px;
+  text-align: left;
+  background-color: var(--primary-bar-background-color);
+
+  .hero__container {
+    .hero__content {
+      display: flex;
+      flex-wrap: wrap;
+
+      @media (min-width: 767px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero__title {
+        font-size: var(--hero-title-size-mobile);
+        line-height: 1;
+        letter-spacing: normal;
+        font-weight: 400;
+        color: var(--brand-color);
+        font-family: "Bebas Neue", sans-serif;
+
+        @media (min-width: 767px) {
+          font-size: var(--hero-title-size-tablet);
+          line-height: 1;
+          letter-spacing: normal;
+        }
+
+        @media (min-width: 992px) {
+          font-size: var(--hero-title-size);
+          line-height: 1;
+          letter-spacing: normal;
+        }
+      }
+      .hero__breadcrumbs {
+        margin-top: 35px;
+        list-style: none;
+        padding: 0;
+
+        .hero__breadcrumbs-items {
+          display: flex;
+          align-items: center;
+
+          .hero__breadcrumbs-item {
+            display: flex;
+            align-items: center;
+
+            & + .hero__breadcrumbs-item::before {
+              content: ">";
+              font-weight: normal;
+              margin: 0 3px;
+              color: var(--description-text-color);
+            }
+
+            &:last-child {
+              font-weight: bold;
+
+              .hero__breadcrumbs-item-link {
+                pointer-events: none;
+                text-decoration: underline;
+              }
+            }
+
+            .hero__breadcrumbs-item-link {
+              text-decoration: none;
+              font-size: var(--caption-size-mobile);
+              color: var(--description-text-color);
+              line-height: 1.4;
+              letter-spacing: normal;
+            }
+          }
+        }
+      }
+
+      .hero__description {
+        margin-top: 50px;
+        color: var(--description-text-color);
+        font-size: var(--subtitle-size-mobile);
+        line-height: 1.4;
+        letter-spacing: normal;
+        font-weight: 600;
+        text-align: justify;
+
+        @media (min-width: 767px) {
+          margin-top: 0;
+        }
+
+        @media (min-width: 767px) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

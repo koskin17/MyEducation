@@ -1,0 +1,91 @@
+/* General Styles */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  scroll-behavior: smooth;
+  --secondary-color: #ffffff;
+  --primary-background-color: #272727;
+  --secondary-background-color: #1c4c97;
+  --secondary-text-color: rgb(208 208 208);
+  --text-color: rgb(106, 106, 106);
+  --border-color: rgb(78 78 78);
+  --secondary-border-color: rgb(230 230 230);
+  --brand-color: #ff7b16;
+  --primary-site-background-color: #fff;
+  --primary-text-color: #272727;
+  --text-color-light: #fff;
+  --primary-subtitle-color: #555;
+  --border-delimiter-color: #e0e0e0;
+  --menu-text-color: rgb(255 255 255 / 76%);
+  --description-text-color: rgba(255, 255, 255, 0.8);
+  --primary-bar-background-color: #272727;
+  --secondary-bar-background-color: #1c4c97;
+  --primary-button-color: #1c4c97;
+  --btn-primary-alt-hover-color: #fff;
+  --btn-primary-alt-hover-bg-color: #272727;
+  --content-container-size: 1200px;
+  --content-gutter: 24px;
+  --burger-line-size: 2px;
+  --hero-title-size-mobile: 60px;
+  --hero-title-size-tablet: 84px;
+  --hero-title-size: 109px;
+  --subtitle-size-mobile: 19px;
+  --caption-size-mobile: 14px;
+  --static-icon-color: #6a6a6a;
+  --secondary-section-bg-color: #f8f3ef;
+  --text-description-color: rgb(106, 106, 106);
+  --hot-badge-sale-background-color: #464C5C;
+  --hot--badge-out-of-stock-background-color: #ffddd9;
+  --hot--badge-out-of-stock-text-color: #cc3833;
+  --accordion-underline-properties: 1px solid #ddd;
+  --subtitle-font-family: "Bebas Neue", sans-serif;
+  --filters-background-color: rgb(247, 248, 250);
+  --category-title-color: #f47920;
+  --category-subtitle-color: #666;
+  --filters-title-color: #f47920;
+  --filters-range-background: #f47920;
+  --filters-option-background: #f0f0f0;
+  --filters-range-value-background: #e0e0e0;
+  --filters-apply-button-background: #f47920;
+  --filters-apply-button-color: #fff;
+  --filters-clear-button-color: #f47920;
+  --product-background-color: #fff;
+  --product-price-color: #f47920;
+  --product-price-old-color: rgb(39, 39, 39);
+  --product-button-background: #003366;
+  --product-button-hover-background: #0055a5;
+  --product-label-background: #333;
+  --product-label-color: #fff;
+  --promotion-cards-subtitle-color: #4D4D4D;
+  --contacts-faq-validation-error-properties: 1px solid #FF0000;
+  --contacts-faq-validation-success-properties: 1px solid #00b600;
+  --contacts-faq-validation-error-message-color: #FF0000;
+  }
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: var(--primary-site-background-color);
+  color: var(--primary-text-color);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  max-width: var(--content-container-size);
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  body.no-scroll {
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,101 @@
+.hero-section {
+    background-image: url(../images/video.png); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    box-sizing: border-box;
+    display: block;
+    flex-basis: 100%;
+    min-width: 320px;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 130px 0px 160px 0px;
+    height:100%; 
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    color: var(--secondary-color);
+    width: 1200px;
+    height: 585.39px;
+    padding: 0px 15px;
+    margin: 0px 170.5px;
+}
+
+.hero-text-block {
+    margin-bottom: 20px;
+}
+
+/* SVG іконка */
+.hero-icon {
+    font-size: 17px;
+    font-kerning: auto;
+    font-optical-sizing: auto;
+    font-stretch: 100%;
+    font-weight: 400;
+    line-height: 23.8px;
+    text-align: left;
+    height: 100px;
+    width: 100px;
+}
+
+
+.text-block-1 {
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 670px;
+    height: 327px;
+}
+
+.text-block-1 p {
+    font-family:"Bebas Neue",sans-serif;
+    font-size: 109px; 
+    font-weight: 400;
+    line-height: 109px;
+    color:var(--secondary-color);
+    text-align: left;
+}
+
+
+.text-block-2 {
+    padding: 20px;
+    width: 600px;
+    height: 27px;
+}
+
+.text-block-2 p {
+    font-family: "Nunito",sans-serif;
+    font-size: 19px; 
+    font-weight: 400;
+    line-height: 27px;
+    color:#FFFFFFCC;
+    text-align: left;
+}
+
+
+.w-text-content {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    width: 500px;
+    height: 16px;
+}
+
+.w-text-content u {
+    font-family: "Nunito",sans-serif;
+    font-size: 10px;
+    text-decoration-line: underline;
+    text-decoration-style:solid ;
+    font-weight: 600;
+    letter-spacing: 3px;
+    line-height: 10px;
+    text-align: left;
+}
+
+.text-ui-brand-color {
+    color: var(--brand-color);
+    font-size: 20px;
+}

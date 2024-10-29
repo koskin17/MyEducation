@@ -1,0 +1,16 @@
+@import url(global.css);
+@import url(global.header-nav.css);
+@import url(index.header-hero.css);
+@import url(index.bestsellers.css);
+@import url(index.promo-offers.css);
+@import url(index.promotion-cards.css);
+@import url(index.categories.css);
+@import url(index.join-us-now.css);
+@import url(index.positive-aspects.css);
+@import url(index.promo.css);
+@import url(index.hero.partial.css);
+@import url(index.carousel-slider.css);
+@import url(index.main.partial.css);
+@import url(index.testimonials.css);
+@import url(index.news.css);
+@import url(global.footer.css);

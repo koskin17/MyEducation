@@ -1,0 +1,236 @@
+<section class="faq">
+  <div class="faq__wrapper">
+    <div class="faq__header">
+      <h2 class="faq__title">FAQ</h2>
+      <p class="faq__subtitle">
+        <span class="faq__highlight">/</span>
+        Have questions?
+        <span class="faq__highlight">/</span>
+      </p>
+      <p class="faq__description">
+        Contact us if your have not found the answer to your question.
+      </p>
+      <div
+        class="accordion accordion-flush faq__accordion-flush"
+        id="accordionFlushExample"
+      >
+        <div class="accordion-item faq__accordion-item">
+          <h3 class="accordion-header faq__accordion-header">
+            <button
+              class="accordion-button collapsed faq__accordion-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              How can I track my order?
+            </button>
+          </h3>
+          <div
+            id="flush-collapseOne"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body faq__accordion-body">
+              Once your order has shipped, you will receive a confirmation email
+              with a tracking number. You can use this number to track your
+              package through our shipping partner’s website.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item faq__accordion-item">
+          <h3 class="accordion-header faq__accordion-header">
+            <button
+              class="accordion-button collapsed faq__accordion-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo"
+              aria-expanded="false"
+              aria-controls="flush-collapseTwo"
+            >
+              Do you offer international shipping?
+            </button>
+          </h3>
+          <div
+            id="flush-collapseTwo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body faq__accordion-body">
+              Yes, we offer international shipping to many countries. Shipping
+              rates and delivery times vary based on your location.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item faq__accordion-item">
+          <h3 class="accordion-header faq__accordion-header">
+            <button
+              class="accordion-button collapsed faq__accordion-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseThree"
+              aria-expanded="false"
+              aria-controls="flush-collapseThree"
+            >
+              What types of payment do you accept?
+            </button>
+          </h3>
+          <div
+            id="flush-collapseThree"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body faq__accordion-body">
+              We accept various payment methods, including major credit cards
+              (Visa, MasterCard, American Express), debit cards, PayPal, and
+              digital wallets. All payment methods are securely processed
+              through our encrypted payment gateway.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item faq__accordion-item">
+          <h3 class="accordion-header faq__accordion-header">
+            <button
+              class="accordion-button collapsed faq__accordion-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseFour"
+              aria-expanded="false"
+              aria-controls="flush-collapseFour"
+            >
+              Can I modify my order after placing it?
+            </button>
+          </h3>
+          <div
+            id="flush-collapseFour"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body faq__accordion-body">
+              Once an order is placed, it is processed quickly to ensure timely
+              delivery. If you need to modify or cancel your order, please
+              contact our customer support team as soon as possible. We can make
+              changes if the order has not yet been processed or shipped.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item faq__accordion-item">
+          <h3 class="accordion-header faq__accordion-header">
+            <button
+              class="accordion-button collapsed faq__accordion-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseFive"
+              aria-expanded="false"
+              aria-controls="flush-collapseFive"
+            >
+              Do you offer gift cards?
+            </button>
+          </h3>
+          <div
+            id="flush-collapseFive"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body faq__accordion-body">
+              Yes, we offer gift cards in various denominations. You can
+              purchase them at our physical store locations. Gift cards are a
+              great way to give the gift of choice to someone special.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq__contact-form">
+      <form class="faq__form">
+        <div class="faq__form-control">
+          <input
+            class="faq__form-input username"
+            name="username"
+            type="text"
+            placeholder="Enter your full name"
+          />
+          <div class="error"></div>
+        </div>
+        <div class="faq__form-control">
+          <input
+            class="faq__form-input phone"
+            name="phone"
+            type="text"
+            placeholder="Enter your phone"
+          />
+          <div class="error"></div>
+        </div>
+        <div class="faq__form-control">
+          <input
+            class="faq__form-input e-mail"
+            name="e-mail"
+            type="text"
+            placeholder="Enter your e-mail"
+          />
+          <div class="error"></div>
+        </div>
+        <textarea
+          class="faq__form-textarea"
+          placeholder="Type your message"
+        ></textarea>
+        <button
+          class="btn btn-primary faq__form-submit"
+          type="submit"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Request a Quote
+        </button>
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title fs-5" id="staticBackdropLabel">
+                  Thank you!
+                </h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#ff7b16"
+                >
+                  <path
+                    d="m381-240 424-424-57-56-368 367-169-170-57 57 227 226Zm0 113L42-466l169-170 170 170 366-367 172 168-538 538Z"
+                  />
+                </svg>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">We will contact you shortly</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-dismiss="modal"
+                >
+                  Ok
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

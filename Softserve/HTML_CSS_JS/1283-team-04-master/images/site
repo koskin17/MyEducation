@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Page - NeuroKey 1000 Mechanical Keyboard</title>
+    <link
+      rel="shortcut icon"
+      href="img/favicon.ico"
+      type="image/x-icon"
+    />
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="product__new-label">NEW PRODUCT</h1>
+      <h2 class="product__title">NeuroKey 1000 Mechanical Keyboard</h2>
+      <p class="product__price">$99.99</p>
+    </header>
+
+    <main class="main">
+      <section class="product__description">
+        <p>
+          Upgrade your typing experience with the NeuroKey 1000 by NeuroGear, a
+          high-performance mechanical keyboard designed for ultimate precision
+          and style. Featuring a sleek, ergonomic layout, this keyboard is
+          perfect for gamers, coders, and creative professionals alike. Its
+          compact form ensures efficient desk space usage while maintaining a
+          full range of functionality.
+        </p>
+      </section>
+
+      <section class="product__specs">
+        <h3>Key Specs:</h3>
+        <ul>
+          <li><strong>Best for:</strong> Gaming</li>
+          <li><strong>Compatibility:</strong> Windows</li>
+          <li><strong>Special Feature:</strong> Custom keycaps</li>
+          <li><strong>Keys Type:</strong> Mechanical</li>
+          <li><strong>Connection:</strong> Wired</li>
+        </ul>
+      </section>
+
+      <section class="product__order">
+        <button class="product__order-button">Order Now</button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2024 NeuroGear. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
