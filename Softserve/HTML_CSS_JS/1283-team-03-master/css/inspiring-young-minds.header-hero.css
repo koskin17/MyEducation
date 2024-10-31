@@ -1,0 +1,64 @@
+.inspiring-young-minds__header-hero {
+  background-color: var(--inspiring-young-minds-header-background);
+  text-align: center;
+  padding: 60px 0;
+
+  @media (min-width: 1110px) {
+    padding: 50px 0;
+  }
+
+  .inspiring-young-minds__header-title {
+    font-family: var(--secondary-font-family);
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 45.5px;
+    color: var(--inspiring-young-minds-header-title);
+    padding: 0 20px;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+      line-height: 67px;
+    }
+
+    @media (min-width: 1110px) {
+      font-size: 3.5rem;
+      line-height: 67px;
+    }
+  }
+
+  .inspiring-young-minds__breadcrumb {
+    margin-top: 25px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-family: var(--primary-font-family);
+
+    @media (min-width: 1110px) {
+      font-size: 1rem;
+    }
+
+    .inspiring-young-minds__breadcrumb-list {
+      display: inline-flex;
+      list-style: none;
+
+      .inspiring-young-minds__breadcrumb-item:not(:last-child)::after {
+        content: ">";
+        margin: 10px;
+        color: var(--events-header-title-color);
+      }
+
+      .inspiring-young-minds__breadcrumb--home,
+      .inspiring-young-minds__breadcrumb--blog {
+        color: var(--inspiring-young-minds-header-title);
+        text-decoration: none;
+      }
+
+      .inspiring-young-minds__breadcrumb--home:hover,
+      .inspiring-young-minds__breadcrumb--blog:hover {
+        text-decoration: underline;
+      }
+      .inspiring-young-minds__breadcrumb--current {
+        color: var(--inspiring-young-minds-header-breadcrumb);
+      }
+    }
+  }
+}

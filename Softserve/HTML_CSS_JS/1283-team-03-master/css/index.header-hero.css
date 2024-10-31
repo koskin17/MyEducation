@@ -1,0 +1,115 @@
+.header__hero {
+  padding: 70px 24px 90px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  justify-items: center;
+  text-align: center;
+  font-family: var(--secondary-font-family);
+}
+
+.header__hero-subtitle {
+  font-family: var(--primary-font-family);
+  color: var(--primary-brand-color);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+}
+
+.header__hero-title {
+  color: var(--primary-text-color);
+  font-size: 54px;
+  font-weight: 400;
+  line-height: 70.2px;
+  padding: 20px 0 35px 0;
+}
+
+.header__hero-divider {
+  width: 272px;
+  height: 32px;
+}
+
+.header__hero-divider-image {
+  display: block;
+  height: 32px;
+  width: 272px;
+}
+
+.header__hero-description {
+  color: var(--header-text-color);
+  display: block;
+  margin: 20px 0;
+  line-height: 26.6px;
+  font-size: 19px;
+  font-family: var(--primary-font-family);
+  font-weight: 500;
+}
+
+.header__hero-discription {
+  color: var(--secondary-text-color);
+  display: block;
+  font-family: var(--primary-font-family);
+  line-height: 25.6px;
+}
+
+.header__hero-button {
+  background-color: #ae4f11;
+  font-size: 15.4px;
+  font-weight: 700;
+  font-family: var(--primary-font-family);
+  height: 50.4px;
+  width: 160.8px;
+  border-radius: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.header__hero-link {
+  color: white;
+  text-decoration: none;
+}
+
+.header__hero-image-container {
+  width: 100%;
+  max-width: 607.2px;
+  justify-self: center;
+}
+
+@media (min-width: 768px) {
+  .header__hero {
+    text-align: left;
+    justify-items: left;
+    grid-template-columns: 1fr 1.5fr;
+    grid-template-areas:
+      "subtitle image"
+      "title image"
+      "divider image"
+      "description image"
+      "discription image"
+      "button image";
+  }
+
+  .header__hero-subtitle {
+    grid-area: subtitle;
+  }
+  .header__hero-title {
+    grid-area: title;
+  }
+  .header__hero-divider {
+    grid-area: divider;
+  }
+  .header__hero-description {
+    grid-area: description;
+  }
+  .header__hero-discription {
+    grid-area: discription;
+  }
+  .header__hero-button {
+    grid-area: button;
+  }
+  .header__hero-image-container {
+    grid-area: image;
+  }
+}

@@ -1,0 +1,115 @@
+.blog-highlights {
+    background-color: var(--secondary-brand-color);
+  
+  .blog-highlights__headline {
+    color: var(--secondary-background-color);
+    font-family: var(--primary-font-family);
+    font-size: 12px;
+    letter-spacing: 2.4px;
+    text-align: center;
+  }
+
+  .blog-highlights__olive-branch-image {
+    display: block;
+    max-width: 272px;
+    margin: auto;
+  }
+  
+  .blog-highlights__title {
+    color:var(--title-color);
+    font-family: var(--secondary-font-family);
+    font-size: 47px;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .blog-highlights__subtitle {
+    color: var(--subtitle-color);
+    font-family: var(--primary-font-family);
+    font-size: 19px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .blog-highlights__blog-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; 
+  }
+  
+  .blog-highlights__blog-item {
+    width: 410px;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-right: 15px;
+  }
+  
+  .blog-highlights__blog-item-image {
+    border-radius: 25px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .blog-highlights__blog-item-content {
+    padding: 20px;
+  }
+  
+  .blog-highlights__blog-item-category {
+    color: var(--dot-color);
+    font-family: var(--primary-font-family);
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .blog-highlights__blog-item-title {
+    color: #212121;
+    font-family: var(--secondary-font-family);
+    font-size: 23px;
+    margin: 10px 0;
+  }
+  
+  .blog-highlights__blog-item-description {
+    color: var(--description-color);
+    font-family: var(--primary-font-family);
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .blog-highlights__blog-item-link {
+    display: inline-block;
+    color: var(--primary-partial-text-color);
+    background-color: var(--primary-brand-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 35px;
+    transition: background-color 0.3s;
+  }
+  
+  .blog-highlights__blog-item-link:hover {
+    background-color: var(--blog-item-link-color);
+  }
+}
+  
+  @media (max-width: 425px) {
+    .blog-highlights__title {
+      font-size: 28px;
+    }
+  
+    .blog-highlights__blog-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (min-width: 426px) {
+    .blog-highlights__blog-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .blog-highlights__blog-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }

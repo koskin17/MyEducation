@@ -1,0 +1,164 @@
+.events__presentation {
+  background-color: var(--events-presentations-background);
+  padding: 70px 0 110px;
+
+  .presentation__title {
+    font-family: var(--primary-font-family);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--events-presentations-title);
+    letter-spacing: 2.4px;
+    text-align: center;
+  }
+
+  .presentation__subtitle {
+    font-family: var(--secondary-font-family);
+    font-size: 2.3rem;
+    color: var(--events-presentations-primary-text-color);
+    margin: 25px;
+    line-height: 45.6px;
+    text-align: center;
+
+    .presentation__subtitle-dot {
+      color: var(--events-presentations-dot-color);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .presentation__subtitle {
+      font-size: 2.9rem;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .presentation__subtitle {
+      font-size: 3.5rem;
+    }
+  }
+
+  .presentation__image {
+    width: 272px;
+    height: 32px;
+    margin: 0 auto;
+  }
+
+  .presentation__description {
+    font-family: var(--primary-font-family);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--events-presentations-secondary-text);
+    line-height: 26.6px;
+    margin: 25px;
+    text-align: center;
+  }
+
+  .presentation__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .presentation__card {
+      background-color: var(--events-presentations-card-color);
+      border-radius: 2rem;
+      overflow: hidden;
+      position: relative;
+
+      @media (min-width: 768px) {
+        width: calc(50% - 1rem);
+      }
+
+      @media (min-width: 1000px) {
+        display: flex;
+        flex-direction: row;
+        height: 20rem;
+      }
+
+      .presentation__card__container-image {
+        height: 11.2rem;
+
+        @media (min-width: 768px) {
+          height: 14rem;
+        }
+
+        @media (min-width: 1000px) {
+          height: 25rem;
+          width: 30rem;
+        }
+
+        .card-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .presentation__card-info {
+        padding: 1.7rem;
+        align-items: start;
+
+        @media (min-width: 1000px) {
+          padding: 1.9rem;
+        }
+
+        .card-info__date {
+          font-family: var(--primary-font-family);
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: var(--primary-text-category-color);
+        }
+
+        .card-info__title {
+          font-family: var(--secondary-font-family);
+          font-size: 1.4rem;
+          font-weight: 400;
+          margin: 20px 0;
+          color: var(--events-presentations-primary-text-color);
+          line-height: 33px;
+
+          @media (min-width: 1000px) {
+            font-size: 1.6rem;
+            line-height: 36 px;
+          }
+        }
+
+        .card-info__location {
+          font-family: var(--primary-font-family);
+          font-size: 0.9rem;
+          font-weight: 500;
+          font-style: italic;
+          color: var(--events-presentations-secondary-text);
+
+          @media (min-width: 1000px) {
+            font-size: 1rem;
+          }
+        }
+
+        .card-info__button {
+          background-color: var(--events-presentations-card-button);
+          display: inline-block;
+          border-radius: 1.5rem;
+          padding: 0.8rem 1.8rem;
+          margin-top: 2.2rem;
+
+          .button-text {
+            text-decoration: none;
+            font-family: var(--primary-font-family);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--events-presentations-primary-text-color);
+          }
+        }
+      }
+    }
+  }
+}
+
+.presentation__wave-divider {
+  background-color: var(--events-presentations-background);
+}

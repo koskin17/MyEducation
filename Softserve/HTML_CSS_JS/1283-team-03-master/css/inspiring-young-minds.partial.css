@@ -1,0 +1,268 @@
+.inspiring-young-minds__background {
+  background-image: url(../img/inspiring-young-minds/inspiring-young-minds-background.svg);
+  background-size: cover;
+  background-position: center;
+
+  .inspiring-young-minds {
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+
+    .inspiring-young-minds__content {
+      margin-top: 90px;
+
+      @media (min-width: 768px) {
+        padding-right: 20px;
+        width: 60%;
+      }
+
+      @media (min-width: 1110px) {
+        width: 60%;
+      }
+
+      .inspiring-young-minds__container-image {
+        min-width: 17rem;
+        height: auto;
+
+        .inspiring-young-minds__image {
+          border-radius: 30px;
+        }
+
+        @media (min-width: 768px) {
+          max-width: 28.1rem;
+          height: auto;
+        }
+
+        @media (min-width: 1110px) {
+          min-width: 40.5rem;
+          height: auto;
+        }
+      }
+
+      .inspiring-young-minds__text {
+        .inspiring-young-minds__description {
+          font-family: var(--primary-font-family);
+          font-size: 1rem;
+          color: var(--inspiring-young-minds-text-color);
+          margin: 20px 0;
+          line-height: 25.6px;
+        }
+
+        .inspiring-young-minds__quote {
+          border-left: 1px solid var(--divider-color);
+          padding-left: 20px;
+
+          .inspiring-young-minds__quote-image {
+            width: 50px;
+            height: 50px;
+          }
+
+          .inspiring-young-minds__quote-text {
+            font-family: var(--primary-font-family);
+            font-size: 1.25rem;
+            line-height: 28px;
+            font-style: italic;
+            color: var(--inspiring-young-minds-quote-text);
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            @media (min-width: 768px) {
+              font-size: 1.5rem;
+              line-height: 32.2px;
+            }
+
+            @media (min-width: 1110px) {
+              font-size: 1.6rem;
+              line-height: 36.4px;
+            }
+          }
+        }
+
+        .inspiring-young-minds__title {
+          font-family: var(--secondary-font-family);
+          font-size: 1.3rem;
+          font-weight: 400;
+
+          @media (min-width: 768px) {
+            font-size: 1.5rem;
+          }
+        }
+
+        .inspiring-young-minds__accent {
+          font-family: var(--primary-font-family);
+          font-size: 1.2rem;
+          font-weight: 500;
+          color: var(--inspiring-young-minds-quote);
+        }
+
+        .inspiring-young-minds__description-italic {
+          font-size: 0.9rem;
+          font-style: italic;
+          font-weight: 500;
+          line-height: 25px;
+        }
+      }
+    }
+
+    .inspiring-young-minds__sidebar {
+      margin-top: 50px;
+
+      @media (min-width: 768px) {
+        padding-left: 20px;
+        margin-top: 90px;
+        width: 30%;
+      }
+
+      .inspiring-young-minds__importance-of-diversity {
+        .importance-of-diversity__image {
+          max-width: 70px;
+          height: auto;
+          border-radius: 50%;
+
+          @media (min-width: 768px) {
+            max-width: 120px;
+            height: auto;
+          }
+
+          @media (min-width: 1110px) {
+            width: 35%;
+            margin-left: 5%;
+          }
+        }
+
+        .inspiring-young-minds__importance-of-diversity__title {
+          font-family: var(--secondary-font-family);
+          font-size: 1.5rem;
+          font-weight: 400;
+          line-height: 33px;
+          color: var(--inspiring-young-minds-title-color);
+          margin-top: 20px;
+        }
+
+        .inspiring-young-minds__importance-of-diversity__description {
+          font-family: var(--primary-font-family);
+          font-size: 0.9rem;
+          line-height: 25.6px;
+          color: var(--inspiring-young-minds-text-color);
+          margin-top: 20px;
+
+          @media (min-width: 768px) {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .inspiring-young-minds__categories {
+      .inspiring-young-minds__categories-title {
+        font-family: var(--secondary-font-family);
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 33px;
+        color: var(--inspiring-young-minds-title-color);
+        margin-top: 20px;
+      }
+
+      .inspiring-young-minds__categories-list {
+        list-style: none;
+
+        .inspiring-young-minds__category-item {
+          display: flex;
+          flex-direction: row;
+          margin-top: 20px;
+
+          .category-item__image {
+            width: 20px;
+            height: 24px;
+          }
+
+          .category-item__text {
+            font-family: var(--primary-font-family);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--inspiring-young-minds-quote-text);
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    .inspiring-young-minds__related-posts {
+      .inspiring-young-minds__related-posts__title {
+        font-family: var(--secondary-font-family);
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 33px;
+        color: var(--inspiring-young-minds-title-color);
+        margin-top: 20px;
+
+        @media (min-width: 1110px) {
+          font-size: 1.5;
+        }
+      }
+
+      .inspiring-young-minds__related-list {
+        list-style: none;
+        margin-top: 20px;
+
+        .inspiring-young-minds__related-item {
+          display: flex;
+          flex-direction: row;
+          padding: 7.5px 0;
+
+          @media (min-width: 768px) {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .inspiring-young-minds__related-item__image {
+            max-width: 70px;
+            margin: 7.5px;
+
+            @media (min-width: 768px) {
+              max-width: 120px;
+            }
+
+            .related-item__image {
+              border-radius: 50%;
+            }
+          }
+
+          .related-item__content {
+            margin: 7.5px;
+            font-family: var(--primary-font-family);
+            font-weight: 700;
+
+            .related-item__content-date {
+              font-size: 0.8rem;
+              letter-spacing: 2.4px;
+              color: var(--inspiring-young-minds-read-data);
+              margin-bottom: 20px;
+            }
+
+            .related-item__content-title {
+              font-size: 1rem;
+              line-height: 25.6px;
+              color: var(--inspiring-young-minds-title-color);
+            }
+          }
+        }
+      }
+    }
+
+    .inspiring-young-minds__divider {
+      margin: 20px 0;
+      border: 0;
+      height: 1px;
+      background-color: var(--divider-color);
+    }
+
+    @media (min-width: 768px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+    }
+  }
+}

@@ -1,0 +1,183 @@
+/* Main container for the "Press Coverage" section */
+.press-coverage {
+    /* Container for all content */
+    .press-coverage-container {
+        background-color: var(--primary-brand-color);
+
+        /* Container for top part */
+        .press-coverage__part-top {        
+        
+            /* Header block with text and image */
+            .heading-block {
+                display: block;
+                
+                /* Container for text within the header block */
+                .heading-block__text-container {
+                    
+                    /* Section title */
+                    .heading-block__title {
+                        /* Styles for the title can be added here */
+                        color: var(--secondary-headlines-color);
+                        font-size: 12px;
+                        font-family: "DM Sans", sans-serif;
+                        display: block;
+                        height: 16.80px;
+                        min-width: 272px;
+                        max-width: 555px;
+                    }
+                    
+                    /* Container for title's text content */
+                    .heading-block__text-content {
+                        font-size: 38px;
+                        font-family: "Della Respira", serif;
+                        display: block;
+                        
+                        /* Main text of the title */
+                        .heading-block__text {
+                            /* Styles for the main title text */
+                            color: var(--primary-partial-text-color);
+                                                    
+                        }
+                        
+                        /* Decorative dot after the title */
+                        .heading-block__point {                        
+                            /* Additional styles for the dot */
+                            color: var(--dot-color);
+
+                        }
+                    }
+                }
+                
+                /* Image within the header block */
+                .heading-block__image {                
+                    /* Styles for the image, e.g., size and margins */
+                    min-height: 32px;
+                    min-width: 272px;
+                    max-height: 32px;
+                    max-width: 555px;
+                    
+                    
+                }
+            }
+            
+            /* Block with publication information */
+            .top-text-block {
+                
+                /* Container for text blocks */
+                .top-text-block__text-container {
+                    
+                    /* Content of each text block */
+                    .top-text-block__text-content {
+                        
+                        /* Article title */
+                        .top-text-block__title-text {                        
+                            /* Styles for the article title */
+                            color: var(--primary-partial-text-color);
+                            font-size: 16px;
+                            font-family: "DM Sans", sans-serif;
+                            display: block;
+                        }
+                        
+                        /* Line of text with additional information */
+                        .top-text-block__text-string {
+                            color: var(--secondary-partial-text-color);
+                            font-size: 14px;
+                            font-family: "DM Sans", sans-serif;
+                            display: block;
+                            
+                            /* Larger text within the line */
+                            .top-text-block__bigger-text {                            
+                                /* Styles for the highlighted text */
+                                font-weight: bold;
+                            }                        
+                        }
+                    }
+                }            
+            }
+        }
+        /* Container for bot part */
+        .press-coverage__part-bot {  
+            /* Main content block */
+            .main-block {
+                
+                /* Container for individual articles */
+                .main-block__items {
+                    display: block;
+                    
+                    /* Container for each article's text */
+                    .main-block__text-container {
+                        
+                        /* Article title */
+                        .main-block__title {
+                            /* Styles for the article title */
+                            color: var(--primary-partial-text-color);
+                            font-size: 22px;
+                            font-family: "Della Respira", serif;
+                            display: block;
+                        }
+                        
+                        /* Container for lines with information */
+                        .main-block__text-strings {
+                            
+                            /* Individual line with information */
+                            .main-block__text-string {
+                                color: var(--secondary-partial-text-color);
+                                font-size: 14px;
+                                font-family: "DM Sans", sans-serif;
+                                display: block;
+                                
+                                /* Larger text within each line */
+                                .main-block__bigger-text {                                
+                                    /* Styles for the emphasized text */
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+                        
+                        /* Text annotation for the article */
+                        .main-block__text-annotation {                        
+                            /* Styles for the annotation */
+                            color: var(--category-description-color);
+                            font-size: 16px;
+                            font-family: "DM Sans", sans-serif;
+                            display: block;
+                        }
+                    }
+                }
+                
+                /* Block for buttons */
+                .main-block__btn-grp {
+                    display: block;
+                    
+                    /* Link styled as a button */
+                    .main-block__link-button {
+                        
+                        /* Inner button element */
+                        .main-block__button {                        
+                            /* Styles for the button itself */
+                            color: var(--primary-partial-text-color);
+                            font-size: 15.4px;
+                            font-family: "DM Sans", sans-serif;
+                        }                    
+                    }
+                }
+                
+                /* Group of images */
+                .main-block__image-grp {
+                    display: block;
+                    
+                    /* Picture element */
+                    .main-block__picture {
+                        
+                        /* Image within the picture element */
+                        .main-block__image {                        
+                            /* Styles for the image */
+                            min-width: 320px;
+                            max-width: 555px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

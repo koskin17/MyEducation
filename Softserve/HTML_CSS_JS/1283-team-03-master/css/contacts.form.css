@@ -1,0 +1,120 @@
+.contacts-form {
+  background-image: url(../img/contacts/lighthouse.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.contacts-form__container {
+  display: grid;
+  gap: 60px;
+}
+
+.contacts-form__container-form {
+  background-color: var(--contacts-form-bg-color);
+  text-align: center;
+  padding: 60px;
+  border-radius: 30px;
+  width: 100%;
+}
+
+.contacts-form__container-heading {
+  color: var(--primary-headlines-color);
+  font-size: 12px;
+  font-family: var(--primary-font-family);
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  padding-top: 10px;
+  margin-bottom: 15px;
+}
+
+.contacts-form__container-subtitle {
+  color: var(--primary-partial-text-color);
+  font-family: var(--secondary-font-family);
+}
+
+.contacts-form__container-text {
+  font-size: 19px;
+  font-family: var(--primary-font-family);
+  color: var(--subtitle-color);
+  margin-bottom: 40px;
+}
+
+.contacts-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contacts-form__form-input,
+.contacts-form__form-textarea {
+  background-color: var(--contacts-form-bg-color);
+  border: 2px solid var(--contacts-form-border-color);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-family: var(--primary-font-family);
+  width: 100%;
+  font-weight: 700;
+  color: var(--secondary-text-color);
+}
+
+.contacts-form__form-textarea {
+  height: 150px;
+}
+
+.contacts-form__button {
+  background-color: var(--contacts-form-button-bg-color);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 24px;
+  margin: 30px 0 0 0;
+  color: var(--contacts-form-button-text-color);
+  font-size: 14px;
+  font-family: var(--primary-font-family);
+  font-weight: 700;
+  transition: transform 0.2s ease-in;
+}
+
+.contacts-form__button:hover {
+  background-color: var(--contacts-form-button-bg-hover-color);
+  color: var(--contacts-form-button-text-hover-color);
+}
+
+@media (max-width: 767px) {
+  .contacts-form {
+    padding: 0 20px 110px 20px;
+  }
+
+  .contacts-form__container-empty {
+    height: 60px;
+  }
+
+  .contacts-form__container-subtitle {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 768px) {
+  .contacts-form {
+    padding: 160px 18px;
+  }
+
+  .contacts-form__container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contacts-form__container-subtitle {
+    font-size: 33px;
+  }
+}
+
+@media (min-width: 992px) {
+  .contacts-form {
+    padding: 210px 28px;
+  }
+
+  .contacts-form__container-subtitle {
+    font-size: 36px;
+  }
+}

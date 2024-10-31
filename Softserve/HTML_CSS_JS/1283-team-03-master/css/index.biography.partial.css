@@ -1,0 +1,89 @@
+.biography {
+    text-align: center; 
+    padding: 20px;
+    background: url(../img/biography.png);
+    background-size: cover;
+}
+
+@media (min-width: 800px) {
+    .biography {
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.biography__title {
+    font-family: var(--primary-font-family);
+    color: var(--secondary-background-color); 
+    font-size: 12px;
+    margin-bottom: 30px;
+}
+
+.biography__subtitle {
+    font-family: var(--secondary-font-family);
+    color: var(----primary-text-color); 
+    font-size: 47px;
+    margin-bottom: 30px;
+}
+
+.biography__experience-text {
+    font-family: var(--primary-font-family);
+    color: var(--events-secondary-text-color); 
+    font-size: 19px;
+    margin: 40px auto;
+    max-width: 800px; 
+}
+
+.biography__list {
+    display: block;
+    max-width: 785px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.biography__list-item {
+    display: block; 
+    margin-bottom: 40px;
+}
+
+.biography__image {
+    margin-right: 20px; 
+    border-radius: 10px;
+    max-width: 170px;
+    display: block;
+    float:left;
+}
+
+.biography__year {
+    font-family: var(--primary-font-family);
+    color: var(--secondary-background-color);
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.biography__title em {
+    font-family: var(--primary-font-family);
+    font-size: 16px;
+    color: var(--primary-text-color); 
+    display: block;
+    margin-bottom: 10px;
+    text-align: justify;
+    max-width: 100%; 
+}
+
+.biography__description {
+    font-family: var(--primary-font-family);
+    text-align: justify;
+    font-size: 16px;
+    color: var(--secondary-text-color); 
+    max-width: 100%; 
+}
+
+
+.biography__decorative-branch{
+    display: block;
+    max-width: 273px;
+    margin: auto;
+}

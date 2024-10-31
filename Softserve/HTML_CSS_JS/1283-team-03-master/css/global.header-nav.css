@@ -1,0 +1,220 @@
+body.overflow-hidden {
+  overflow: hidden; 
+}
+
+header {
+  background: var(--primary-header-background-color);
+  position: relative;
+  z-index: 1;
+}
+
+.header__nav {
+  height: 103.1px;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: var(--primary-font-family);
+  display: flex;
+  overflow-y: hidden;
+  max-width: 1200px;
+  background-color: var(--primary-header-background-color);
+  align-items: center;
+  padding: 5px 24px 5px;
+  gap: 30px;
+  justify-content: space-between;
+}
+
+.header__menu-link {
+  font-size: 16px;
+  color: var(--header-text-color);
+  font-weight: 500;
+}
+
+.header__logo-container {
+  width: 119px;
+  height: 88.1px;
+}
+.header__logo-image {
+  display: block;
+  width: 119px;
+  height: 88.1px;
+}
+
+@media (max-width: 1023px) {
+  .header__menu {
+    list-style-type: none;
+    top: -100vh;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    width: 100%;
+    background-color: var(--primary-header-background-color);
+    height: 100vh;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    gap: 20px;
+    z-index: 1;
+  }
+
+  .header__socials {
+    gap: 20px;
+    top: -100vh;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .header__socials-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-brand-color);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+  }
+
+  .header__socials-item img {
+    width: 17.5px;
+    height: 17.5px;
+  }
+
+  .header__menu-btn {
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 19px 8px;
+    margin-left: auto;
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+    order: 3;
+  }
+
+  .header__menu-btn:hover {
+    opacity: 0.6;
+  }
+
+  .header__navicon {
+    display: block;
+    width: 24px;
+    height: 2px;
+    position: relative;
+    background-color: black;
+    cursor: pointer;
+    transition: background 0.2s ease-out;
+  }
+
+  .header__navicon::before,
+  .header__navicon::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background-color: black;
+    transition: all 0.2s ease-out;
+  }
+
+  .header__navicon:before {
+    top: 7px;
+  }
+
+  .header__navicon:after {
+    top: -7px;
+  }
+
+  .header.nav-visible .header__menu {
+    top: 103.1px;
+  }
+
+  .header.nav-visible .header__socials {
+    top: 450px;
+  }
+
+  .header.nav-visible .header__background,
+  .header.nav-visible .header__nav-menu {
+    background: var(--text-dark);
+  }
+
+  .header.nav-visible .header__navicon {
+    background: transparent;
+  }
+
+  .header.nav-visible .header__navicon::before {
+    transform: rotate(-45deg);
+  }
+
+  .header.nav-visible .header__navicon::after {
+    transform: rotate(45deg);
+  }
+
+  .header.nav-visible .header__navicon::before,
+  .header.nav-visible .header__navicon::after {
+    top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header__nav {
+    padding: 10px 40px 5px;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .header__menu {
+    list-style-type: none;
+    display: flex;
+    max-width: 650px;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    height: 103.1px;
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .header__menu-link {
+    font-size: 15px;
+  }
+
+  .header__menu-btn {
+    display: none;
+  }
+
+  .header__socials {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .header__socials-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-brand-color);
+    height: 33px;
+    width: 33px;
+    border-radius: 50%;
+  }
+
+  .header__socials-item img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header__social-icons {
+    width: 20px;
+    height: 20px;
+  }
+}

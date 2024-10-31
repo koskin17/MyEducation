@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Della+Respira&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-brand-color: #7e8734;
+  --secondary-brand-color: #f4ebd9;
+  --primary-headlines-color: #7e8734;
+  --secondary-headlines-color: #feae1c;
+  scroll-behavior: smooth;
+  --primary-font-family: "DM Sans", sans-serif;
+  --secondary-font-family: "Della Respira", serif;
+  --primary-text-color: #212121;
+  --secondary-text-color: #737373;
+  --primary-partial-text-color: #fff;
+  --secondary-partial-text-color: #e8e8e8;
+  --dot-color: #feae1c;
+  --divider-color: #d3d3d3;
+  --secondary-background-color: #c05713;
+  --primary-text-category-color: #f3ebd9;
+  --category-description-color: #ffffffa3;
+  --title-color: #4f3823;
+  --subtitle-color: #565656;
+  --description-color: #737373;
+  --blog-item-link-color: #ff7f50;
+
+  --events-secondary-text-color: #565656;
+  --events-header-title-color: var(--primary-partial-text-color);
+  --events-header-dot-color: var(--secondary-headlines-color);
+  --events-breadcrumb-color: #e6bca1;
+  --events-partial-dot-color: var(--secondary-background-color);
+  --evets-partial-accent-color: var(--secondary-background-color);
+  --events-partial-description-color: var(--secondary-text-color);
+  --events-presentations-background: var(--primary-headlines-color);
+  --events-presentations-title: var(--secondary-headlines-color);
+  --events-presentations-primary-text-color: var(--primary-partial-text-color);
+  --events-presentations-dot-color: var(--secondary-headlines-color);
+  --events-presentations-secondary-text: var(--secondary-partial-text-color);
+  --events-presentations-card-color: #777f30;
+  --events-presentations-card-title: var(--secondarybrand-color);
+  --events-presentations-card-button: var(--secondary-background-color);
+
+  --about-author-title-color: var(--secondary-background-color);
+  --about-author-subtitle-color: var(--primary-text-color);
+  --about-author-dot-color: var(--dot-color);
+  --about-author__image-description: var(--events-secondary-text-color);
+  --about-author__quotation: var(--primary-text-color);
+  --about-author__text-biography: #7b7b7b;
+  --about-author__image-typewriter: var(--secondary-text-color);
+
+  --contacts-header-title-color: var(--primary-partial-text-color);
+  --contacts-header-title-dot-color: var(--dot-color);
+  --contacts-header-link-primary-color: #ffffff99;
+  --contacts-header-link-secondary-color: var(--primary-partial-text-color);
+  --contacts-contact-the-author-heading-color: var(--primary-text-color);
+  --contacts-line-divider-color: var(--dot-color);
+  --contacts-contact-the-author-color: var(--secondary-text-color);
+  --contacts-faq-title-color: var(--secondary-background-color);
+  --contacts-faq-questions-color: var(--primary-text-color);
+  --contacts-faq-dot-color: var(--secondary-background-color);
+  --contacts-faq-subtitle-color: var(--subtitle-color);
+  --contacts-faq-accordion-button-color: var(--primary-text-color);
+  --contacts-faq-accordion-body-color: var(--description-color);
+  --contacts-form-bg-color: var(--primary-text-color);
+  --contacts-form-border-color: #7e87341f;
+  --contacts-form-button-bg-color: var(--secondary-background-color);
+  --contacts-form-button-text-color: #fff;
+  --contacts-form-button-bg-hover-color: #fff;
+  --contacts-form-button-text-hover-color: var(--primary-text-color);
+
+  --primary-header-background-color: #f3ebd9;
+  --header-text-color: var(--events-secondary-text-color);
+  --header-nav-text-color: var(--events-secondary-text-color);
+  --header-nav-hover-text-color: #c05713;
+
+  --inspiring-young-minds-header-background: var(--secondary-background-color);
+  --inspiring-young-minds-header-title: var(--primary-partial-text-color);
+  --inspiring-young-minds-header-breadcrumb: var(--events-breadcrumb-color);
+  --inspiring-young-minds-text-color: var(--secondary-text-color);
+  --inspiring-young-minds-quote: var(--primary-headlines-color);
+  --inspiring-young-minds-quote-text: var(--subtitle-color);
+  --inspiring-young-minds-title-color: var(--primary-text-color);
+  --inspiring-young-minds-read-data: var(--secondary-background-color);
+
+  --footer-background-color: var(--primary-text-color);
+  --footer-title-color: var(--primary-partial-text-color);
+  --footer-primary-text-color: var(--primary-text-category-color);
+  --footer-secondary-text-color: #a6a6a6;
+  --footer-paragraph-color: #d7d7d7;
+  --footer-social-icon-color: var(--secondary-background-color);
+  --footer-divider-color: #4d4d4d;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}

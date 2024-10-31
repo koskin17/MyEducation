@@ -1,0 +1,98 @@
+/*body {
+    margin: 0;
+    padding: 0; 
+    height: 100%;
+}*/
+#book-promo {
+    display:flex;
+    background-size: cover;
+    position:relative;
+    justify-content: center;
+    align-items:center;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    padding:35px;
+    width:100%;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    height:100vh;
+    gap:55px;
+}
+
+#book-promo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height:auto;
+    width:100%;
+    background-image: url('../img/book-promo-background.webp');
+    background-size:cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity:0.6;
+    z-index:-2;
+    overflow: hidden; 
+}
+#book-promo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+.book-promo__book-cover {
+    background-image: url('../img/book-promo.webp');
+    width:385px;
+    background-size: cover;
+}
+.book-promo__title {
+    font-weight: 700;
+    color: #feae1c; 
+    margin-bottom: 15px;
+    letter-spacing:2.4px;
+    line-height:16.8px;
+    font-size: 12px;
+    text-transform: lowercase;
+    font-family:"DM Sans", sans-serif; 
+}
+.book-promo__subtitle {
+    font-size: 38px;
+    color: #ffffff; 
+    margin-bottom: 20px;
+    font-family: "Della Respira", serif;
+}
+.book-promo__subtitle-dot {
+    font-size: 47px;
+    color: rgb(254, 174, 28);
+  }
+.book-promo__description {
+    font-size: 19px;
+    color: #ffffffd9;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-family:"DM Sans", sans-serif;
+}
+.book-promo__button {
+    display: inline-block;
+    padding:12px 24px;
+    background-color: #7e8734;
+    color: #ffffff;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:15.4px;
+    border-radius:25px;
+    margin:-10px;
+    transition: background-color 0.5s ease, transform 0.5s ease;
+    font-family: "Della Respira", serif;
+}
+.book-promo__button:hover {
+    background-color: #ffffff;
+    color:black;
+    }

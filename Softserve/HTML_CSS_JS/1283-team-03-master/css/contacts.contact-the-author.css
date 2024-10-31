@@ -1,0 +1,100 @@
+.contact-the-author {
+    background-image: url(../img/contacts/background-leaves.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.contact-the-author__ways {
+    color: var(--contacts-contact-the-author-heading-color);
+    font-family: var(--secondary-font-family);
+}
+
+.contact-the-author__list {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.contact-the-author__divider {
+    border: none;
+    border-top: 3px solid var(--contacts-line-divider-color);
+}
+
+.contact-the-author__text {
+    font-size: 16px;
+    font-family: var(--primary-font-family);
+    color: var(--contacts-contact-the-author-color);
+    line-height: 1.6;
+}
+
+.contact-the-author__contacts {
+    font-size: 16px;
+    font-family: var(--primary-font-family);
+    color: var(--contacts-contact-the-author-color);
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.contact-the-author__strong-em {
+    font-style: italic;
+}
+
+.contact-the-author__photo {
+    max-width: 1170px;
+    border-radius: 50px;
+}
+
+@media(max-width: 767px) {
+    .contact-the-author {
+        padding: 90px 24px 45px 24px;
+    }
+
+    .contact-the-author__list {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-the-author__ways {
+        font-size: 22px;
+    }
+
+    .contact-the-author__divider {
+        width: 38px;
+    }
+}
+
+@media(min-width: 768px) {
+    .contact-the-author {
+        padding: 105px 32px 60px 32px;
+    }
+
+    .contact-the-author__list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .contact-the-author__ways {
+        font-size: 23px;
+    }
+
+    .contact-the-author__divider {
+        width: 20px;
+    }
+}
+
+@media(min-width: 1024px) {
+    .contact-the-author {
+        padding: 120px 40px 60px 40px;
+    }
+
+    .contact-the-author__list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .contact-the-author__ways {
+        font-size: 24px;
+    }
+
+    .contact-the-author__divider {
+        width: 27px;
+    }
+}
