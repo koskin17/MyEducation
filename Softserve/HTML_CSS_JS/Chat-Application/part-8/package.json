@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "quick-chat": "file:",
     "socket.io": "^2.1.0"
   }
 }

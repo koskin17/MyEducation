@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "1283-fetch": "file:",
     "express": "^4.21.1"
   }
 }
