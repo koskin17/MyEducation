@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stickerz</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/alert.css" />
+    <link rel="shortcut icon" href="img/baby-yoda.svg" type="image/x-icon" />
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="common.header.partial.html"></header>
+    <main data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="index.main.partial.html"></main>
+    <div class="alert-container container"></div>
+    <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="index.product-info.partial.html"></div>
+    <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="index.cart.partial.html"></div>
+    <script src="js/index.js"></script>
+  </body>
+</html>

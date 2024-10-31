@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "title": "Baby Yoda",
+    "image": "baby-yoda.svg",
+    "description": "A cute sticker of Baby Yoda, the beloved character from the Star Wars universe, ideal for decorating laptops, water bottles, and notebooks.",
+    "price": 49.99
+  },
+  {
+    "id": "2",
+    "title": "Banana",
+    "image": "banana.svg",
+    "description": "A fun and vibrant banana sticker, perfect for adding a pop of color and playfulness to any surface.",
+    "price": 19.99
+  },
+  {
+    "id": "3",
+    "title": "Girl",
+    "image": "girl.svg",
+    "description": "A stylish and trendy sticker featuring a girl character, great for personalizing notebooks, phone cases, and more.",
+    "price": 24.99
+  },
+  {
+    "id": "4",
+    "title": "Viking",
+    "image": "viking.svg",
+    "description": "A bold and adventurous Viking sticker, capturing the essence of the warrior spirit, perfect for adding a touch of bravery to your belongings.",
+    "price": 34.99
+  }
+]
