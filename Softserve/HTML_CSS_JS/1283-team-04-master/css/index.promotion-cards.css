@@ -60,6 +60,7 @@
     flex-basis: 50%;
     justify-content:space-around;
     text-align: center;
+    padding: 0px 10px;
 }
 
 .promotion-cards__item--novascreen .promotion-cards__placeholder {
@@ -69,20 +70,20 @@
 .promotion-cards__countdown {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 3%;
+    justify-content: center;
+    gap: 10%;
 }
 
 .promotion-cards__countdown-item {
     display: flex;
     flex-direction: column;
     flex: 1;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
-    outline: 1px solid black;
+    outline: 1px solid var(--border-color);
     border-radius: 5px;
-    width: 44.55px;
-    max-width: 75.9px;
+    min-width: 44.55px;
+    max-width: 86.96px;
     aspect-ratio: 1/1;
 }
 .promotion-cards__item h2 {
@@ -125,7 +126,7 @@
 
 .promotion-cards__label {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .promotion-cards__item--keygo .promotion-cards__label{
@@ -134,6 +135,17 @@
 
 .promotion-cards__item--novascreen .promotion-cards__label{
     color: var(--brand-color);
+}
+
+.promotion-cards__price-value {
+    color: var(--secondary-background-color);
+    font-weight: bold;
+}
+
+.promotion-cards__countdown-label{
+    color: var(--primary-text-color);
+    font-size: small;
+    font-weight: lighter;
 }
 
 @media (min-width: 480px) {
@@ -179,6 +191,10 @@
 
     .promotion-cards__item--novascreen {
         flex-basis: 33%;
+    }
+
+    .promotion-cards__item--novascreen .promotion-cards__card-content{
+        padding-top: 6%;
     }
 
     .promotion-cards__item--keygo .promotion-cards__card-content {

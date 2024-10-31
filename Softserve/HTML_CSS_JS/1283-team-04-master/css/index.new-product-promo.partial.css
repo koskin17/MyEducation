@@ -1,0 +1,86 @@
+.new-products-promo {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-products-promo__text-content {
+    display: flex;
+    padding: 90px 30px;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+    box-sizing: border-box;
+    text-align: left;
+    flex: 1 1 0;
+}
+
+.new-products-promo__image {
+    display: flex;
+    background-image: url(../images/promotion-cards/new-product-keyboard.png);
+    background-position: 0% 100%;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    min-height: 192px;
+    flex: 1 1 0;
+}
+
+.new-products-promo__title {
+    font-size: 12px;
+    color: var(--brand-color);
+    font-weight: bold;
+}
+
+.new-products-promo__text-content h2 {
+    font-family: var(--subtitle-font-family);
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+.new-products-promo__description {
+    font-size: 17px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.new-products-promo__price {
+    font-size: 20px;
+    color: var(--brand-color);
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.new-products-promo__specs-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #333;
+}
+
+.key-specs {
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.new-products-promo__button {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.new-products-promo__button--primary {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: var(--brand-color);
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+@media (min-width: 770px) {
+    .new-products-promo{
+        flex-direction: row;
+        max-width: none;
+    }
+    
+}

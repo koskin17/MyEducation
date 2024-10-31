@@ -66,6 +66,23 @@
   --contacts-faq-validation-error-properties: 1px solid #FF0000;
   --contacts-faq-validation-success-properties: 1px solid #00b600;
   --contacts-faq-validation-error-message-color: #FF0000;
+  --cart-color-primary: #2E5BFF;
+  --cart-color-primary-dark: #1D45E3;
+  --cart-color-danger: #FF4444;
+  --cart-color-danger-hover: #FF2222;
+  --cart-color-text: #1A1F36;
+  --cart-color-text-secondary: #9199AB;
+  --cart-color-text-light: #666;
+  --cart-color-border: #E6E8EC;
+  --cart-color-border-light: #eee;
+  --cart-color-border-input: #ddd;
+  --cart-color-background: #FFFFFF;
+  --cart-color-background-secondary: #f5f5f5;
+  --cart-color-background-hover: rgba(145, 153, 171, 0.1);
+  --cart-color-background-modal: rgba(0, 0, 0, 0.5);
+  --cart-shadow-modal: 0 0 10px rgba(0, 0, 0, 0.2);
+  --cart-shadow-light: 0 0 10px rgba(0, 0, 0, 0.1);
+  --cart-shadow-notification: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
 
 body {

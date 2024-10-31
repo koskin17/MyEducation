@@ -33,7 +33,7 @@ const products = [
 ];
 
 /* После генерации списка продуктов переходим в index.products.partial.html и в class="products__list" и копируем одну article как пример, а потом пишем функцию с этим примером.
-Функця принимаем prosucts */
+Функция принимаем products */
 
 function renderProducts(products) {
   let productsHtml =
@@ -43,19 +43,18 @@ function renderProducts(products) {
     /* При каждой итерации по циклу мы в productsHtml дописывает сам html, в котором меняет код тех частей, которые будут меняться в зависимости от продукта: класс картинки остаётся неизменным, а вот сама картинка и её alt меняются в зависимости от картинки */
     productsHtml += ` 
         <article class="products__item">
-                
-                <img class="products__image" src="${product.img}" alt="${product.title}">
-                <h3 class="products__name">${product.title}</h3>
-                <p class="products__description">${product.description}</p>
-                <div class="products__actions">
-                    <button class="products__button products__button--info button button-card">
-                        Info
-                    </button>
-                    <button class="products__button products__button--buy button button-card">
-                        Buy - $${product.price}
-                    </button>
-                </div>
-            </article>`;
+            <img class="products__image" src="${product.img}" alt="${product.title}">
+            <h3 class="products__name">${product.title}</h3>
+            <p class="products__description">${product.description}</p>
+            <div class="products__actions">
+                <button class="products__button products__button--info button button-card">
+                    Info
+                </button>
+                <button class="products__button products__button--buy button button-card">
+                    Buy - $${product.price}
+                </button>
+            </div>
+        </article>`;
   }
   /* В резульате, цикл будет проходить по всем продуктам, брать прописанный html между тегами article, вставлять в него информацию про продукт и дописывать эту строку к строке productsHtml.
   После этого productsHtml будет обычной строкой, которая просто записывается в document.querySelector.

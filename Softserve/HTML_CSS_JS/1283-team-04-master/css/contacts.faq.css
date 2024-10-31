@@ -62,7 +62,7 @@
   font-size: 19px;
   margin-top: 25px;
   padding-bottom: 15px;
-  border-bottom: 1px var(--text-text-description-color);
+  border-bottom: 1px var(--description-text-color);
   margin-bottom: 15px;
 }
 
@@ -136,6 +136,10 @@
   color: var( --contacts-faq-validation-error-message-color);
 }
 
+.error {
+  min-height: 24px;
+}
+
 .faq__form-control input:focus {
   outline: 0;
 }
@@ -153,9 +157,8 @@
   display: block;
   width: 100%;
   padding: 12px;
-  margin-bottom: 24px;
   background-color: var(--secondary-section-bg-color);
-  border: 2px solid var(--brand-color-light);
+  border: 2px solid var(--secondary-border-color);
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
@@ -164,6 +167,7 @@
 .faq__form-textarea {
   height: 120px;
   resize: none;
+   margin-bottom: 24px;
 }
 
 .faq__form-submit {
