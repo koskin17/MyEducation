@@ -1,0 +1,10 @@
+.button {
+    display: inline-block;
+    background-color: var(--secondary-background-color);
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    color: var(--primary-text-color);
+    border: 1px solid var(--border-color);
+}
