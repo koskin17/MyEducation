@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Basside Store</title>
+        <link rel="icon" type="favicon" href="./assets/icons/global/favicon-32x32.png">
+        <link
+            rel="shortcut icon"
+            href="https://placekitten.com/96/139"
+            type="image/x-icon"
+        />
+        <script
+            src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Connection styles and scripts of Embla Carousel -->
+        <link rel="stylesheet" href="https://unpkg.com/embla-carousel/embla.css" />
+        <!-- Connection of Embla Carousel scripts -->
+        <script src="https://unpkg.com/embla-carousel/embla.umd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/embla-carousel@6.0.0/embla-carousel.umd.js"></script>
+        <link rel="stylesheet" href="./styles/pages/index.css" />
+    </head>
+    <body>
+        <!-- Global Header | Yehor Honcharenko -->
+        <header
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="global.header.partial.html"
+        ></header>
+        <!-- feautures-section | Ferenchuk Andrii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.feautures-section.partial.html"
+        ></section>
+        <!-- products-tabs-section | Ferenchuk Andrii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.products-tabs-section.partial.html"
+        ></section>
+        <!-- general.selection.info | Ishchenko Tetiana -->
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.general.selection.info.partial.html"
+        ></div>
+        <!-- jbl-speaker | Diakov Roman -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.jbl-speaker.partial.html"
+        ></section>
+        <!-- special-offer  | Hrushinskyi Serhii -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.special-offer.partial.html"
+        ></section>
+        <!-- headphones | Kosteniuk Liubomyr -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.headphones.partial.html"
+        ></section>
+        <!-- *block name?* | Vasylieva Yuliia -->
+
+        <!-- three-headphone-carousel | Kindzerskyi Andriy -->
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.three-headphone-carousel.partial.html"
+        ></div>
+        <!-- speakers | Kostyantyn Zeykin -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.speakers.partial.html"
+        ></section>
+        <!-- *block name?* | LEBID KHRYSTYNA -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.video.partial.html"
+        ></section>
+        <div
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.companies-carousel.partial.html"
+        ></div>
+        <!-- out-customers-say | Mykhailo Prihodko -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.out-customers-say.partial.html"
+        ></section>
+        <!-- popular-articles | HULA ANASTASIIA -->
+        <section
+            data-hx-trigger="load"
+            data-hx-swap="outerHTML"
+            data-hx-get="index.popular-articles.partial.html"
+        ></section>
+        <!-- Footer | Vitalii Baranov -->
+
+        <script type="module" src="./scripts/index.js"></script>
+        <script type="text/javascript" src="./scripts/headphones.js"></script>
+    </body>
+</html>

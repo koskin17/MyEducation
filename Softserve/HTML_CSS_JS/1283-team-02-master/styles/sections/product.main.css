@@ -1,0 +1,359 @@
+.main {
+    max-width: 100%;
+    margin: 40px auto;
+    padding: 20px;
+    color: rgb(42, 42, 42);
+}
+
+.product__nav {
+    text-align: left;
+    margin: 40px 0;
+    
+}
+
+.product__nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-size: 17px;
+    color: rgb(42, 42, 42);
+}
+
+/* Контейнер для мобільного вигляду — одна колонка */
+.product__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Ліва колонка: Галерея продукту */
+.product__left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-wrapper {
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+}
+
+.product__image {
+    width: 80%; 
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+/* Стрілки */
+.arrow-left, .arrow-right {
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    font-size: 40px; 
+    color: #2b2b2b; 
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    user-select: none; 
+    z-index: 2;
+    pointer-events: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-left {
+    left: 10px; 
+}
+
+.arrow-right {
+    right: 10px; 
+}
+
+.image-wrapper:hover .arrow-left,
+.image-wrapper:hover .arrow-right {
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    color: #555;
+}
+
+.product__thumbnail-list {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.product__thumbnail {
+    width: 15%;
+    height: auto;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+/* Права колонка: Інформація про продукт */
+.product__right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product__info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 16px;
+}
+
+.product__availability {
+    color: rgb(97,168,64);
+    font-size: 17px;
+    font-family: PT Sans, sans-serif;
+}
+
+.product__name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.product__code {
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.product__price {
+    font-size: 20px;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.product__info-hr {
+    border: none;
+    border-top: 1px solid rgb(237, 240, 245);
+    margin-top: 50px;
+}
+
+.product__purchase {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    height: 55px;
+}
+
+.product__quantity {
+    width: 80px;
+    height: 100%;
+    font-size: 13px;
+    border: 1px solid rgb(197, 203, 214);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.product__add-to-cart {
+    padding: 5px 25px;
+    height: 100%;
+    background-color: #2877b6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product__add-to-cart:hover {
+    background-color: #2877b6;
+}
+
+.product__details {
+    padding: 16px;
+}
+
+.product__details-title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #000;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 3px solid #2877b6;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.description-hr {
+    border: none;
+    border-top: 1px solid rgb(237, 240, 245);
+    margin: 0;
+    position: relative;
+    top: -10px;
+}
+
+.product__description {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.product__specs-title {
+    font-size: 17px;
+    margin-bottom: 25px;
+    font-weight: normal;
+}
+
+.product__specs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 17px;
+}
+
+/* Медіа-запит для великих екранів (від 768px і вище) */
+@media (min-width: 768px) {
+    .main {
+        max-width: 1200px;
+    }
+
+    .product__content {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        align-items: flex-start;
+    }
+
+    .product__left-column, 
+    .product__right-column {
+        flex: 1;
+    }
+
+    .product__thumbnail {
+        width: 20%;
+        height: auto;
+    }
+
+    .product__gallery .product__image {
+        width: 80%; 
+    }
+
+    .product__purchase {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+/* Модальне вікно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.modal-header {
+    background-color: #f7f7f7; 
+    width: 100%;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.product-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+    font-family: "PT Sans", sans-serif;
+}
+
+.close {
+    font-size: 50px;
+    cursor: pointer;
+    color: #9199ab;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    gap: 20px;
+}
+
+.product__thumbnail-small-wrapper {
+    flex: 0;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-start; 
+    width: 100%;
+    
+}
+
+.product__thumbnail-small {
+    width: 70px; 
+    height: auto;
+    padding: 5px;
+    border: 2px solid black; 
+}
+
+.modal-image-wrapper {
+    flex: 2;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.product__image-large {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.modal-arrow-left, .modal-arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: #2b2b2b;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-arrow-left {
+    left: 25%;
+}
+
+.modal-arrow-right {
+    right: 25%; 
+}
+
+.modal-arrow-left:hover, .modal-arrow-right:hover {
+    color: #555;
+}

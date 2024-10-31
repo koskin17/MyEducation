@@ -1,0 +1,95 @@
+.product-tabs__container {
+  min-width: 320px;
+  max-width: 1200px;
+  margin: 5px auto;
+  padding: 0 12px;
+
+  .product-tabs ul {
+    font-family: "PT Sans", sans-serif;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    font-weight: bold;
+    color: var(--products-tabs-ul-color);
+
+    li {
+      padding: 15px 20px;
+    }
+
+    li:hover {
+      cursor: pointer;
+    }
+
+    li.active-tab {
+      display: block;
+      color: black;
+      border-bottom: 3px solid var(--products-tabs-active-tab-bottom-color);
+    }
+  }
+
+  .product-cards {
+    display: flex;
+    flex-direction: column;
+
+    .product-cards__tab--wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      place-items: center;
+      gap: 30px;
+      padding-top: 30px;
+
+      @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (min-width: 1024px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+
+    .product-card {
+      max-width: 411px;
+      width: 100%;
+      outline: 2px solid var(--products-tabs-product-card-outline-color);
+      border-radius: 1px;
+      padding: 15px;
+      padding: 34px 31px;
+
+      .product-text-info {
+        font-size: 1.2rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 8px;
+
+        a.link-to-product-page {
+          text-decoration: none;
+        }
+
+        a.add-to-cart-button-link {
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 0.8rem;
+          .add-to-cart-button-el {
+            max-width: 94px;
+            max-height: 53px;
+            color: var(--products-tabs-product-card-add-to-cart-text-color);
+            background-color: var(
+              --products-tabs-product-card-add-to-cart-bg-color
+            );
+            padding: 10px;
+          }
+        }
+
+        .product-card-text-info__price {
+          font-weight: bold;
+          color: var(--products-tabs-product-card-price-text-color);
+        }
+      }
+    }
+  }
+}
+
+.hidden {
+ display: none !important;
+}

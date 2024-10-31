@@ -1,0 +1,113 @@
+/* Styles for speakers section in the index page */
+
+.speakers {
+    margin: 0 auto;
+    width: 100%;
+    min-width: 320px;
+    max-width: 1200px;
+    padding: 90px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    font-family: "Heebo", sans-serif;
+}
+
+.speakers__title {
+    display: block;
+    text-align: center;
+    color: var(--speakers__title);
+    font-size: 4rem;
+    font-weight: bolder;
+}
+
+.speakers__wave {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.speakers__wave-picture {
+    margin: 25px 0 15px 0;
+    height: 32px;
+    width: auto;
+}
+
+.speakers__slogan {
+    display: block;
+    text-align: center;
+    font-size: 19px;
+}
+
+.speakers__cataloge {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    /* gap: 20px; */
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+    /* position: relative; */
+}
+
+.speakers__card {
+    margin-top: var(--speakers__card-top-margin);
+    min-width: 16%;
+    padding-bottom: 34px;
+    display: flex;
+    flex-direction: column;
+    /* flex: 1 1 calc(16% - 40px); */
+    box-sizing: border-box;
+    margin-left: var(--speakers__card-left-right-margin);
+    margin-right: var(--speakers__card-left-right-margin);
+    border: solid 1px var(--speakers__card-border);
+
+    .speakers__card-image {
+        width: 170px;
+        height: 182px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    .speakers__card-title {
+        margin-top: 8px;
+        padding: 0 10px;
+        font-size: 19px;
+        text-decoration: underline;
+        color: var(--speakers__card-title-font);
+    }
+
+    .speakers__card-price {
+        display: flex;
+        margin-top: 16px;
+        padding: 0 10px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--speakers__card-price-font-color);
+    }
+
+    .speakers__card-link {
+        display: block;
+        width: fit-content;
+        margin: 24px 0 0 10px;
+        padding: 19px 21px;
+        background-color: var(--speakers__card-link-background-color);
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--speakers__card-link-font-color)
+    }
+
+    @media (max-width: 320px) {
+        .speakers__card-link {
+            font-size: 13px;
+        }
+
+        .speakers__title {
+            font-size: 1rem;
+        }
+    }
+}

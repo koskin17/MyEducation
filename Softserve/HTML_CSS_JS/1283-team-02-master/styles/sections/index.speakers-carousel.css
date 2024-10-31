@@ -1,0 +1,26 @@
+.speakers-carousel__inner {
+    display: flex;
+    justify-content: center;
+    min-height: 300px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.speakers-carousel__slides {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.speakers-carousel__btn-prev, .speakers-carousel__btn-next {
+    display: block;
+    cursor: pointer;
+    background-color: var(--speakers__catalog-next-prev-bg-gallery-buttons);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: var(--speakers-carousel__btn-text-color);
+    font-size: 25px;
+}

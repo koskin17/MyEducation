@@ -1,0 +1,9 @@
+/* Це універсальна сторінка шаблон продкутів(товарів). Тут підключаємо css секцій */
+@import url(../reset.css);
+@import url(../global.css);
+
+/* Global Header | Yehor Honcharenko */
+@import url(../sections/global.header.css);
+/* Product Main | Mykyta Mantsov */
+@import url(../sections/product.main.css);
+/* Назва секції | Ім'я Прізвище */

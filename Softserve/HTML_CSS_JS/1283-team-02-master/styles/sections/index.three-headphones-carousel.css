@@ -1,0 +1,110 @@
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* Основний блок каруселі */
+.three-headphone-carousel {
+    overflow: hidden;
+    width: 300px; /* Ширина одного слайда */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь */
+}
+
+/* Трек для прокрутки слайдів */
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Плавна анімація прокрутки */
+}
+
+/* Стилі для кожного слайду */
+.headphone-carousel__item {
+    width: 300px; /* Ширина слайда */
+    padding: 20px;
+    text-align: center;
+    color: white; /* Колір тексту */
+}
+
+/* Стилі для заголовків */
+.headphone-carousel__title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.headphone-carousel__details, .headphone-carousel__model, .headphone-carousel__price {
+    margin-bottom: 10px;
+}
+
+/* Стилі для зображень */
+.headphone-carousel__image {
+    width: 100%;
+    height: auto;
+}
+
+/* Кнопки навігації */
+.carousel-btn {
+    background-color: #007bb5;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.carousel-btn--prev {
+    left: 10px;
+}
+
+.carousel-btn--next {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: #005f8a;
+}
+
+/* Унікальні кольори фону для кожного елемента каруселі */
+.headphone-carousel__item--first {
+    background-image: url(../../assets/images/svg-bg-carousel/bgyellow2.svg); /*  фон для жовтих навушників */
+}
+
+.headphone-carousel__item--second {
+    background-image: url(../../assets/images/svg-bg-carousel/bgblue1.svg); /* фон для синіх навушників */
+}
+
+.headphone-carousel__item--third {
+    background-image: url(../../assets/images/svg-bg-carousel/blackbg1.svg); /*  фон для чорних навушників */
+}
+
+/* Стилі для кнопок "BUY NOW" та "ALL HEADPHONES" */
+.headphone-carousel__link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.headphone-carousel__link--buy {
+    background-color: #ff9800; /* Помаранчевий колір кнопки "BUY NOW" */
+}
+
+.headphone-carousel__link--all {
+    background-color: #607d8b; /* Сірий колір кнопки "ALL HEADPHONES" */
+}
+
+.headphone-carousel__link--buy:hover {
+    background-color: #e68a00; /* Трохи темніший відтінок при наведенні */
+}
+
+.headphone-carousel__link--all:hover {
+    background-color: #546e7a; /* Трохи темніший відтінок при наведенні */
+}

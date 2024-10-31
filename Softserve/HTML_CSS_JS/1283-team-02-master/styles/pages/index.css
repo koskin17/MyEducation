@@ -1,0 +1,27 @@
+/* Сторінка для стилів лише index.html. Тут підключаємо css секцій */
+@import url(../reset.css);
+@import url(../global.css);
+
+/* Global Header | Yehor Honcharenko */
+@import url(../sections/global.header.css);
+/* Назва секції | Ім'я Прізвище */
+@import url(../sections/out-customers-say.css);
+/* Назва секції | Andrii Ferenchuk */
+@import url(../sections/features-section.css);
+/* Index general selection info | Tetiana Ishchenko*/
+@import url(../sections/general.selection.info.css);
+@import url(../sections/products-tabs-section.css);
+/* Index Headphones | Liubomyr Kosteniuk */
+@import url(../sections/headphones-section.css);
+/* Jbl-speaker | Roman Diakov */
+@import url(../sections/index.jbl-speaker.css);
+/* Speakers | Kostyantyn Zeykin */
+@import url(../sections//index.speakers.css);
+@import url(../sections//index.speakers-carousel.css);
+/* Companies-carousel Video | Krystyna Lebid */
+@import url(../sections/companies-carousel.css);
+@import url(../sections/video.css);
+/* special-offer  | Serhii Hrushynskyi */
+@import url(../sections/index.special-offer.css);
+/* three-headphones-carousel | Andrii Kindzerskyi*/
+@import url(../sections/index.three-headphones-carousel.css);

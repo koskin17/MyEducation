@@ -1,0 +1,150 @@
+/* Global styles for all pages (index, product etc.)  */
+:root {
+    scroll-behavior: smooth;
+
+    /* colors: global primitives */
+    --color-white: #fff;
+    --color-dark: #000;
+    --color-black: #2a2a2a;
+    --color-dark-gray: #2f2f2f;
+    --color-gray: #3b3b3b;
+    --color-light-gray: #474747;
+    --color-blue: #2877b6;
+    --color-transparent-white: rgba(255, 255, 255, 0.78);
+
+    /* global header | Yehor Honcharenko */
+    --header-top-bar-bg-color: var(--color-black);
+    --header-top-bar-contact-link-color-black: var(--color-black);
+    --header-top-bar-contact-link-color-white: var(--color-white);
+    --header-burger-color: var(--color-black);
+    --header-nav-link-color: var(--color-light-gray);
+    --header-nav-link-color-hover: var(--color-black);
+    --header-hero-title-color: var(--color-dark-gray);
+    --header-hero-text-color: var(--color-gray);
+    --header-hero-button-primary-blue-color: var(--color-blue);
+    --header-hero-button-primary-blue-text-color: var(--color-white);
+    --header-hero-button-primary-blue-hover-color: var(--color-dark);
+    --header-hero-button-clear-orange-text-color: var(--color-black);
+    --header-hero-bg-color: var(--color-white);
+
+    /* features section variables | Andrii Ferenchuk */
+    --fearures-svg-color: #2877b6;
+    --features-svg-bg-color: #f2f2f2;
+    /* end of features section */
+
+    /*selection info section | Tetiana Ishchenko*/
+    --description-bg-color: #F2F2F2;
+    --description-text-title-color: #2f2f2f;
+    --description-text-discover-color: #3B3B3B;
+    --description-text-baside-color:  #6C6C6C;
+    --menu-icons-bg-color:  #FFFFFF;
+    --menu-icons-img-color: #EB5112;
+    --menu-text-color: #2A2A2A;
+
+    /* end of section info section */
+    /* products-tabs section variables | Andrii Ferenchuk */
+    --products-tabs-ul-color: #808080;
+    --products-tabs-active-tab-bottom-color: #d4561b;
+    --products-tabs-product-card-outline-color: #add8e6;
+    --products-tabs-product-card-add-to-cart-text-color: #ffffff;
+    --products-tabs-product-card-add-to-cart-bg-color: #000000;
+    --products-tabs-product-card-price-text-color: #2877b6;
+    /* end of products-tabs section */
+
+    /*headphones section */
+    --headphones-color-blue: #2877b6;
+    --headphones-color-orange: #eb5112;
+    --headphones-color-yelow: #f3cb1f;
+    --headphones-color-gray: #85858e;
+    --headphones-color-white: #e0e0e0;
+    /* end of headphones section */
+    
+  
+    /*speakers section | Kostyantyn Zeykin */
+    --speakers__title: rgb(47, 47, 47);
+    --speakers__card-border: red;
+    --speakers__card-top-margin: 45px;
+    --speakers__card-left-right-margin: 15px;
+    --speakers__card-border: #f2f2f2;
+    --speakers__card-title-font: #2a2a2a;
+    --speakers__card-price-font-color: #2877b6;
+    --speakers__card-link-background-color: #2a2a2a;
+    --speakers__card-link-font-color: #fff;
+    --speakers__catalog-next-prev-bg-gallery-buttons: #2a2a2a;
+    --speakers__catalog-scroll-direction-arrow-color: #fff;
+    --speakers-carousel__btn-text-color: white;
+
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+}
+
+@media (min-width: 479px) {
+    .container {
+        padding: 0 24px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 24px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (min-width: 991px) {
+    .container {
+        padding: 0 24px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Heebo", sans-serif;
+}
+
+p,
+a,
+li,
+span {
+    font-family: "PT Sans", sans-serif;
+}
+
+body::-webkit-scrollbar {
+    width: 12px; 
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: var(--color-white); 
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--headphones-color-orange); 
+    border-radius: 5px; 
+    border: 2px solid var(--color-gray); 
+  }

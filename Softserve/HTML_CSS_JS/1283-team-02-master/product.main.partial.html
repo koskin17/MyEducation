@@ -1,0 +1,61 @@
+<main class="main">
+    <nav class="product__nav">
+        <a href="index.html" class="product__nav-link">Store homepage</a>
+    </nav>
+    <div class="product__content">
+        <div class="product__left-column">
+            <div class="product__gallery">
+                <div class="image-wrapper">
+                    <img src="" alt="" class="product__image" id="mainImage">
+                    <div class="arrow-left">&#10094;</div>
+                    <div class="arrow-right">&#10095;</div>
+                </div>
+                <div class="product__thumbnail-list">
+                    <img src="" alt="" class="product__thumbnail" id="thumbnailImage">
+                </div>
+            </div>
+        </div>
+        <div class="product__right-column">
+            <div class="product__info">
+                <div class="product__availability">In stock</div>
+                <h1 class="product__name" id="productName">Product Name</h1>
+                <p class="product__code" id="productCode">Product Code</p>
+                <p class="product__price" id="productPrice">$0.00</p>
+                <hr class="product__info-hr">
+            </div>
+
+            <div class="product__purchase">
+                <label for="quantity" class="product__quantity-label"></label>
+                <input type="number" id="quantity" class="product__quantity" value="1" min="1" aria-label="Quantity">
+                <button class="product__add-to-cart" aria-label="Add to cart">Add to Cart</button>
+            </div>
+
+            <section class="product__details">
+                <h2 class="product__details-title">DESCRIPTION</h2>
+                <hr class="description-hr">
+                <p class="product__description" id="productDescription">Description goes here.</p>
+                <div class="product__specs">
+                    <h3 class="product__specs-title">Specs:</h3>
+                    <ul class="product__specs-list" id="productSpecs"></ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+<div id="modal" class="modal">
+    <div class="modal-header">
+        <h1 class="product-title" id="modalProductName">Product Name</h1>
+        <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class="product__thumbnail-small-wrapper">
+            <img src="" alt="" class="product__thumbnail-small" id="modalThumbnailImage">
+        </div>
+        <div class="modal-image-wrapper">
+            <img src="" alt="" class="product__image-large" id="modalMainImage">
+            <div class="modal-arrow-left">&#10094;</div>
+            <div class="modal-arrow-right">&#10095;</div>
+        </div>
+    </div>
+</div>
+<script src="/scripts/product-main.js"></script>

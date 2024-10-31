@@ -1,0 +1,47 @@
+.companies-carousel{
+    padding: 50px 0;
+    background-color: #f2f2f2;
+
+    .companies-carousel__container{
+        display: flex;
+        padding: 0 24px;
+    }
+    .companies-carousel__slide{
+        margin: 15px 0;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .companies-carousel__image{
+        justify-content: center;
+        align-items: center;
+        width: 85;
+    }
+    .companies-carousel__button{
+        border-radius: 50%;
+        border: none;
+        color: #f2f2f2;
+        background: #2a2a2a;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+
+    @media (min-width: 479px) {
+        
+    }
+    
+    @media (min-width: 767px) {
+        .companies-carousel__container{
+            padding: 0 32px;
+        }
+    }
+    
+    @media (min-width: 991px) {
+        .companies-carousel__container{
+            padding: 0 15px;
+            margin: 0 120px;
+        }
+    }
+}

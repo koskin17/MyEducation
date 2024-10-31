@@ -1,0 +1,201 @@
+.jbl-speaker {
+    background-image: url('../../assets/images/img-general-info/svg/jbl-speaker-background.svg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    overflow: hidden;
+    transform: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.jbl-speaker__container {
+    max-width: 1200px;
+    padding-left: 24px;
+    padding-top: 90px;
+    padding-bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.jbl-speaker__title {
+    color: var(--color-white);
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.jbl-speaker__details-list {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.jbl-speaker__details-item {
+    margin-bottom: 16px;
+}
+
+.jbl-speaker__details-label {
+    color: var(--color-white);
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.jbl-speaker__details-value,
+.jbl-speaker__details-description {
+    color: var(--color-transparent-white);
+    font-size: 16px;
+}
+
+.jbl-speaker__price {
+    color: var(--color-white);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+
+    .jbl-speaker__price-value {
+        font-size: 31px;
+    }
+}
+
+
+.jbl-speaker__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.jbl-speaker__buy-now,
+.jbl-speaker__more-models {
+    display: inline-block;
+    max-width: 100%;
+    text-decoration: none;
+    text-align: center;
+    overflow: visible;
+    cursor: pointer;
+
+    transition: color .2s ease-in, background-color .2s ease-in, border-color .2s ease-in, box-shadow .2s ease-in;
+    transition-behavior: normal, normal, normal, normal;
+    transition-duration: 0.2s, 0.2s, 0.2s, 0.2s;
+    transition-timing-function: ease-in, ease-in, ease-in, ease-in;
+    transition-delay: 0s, 0s, 0s, 0s;
+    transition-property: color, background-color, border-color, box-shadow;
+
+    word-wrap: break-word;
+
+    padding: 23px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    color: var(--color-white);
+    margin: 5px;
+    border-radius: 3px;
+    border: none;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+@media (min-width: 364px) {
+    .jbl-speaker__actions {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .jbl-speaker__actions {
+        flex-direction: column;
+        text-align: left;
+    }
+}
+
+@media (min-width: 768px) {
+    .jbl-speaker__container {
+    }
+
+    .jbl-speaker__image-container {
+        object-position: 100% 100%;
+        float: right;
+        display: block;
+        margin-left: auto;
+        min-width: 398px;
+        clear: right;
+
+    }
+
+    .jbl-speaker__image {
+
+    }
+
+    .jbl-speaker__info {
+        text-align: left;
+    }
+}
+
+.jbl-speaker__more-models {
+    width: 166px;
+    height: 65px;
+    text-align: center;
+}
+
+.jbl-speaker__buy-now {
+    width: 129px;
+    height: 65px;
+    text-align: center;
+}
+
+.jbl-speaker__buy-now {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    display: inline-block;
+    max-width: 100%;
+    word-wrap: break-word;
+    font-weight: 700;
+    text-align: center;
+}
+
+.jbl-speaker__buy-now:hover {
+    background-color: var(--color-black);
+}
+
+.jbl-speaker__more-models {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    display: inline-block;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+    font-weight: 700;
+}
+
+.jbl-speaker__more-models:hover {
+    background-color: var(--color-blue);
+}
+
+.jbl-speaker__image-container {
+    margin-top: 24px;
+    min-width: 272px;
+    max-width: 744px;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.jbl-speaker__image {
+    min-width: 272px;
+    max-width: 714px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    object-fit: cover;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
