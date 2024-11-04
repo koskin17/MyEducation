@@ -1,7 +1,6 @@
 .contact-us {
   background-color: var(--color-black);
   background-image: url("../img/index-contact-us.png");
-  background-size: auto 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -12,7 +11,7 @@
 }
 .contact-us__content {
   max-width: 600px;
-  margin: 0;
+  margin: auto;
   text-align: left;
   z-index: 2;
 }
@@ -57,27 +56,27 @@
 
 @media (min-width: 768px) {
   .contact-us {
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 90px;
   }
 
   .contact-us__content {
-    max-width: 50%; 
+    max-width: 60%;
   }
 
   .contact-us__main-title {
-    font-size: 50px; 
+    font-size: 50px;
   }
 }
 
 @media (min-width: 1024px) {
   .contact-us__content {
-    max-width: 900px; 
+    max-width: 900px;
   }
 
   .contact-us__main-title {
-    font-size: 56px; 
+    font-size: 56px;
   }
 }

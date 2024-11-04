@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/contacts.css">
     <title>Contacts</title>
-    <link rel="shortcut icon" href="https://placekitten.com/96/139" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo_lamp.png" type="image/x-icon">
     <script src="https://unpkg.com/htmx.org@1.9.10"
         integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
         crossorigin="anonymous"></script>
@@ -16,6 +16,30 @@
 <body>
     <div class="hero-wrap header--dark">
         <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+
+        <section class="hero-single" style="background-image: url('../img/bg-hero-contacts.webp');">
+            <div class="container">
+                <h1>Contacts</h1>
+        
+                <ol class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope=""
+                        itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/" >
+                            <span itemprop="name">Home</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </li>›
+                    <li class="breadcrumbs__item breadcrumbs__item--active" itemprop="itemListElement" itemscope=""
+                        itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/contacts">
+                            <span itemprop="name">Contacts</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
     </div>
     <main>
             <!-- Collaboration/map section by Yevheniia-B -->
@@ -72,6 +96,7 @@
     </main>
     <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
    <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/svg.partial.html"></div>
-</body>
 
+   <script src = "./js/contacts.js"></script>
+</body>
 </html>

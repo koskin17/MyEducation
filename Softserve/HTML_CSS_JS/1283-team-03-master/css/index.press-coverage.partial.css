@@ -1,16 +1,25 @@
 /* Main container for the "Press Coverage" section */
 .press-coverage {
     /* Container for all content */
-    .press-coverage-container {
-        background-color: var(--primary-brand-color);
+    
+    background: var(--primary-brand-color);
 
-        /* Container for top part */
-        .press-coverage__part-top {        
+    .press-coverage__container {
         
-            /* Header block with text and image */
-            .heading-block {
-                display: block;
-                
+        padding-top: 70px;
+        padding-bottom: 110px;
+        padding-left: 24px;
+        padding-right: 24px;
+        min-width: 272px;
+        
+        /* Container for top part */    
+        .press-coverage__part-top { 
+            
+            
+            
+            /* Header block with text and image */     
+            .heading-block {                
+                padding: 20px;                
                 /* Container for text within the header block */
                 .heading-block__text-container {
                     
@@ -20,51 +29,61 @@
                         color: var(--secondary-headlines-color);
                         font-size: 12px;
                         font-family: "DM Sans", sans-serif;
-                        display: block;
-                        height: 16.80px;
-                        min-width: 272px;
-                        max-width: 555px;
+                        
                     }
                     
                     /* Container for title's text content */
-                    .heading-block__text-content {
+                    .heading-block__text-content {                        
                         font-size: 38px;
-                        font-family: "Della Respira", serif;
-                        display: block;
+                        font-family: "Della Respira", serif;                        
+                        font-weight: 400;
+                        line-height: 70.2px;
                         
                         /* Main text of the title */
                         .heading-block__text {
                             /* Styles for the main title text */
+                            
+                            display: block;
                             color: var(--primary-partial-text-color);
                                                     
                         }
                         
-                        /* Decorative dot after the title */
-                        .heading-block__point {                        
-                            /* Additional styles for the dot */
-                            color: var(--dot-color);
+                            /* Decorative dot after the title */
+                            .heading-block__point {                        
+                                /* Additional styles for the dot */                            
+                                color: var(--dot-color);
 
-                        }
+                            }
                     }
                 }
                 
-                /* Image within the header block */
-                .heading-block__image {                
-                    /* Styles for the image, e.g., size and margins */
-                    min-height: 32px;
-                    min-width: 272px;
-                    max-height: 32px;
-                    max-width: 555px;
-                    
-                    
+                /* Conteiner for image within the header block */
+                .heading-block__image-container {
+                    float: left;
+                    /* Image within the header block */
+                    .heading-block__image {                
+                        /* Styles for the image, e.g., size and margins */
+                                        
+                        display: block;
+                        min-height: 32px;
+                        min-width: 272px;
+                        max-height: 32px;
+                        max-width: 555px;
+                        margin-top: 25px;
+                        
+                                            
+                    }  
                 }
             }
             
             /* Block with publication information */
             .top-text-block {
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-top: 60px;
                 
                 /* Container for text blocks */
-                .top-text-block__text-container {
+                .top-text-block__text-container {                
                     
                     /* Content of each text block */
                     .top-text-block__text-content {
@@ -77,19 +96,31 @@
                             font-family: "DM Sans", sans-serif;
                             display: block;
                         }
-                        
-                        /* Line of text with additional information */
-                        .top-text-block__text-string {
-                            color: var(--secondary-partial-text-color);
-                            font-size: 14px;
-                            font-family: "DM Sans", sans-serif;
+                        /* Conteiner fir double srting */
+                        .top-text-block__text-strings{
                             display: block;
-                            
-                            /* Larger text within the line */
-                            .top-text-block__bigger-text {                            
-                                /* Styles for the highlighted text */
-                                font-weight: bold;
-                            }                        
+                            margin-top: 20px;
+                            /* Line of text with additional information */
+                            .top-text-block__text-string {
+                                color: var(--secondary-partial-text-color);
+                                font-size: 14px;
+                                font-family: "DM Sans", sans-serif;
+                                                           
+                                
+                                /* Larger text within the line */
+                                .top-text-block__bigger-text {                            
+                                    /* Styles for the highlighted text */
+                                    font-weight: bold;
+                                }                        
+                            }
+                        }
+                        /* Decorator between the lines  */
+                        .top-text-block__decorator {                            
+                            width:100%;
+                            fill:none;
+                            stroke:rgba(77, 83, 27, 0.17);
+                            stroke-width:1px;
+
                         }
                     }
                 }            
@@ -118,6 +149,7 @@
                         
                         /* Container for lines with information */
                         .main-block__text-strings {
+                            margin-top: 20px;
                             
                             /* Individual line with information */
                             .main-block__text-string {
@@ -137,10 +169,25 @@
                         /* Text annotation for the article */
                         .main-block__text-annotation {                        
                             /* Styles for the annotation */
+                            margin-top: 20px;
                             color: var(--category-description-color);
                             font-size: 16px;
                             font-family: "DM Sans", sans-serif;
                             display: block;
+                        }
+                        /* Container for spacer */
+                        .main-block__spacer-container {
+                            /* Spacer beetwen next text data */
+                            .main-block__spacer-component {
+                                display: block;
+                                --height-desktop: 60px;
+                                --height-tablet: 60px;
+                                --height-mobile: 40px;
+                                background-color: transparent;
+                            }
+
+
+                            
                         }
                     }
                 }
@@ -148,36 +195,78 @@
                 /* Block for buttons */
                 .main-block__btn-grp {
                     display: block;
-                    
-                    /* Link styled as a button */
-                    .main-block__link-button {
-                        
-                        /* Inner button element */
-                        .main-block__button {                        
-                            /* Styles for the button itself */
-                            color: var(--primary-partial-text-color);
-                            font-size: 15.4px;
-                            font-family: "DM Sans", sans-serif;
-                        }                    
-                    }
-                }
-                
-                /* Group of images */
-                .main-block__image-grp {
-                    display: block;
-                    
-                    /* Picture element */
-                    .main-block__picture {
-                        
-                        /* Image within the picture element */
-                        .main-block__image {                        
-                            /* Styles for the image */
-                            min-width: 320px;
-                            max-width: 555px;
+                    margin-top: 35px; 
+                    /* Iner conteiner for buttons */
+                    .main-block__btn-grp-iner{                            
+                        margin: -10px;                   
+                        /* Link styled as a button */
+                        .main-block__link-button {
+                            
+                            /* Inner button element */
+                            .main-block__button {                        
+                                /* Styles for the button itself */
+                                color: var(--primary-partial-text-color);
+                                font-size: 15.4px;
+                                font-family: "DM Sans", sans-serif;
+                                height: 18.475px;
+                                width: 83.400px;
+                                padding: 16px 32px 16px 32px;
+                                margin: 10px;
+                                background-color: #ae4f11;
+                                border-radius: 34px;
+                            }                    
                         }
                     }
                 }
+             
             }
+            /* Group of images */
+            .main-block__image-grp {
+                display: block;
+                
+                /* Picture element */
+                .main-block__picture {
+                    
+                    /* Image within the picture element */
+                    .main-block__image {                        
+                        /* Styles for the image */
+                        min-width: 272px;
+                        max-width: 555px;
+                        min-height: 283.250px;
+                        max-height: 578px;
+                        overflow:hidden;
+                        border-radius:30px 30px 30px 30px;                                              
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                    }
+                }
+            }
+            
         }
     }
+}
+
+@media(min-width: 768px) {
+    .press-coverage__part-top{
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .heading-block {
+        padding: 0px 30px;
+        width: 50%;
+    }
+    .top-text-block {
+        padding: 0px 30px;
+        width: 50%;
+
+    }
+    .press-coverage__part-bot {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
+
 }

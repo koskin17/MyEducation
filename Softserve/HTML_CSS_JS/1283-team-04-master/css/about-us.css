@@ -1,5 +1,6 @@
 @import url(global.css);
 @import url(global.header-nav.css);
 @import url(static-pages.header-hero.css);
-@import url(index.in-store-services.css);
+@import url(about-us.our-story.partial.css);
+@import url(about-us.in-store-services.css);
 @import url(global.footer.css);

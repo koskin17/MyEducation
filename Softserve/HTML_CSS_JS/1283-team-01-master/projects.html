@@ -7,15 +7,21 @@
   <title>Lightning Design Studio | Projects</title>
   <link
     rel="shortcut icon"
-    href="https://placekitten.com/96/139"
+    href="img/logo_lamp.png"
     type="image/x-icon"
   />
+
+  <link rel="stylesheet" href="css/index.css">
   <!--TODO -->
   <script
     src="https://unpkg.com/htmx.org@1.9.10"
     integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
     crossorigin="anonymous"
   ></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 </head>
 
 <html lang="en">
@@ -32,9 +38,11 @@
       </section>
     </div>
     <main>
-        <a href="/projects.luminous-harmony.html" class="harmony">Luminous Harmony</a>
+        <a href="projects.luminous-harmony.html" class="harmony">Luminous Harmony</a>
+        <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/global.projects.partial.html"></section>
     </main>
     <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
    
+    <script src="./js/index.js"></script>
   </body>
 </html>

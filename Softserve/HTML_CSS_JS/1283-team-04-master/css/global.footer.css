@@ -237,7 +237,7 @@ footer {
 .footer__bottom-subscribe form {
   padding-top: 15px;
 }
-.footer__bottom-subscribe form input[type="text"] {
+.footer__bottom-subscribe form input[type="email"] {
   padding: 10px;
   background: rgba(255, 255, 255, 0.02);
   color: var(--secondary-color);

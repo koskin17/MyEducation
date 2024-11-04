@@ -1,0 +1,128 @@
+.awards {
+    background-color: #252527; 
+    text-align: center; 
+    color: #ffffff; 
+    padding: 90px 90px; 
+}
+
+.awards__title {
+    color: #d78c43; 
+    font-size: 10px; 
+    margin-bottom: 1rem; 
+    text-transform: uppercase;
+}
+
+.awards__main-description {
+    color: #c99f5d; 
+    font-size: 2.5rem;
+    margin-top: 20px; 
+    text-align: center; 
+} 
+
+@media (min-width: 768px) {
+    .awards__main-description {
+        font-size: 51px;
+    }
+}
+
+@media (min-width: 992px) {
+    .awards__main-description {
+        font-size: 62px;
+    }
+}
+
+.awards__secondary-description {
+    color: rgb(225,225,225); 
+    margin-top: 25px; 
+    text-align: center; 
+    max-width: 600px; /* Максимальна ширина для зручного читання на великих екранах */
+    margin-left: auto; /* Вирівнювання по центру */
+    margin-right: auto; /* Вирівнювання по центру */
+}
+
+.awards__item-container {
+    margin-top: 45px; 
+    display: grid; 
+    grid-template-columns: 1 fr;
+    gap: 1.5rem; 
+}
+
+@media (min-width: 480px) {
+    .awards__item-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 992px) {
+    .awards__item-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.awards__item {
+    /* padding: 39px 27px; */
+     background-size: cover;
+     background-position: center;
+     padding: 2rem 1rem; /* Відступи всередині картки */
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-end; /* Вирівнювання тексту по нижньому краю */
+     height: 200px; /* Висота блоку, щоб картинка виглядала повноцінно */
+     color: #fff;
+     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* Тінь для кращої видимості тексту на фоні */
+}
+
+.awards__item--2017-luminary-award {
+    background-image: url("../img/about_us_awards_2017.webp");
+}
+  
+.awards__item--2018-radiance-awards {
+    background-image: url("../img/about_us_awards_2018.webp");
+}
+  
+.awards__item--2020-lumos-accolade {
+    background-image: url("../img/about_us_awards_2020.webp");
+}
+  
+.awards__item--2022-glow-achievement {
+    background-image: url("../img/about_us_awards_2022_1.webp");
+}
+  
+.awards__item--2022-luminosity-trophy {
+    background-image: url("../img/about_us_awards_2022_2.webp");
+}
+  
+.awards__item--2024-luminary-award {
+    background-image: url("../img/about_us_awards_2024.webp");
+}
+
+.awards__name {
+    /* font-size: 22px; */
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.awards__year {
+    /* font-size: 22px; */
+    font-size: 1.4rem;
+    color: #f1d1af; 
+}
+
+.awards__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Два рядки */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    min-height: calc(2 * 1.5em); /* Мінімальна висота для двох рядків */
+    margin-top: 20px;
+    /* font-size: 16px; */
+    font-size: 1rem; 
+    color: rgb(255, 255, 255); 
+    overflow-wrap: break-word; 
+    text-align: center;
+}

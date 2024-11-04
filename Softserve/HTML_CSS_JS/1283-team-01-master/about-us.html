@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/about-us.css">
     <title>About us</title>
-    <link rel="shortcut icon" href="https://placekitten.com/96/139" type="image/x-icon">
+    <link rel="shortcut icon" href="img/logo_lamp.png" type="image/x-icon">
     <script src="https://unpkg.com/htmx.org@1.9.10"
         integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
         crossorigin="anonymous"></script>
@@ -16,6 +16,30 @@
 <body>
     <div class="hero-wrap header--dark">
         <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+        <section class="hero-single" style="background-image: url('../img/bg-hero-about.webp');">
+            <div class="container">
+                <h1>About Us</h1>
+        
+                <ol class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope=""
+                        itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Home</span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </li>›
+                    <li class="breadcrumbs__item breadcrumbs__item--active" itemprop="itemListElement" itemscope=""
+                        itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/about-us">
+                            <span itemprop="name">
+                                About Us
+                            </span>
+                            <meta itemprop="position" content="1">
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </section>
     </div>
     <!-- Our Services section by Borys -->
     <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/ourservices.partial.html"></section>
@@ -89,7 +113,7 @@
         </div>
     
         <div class="designers__list">
-            <div class="designer-card designer-card--left">
+            <div class="designer-card designer-card--left josh-card">
                 <img src="img/josh-image.jpg" alt="Josh Williams" class="designer-card__image">
                 <div class="designer-card__info">
                     <h3 class="designer-card__name">Josh Williams</h3>
@@ -99,7 +123,7 @@
                 </div>
             </div>
     
-            <div class="designer-card designer-card--left">
+            <div class="designer-card designer-card--left julia-card">
                 <img src="img/julia-image.jpg" alt="Julia Hager" class="designer-card__image">
                 <div class="designer-card__info">
                     <h3 class="designer-card__name">Julia Hager</h3>
@@ -109,7 +133,7 @@
                 </div>
             </div>
     
-            <div class="designer-card designer-card--right">
+            <div class="designer-card designer-card--right jane-card">
                 <img src="img/jane-image.jpg" alt="Jane Murphy" class="designer-card__image">
                 <div class="designer-card__info">
                     <h3 class="designer-card__name">Jane Murphy</h3>
@@ -119,7 +143,7 @@
                 </div>
             </div>
     
-            <div class="designer-card designer-card--right">
+            <div class="designer-card designer-card--right gary-card">
                 <img src="img/gary-image.jpg" alt="Gary Allen" class="designer-card__image">
                 <div class="designer-card__info">
                     <h3 class="designer-card__name">Gary Allen</h3>
@@ -130,8 +154,9 @@
             </div>
         </div>
     </section>
+    <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/awards.partial.html"></section>
     <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
     <!-- Designers section end-->
+    <script src="./js/about-us.js"></script>
 </body>
-
 </html>

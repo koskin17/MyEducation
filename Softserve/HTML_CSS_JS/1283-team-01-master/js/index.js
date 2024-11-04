@@ -1,23 +1,14 @@
+function init() {
+    import('./header-menu.js');
+    import('./aboutus.js');
+    import('./global.projects.js');
+    import('./catalogs.js');
+}
 
-// Toggle Mob Menu
-document.addEventListener('DOMContentLoaded', function() {
-    const nav_toggle = document.querySelectorAll('.menu__toggle');
-    const nav = document.querySelector('.drawer');
-    const link = document.querySelectorAll('.drawer__nav a');
+const totalPartials = document.querySelectorAll('[hx-trigger="load"], [data-hx-trigger="load"]').length;
+let loadedPartialsCount = 0;
 
-    nav_toggle.forEach(function (el) {
-        el.addEventListener('click', function (event) {
-            nav.classList.toggle('drawer--show');
-            this.classList.toggle('menu__toggle-active');
-            event.stopPropagation(); 
-            alert('click');
-        });
-    });
-
-    link.forEach(function (el) {
-        el.addEventListener('click', function () {
-            nav.classList.remove('drawer--show');
-        });
-    });
-    
+document.body.addEventListener('htmx:afterOnLoad', () => {
+    loadedPartialsCount++;
+    if (loadedPartialsCount === totalPartials) init();
 });

@@ -1,52 +1,48 @@
 .collections {
-  background-color: #0d0d0d;
-  padding: 90px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #ffffff;
+  background-color: var(--color-black);
+  color: var(--color-white);
   font-family: "Manrope", sans-serif;
+  padding: 90px 30px;
 }
 
 .collections__lighting-solutions {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: stretch; 
 }
 
 .collections__content {
+  grid-column: 1;
   max-width: 600px;
-  margin-right: 40px;
   text-align: left;
-  z-index: 2;
 }
 
 .collections__title {
   font-size: 10px;
-  color: #d78c43;
+  color: var(--color-main);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 .collections__subtitle {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: var(--color-white);
 }
 
 .collections__description {
   font-size: 19px;
-  color: #e1e1e1;
+  color: var(--color-lightgrey);
   margin-bottom: 20px;
   line-height: 26px;
 }
 
 .collections__text {
   font-size: 18px;
-  color:  #bbbbbb;
+  color: var(--color-gray);
   margin-bottom: 30px;
   line-height: 24px;
 }
@@ -59,8 +55,8 @@
 
 .materials__item {
   display: flex;
+  align-items: flex-start;
   gap: 20px;
-  align-items: center;
 }
 
 .materials__image {
@@ -69,55 +65,91 @@
   object-fit: cover;
 }
 
+.materials__text-block {
+  display: flex;
+  flex-direction: column;
+}
+
 .materials__name {
   font-size: 22px;
   font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.14px;
+  color: var(--color-white);
+  margin: 0;
 }
 
 .materials__description {
   font-size: 16px;
-  color: #bbbbbb;
+  color: var(--color-gray);
   font-weight: 400;
   line-height: 25px;
-}
-
-.collections__image {
-  flex: 1;
+  margin-top: 5px;
 }
 
 .collections__room-image {
+  grid-column: 2;
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 100%; 
+  object-fit: cover; 
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .collections {
-    padding: 120px 90px;
+    padding: 60px 20px;
   }
 
   .collections__lighting-solutions {
-    flex-direction: row;
-    gap: 60px;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .collections__content {
-    max-width: 50%;
+    grid-row: 1;
+    max-width: 100%; 
+  }
+
+  .collections__title {
+    font-size: 8px; 
   }
 
   .collections__subtitle {
-    font-size: 64px;
+    font-size: 24px; 
+  }
+
+  .collections__description {
+    font-size: 16px;
+  }
+
+  .collections__text {
+    font-size: 14px; 
+  }
+
+  .collections__room-image {
+    grid-row: 2;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    object-fit: cover;
   }
 }
 
 @media (min-width: 1024px) {
+  .collections__lighting-solutions {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .collections__content {
+    grid-column: 1;
     max-width: 600px;
   }
 
   .collections__subtitle {
     font-size: 72px;
+  }
+
+  .collections__room-image {
+    grid-column: 2;
+    width: 100%;
+    margin-top: 0;
+    object-fit: cover;
   }
 }

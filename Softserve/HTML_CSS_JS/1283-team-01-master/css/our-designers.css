@@ -1,7 +1,6 @@
 .designers {
     background-color: var(--color-black);
     color: var(--color-white);
-    padding: var(--gap32);
     text-align: center;
 
 }
@@ -14,13 +13,14 @@
     color: var(--color-main);
     font-weight: 600;
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: calc(0.2*0.75rem);
+    padding-top: 100px;
 }
 
 .designers__title {
     font-size: 62px;
-    font-weight: 700;
+    font-weight: 600;
     margin: var(--gap8) 0;
     letter-spacing: calc(0.2*0.75rem);
 }
@@ -29,23 +29,27 @@
     color: var(--color-lightgrey);
     font-size: 19px;
     margin-top: var(--gap10);
+    font-weight: 400;
 }
 
 .designers__list {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
     gap: var(--gap32);
-    justify-items: center;
+    justify-content: center;
     margin: 0 auto;
+    margin-bottom: 120px;
 }
 
 .designer-card {
     background-color: var(--color-dark);
     overflow: hidden;
     display: flex;
-    width: 560px;
-    height: 338px;
+    width: 100%; 
+    max-width: 560px; 
+    height: 340px; 
     border-top-right-radius: 150px;
 }
 
@@ -66,30 +70,37 @@
 
 .designer-card__name {
     font-size: 26px;
-    font-weight: 700;
+    font-weight: 500;
     color: var(--color-white);
-    margin-bottom: 10px;
+    padding-top: 20px;
+    margin-left: 35px;
+    padding-bottom: 10px;
 }
 
 .designer-card__experience {
     color: var(--secondary-divider-color);
     font-size: 15px;
     margin: var(--gap8) 0;
-    font-weight: 700;
+    font-weight: 600;
+    margin-left: 35px;
+    padding-bottom: 10px;
 }
 
 
 .designer-card__bio {
-    color: var(--color-lightgrey);
+    color: var(--color-gray);
     font-size: 16px;
-    line-height: 1.5;
-    margin-top: 10px;
+    line-height: 1.7;
+    margin-left: 35px;
+    padding-bottom: 10px;
 }
 
 .designer-card__social {
     margin-top: var(--gap16);
     display: flex;
-    gap: var(--gap16);
+    gap: var(--gap32);
+    margin-left: 35px;
+    padding-bottom: 45px;
 }
 
 .designer-card--left {
@@ -99,3 +110,114 @@
 .designer-card--right {
     flex-direction: row-reverse;
 }
+
+@media (max-width: 997px) {
+    .designers__list {
+        grid-template-columns: 1fr; 
+    }
+
+    .designer-card {
+        width: 100%;
+        max-width: 840px; 
+        height: 420px;
+        justify-content: center;
+        margin: 0 auto; 
+    }
+
+    .julia-card {
+        flex-direction: row-reverse;
+    }
+
+    .jane-card {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 767px) {
+    .designers__list {
+        grid-template-columns: 1fr 1fr; 
+    }
+
+    .designer-card {
+        flex-direction: column;
+        max-width: 344px;
+        max-height: 546px;
+        max-width: 100%;
+        margin: 0 auto;
+        border-top-right-radius: 150px;
+    }
+
+    .designer-card__image {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    .designer-card__info {
+        width: 100%;
+        height: 50%;
+        padding: var(--gap);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .designer-card__name,
+    .designer-card__experience,
+    .designer-card__bio,
+    .designer-card__social {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    .designer-card__social {
+        justify-content: center;
+        padding-bottom: var(--gap16);
+    }
+}
+
+@media (max-width: 479px) {
+    .designers__list {
+        grid-template-columns: 1fr; 
+    }
+    .designer-card {
+        flex-direction: column;
+        width: 100%;
+        max-width: 344px;
+        height: auto;
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+
+    .designer-card__image {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .designer-card__info {
+        width: 100%;
+        padding: var(--gap16);
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .designer-card__name,
+    .designer-card__experience,
+    .designer-card__bio,
+    .designer-card__social {
+        margin-bottom: 3px;
+        padding-left: 16px;
+    }
+
+    .designer-card__social {
+        justify-content: flex-start;
+        padding-bottom: var(--gap8);
+    }
+}
+

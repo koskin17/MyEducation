@@ -4,8 +4,8 @@
     .projects__item{
         display: flex;
         flex-direction: column;
-        padding: 0 0 65px;
-        margin: 75px 0 0;
+        padding: 0 0 40px;
+        margin: 50px 0 0;
         border-bottom: 1px solid var(--border-color);
 
         .projects__details{
@@ -38,7 +38,7 @@
             }
 
             .projects__description{
-                margin: 0 0 50px;
+                margin: 0 0 30px;
 
                 .projects__text{
                     font-family: "Manrope", Arial, sans-serif;
@@ -52,7 +52,7 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                margin: 0 0 90px;
+                margin: 0 0 30px;
 
                 .projects__btn-arrow{
                     text-decoration: none;
@@ -65,21 +65,36 @@
             }
         }
 
-        .projects__images{
+        .projects__carousel {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 220px;
+        }
+        .projects__carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        .projects__carousel-container {
             display: flex;
-            flex-direction: column;
-
-            .projects__image-wrapper{
-                margin: 0 0 50px;
- 
-                .projects__image{
-                    width: 100%;
-                }
-            }
-            
-            .projects__image-wrapper:last-child{
-                margin: 0;
-            }
+            height: 100%;
+            align-items: center;
+        }
+        .projects__slide {
+            margin: 0 5px;
+            flex: 0 0 auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .projects__image {
+            transition: transform 0.3s ease;
+            width: 200px;
+            height: auto;
+        }
+        .projects__image:hover {
+            transform: scale(1.03);
         }
     }
 
@@ -88,6 +103,72 @@
     }
 }
 
+.projects__modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.projects__modal-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.projects__modal-image {
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.projects__modal-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.projects__modal-prev,
+.projects__modal-next {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.projects__modal-prev svg,
+.projects__modal-next svg {
+    width: 30px;
+    height: auto;
+    fill: #fff;
+}
+
+.projects__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+@media (min-width: 390px){
+    .projects__modal-prev svg,
+    .projects__modal-next svg {
+        width: 40px;
+        height: auto;
+        fill: #fff;
+    }
+}
 
 @media (min-width: 768px){
     .projects__items{
@@ -119,14 +200,17 @@
             }
         }
 
-        .projects__item .projects__images{
-            flex-direction: row;
-
-            .projects__image-wrapper{
-                margin: 0 15px;
-            }
-
+        .projects__item .projects__carousel{
+            height: 250px;
         }
+
+        .projects__item .projects__image{
+            width: 235px;
+        }
+    }
+    
+    .projects__modal-navigation{
+        width: 85%;
     }
 }
 
@@ -155,6 +239,14 @@
             justify-content: flex-end;
             width: 17%;
             margin: 0;
+        }
+
+        .projects__item .projects__carousel{
+            height: 290px;
+        }
+
+        .projects__item .projects__image{
+            width: 270px;
         }
     } 
 }

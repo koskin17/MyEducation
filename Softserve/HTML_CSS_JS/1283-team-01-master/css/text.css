@@ -1,0 +1,51 @@
+.subtitle {
+    margin-bottom: var(--gap);
+    color: var(--color-main);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+}
+
+h1 {
+    color: var(--color-main);
+    font-size: 62px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--gap16);
+}
+
+.h1 {
+    font-size: 76px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: var(--gap24);
+    color: var(--color-white);
+}
+
+.h4 {
+    line-height: 1.4;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.text--main {
+    color: var(--color-main);
+}
+
+@media only screen and (max-width: 1200px) {
+    .h1 {
+        font-size: 3.5em;
+    }
+
+    
+}
+
+@media only screen and (max-width: 992px) {
+    .h1 {
+        font-size: 2.5em;
+    }
+
+    .h4 {
+        font-size: 1.5em;
+    }
+}

@@ -64,7 +64,7 @@ function prevSlide() {
   renderCarousel();
 }
 
-setInterval(nextSlide, 5000);
+// setInterval(nextSlide, 5000);
 renderCarousel();
 
 const nextBtn = document.querySelector('.testimonials__slider__btn-prev');

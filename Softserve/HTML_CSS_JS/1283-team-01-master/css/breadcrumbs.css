@@ -1,0 +1,20 @@
+.breadcrumbs {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap16);
+    text-transform: uppercase;
+}
+
+.breadcrumbs__item {
+    opacity: 0.5;
+    transition: var(--trs);
+    letter-spacing: 0.1em;
+}
+
+.breadcrumbs__item--active {
+    opacity: 1;
+    text-decoration: underline;
+}

@@ -3,6 +3,8 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
+  padding: 0 20px 110px 20px;
 }
 
 .contacts-form__container {
@@ -31,6 +33,7 @@
 .contacts-form__container-subtitle {
   color: var(--primary-partial-text-color);
   font-family: var(--secondary-font-family);
+  font-size: 30px;
 }
 
 .contacts-form__container-text {
@@ -79,20 +82,6 @@
 .contacts-form__button:hover {
   background-color: var(--contacts-form-button-bg-hover-color);
   color: var(--contacts-form-button-text-hover-color);
-}
-
-@media (max-width: 767px) {
-  .contacts-form {
-    padding: 0 20px 110px 20px;
-  }
-
-  .contacts-form__container-empty {
-    height: 60px;
-  }
-
-  .contacts-form__container-subtitle {
-    font-size: 30px;
-  }
 }
 
 @media (min-width: 768px) {

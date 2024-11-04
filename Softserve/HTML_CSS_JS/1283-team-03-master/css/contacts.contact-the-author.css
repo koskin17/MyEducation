@@ -3,22 +3,26 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 90px 24px 45px 24px; 
 }
 
 .contact-the-author__ways {
     color: var(--contacts-contact-the-author-heading-color);
     font-family: var(--secondary-font-family);
+    font-size: 22px;
 }
 
 .contact-the-author__list {
     display: grid;
     gap: 30px;
+    grid-template-columns: 1fr; 
     margin-bottom: 35px;
 }
 
 .contact-the-author__divider {
     border: none;
     border-top: 3px solid var(--contacts-line-divider-color);
+    width: 38px; 
 }
 
 .contact-the-author__text {
@@ -45,31 +49,14 @@
     border-radius: 50px;
 }
 
-@media(max-width: 767px) {
-    .contact-the-author {
-        padding: 90px 24px 45px 24px;
-    }
 
-    .contact-the-author__list {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-the-author__ways {
-        font-size: 22px;
-    }
-
-    .contact-the-author__divider {
-        width: 38px;
-    }
-}
-
-@media(min-width: 768px) {
+@media (min-width: 768px) {
     .contact-the-author {
         padding: 105px 32px 60px 32px;
     }
 
     .contact-the-author__list {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr; 
     }
 
     .contact-the-author__ways {
@@ -81,13 +68,9 @@
     }
 }
 
-@media(min-width: 1024px) {
+@media (min-width: 1024px) {
     .contact-the-author {
         padding: 120px 40px 60px 40px;
-    }
-
-    .contact-the-author__list {
-        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .contact-the-author__ways {

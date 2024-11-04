@@ -1,7 +1,12 @@
 .online-events {
   background: url(../img/dinosaur-events.png);
-  
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  background-size: cover;
+  background-position: center;
 }
+
 .online-events__head-container{
   text-align: center;
   }
@@ -32,48 +37,174 @@
       font-size: 19px;
   }
   
-  .online-events__list {
-
+  @media (min-width: 768px) {
+    .online-events__subtitle {
+      font-size: 2.9rem;
+    }
   }
 
-.online-events__item {
-   
-}
+  @media (min-width: 1110px) {
+    .online-events__subtitle {
+      font-size: 3.5rem;
+    }
+  }
 
-.online-events__item-details {
-   
-}
+  .online-events__image {
+    width: 272px;
+    height: 32px;
+    margin: 0 auto;
+  }
 
-.online-events__item-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
+  .online-events_content {
+    font-family: var(--primary-font-family);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--events-secondary-text-color);
+    line-height: 26.6px;
+    margin: 25px;
+  }
+  
+  .online-events__list {
+    max-width: 1192px;
+  }
+    .online-events__items {
+      display: flex;
+      flex-direction: column;
+      margin: 50px 0;
+      flex-wrap: wrap;
+    }
+      .online-events__details {
+        text-align: center;
+        display: flex;
+      }
+        .online-events__item-image {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+        }
 
-.online-events__item-info {
-   
-}
+        @media (min-width: 768px) {
+          .online-events__item-image {
+            width: 120px;
+            height: 120px;
+          }
+        }
 
-.online-events__item-info__date {
+        .online-events__item-info {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          margin: 0 20px;
+        }
+          .online-events__item-date {
+            font-family: var(--primary-font-family);
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 2.4px;
+            margin-bottom: 20px;
+          }
+
+          .online-events__item-status {
+            font-family: var(--primary-font-family);
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--evets-partial-accent-color);
+            margin-bottom: 5px;
+          }
+
+          .online-events__item-time {
+            font-family: var(--primary-font-family);
+            font-size: 1rem;
+            color: var(--events-partial-description-color);
+          }
+        
+
+        @media (min-width: 768px) {
+          .events__item-info {
+            margin-top: 15px;
+          }
+        }
+      
+
+      @media (min-width: 768px) {
+        .online-events__details {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: start;
+        }
+      }
+
+      @media (min-width: 1110px) {
+        .online-events__details {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          text-align: start;
+        }
+      }
+
+      .online-events__item-description {
+        text-align: start;
+        padding-bottom: auto;
+      }
+        .online-events__item-description__title {
+          font-family: var(--secondary-font-family);
+          font-size: 24px;
+          font-weight: 400;
+        }
+
+        @media (min-width: 768px) {
+          .online-events__item-description__title {
+            margin-right: 20px;
+          }
+        }
+
+        @media (min-width: 1110px) {
+          .online-events__item-description__title {
+            font-size: 1.5rem;
+          }
+        }
+
+        .online-events__item-description__subtitle {
+          font-family: var(--primary-font-family);
+          font-size: 16px;
+          font-weight: 400;
+          color: var(--events-partial-description-color);
+        
+          margin-top: 50px;
+        }
+
+        @media (min-width: 768px) {
+          .online-events__item-description__subtitle {
+            margin: auto;
+            padding-left: 20px;
+          }
+        }
+      
+
+      @media (min-width: 768px) {
+        .online-events__item-description {
+          display: flex;
+          flex-direction: row;
+          flex: 1;
+        }
+      }
     
-}
 
-.online-events__item-info__status {
-    
-}
+    @media (min-width: 768px) {
+      .online-events__items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 55px;
+      }
+    }
 
-.online-events__item-info__hour {
-    
-
-.online-events__item-description {
+    .online-events__divider {
+      margin: 20px 0;
+      border: 0;
+      height: 1px;
+      color: #FFFFFF;
+    }
   
-  
-}
-
-.online-events__item-description__title {
-  
-}
-
-.online-events__item-description__subtitle {
-  
-}

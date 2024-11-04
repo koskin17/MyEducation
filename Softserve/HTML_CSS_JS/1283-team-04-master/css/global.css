@@ -83,6 +83,8 @@
   --cart-shadow-modal: 0 0 10px rgba(0, 0, 0, 0.2);
   --cart-shadow-light: 0 0 10px rgba(0, 0, 0, 0.1);
   --cart-shadow-notification: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --decoration-line-color: rgb(233, 230, 230);
+  --description-text-color: #6a6a6a;
   }
 
 body {

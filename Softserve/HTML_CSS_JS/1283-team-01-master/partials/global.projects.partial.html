@@ -1,80 +1,25 @@
 <section class="projects__items">
-    <article class="projects__item">
-        <div class="projects__details">
-            <div class="projects__info">
-                <p class="projects__name">
-                    432 Broadway
-                </p>
-                <time class="projects__date" datetime="2023-09-12">
-                    12 September, 2023
-                </time>
-            </div>
-            <div class="projects__description">
-                <p class="projects__text">
-                    In this completed lighting design project, we've orchestrated a harmonious 
-                    interplay of ceiling and floor lamps to illuminate and elevate the ambiance of a 
-                    living room space. Through thoughtful consideration of both form and 
-                    function, Prizma Studio has crafted a lighting design that not only meets the 
-                    practical needs of the space but also enhances its aesthetic appeal.
-                </p>
-            </div>
-            <div class="projects__action">
-                <a class="projects__btn-arrow" href="projects.html">
-                    <svg class="projects__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                        <path
-                            fill="currentColor"
-                            d="M74 49.668 52.492 28.001l-4.394 4.242 14.397 14.395H25.224v6H62.6L48.098 67.032l4.394 4.242L74 49.732l-.033-.032z"
-                        />
-                    </svg>
-                </a>
-            </div>
-        </div>
-        <div class="projects__images">
-            <div class="projects__image-wrapper">
-                <img class="projects__image" src="img/index-projects-img-01.jpg" alt="Modern living room with cozy lighting, soft sofas, and decorative elements.">
-            </div>
-            <div class="projects__image-wrapper">
-                <img class="projects__image" src="img/index-projects-img-02.jpg" alt="Stylish floor lamp with a black lampshade in a minimalist interior.">
-            </div>
-        </div>
-    </article>
-    <!-- block -->
-    <article class="projects__item">
-        <div class="projects__details">
-            <div class="projects__info">
-                <p class="projects__name">
-                    Luminous Harmony
-                </p>
-                <time class="projects__date" datetime="2024-04-24">
-                    24 April, 2024
-                </time>
-            </div>
-            <div class="projects__description">
-                <p class="projects__text">
-                    Luminous Harmony is a showcase of innovative lighting design implemented 
-                    at the prestigious Riverfront Hotel in Chicago. This project was designed to 
-                    create an ambiance that complements the luxurious interior while enhancing 
-                    the architectural features of the hotel.
-                </p>
-            </div>
-            <div class="projects__action">
-                <a class="projects__btn-arrow" href="projects.html">
-                    <svg class="projects__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                        <path
-                            fill="currentColor"
-                            d="M74 49.668 52.492 28.001l-4.394 4.242 14.397 14.395H25.224v6H62.6L48.098 67.032l4.394 4.242L74 49.732l-.033-.032z"
-                        />
-                    </svg>
-                </a>
-            </div>
-        </div>
-        <div class="projects__images">
-            <div class="projects__image-wrapper">
-                <img class="projects__image" src="img/index-projects-img-03.jpg" alt="Cozy bedroom with bedside lamps and warm lighting creating a relaxing atmosphere.">
-            </div>
-            <div class="projects__image-wrapper">
-                <img class="projects__image" src="img/index-projects-img-04.jpg" alt="Elegant table lamp with a white lampshade and metallic base against a dark background.">
-            </div>
-        </div>
-    </article>
+    <div class="projects__items-list">
+    </div>
 </section>
+
+<div class="projects__modal" id="projects__imageModal" style="display: none;">
+    <span class="projects__close">&times;</span>
+    <div class="projects__modal-content">
+        <img class="projects__modal-image" id="projects__modalImage" src="" alt="Modal Image">
+        <div class="projects__modal-navigation">
+            <button class="projects__modal-prev" aria-label="Previous Image">
+                <svg xmlns="http://www.w3.org/2000/svg" id="arrow-circle-left" viewBox="0 0 24 24">
+                    <path d="M24,12A12,12,0,1,0,12,24,12.013,12.013,0,0,0,24,12ZM2,12A10,10,0,1,1,12,22,10.011,10.011,0,0,1,2,12Z"/>
+                    <path d="M8,12a2.993,2.993,0,0,1,.752-1.987c.291-.327.574-.637.777-.84L12.353,6.3a1,1,0,0,1,1.426,1.4L10.95,10.58c-.187.188-.441.468-.7.759a1,1,0,0,0,0,1.323c.258.29.512.57.693.752L13.779,16.3a1,1,0,0,1-1.426,1.4L9.524,14.822c-.2-.2-.48-.507-.769-.833A2.99,2.99,0,0,1,8,12Z"/>
+                </svg>
+            </button>
+            <button class="projects__modal-next" aria-label="Next Image">
+                <svg xmlns="http://www.w3.org/2000/svg" id="arrow-circle-right" viewBox="0 0 24 24">
+                    <path d="M0,12A12,12,0,1,0,12,0,12.013,12.013,0,0,0,0,12Zm22,0A10,10,0,1,1,12,2,10.011,10.011,0,0,1,22,12Z"/>
+                    <path d="M16,12a2.993,2.993,0,0,1-.752,1.987c-.291.327-.574.637-.777.84L11.647,17.7a1,1,0,1,1-1.426-1.4L13.05,13.42c.187-.188.441-.468.7-.759a1,1,0,0,0,0-1.323c-.258-.29-.512-.57-.693-.752L10.221,7.7a1,1,0,1,1,1.426-1.4l2.829,2.879c.2.2.48.507.769.833A2.99,2.99,0,0,1,16,12Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

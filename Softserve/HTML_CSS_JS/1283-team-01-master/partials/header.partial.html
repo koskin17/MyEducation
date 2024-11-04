@@ -7,7 +7,7 @@
         <nav class="menu">
             <a href="/about-us" class="menu__item">About us</a>
             <a href="#areas" class="menu__item">Design</a>
-            <a href="/projects.html" class="menu__item">Projects</a>
+            <a href="projects.html" class="menu__item">Projects</a>
             <a href="#products" class="menu__item">Collections</a>
             <a href="/contacts" class="menu__item">Contacts</a>
         </nav>
@@ -43,22 +43,3 @@
     </div>
 </header>
 
-<script>
-const drawer_toggle = document.querySelectorAll('.menu__toggle');
-const drawer = document.querySelector('.drawer');
-const drawer_link = document.querySelectorAll('.drawer__menu a');
-
-drawer_toggle.forEach(function (el) {
-    el.addEventListener('click', function () {
-        drawer.classList.toggle('drawer--show');
-        this.classList.toggle('menu__toggle-active');
-       
-    });
-});
-
-drawer_link.forEach(function (el) {
-    el.addEventListener('click', function () {
-        drawer.classList.remove('drawer--show');
-    });
-});
-</script>

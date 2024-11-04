@@ -37,7 +37,7 @@ function renderBooks(books) {
   let booksHtml = "";
   for (const book of books) {
     booksHtml += `
-        <div class="presentation__card">
+        <div class="presentation__card container">
             <div class="presentation__card__container-image">
                  <img
                     class="card-image"

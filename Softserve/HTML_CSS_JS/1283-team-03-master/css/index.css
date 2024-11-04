@@ -1,6 +1,7 @@
 @import "global.css";
 @import "./global.header-nav.css";
 @import "index.header-hero.css";
+@import "index.awards.partial.css";
 @import "index.featured-books.partial.css";
 @import "index.about-author.partial.css";
 @import "index.book-promo.partial.css";

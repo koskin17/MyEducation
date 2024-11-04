@@ -1,7 +1,7 @@
 .ourservices-dates {
     padding-top: var(--gap30);
     padding-bottom: var(--gap30);
-    background-color: var(--color-dark);
+    background-color: var(--color-divider-dark);
 }
 
 .ourservices-dates__list {
@@ -12,8 +12,30 @@
     padding-right: var(--gap30);
 }
 
+.ourservices-dates__item{
+    padding-left: var(--gap30);
+    padding-right: var(--gap30);
+}
+
 .ourservices-dates__title{
+    font-size: var(--gap36);
     color: var(--color-main);
+}
+
+.ourservices-dates__line{
+    margin-top: var(--gap10);
+    margin-bottom: var(--gap10);
+    height: var(--gap1); 
+    background-color: var(--divider-color);
+    border: none; 
+}
+
+.ourservices-dates__specline{
+    margin-top: var(--gap10);
+    margin-bottom: var(--gap10);
+    height: var(--gap2); 
+    background-color: var(--divider-color);
+    border: none; 
 }
 
 .ourservices-dates__description{

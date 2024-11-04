@@ -1,6 +1,5 @@
 function init() {
   import("./header.js");
-  // import("./events.events-partial-list.js");
   import("./events.presentation-partial-list.js");
 }
 
