@@ -1,135 +1,58 @@
-<!DOCTYPE HTML>
-<!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-
-<head>
-	<title>SoftServe HTML/CSS/JS Fundamentals</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/libs/fontawesome-all.min.css">
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-</head>
-
-<body class="is-preload">
-
-	<!-- Wrapper -->
-	<div id="wrapper">
-
-		<!-- Header -->
-		<header id="header">
-			<div class="logo">
-				<span class="icon fa-gem"></span>
-			</div>
-			<div class="content">
-				<div class="inner">
-					<h1>HTML/CSS/JS Fundamentals</h1>
-					<p>I am ready to learn how to build websites</p>
-					<p id="student-name">Kostia Zeykin</p>
-					<div class="clock"></div>
-				</div>
-			</div>
-			<nav>
-				<ul>
-					<li><a href="#intro">Intro</a></li>
-					<li><a href="#work">Study</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
-					<!--<li><a href="#elements">Elements</a></li>-->
-				</ul>
-			</nav>
-		</header>
-
-		<!-- Main -->
-		<div id="main">
-
-			<!-- Intro -->
-			<article id="intro">
-				<h2 class="major">Intro</h2>
-				<!-- <span class="image main"><img src="https://placekitten.com/408/287" alt="Kitten" /></span> -->
-				<p class="intro__text-container">Hello here</p>
-			</article>
-
-			<!-- Work -->
-			<article id="work">
-				<h2 class="major">Study</h2>
-				<!-- <span class="image main"><img src="https://placekitten.com/600/300" alt="Kitten" /></span> -->
-				<p>The course is made out of 12 sessions lasting 3-4 hours and occurring 3 times per week. Atop to that,
-					you'll need to reserve 6-8 hours to complete practice tasks.</p>
-				<p></p>
-			</article>
-
-			<!-- About -->
-			<article id="about">
-				<h2 class="major">About</h2>
-				<span class="image main"><img src="images/ss-ita.jpg" alt="IT Academy" /></span>
-				<p>SoftServe Academy is a part of the Talent Acceleration Center at SoftServe University.<br>
-					Here you can find different learning solutions to start a career in IT.
-					You will get job-ready skills to start a career in IT. Come for experience and build your future
-					with us! <a href="https://career.softserveinc.com/en-us/learning-and-certification">LEARNING &
-						CERTIFICATION</a> </p>
-			</article>
-
-			<!-- Contact -->
-			<article id="contact">
-				<h2 class="major">Contact</h2>
-				<form method="post" action="https://formspree.io/f/mnqyarjr">
-					<div class="fields">
-						<div class="field half">
-							<label for="name">Name</label>
-							<input type="text" name="name" id="name" />
-						</div>
-						<div class="field half">
-							<label for="email">Email</label>
-							<input type="text" name="email" id="email" />
-						</div>
-						<div class="field">
-							<label for="message">Message</label>
-							<textarea name="message" id="message" rows="4"></textarea>
-						</div>
-					</div>
-					<ul class="actions">
-						<li><input type="submit" value="Send Message" class="primary" /></li>
-						<li><input type="reset" value="Reset" /></li>
-					</ul>
-				</form>
-				<ul class="icons">
-					<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-				</ul>
-			</article>
-
-			<!-- Elements -->
-
-		</div>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<p class="copyright">©<a href="https://softserveinc.com">SoftServe Academy</a>.</p>
-		</footer>
-
-	</div>
-
-	<!-- BG -->
-	<div id="bg"></div>
-
-	<!-- Scripts -->
-	<script src="assets/libs/jquery.min.js"></script>
-	<script src="assets/libs/browser.min.js"></script>
-	<script src="assets/libs/breakpoints.min.js"></script>
-	<script src="assets/libs/util.js"></script>
-
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/clock.js"></script>
-	<script src="assets/js/currency.js"></script>
-</body>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe Menu</title>
+    <link href="styles.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="menu">
+      <main>
+        <h1>CAMPER CAFE</h1>
+        <p class="established">Est. 2020</p>
+        <hr>
+        <section>
+          <h2>Coffee</h2>
+          <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/coffee.jpg" alt="coffee icon">
+          <article class="item">
+            <p class="flavor">French Vanilla</p><p class="price">3.00</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Caramel Macchiato</p><p class="price">3.75</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Pumpkin Spice</p><p class="price">3.50</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Hazelnut</p><p class="price">4.00</p>
+          </article>
+          <article class="item">
+            <p class="flavor">Mocha</p><p class="price">4.50</p>
+          </article>
+        </section>
+        <section>
+          <h2>Desserts</h2>
+          <img src="https://cdn.freecodecamp.org/curriculum/css-cafe/pie.jpg" alt="pie icon">
+          <article class="item">
+            <p class="dessert">Donut</p><p class="price">1.50</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cherry Pie</p><p class="price">2.75</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cheesecake</p><p class="price">3.00</p>
+          </article>
+          <article class="item">
+            <p class="dessert">Cinnamon Roll</p><p class="price">2.50</p>
+          </article>
+        </section>
+      </main>
+      <hr class="bottom-line">
+      <footer>
+        <p><a href="https://www.freecodecamp.org" target="_blank">Visit our website</a></p>
+        <p class="address">123 Free Code Camp Drive</p>
+      </footer>
+    </div>
+  </body>
 </html>
