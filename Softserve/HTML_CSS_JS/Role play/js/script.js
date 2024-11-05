@@ -16,7 +16,6 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
-
 const weapons = [
   {
     name: "stick",
@@ -35,7 +34,6 @@ const weapons = [
     power: 100,
   },
 ];
-
 const monsters = [
   {
     name: "slime",
@@ -76,6 +74,12 @@ const locations = [
     "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters.",
+  },
+  {
+    name: "fight",
+    "button text": ["Attack", "Dodge", "Run"],
+    "button functions": [attack, dodge, goTown],
+    text: "You are fighting a monster.",
   },
 ];
 
@@ -168,4 +172,13 @@ function fightDragon() {
   goFight();
 }
 
-function goFight() {}
+function goFight() {
+  update(locations[3])
+  monsterHealth = monsters[fighting].health;
+  monsterStats.style.display = "block";
+  monsters.name = 
+}
+
+function attack() { }
+
+function dodge() {}
