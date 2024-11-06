@@ -16,9 +16,11 @@
     position: relative;
 }
 
-.carousel__track {
+.our-story__carousel-track {
     display: flex;
-    transition: transform 0,3ms ease;
+    transition: transform 0.5ms ease;
+    will-change: transform;
+    overflow: hidden;
 }
 
 .carousel__card {
@@ -154,5 +156,9 @@
         cursor: pointer;
         color: #666;
         z-index: 1;
+    }
+
+    .our-story__container{
+        padding: 120px 12.5%;
     }
 }

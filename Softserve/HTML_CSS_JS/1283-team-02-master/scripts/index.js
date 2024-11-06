@@ -2,6 +2,7 @@ function init() {
   import("./header.js");
   import("./product-tabs.js");
   import("./headphones.js");
+  import("./companies-carousel.js");
   import("./out-customers-say.js");
   import("./special-offers.js");
   import("./index.speakers.carousel.js");

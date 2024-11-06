@@ -5,11 +5,16 @@ const phone = document.querySelector(".faq__form-input.phone");
 const textarea = document.querySelector(".faq__form-textarea");
 
 form.addEventListener("submit", (e) => {
-  e.preventDefault(); 
-  const isValid = validateInputs(); 
+  e.preventDefault();
+  const isValid = validateInputs();
 
   if (isValid) {
-    const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    clearSuccess(username);
+    clearSuccess(email);
+    clearSuccess(phone);
+    const modal = new bootstrap.Modal(
+      document.getElementById("staticBackdrop")
+    );
     modal.show();
   }
 });
@@ -31,7 +36,8 @@ const setSuccess = (element) => {
 };
 
 const isValidEmail = (email) => {
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
 
@@ -41,8 +47,8 @@ const isValidPhone = (phone) => {
 };
 
 const validateUsername = (usernameValue) => {
-  if (usernameValue === '') {
-    setError(username, 'Username is required');
+  if (usernameValue === "") {
+    setError(username, "Username is required");
     return false;
   } else {
     setSuccess(username);
@@ -51,11 +57,11 @@ const validateUsername = (usernameValue) => {
 };
 
 const validateEmail = (emailValue) => {
-  if (emailValue === '') {
-    setError(email, 'Email is required');
+  if (emailValue === "") {
+    setError(email, "Email is required");
     return false;
   } else if (!isValidEmail(emailValue)) {
-    setError(email, 'Email is not valid');
+    setError(email, "Email is not valid");
     return false;
   } else {
     setSuccess(email);
@@ -64,11 +70,11 @@ const validateEmail = (emailValue) => {
 };
 
 const validatePhone = (phoneValue) => {
-  if (phoneValue === '') {
-    setError(phone, 'Phone is required');
+  if (phoneValue === "") {
+    setError(phone, "Phone is required");
     return false;
   } else if (!isValidPhone(phoneValue)) {
-    setError(phone, 'Phone is not valid');
+    setError(phone, "Phone is not valid");
     return false;
   } else {
     setSuccess(phone);
@@ -81,7 +87,12 @@ const clearInputs = () => {
   email.value = "";
   phone.value = "";
   textarea.value = "";
-}
+};
+
+const clearSuccess = (element) => {
+  const inputControl = element.parentElement;
+  inputControl.classList.remove("success");
+};
 
 const validateInputs = () => {
   const usernameValue = username.value.trim();
@@ -93,7 +104,7 @@ const validateInputs = () => {
   isValid &= validateEmail(emailValue);
   isValid &= validatePhone(phoneValue);
 
-  if(isValid){
+  if (isValid) {
     clearInputs();
   }
 

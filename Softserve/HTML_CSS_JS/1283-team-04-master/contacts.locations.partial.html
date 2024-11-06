@@ -47,6 +47,7 @@
           <div class="embla__container">
 
             <article class="embla__slide embla__location">
+              <a href="#" class="embla__slide-link"></a>
               <div class="embla__map">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.197107396189!2d-122.40507781493444!3d37.785420239320885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807d77b62311%3A0x84055e3c40a911eb!2sW%20San%20Francisco!5e0!3m2!1sen!2sua!4v1730540937391!5m2!1sen!2sua"
@@ -67,6 +68,7 @@
             </article>
   
             <article class="embla__slide embla__location">
+              <a href="#" class="embla__slide-link"></a>
               <div class="embla__map">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.2540580118393!2d-118.24901992436416!3d34.06300101716224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c656a644b049%3A0x58b2051d20f3419f!2s789%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090012%2C%20USA!5e0!3m2!1sen!2sua!4v1730540150072!5m2!1sen!2sua"
@@ -87,6 +89,7 @@
             </article>
   
             <article class="embla__slide embla__location">
+              <a href="#" class="embla__slide-link"></a>
               <div class="embla__map">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.094139867788!2d-87.62699492402723!3d41.89083246461703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2cac1aafc521%3A0xcc937c3618fb9f65!2s456%20N%20Michigan%20Ave%2C%20Chicago%2C%20IL%2060611%2C%20USA!5e0!3m2!1sen!2sua!4v1730541126627!5m2!1sen!2sua"
@@ -107,6 +110,7 @@
             </article>
   
             <article class="embla__slide embla__location">
+              <a href="#" class="embla__slide-link"></a>
               <div class="embla__map">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2699.198573671464!2d-122.34671617253392!3d47.609410598719066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54906bb2f3f5ca3d%3A0x93f18f02f14e0a2c!2sPike%20Place%20Market!5e0!3m2!1sen!2sua!4v1730541280266!5m2!1sen!2sua"
@@ -126,23 +130,25 @@
               </div>
             </article>
   
-            <article class="embla__slide embla__promo">
-              <a href="#" class="embla__slide-link">
-                <div class="embla__badge embla__badge--sale">Sale</div>
-                <div class="embla__control">
-                  <img
-                    class="embla__product-img"
-                    src="images/products-sliders/grip_x5.png"
-                    alt="Grip X5"
-                  />
-                </div>
-                <h3 class="embla__product-name">Grip X5</h3>
-              </a>
-              <p class="embla__product-price">
-                <span class="embla__price embla__price--old">$38,00USD</span>
-                <span class="embla__price embla__price--new">$32,00USD</span>
-              </p>
-              <button class="embla__product-btn">Buy Now</button>
+            <article class="embla__slide embla__location">
+              <a href="#" class="embla__slide-link"></a>
+              <div class="embla__map">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d101257.27957063806!2d-77.49326144999999!3d37.524660950000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b111095799c9ed%3A0xbfd83e6de2423cc5!2sRichmond%2C%20VA%2C%20USA!5e0!3m2!1sen!2sua!4v1730799572569!5m2!1sen!2sua"
+                  width="100%"
+                  height="200"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                ></iframe>
+              </div>
+
+              <div class="location-info">
+                <h2>Richmond, VA</h2>
+                <p><i class="icon-location"></i> Downtown, Richmond, VA 23173</p>
+                <p><i class="icon-phone"></i> +1 (234) 567 89 04</p>
+                <p><i class="icon-email"></i> <a href="mailto:nextlevel.virginia@email.com">nextlevel.virginia@email.com</a></p>
+              </div>
             </article>
           </div>
         </div>
@@ -168,19 +174,20 @@
     </div>
 
     <div class="locations__wrapper">
-      <div class="locations__image"></div>
+      <div class="responsive-image-container__locations">
+        <img src="./images/locations_photo.webp" alt="Description of image" class="responsive-image__locations">
+      </div>
     </div>
 
-    <div class="locations__footer">
+    <div class="locations__wrapper">
       <h2>Returns & Refunds</h2>
       <p>At NextLevel, we want you to be completely satisfied with your purchase. If for any reason you’re not happy with a product, our returns and refunds process is simple and hassle-free.</p>
 
       <div class="locations__returns">
-          <h3 class="locations__subtitle">
-              Return Policy:
-              <button onclick="toggleSection('returnPolicy')">Toggle</button>
+          <h3>
+              <span>Return Policy:</span>
           </h3>
-          <ul id="returnPolicy" class="locations__description">
+          <ul id="returnPolicy">
               <li><span class="icon">✔️</span> <strong>Time Frame:</strong> You can return any item within 30 days of purchase for a full refund or exchange.</li>
               <li><span class="icon">✔️</span> <strong>Condition:</strong> Products must be in their original packaging and in like-new condition. Items showing signs of use may be subject to a restocking fee.</li>
               <li><span class="icon">✔️</span> <strong>Process:</strong> To initiate a return, please contact our customer service team. We’ll provide you with a return authorization and instructions on how to send your item back.</li>
@@ -188,34 +195,31 @@
       </div>
 
       <div class="locations__refunds">
-          <h3 class="locations__subtitle">
-              Refunds:
-              <button onclick="toggleSection('refunds')">Toggle</button>
+          <h3>
+              <span>Refunds:</span>
           </h3>
-          <ul id="refunds" class="locations__description">
+          <ul id="refunds">
               <li><span class="icon">✔️</span> Refunds will be processed within 5-7 business days after we receive and inspect the returned item. The refund will be issued to the original payment method.</li>
           </ul>
       </div>
 
       <div class="locations__exchanges">
-          <h3 class="locations__subtitle">
-              Exchanges:
-              <button onclick="toggleSection('exchanges')">Toggle</button>
+          <h3>
+              <span>Exchanges:</span>
           </h3>
-          <ul id="exchanges" class="locations__description">
+          <ul id="exchanges">
               <li><span class="icon">✔️</span> If you’d like to exchange your item for a different product, please let us know when you contact us. We’ll do our best to accommodate your request.</li>
           </ul>
       </div>
 
-      <h2 class="locations__subtitle">Warranty Information</h2>
-      <p class="locations__description">NextLevel is committed to providing high-quality products that you can rely on. That’s why we offer a comprehensive warranty on all our products.</p>
+      <h2>Warranty Information</h2>
+      <p>NextLevel is committed to providing high-quality products that you can rely on. That’s why we offer a comprehensive warranty on all our products.</p>
 
       <div class="locations__coverage">
-          <h3 class="locations__subtitle">
-              Warranty Coverage:
-              <button onclick="toggleSection('warrantyCoverage')">Toggle</button>
+          <h3>
+              <span>Warranty Coverage:</span>
           </h3>
-          <ul id="warrantyCoverage" class="locations__description>
+          <ul id="warrantyCoverage">
               <li><span class="icon">✔️</span> <strong>Time Frame:</strong> We offer a standard warranty period of 12 months from the date of purchase.</li>
               <li><span class="icon">✔️</span> <strong>Eligibility:</strong> The warranty is applicable to products purchased directly from NextLevel in online and offline stores throughout the USA, ensuring that you receive genuine support.</li>
               <li><span class="icon">✔️</span> <strong>Support:</strong> During the warranty period, you have access to our dedicated customer support team, who are available to assist you with any warranty-related inquiries or claims.</li>
@@ -223,26 +227,22 @@
       </div>
 
       <div class="locations__covered">
-          <h3 class="locations__subtitle">
-              What’s Covered:
-              <button onclick="toggleSection('whatsCovered')">Toggle</button>
+          <h3>
+              <span>What’s Covered:</span>
           </h3>
-          <ul id="whatsCovered" class="locations__description">
+          <ul id="whatsCovered">
               <li><span class="icon">✔️</span> Defects in materials and workmanship and functional failures. We repair or replace products that exhibit defects or fail to function properly due to manufacturing issues.</li>
           </ul>
       </div>
 
-      <div class="locations__not-covered">
-          <h3 class="locations__subtitle">
-              What’s Not Covered:
-              <button onclick="toggleSection('whatsNotCovered')">Toggle</button>
+      <div class="locations_not-covered">
+          <h3>
+              <span>What’s Not Covered:</span>
           </h3>
-          <ul id="whatsNotCovered" class="locations__description>
+          <ul id="whatsNotCovered">
               <li><span class="icon">✔️</span> Accidental damage, normal wear and tear, and unauthorized repairs are not covered by the warranty. This also applies to items such as batteries, cables, and other consumables.</li>
           </ul>
       </div>
   </div>
-
-  <script src="/js/contacts.js"></script>
     
   </section>

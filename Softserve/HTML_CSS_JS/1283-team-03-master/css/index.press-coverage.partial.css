@@ -4,6 +4,7 @@
     
     background: var(--primary-brand-color);
 
+
     .press-coverage__container {
         
         padding-top: 70px;
@@ -18,7 +19,8 @@
             
             
             /* Header block with text and image */     
-            .heading-block {                
+            .heading-block {   
+                          
                 padding: 20px;                
                 /* Container for text within the header block */
                 .heading-block__text-container {
@@ -78,6 +80,7 @@
             
             /* Block with publication information */
             .top-text-block {
+                 
                 padding-left: 20px;
                 padding-right: 20px;
                 margin-top: 60px;
@@ -128,15 +131,19 @@
         }
         /* Container for bot part */
         .press-coverage__part-bot {  
-            /* Main content block */
+            margin-top: 45px;
+            /* Main content block */            
             .main-block {
+                 
                 
                 /* Container for individual articles */
                 .main-block__items {
+                    margin: 0 -20px;
                     display: block;
                     
                     /* Container for each article's text */
                     .main-block__text-container {
+                        padding: 0 20px;
                         
                         /* Article title */
                         .main-block__title {
@@ -196,6 +203,7 @@
                 .main-block__btn-grp {
                     display: block;
                     margin-top: 35px; 
+                    padding-bottom: 20px;
                     /* Iner conteiner for buttons */
                     .main-block__btn-grp-iner{                            
                         margin: -10px;                   
@@ -222,7 +230,9 @@
             }
             /* Group of images */
             .main-block__image-grp {
+                 
                 display: block;
+                margin-top: 25px;
                 
                 /* Picture element */
                 .main-block__picture {
@@ -246,27 +256,65 @@
             
         }
     }
+    /*Conteiner for grid top*/
+    .container-double {
+        padding: 0 24px;
+        .container-double-two {
+            margin-top: 45px;
+        }
+        
+        /*container for grid iner*/
+        .container-part {
+            box-sizing: border-box;
+            min-width: 300px;              
+
+        }
+    }
 }
+
+
 
 @media(min-width: 768px) {
     .press-coverage__part-top{
-
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
     .heading-block {
         padding: 0px 30px;
-        width: 50%;
+        width: 100%;
     }
     .top-text-block {
         padding: 0px 30px;
-        width: 50%;
+        width: 100%;
 
     }
     .press-coverage__part-bot {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        .main-block__image-grp {
+            padding: 0 30px;
+            margin-top: 0px;
+        }
 
     }
+    .container-part {
+        width: 100%;
+        margin: 0 10px;
 
+
+    }
+    
+
+}
+@media(min-width: 1440px) {
+    .press-coverage__part-top {
+        max-width: 1200px;
+        margin: auto;
+    }
+    .press-coverage__part-bot {
+        max-width: 1200px;
+        margin: auto;
+    }
+    
+    
 }

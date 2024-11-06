@@ -136,13 +136,13 @@
         <path d="M0 16.5 L3000 16.5"></path>
       </svg>
       <ul class="footer__menu__column-list">
-        <li><a href="#about-us.html">About Us</a></li>
+        <li><a href="/about-us">About Us</a></li>
         <li><a href="index.html#areas">Services</a></li>
-        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="/projects">Projects</a></li>
         <li>
           <a href="index.html#products">Collections</a>
         </li>
-        <li><a href="contacts.html">Contacts</a></li>
+        <li><a href="/contacts">Contacts</a></li>
       </ul>
     </div>
     <div class="footer__menu__column">
@@ -167,7 +167,7 @@
   </section>
   <div class="footer__contacts-info">
     <ul class="footer__contacts-info-list">
-      <li>
+      <li class="footer__contacts-info-list__item">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -189,7 +189,7 @@
         2 Broklyn St, NY 711-2880 Nulla St, NY 935-9940 Tortor. Street, NY
         666-4366 Lacinia Avenue, NY
       </li>
-      <li>
+      <li class="footer__contacts-info-list__item">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -226,7 +226,7 @@
         </svg>
         <a href="#email">prizma-studio@email.com</a>
       </li>
-      <li>
+      <li class="footer__contacts-info-list__item">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -246,6 +246,35 @@
         </svg>
         <a href="#"> +1 (234) 567 89 00</a>
       </li>
+      <button
+        class="footer__contacts-info-list__btn"
+        role="button"
+        id="helpBtn"
+      >
+        Help
+      </button>
+      <div id="myModal" class="footer__contacts-info-list__modal modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close">&times;</span>
+            <h2>Do you need help?</h2>
+          </div>
+          <div class="modal-body">
+            <p>Enter your phone number:</p>
+            <input
+              type="tel"
+              id="phone-number"
+              class="modal-body__phone-input"
+              placeholder="+38 (___) ___-__-__"
+              style="width: 100%; padding: 8px; margin-bottom: 10px"
+            />
+            <p>...and wait for call</p>
+          </div>
+          <div class="modal-footer">
+            <h3>Thank you :)</h3>
+          </div>
+        </div>
+      </div>
     </ul>
   </div>
   <div class="footer__signature">

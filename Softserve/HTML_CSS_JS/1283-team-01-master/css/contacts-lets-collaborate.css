@@ -1,25 +1,9 @@
 .collaboration-bg{
     background-color: var(--color-black);
-    position: relative;
-    z-index: -2;
-    clip-path: inset(0 0 0 0);
-}
-
-.collaboration-bg-text {
-    position: absolute;
-    position: fixed;
-    color: var(--color-black);
-    font-size: 180px;
-    font-weight: 550;
-    writing-mode: sideways-lr;
-    text-shadow: 1px 1px 0px var(--color-dark),
-        -1px -1px 0px var(--color-dark),
-        1px -1px 0px var(--color-dark),
-        -1px 1px 0px var(--color-dark);
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    background: url(../img/bg-contacts.svg);
+    background-attachment: fixed;
+    background-size: cover;
+    
 }
 
 .collaboration{
@@ -28,7 +12,6 @@
     text-align: left;
     max-width: 1170px;
     margin: 0 auto;
-    z-index: 1;
 }
 .collaboration__title{
     font-size: 0.6rem;
@@ -96,12 +79,26 @@
     box-shadow: none;
     text-overflow: ellipsis;
     height: 50px;
+    border: 1px solid;
     background-color: #1e1e1f;
-    border: none;
+    border-color: #1e1e1f;
     padding-left: 25px;
-    margin-bottom: 25px;
-    /*font-size: 0.75rem;*/
     color: var(--color-lightgrey)
+}
+
+.contact__form small {
+    color: var(--error-color);
+    visibility: hidden;
+    margin-bottom: 25px;
+}
+.contact__form-input.error + small{
+    visibility: visible;
+}
+.success{
+    border-color: var(--success-color);
+}
+.error{
+    border-color: var(--error-color);
 }
 .contact__form-input input::placeholder{
     font-family: "Manrope", sans-serif;
@@ -111,8 +108,9 @@
     box-shadow: none;
     text-overflow: ellipsis;
     height: 150px;
+    border: 1px solid;
     background-color: #1e1e1f;
-    border: none;
+    border-color: #1e1e1f;   
     padding-left: 25px;
     padding-top: 20px;
     margin-bottom: 25px;
@@ -155,21 +153,6 @@
     .contact__form{
         flex-basis: 49%;
     }
-    .collaboration-bg-text {
-        position: absolute;
-        position: fixed;
-        color: var(--color-black);
-        font-size: 250px;
-        font-weight: 550;
-        writing-mode: sideways-lr;
-        text-shadow: 1px 1px 0px var(--color-dark),
-            -1px -1px 0px var(--color-dark),
-            1px -1px 0px var(--color-dark),
-            -1px 1px 0px var(--color-dark);
-        pointer-events: none;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
+    
 }
 

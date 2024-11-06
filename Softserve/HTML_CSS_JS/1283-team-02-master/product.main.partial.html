@@ -25,8 +25,19 @@
             </div>
 
             <div class="product__purchase">
-                <label for="quantity" class="product__quantity-label"></label>
-                <input type="number" id="quantity" class="product__quantity" value="1" min="1" aria-label="Quantity">
+                <div class="product__quantity-wrapper">
+                    <input type="number" id="quantity" class="product__quantity" value="1" min="1"
+                        aria-label="Quantity">
+                        <div class="custom-arrows">
+                            <svg class="custom__arrow-up" width="10" height="6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.35.156a.474.474 0 00-.701 0L.111 5.264a.437.437 0 00-.111.29C0 5.8.207 6 .462 6h9.076c.11 0 .217-.038.3-.107a.435.435 0 00.05-.629L5.352.156z" fill="#9199AB"></path>
+                            </svg>
+                            <svg class="custom__arrow-down" width="10" height="6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.35.156a.474.474 0 00-.701 0L.111 5.264a.437.437 0 00-.111.29C0 5.8.207 6 .462 6h9.076c.11 0 .217-.038.3-.107a.435.435 0 00.05-.629L5.352.156z" fill="#9199AB"></path>
+                            </svg>
+                        </div>
+                </div>
+
                 <button class="product__add-to-cart" aria-label="Add to cart">Add to Cart</button>
             </div>
 
@@ -58,4 +69,3 @@
         </div>
     </div>
 </div>
-<script src="/scripts/product-main.js"></script>

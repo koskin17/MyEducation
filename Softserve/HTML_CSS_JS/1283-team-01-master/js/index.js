@@ -3,6 +3,8 @@ function init() {
     import('./aboutus.js');
     import('./global.projects.js');
     import('./catalogs.js');
+    import('./subscribe_now.js'); 
+    import('./footer.js'); 
 }
 
 const totalPartials = document.querySelectorAll('[hx-trigger="load"], [data-hx-trigger="load"]').length;

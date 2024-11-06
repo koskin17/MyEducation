@@ -12,7 +12,7 @@ class ProductCard {
               </a>
           </div>
           <div class="product-text-info">
-              <a href="${this.linkToProductPage}" class="link-to-product-page">
+              <a href="${this.linkToProductPage}" class="link-to-product-page" data-id="${this.dataId}">
                   <p class="product-card-text-info__main-info">${this.productCardMainInfo}</p>
               </a>
               <p class="product-card-text-info__price">$${this.productCardPrice}</p>

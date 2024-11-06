@@ -15,8 +15,11 @@
   --secondary-divider-color:#f1d1af;
   --hover-text-color:#e7903b;
   --primary-footer-background:var(--color-black);
+  --secondary-main-color:#d38030;
   --hover-color:rgba(0, 0, 0, 0.6); 
   --secondary-footer-background:#141414;
+  --success-color: #2ecc71;
+  --error-color: #e74c3c;
   --gap0: 0px;
   --gap1: 1px;
   --gap2: 2px;

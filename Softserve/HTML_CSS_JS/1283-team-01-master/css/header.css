@@ -68,7 +68,12 @@
 
 .header--dark {
     background-color: var(--color-black);
+    background-image: none;
     color: var(--color-white);
+}
+
+.header--dark .header {
+    background-color: var(--color-black);
 }
 
 .menu {

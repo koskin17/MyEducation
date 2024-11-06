@@ -162,7 +162,6 @@
   }
   .promo-shipping__button {
     display: flex;
-/*     align-items: center; */
     justify-content: center;
     width: 140px;
     padding: 12px 12px;
@@ -170,5 +169,23 @@
   }
   .promo-product-offer__promo-info {
     padding: 0px;
+  }
+}
+.promo-shipping__button {
+  max-width: 150px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 540px) {
+  .promo-product-offer__promo-info {
+    padding-right: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .promo-shipping__button {
+    display: block;
   }
 }

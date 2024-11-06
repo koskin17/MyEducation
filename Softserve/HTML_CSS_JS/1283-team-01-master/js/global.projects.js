@@ -49,7 +49,7 @@ const items = [
         title: "432 Broadway",
         subTitle: "12 September, 2023",
         description: "In this completed lighting design project, we've orchestrated a harmonious interplay of ceiling and floor lamps to illuminate and elevate the ambiance of a living room space. Through thoughtful consideration of both form and function, Prizma Studio has crafted a lighting design that not only meets the practical needs of the space but also enhances its aesthetic appeal.",
-        arrLink: "projects.html",
+        arrLink: "projects.html|projects.luminous-harmony.html",
         projectSlide_01: "./img/projects-img-01.jpg",
         projectSlide_02: "./img/projects-img-02.jpg",
         projectSlide_01_alt: "Modern living room with cozy lighting, soft sofas, and decorative elements.",
@@ -59,7 +59,7 @@ const items = [
         title: "Luminous Harmony",
         subTitle: "24 April, 2024",
         description: "Luminous Harmony is a showcase of innovative lighting design implemented at the prestigious Riverfront Hotel in Chicago. This project was designed to create an ambiance that complements the luxurious interior while enhancing the architectural features of the hotel.",
-        arrLink: "projects.html",
+        arrLink: "projects.html|projects.luminous-harmony.html",
         projectSlide_01: "./img/projects-img-03.jpg",
         projectSlide_02: "./img/projects-img-04.jpg",
         projectSlide_01_alt: "A cozy bedroom in warm tones with soft lighting, a large bed with pillows, bedside tables with lamps, and a modern pendant light above the bed.",
@@ -69,7 +69,7 @@ const items = [
         title: "Clazzy Beauty Salon",
         subTitle: "05 January, 2024",
         description: "Prizma Studio has transformed this space into a radiant sanctuary where beauty thrives and clients are enveloped in an atmosphere of luxury and relaxation. From the gentle glow of the ceiling fixtures to the subtle warmth of the table lamps, every element of this project has been curated to enhance the salon experience and leave a lasting impression on all who enter.",
-        arrLink: "projects.html",
+        arrLink: "projects.html|projects.luminous-harmony.html",
         projectSlide_01: "./img/projects-img-05.jpg",
         projectSlide_02: "./img/projects-img-06.jpg",
         projectSlide_01_alt: "A cozy bedroom in warm tones with soft lighting, a large bed with pillows, bedside tables with lamps, and a modern pendant light above the bed.",
@@ -79,7 +79,7 @@ const items = [
         title: "IQ Movie Theater",
         subTitle: "10 March, 2024",
         description: "Step into the captivating world of cinema with Prizma Studio's completed lighting design project for a luxurious movie theater. In this exquisite space, we've skillfully blended ceiling and wall lighting to create an immersive and visually stunning experience for moviegoers.",
-        arrLink: "projects.html",
+        arrLink: "projects.html|projects.luminous-harmony.html",
         projectSlide_01: "./img/projects-img-07.jpg",
         projectSlide_02: "./img/projects-img-08.jpg",
         projectSlide_01_alt: "A cozy bedroom in warm tones with soft lighting, a large bed with pillows, bedside tables with lamps, and a modern pendant light above the bed.",
@@ -151,11 +151,20 @@ function renderProjectsItems(items, count) {
     document.querySelector('.projects__items-list').innerHTML = itemsHtml;
 }
 
+const isProjectsPage = document.querySelector('.projects') !== null;
 
-if (document.querySelector('.projects')) {
-    renderProjectsItems(items, 2);
+const processedItems = items.map(item => {
+    const [linkIfProjects, linkIfNotProjects] = item.arrLink.split('|');
+    return {
+        ...item,
+        arrLink: isProjectsPage ? linkIfProjects : linkIfNotProjects
+    };
+});
+
+if (isProjectsPage) {
+    renderProjectsItems(processedItems, 2);
 } else {
-    renderProjectsItems(items, items.length);
+    renderProjectsItems(processedItems, processedItems.length);
 }
 
 

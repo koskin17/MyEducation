@@ -1,8 +1,31 @@
-const slides = [
-    '<div class="carousel__item"> <img src="./img/lite.png" alt="Aurora Lamp" class="carousel__image" /> <h3 class="carousel__item-title">Aurora Lamp</h3> <p class="carousel__item-category">Classic Collection</p> <p class="carousel__item-year">2023</p></div>',
-    '<div class="carousel__item"><img src="./img/luminaire.png" alt="Luminous Haven" class="carousel__image"/> <h3 class="carousel__item-title">Luminous Haven</h3><p class="carousel__item-category">Wooden Life Collection</p><p class="carousel__item-year">2024</p></div>',
-    '<div class="carousel__item"><img src="./img/nightlight.png" alt="Wooden Blocks" class="carousel__image"/><h3 class="carousel__item-title">Wooden Blocks</h3><p class="carousel__item-category">Wooden Life Collection</p> <p class="carousel__item-year">2024</p> </div>',
-    '<div class="carousel__item"><img src="./img/footlite.png" alt="Arretia Lamp" class="carousel__image" /> <h3 class="carousel__item-title">Arretia Lamp</h3> <p class="carousel__item-category">Bedside Lamps</p> <p class="carousel__item-year">2022</p></div>',
-    '<div class="carousel__item"> <img src="./img/lite2.png" alt="Cake in the ocean" class="carousel__image" /> <h3 class="carousel__item-title">Cake in the Ocean</h3> <p class="carousel__item-category">Bedside Lamps</p> <p class="carousel__item-year">2022</p></div>',
-  ];
+// const carousel = document.querySelector('.carousel');
+// const items = document.querySelectorAll('.carousel__item');
+// const childCarousel = carousel.children;
+// function getSlidesPerView() {
+//   const width = window.innerWidth;
+//   if (width >= 992) return 4;
+//   if (width >= 768) return 2;
+//   return 1;
+// }
+// // const prevButton = document.querySelector('.carousel__button--previous');
+// // const nextButton = document.querySelector('.carousel__button--next');
 
+// let currentIndex = 0;
+
+// function updateCarousel() {
+//   carousel.style.transform = `translateX(-${currentIndex * 20}%)`;
+// }
+
+// nextButton.addEventListener('click', () => {
+//   if (currentIndex < items.length - 1) {
+//     currentIndex++;
+//     updateCarousel();
+//   }
+// });
+
+// prevButton.addEventListener('click', () => {
+//   if (currentIndex > 0) {
+//     currentIndex--;
+//     updateCarousel();
+//   }
+// });

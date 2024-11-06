@@ -2,19 +2,18 @@
   background-color: var(--color-black);
   color: var(--color-white);
   font-family: "Manrope", sans-serif;
-  padding: 90px 30px;
+  padding: 60px 20px;
 }
 
 .collections__lighting-solutions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: stretch; 
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
 .collections__content {
-  grid-column: 1;
-  max-width: 600px;
+  grid-row: 1;
+  max-width: 100%;
   text-align: left;
 }
 
@@ -27,7 +26,7 @@
 }
 
 .collections__subtitle {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 600;
   margin-bottom: 20px;
   color: var(--color-white);
@@ -41,7 +40,7 @@
 }
 
 .collections__text {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--color-gray);
   margin-bottom: 30px;
   line-height: 24px;
@@ -86,55 +85,22 @@
 }
 
 .collections__room-image {
-  grid-column: 2;
+  grid-row: 2;
   width: 100%;
-  height: 100%; 
-  object-fit: cover; 
+  height: auto;
+  margin-top: 10px;
+  object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .collections {
-    padding: 60px 20px;
+    padding: 90px 30px;
   }
 
-  .collections__lighting-solutions {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .collections__content {
-    grid-row: 1;
-    max-width: 100%; 
-  }
-
-  .collections__title {
-    font-size: 8px; 
-  }
-
-  .collections__subtitle {
-    font-size: 24px; 
-  }
-
-  .collections__description {
-    font-size: 16px;
-  }
-
-  .collections__text {
-    font-size: 14px; 
-  }
-
-  .collections__room-image {
-    grid-row: 2;
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    object-fit: cover;
-  }
-}
-
-@media (min-width: 1024px) {
   .collections__lighting-solutions {
     grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: stretch;
   }
 
   .collections__content {
@@ -143,13 +109,24 @@
   }
 
   .collections__subtitle {
-    font-size: 72px;
+    font-size: 32px;
   }
 
   .collections__room-image {
     grid-column: 2;
     width: 100%;
+    height: 100%;
     margin-top: 0;
     object-fit: cover;
+  }
+}
+
+@media (min-width: 1024px) {
+  .collections__subtitle {
+    font-size: 72px;
+  }
+
+  .collections__content {
+    max-width: 600px;
   }
 }

@@ -74,7 +74,25 @@ function updateProductPageFromJSON() {
             console.error("Помилка завантаження JSON:", error);
         });
 }
+function setupQuantityControls() {
+    const quantityInput = document.getElementById('quantity');
+    const arrowUp = document.querySelector('.custom__arrow-up');
+    const arrowDown = document.querySelector('.custom__arrow-down');
 
+    if (quantityInput && arrowUp && arrowDown) {
+        arrowUp.onclick = function () {
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+        };
+
+        arrowDown.onclick = function () {
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        };
+    }
+}
+
+setupQuantityControls();
 updateProductPageFromJSON();
 
 

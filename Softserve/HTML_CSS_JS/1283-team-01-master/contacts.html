@@ -44,7 +44,7 @@
     <main>
             <!-- Collaboration/map section by Yevheniia-B -->
             <div class="collaboration-bg">
-                <section class="collaboration">
+                <div class="collaboration">
                     <div class="collaboration__textpart">
                         <h2 class="collaboration__title">\ Let's Collaborate \</h2>
                         <header class="collaboration__header">
@@ -71,15 +71,17 @@
                         </ul>
                         <p class="collaboration__slogan">Let's <u>Work</u> Together!</p>
                     </div>                                      
-                    <form class="contact__form">
-                        <input type="text" class="contact__form-input" placeholder="Enter your full name*" required>
-                        <input type="tel" class="contact__form-input" placeholder="Enter your phone number*" required>
-                        <input type="email" class="contact__form-input" placeholder="Enter your e-mail*" required>
-                        <textarea class="contact__form-text" rows="5" placeholder="Type your message" required></textarea>
+                    <form class="contact__form" novalidate>
+                        <input type="text" class="contact__form-input name" placeholder="Enter your full name" required>
+                        <small>Error message</small>
+                        <input type="tel" class="contact__form-input phone" placeholder="Enter your phone number" required>
+                        <small>Error message</small>
+                        <input type="email" class="contact__form-input email" placeholder="Enter your e-mail" required>
+                        <small>Error message</small>
+                        <textarea class="contact__form-text message" rows="5" placeholder="Type your message" required></textarea>
                         <button type="submit" class="contact__form-button">Contact Us</button>
                     </form>
-                </section>
-                <div class="collaboration-bg-text">CONTACTS</div>
+                </div>
             </div>
             <div class="contact__map">
                 <!--<div class="contact__map-hover-popup">

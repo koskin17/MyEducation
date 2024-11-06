@@ -26,23 +26,40 @@
 
 <html lang="en">
   <body>
-    <div >
-      <header
-        data-hx-trigger="load"
-        data-hx-swap="outerHTML"
-        data-hx-get="partials/header.partial.html"
-      ></header>
-      <section>
-        <h1>Projects</h1>
-        <p>Home > projects</p>
+    <div class="hero-wrap header--dark">
+      <header data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/header.partial.html"></header>
+      <section class="hero-single" style="background-image: url('../img/bg-hero-about.webp');">
+          <div class="container">
+              <h1>Projects</h1>
+      
+              <ol class="breadcrumbs" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                  <li class="breadcrumbs__item" itemprop="itemListElement" itemscope=""
+                      itemtype="https://schema.org/ListItem">
+                      <a itemprop="item" href="/">
+                          <span itemprop="name">Home</span>
+                          <meta itemprop="position" content="1">
+                      </a>
+                  </li>›
+                  <li class="breadcrumbs__item breadcrumbs__item--active" itemprop="itemListElement" itemscope=""
+                      itemtype="https://schema.org/ListItem">
+                      <a itemprop="item" href="/about-us">
+                          <span itemprop="name">
+                            Projects
+                          </span>
+                          <meta itemprop="position" content="1">
+                      </a>
+                  </li>
+              </ol>
+          </div>
       </section>
-    </div>
+  </div>
     <main>
-        <a href="projects.luminous-harmony.html" class="harmony">Luminous Harmony</a>
+       
         <section data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/global.projects.partial.html"></section>
     </main>
     <footer data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/footer.partial.html"></footer>
-   
+    <div data-hx-trigger="load" data-hx-swap="outerHTML" data-hx-get="partials/svg.partial.html"></div>
+
     <script src="./js/index.js"></script>
   </body>
 </html>

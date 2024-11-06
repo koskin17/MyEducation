@@ -4,69 +4,84 @@
     background-size: cover;
     background-position: center;
     z-index: -1;
-    overflow: hidden;
-    transform: none;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0;
 }
 
 .jbl-speaker__container {
     max-width: 1200px;
-    padding-left: 24px;
-    padding-top: 90px;
-    padding-bottom: 90px;
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    color: var(--color-white);
+}
+
+.jbl-speaker__content {
+    max-width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin: auto;
+}
+
+.jbl-speaker__image-container {
+    max-width: 50%;
+    justify-content: center;
+}
+
+.jbl-speaker__image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .jbl-speaker__title {
-    color: var(--color-white);
-    font-size: 32px;
+    font-size: 60px;
     font-weight: bold;
-    margin-bottom: 24px;
 }
 
 .jbl-speaker__details-list {
     list-style: none;
-    margin-bottom: 24px;
+    padding: 0;
+    margin-top: 25px
 }
 
 .jbl-speaker__details-item {
-    margin-bottom: 16px;
+    padding-top: calc(30px / 4);
+    padding-bottom: calc(30px / 4);
 }
 
 .jbl-speaker__details-label {
-    color: var(--color-white);
-    font-size: 19px;
+    font-size: 22px;
     font-weight: bold;
+    line-height: 1.6;
 }
 
 .jbl-speaker__details-value,
 .jbl-speaker__details-description {
+    font-size: 17px;
     color: var(--color-transparent-white);
-    font-size: 16px;
+    line-height: 1.6;
 }
 
 .jbl-speaker__price {
-    color: var(--color-white);
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 24px;
-
-    .jbl-speaker__price-value {
-        font-size: 31px;
-    }
+    margin-top: 20px;
 }
 
+.jbl-speaker__price-value {
+    font-size: 28px;
+}
 
 .jbl-speaker__actions {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 24px;
+    margin-top: 40px;
 }
 
 .jbl-speaker__buy-now,
@@ -104,40 +119,20 @@
     left: 0;
 }
 
-@media (min-width: 364px) {
-    .jbl-speaker__actions {
-        flex-direction: row;
-    }
+.jbl-speaker__buy-now {
+    background-color: var(--color-blue);
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-    .jbl-speaker__actions {
-        flex-direction: column;
-        text-align: left;
-    }
+.jbl-speaker__buy-now:hover {
+    background-color: var(--color-black);
 }
 
-@media (min-width: 768px) {
-    .jbl-speaker__container {
-    }
+.jbl-speaker__more-models {
+    background-color: var(--color-black);
+}
 
-    .jbl-speaker__image-container {
-        object-position: 100% 100%;
-        float: right;
-        display: block;
-        margin-left: auto;
-        min-width: 398px;
-        clear: right;
-
-    }
-
-    .jbl-speaker__image {
-
-    }
-
-    .jbl-speaker__info {
-        text-align: left;
-    }
+.jbl-speaker__more-models:hover {
+    background-color: var(--color-blue);
 }
 
 .jbl-speaker__more-models {
@@ -152,50 +147,31 @@
     text-align: center;
 }
 
-.jbl-speaker__buy-now {
-    background-color: var(--color-blue);
-    color: var(--color-white);
-    display: inline-block;
-    max-width: 100%;
-    word-wrap: break-word;
-    font-weight: 700;
-    text-align: center;
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .jbl-speaker__container {
+        flex-direction: column;
+    }
+
+    .jbl-speaker__content,
+    .jbl-speaker__image-container {
+        max-width: 100%;
+    }
+
+    .jbl-speaker__actions {
+        flex-direction: column;
+    }
 }
 
-.jbl-speaker__buy-now:hover {
-    background-color: var(--color-black);
+@media (min-width: 364px) {
+    .jbl-speaker__actions {
+        flex-direction: row;
+    }
 }
 
-.jbl-speaker__more-models {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    display: inline-block;
-    text-align: center;
-    max-width: 100%;
-    word-wrap: break-word;
-    font-weight: 700;
-}
-
-.jbl-speaker__more-models:hover {
-    background-color: var(--color-blue);
-}
-
-.jbl-speaker__image-container {
-    margin-top: 24px;
-    min-width: 272px;
-    max-width: 744px;
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-}
-
-.jbl-speaker__image {
-    min-width: 272px;
-    max-width: 714px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    object-fit: cover;
-    overflow-clip-margin: content-box;
-    overflow: clip;
+@media (min-width: 768px) and (max-width: 991px) {
+    .jbl-speaker__actions {
+        flex-direction: column;
+        text-align: left;
+    }
 }

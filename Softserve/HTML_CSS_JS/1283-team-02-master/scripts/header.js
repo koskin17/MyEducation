@@ -25,17 +25,66 @@ if (burger) {
 }
 
 navLinks.forEach((link) => {
-    link.addEventListener("click", toggleMenu);
+    link.addEventListener("click", (event) => {
+        const targetSection = link.getAttribute("href");
+
+        if (window.location.pathname.includes("product.html")) {
+            event.preventDefault();
+            if (window.innerWidth <= 990) {
+                toggleMenu();
+                setTimeout(() => {
+                    body.style.overflow = "";
+                    window.location.href = `index.html${targetSection}`;
+                }, 300);
+            } else {
+                window.location.href = `index.html${targetSection}`;
+            }
+        } else {
+            if (window.innerWidth <= 990) {
+                event.preventDefault();
+                toggleMenu();
+                const targetElement = document.querySelector(targetSection);
+                if (targetElement) {
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: "smooth" });
+                    }, 300);
+                }
+            } else {
+                event.preventDefault();
+                const targetElement = document.querySelector(targetSection);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }
+    });
 });
 
-if (window.location.pathname.includes("product.html")) {
-    if (heroSection) {
-        heroSection.style.display = "none";
+function updateHeroSection() {
+    if (window.location.pathname.includes("product.html")) {
+        if (heroSection) {
+            heroSection.style.display = "none";
+        }
+        headerPosition.style.position = "relative";
+    } else {
+        if (heroSection) {
+            heroSection.style.display = "flex";
+        }
+        headerPosition.style.position = "absolute";
+
+        const hash = window.location.hash;
+        if (hash) {
+            setTimeout(() => {
+                const targetElement = document.querySelector(hash);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 100);
+        }
     }
-    headerPosition.style.position = "relative";
-} else if (window.location.pathname.includes("index.html")) {
-    if (heroSection) {
-        heroSection.style.display = "block";
-    }
-    headerPosition.style.position = "absolute";
 }
+
+window.addEventListener("load", updateHeroSection);
+
+window.addEventListener("popstate", updateHeroSection);
+window.addEventListener("hashchange", updateHeroSection);

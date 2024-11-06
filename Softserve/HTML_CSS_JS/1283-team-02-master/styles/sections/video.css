@@ -3,9 +3,36 @@
     background-image: url(../../assets/images/video/video-banner-background.png);
     background-size: cover;
     background-position: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    color: #fff;
+    padding: 20px;
+}
+.video__content {
     display: flex;
-    align-items:left;
     flex-direction: column;
+    gap: 15px;
+}
+.video__content-titel {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.video__content-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.video__content-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.video__content-icon {
+    height:100px;
+    width: 100px;
 }
 
 @media (min-width: 479px) {
@@ -25,7 +52,14 @@
         height: 900px;
     }
 }
-
-.video-conteiner {
-    color: var(--color-white);
-}
+@media (max-width: 768px) {
+    .video {
+      grid-template-columns: 1fr;
+    }
+    .video__content {
+        align-items: center;
+      }
+    .video__content-titel {
+      font-size: 2.5rem;
+    }
+  }

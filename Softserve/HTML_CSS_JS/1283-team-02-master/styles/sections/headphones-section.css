@@ -55,6 +55,20 @@
     margin-top: 30px;
   }
 
+  @media (min-width: 320px) {
+    .embla__container {
+        grid-auto-columns: 100%;
+    }
+
+    .headphones__product-borders {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+  }
+
   @media (min-width: 460px) {
     .embla__container {
       grid-auto-columns: 50% 50%;
@@ -87,7 +101,7 @@
         flex-wrap: wrap;
     }
   }
-  
+
 .embla__slide {
     position: relative;
     min-width: 0;
@@ -109,6 +123,7 @@
     color: #2a2a2a;
     font-size: 18px;
     font-family: "PT Sans", sans-serif;
+    text-wrap: nowrap;
   }
 
 .catalog__item-name:hover {
@@ -152,7 +167,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .embla__arrow-btn {
     background: none;
     border: none;
@@ -161,16 +176,16 @@
     width: 24px;
     height: 24px;
   }
-  
+
   .embla__arrow--left {
     margin-right: auto;
     padding-right: 30px;
   }
-  
+
   .embla__arrow--left .embla__arrow-svg {
     transform: rotate(180deg);
   }
-  
+
   .embla__arrow--right {
     margin-left: auto;
     padding-left: 5px;
@@ -203,8 +218,10 @@
     background-position: center;
     background-size:cover;
     background-repeat: no-repeat;
-    height: 412px;
-    width: 365px;
+    height: 442px;
+    width: auto;
+    max-width: 400px;
+    display: block;
 }
 
 .product-card__category {
@@ -234,6 +251,7 @@
     display: block;
     font-size: 22px;
     font-family: "Heebo", sans-serif;
+    font-weight: bold;
 }
 
 .product-card__price {
@@ -275,7 +293,7 @@
     border-left: 0.5px solid var(--headphones-color-white);
     border-right: 0.5px solid #e0e0e0;
     padding: 15px 30px;
-    margin: 0 30px; 
+    margin: 0 16px;
 }
 
 .timer__days,

@@ -1,11 +1,9 @@
-body.overflow-hidden {
-  overflow: hidden; 
-}
 
 header {
   background: var(--primary-header-background-color);
   position: relative;
-  z-index: 1;
+  z-index: 1000;
+  overflow-x: hidden;
 }
 
 .header__nav {
@@ -27,6 +25,11 @@ header {
   font-size: 16px;
   color: var(--header-text-color);
   font-weight: 500;
+  text-decoration: none;
+}
+
+.header__menu-link:hover {
+  color: var(--header-nav-hover-text-color);
 }
 
 .header__logo-container {
@@ -184,6 +187,10 @@ header {
 
   .header__menu-link {
     font-size: 15px;
+  }
+
+  .header__menu-link:hover{
+    color: var( --header-nav-hover-text-color);
   }
 
   .header__menu-btn {

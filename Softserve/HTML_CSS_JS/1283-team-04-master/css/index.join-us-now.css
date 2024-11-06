@@ -1,6 +1,9 @@
 /* Join us now section */
 
 /* General container styles */
+.join-us{
+  background-color: var(--primary-site-background-color);
+}
 .join-us__container {
   background-image: url('../images/backgroundforjoin.jpg');
   background-position: center;
@@ -48,7 +51,7 @@
 
 .join-us__btn {
   color: var(--secondary-text-color);
-  padding: 10px 20px;
+  padding: 10px 10px;
   margin-top: 20px;
   border: none;
   cursor: pointer;

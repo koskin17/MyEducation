@@ -25,14 +25,45 @@
     font-family: var(--subtitle-font-family);
   }
 
-  .locations__image {
-    background-image: url(../images/locations_photo.webp);
-    width: 100%;
-    max-width: 1024px;
-    height: auto;
-    background-position: center center;
-    border-radius: 10px;
+  /* Ensure the container adjusts its width based on the screen size */
+.responsive-image-container__locations {
+  width: 100%; /* Full width for container */
+  max-width: 1240px; /* Optional: set max width if needed */
+  margin: 0 auto; /* Center-align container */
+}
+
+/* Make the image responsive */
+.responsive-image__locations {
+  width: 100%; /* Makes the image fill the width of the container */
+  height: auto; /* Maintains the image's aspect ratio */
+  display: block; /* Removes extra space below the image */
+  object-fit: cover; /* Optional: cover the container if needed */
+  border-radius: 8px; /* Optional: add rounded corners */
+}
+
+/* Add media queries for smaller screens */
+@media (max-width: 768px) {
+  .responsive-image-container__locations {
+      padding: 10px; /* Optional: Add padding on smaller screens */
   }
+}
+
+/* Optional: adjust for very small screens */
+@media (max-width: 480px) {
+  .responsive-image-container__locations {
+      padding: 5px;
+  }
+}
+
+
+  .locations__footer {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
   @media (min-width: 768px) {
     .locations__subtitle {

@@ -64,6 +64,10 @@
       gap: 2rem;
     }
 
+    @media (min-width: 1000px) {
+      margin: auto;
+    }
+
     .presentation__card {
       background-color: var(--events-presentations-card-color);
       border-radius: 2rem;
