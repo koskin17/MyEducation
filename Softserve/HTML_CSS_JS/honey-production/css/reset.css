@@ -65,19 +65,15 @@ textarea {
   resize: vertical;
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
+/* Скрытие стрелок для input[type="number"] */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
+  appearance: textfield;
 }
 
 ::-webkit-file-upload-button {

@@ -1,0 +1,42 @@
+.header__main-wraper {
+    display: flex;
+    flex-direction: row;
+}
+
+.header__logo {
+    width: 196px;
+    height: 52px;
+    background-image: url('../img/logotype.svg');
+    background-size:contain; /* изображение масштабируется, чтобы заполнить блок */
+    background-position: left; /* центрируем изображение */
+    background-repeat: no-repeat; /* изображение не повторяется */
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.header__menu {
+    margin-left: 25%;
+    margin-top: 50px;
+}
+
+.header__menu a {
+    font-size: 14px;
+    color: #5a3733;
+    padding: 10px 15px 10px 15px;
+    font-weight: 600;
+}
+.header__menu-item:hover {
+    border-bottom: 3px solid #ffd832;
+    color: #eb6d2f;
+}
+
+.header__menu-button-buy-honey {
+    border: 2px solid #eb6d2f;
+    border-radius: 10px;
+}
+
+.header__menu-button-buy-honey:hover {
+    color: white;
+    background-color: #eb6d2f;
+}
