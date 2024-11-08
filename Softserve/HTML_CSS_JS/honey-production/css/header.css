@@ -1,4 +1,4 @@
-.header__main-wraper {
+.header__menu-wraper {
     display: flex;
     flex-direction: row;
 }
@@ -7,9 +7,9 @@
     width: 196px;
     height: 52px;
     background-image: url('../img/logotype.svg');
-    background-size:contain; /* изображение масштабируется, чтобы заполнить блок */
-    background-position: left; /* центрируем изображение */
-    background-repeat: no-repeat; /* изображение не повторяется */
+    background-size: contain; /* изображение масштабируется, чтобы заполнить блок */
+    background-position: left;
+    background-repeat: no-repeat;
     margin-left: 50px;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -22,21 +22,45 @@
 
 .header__menu a {
     font-size: 14px;
-    color: #5a3733;
+    color: var(--header-menu-text-a);
     padding: 10px 15px 10px 15px;
     font-weight: 600;
 }
 .header__menu-item:hover {
-    border-bottom: 3px solid #ffd832;
-    color: #eb6d2f;
+    border-bottom: 3px solid var(--header-menu-item-hover-border-bottom);
+    color: var(--header-menu-item-hover-text-color);
 }
 
 .header__menu-button-buy-honey {
-    border: 2px solid #eb6d2f;
+    border: 2px solid var(--header-menu-button-buy-botton);
     border-radius: 10px;
 }
 
 .header__menu-button-buy-honey:hover {
-    color: white;
-    background-color: #eb6d2f;
+    color: var(--header-menu-button-text-hover);
+    background-color: var(--header-menu-button-buy-honey-hover);
 }
+
+/* .hero__header {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/header-background.jfif");
+    background-size: cover;
+    background-position: center; /* Центрировать изображение */
+    aspect-ratio: 16 / 9; /* Соотношение сторон изображения */
+    width: 100%; /* Или любая фиксированная ширина */
+}
+
+.hero__header h1 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--hero-header-h1-text-color);
+    margin-top: 250px;
+    margin-left: 160px;
+}
+
+.header__store-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #5a3733;
+} */

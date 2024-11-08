@@ -1,0 +1,34 @@
+body {
+    --body-background-color: #f9f4f0;
+}
+
+.origin_link a {
+    --origin-link-a: blue;
+}
+
+.header__menu a {
+    --header-menu-text-a: #5a3733;
+}
+.header__menu-item:hover {
+    --header-menu-item-hover-border-bottom: #ffd832;
+}
+
+.header__menu-item:hover {
+    --header-menu-item-hover-text-color: #eb6d2f;
+}
+
+.header__menu-button-buy-honey {
+    --header-menu-button-buy-botton: #eb6d2f;
+}
+
+.header__menu-button-buy-honey:hover {
+    --header-menu-button-buy-honey-hover: #eb6d2f;
+}
+
+.header__menu-button-buy-honey:hover {
+    --header-menu-button-text-hover: white;
+}
+
+.hero__header h1 {
+    --hero-header-h1-text-color: #eb6d2f;
+}

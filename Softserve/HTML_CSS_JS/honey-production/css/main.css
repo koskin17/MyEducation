@@ -1,6 +1,25 @@
+@import url('var.css');
 @import url('header.css');
 
+/* * {
+    outline: 1px solid red;
+} */
+
+:root {
+    scroll-behavior: smooth;
+}
+
+.origin_link {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.origin_link a {
+    text-align: center;
+    color: var(--origin-link-a);
+}
+
 body {
-    background-color: #F9F4F0;
+    background-color: var(--body-background-color);
 }
     
