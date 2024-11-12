@@ -6,7 +6,7 @@
 .header__logo {
     width: 196px;
     height: 52px;
-    background-image: url('../img/logotype.svg');
+    background-image: url('../img/logo.svg');
     background-size: contain; /* изображение масштабируется, чтобы заполнить блок */
     background-position: left;
     background-repeat: no-repeat;
