@@ -30,7 +30,7 @@
     }
 
     .hero__header__main-offer {
-        color: var(--hero-header-main-offer-text-color);
+        color: var(--hero-header-store-name-text-color);
         font-size: 18px;
         margin: 15px 0;
     }

@@ -1,6 +1,7 @@
 @import url('var.css');
 @import url('header.menu.css');
 @import url('hero.header.css');
+@import url('services.css');
 
 
 :root {
@@ -21,9 +22,6 @@ body {
     background-color: var(--body-background-color);
 }
 
-hr {
-    background-color: var(--hr-color);
-    width: 10%;
-    height: 4px;
+a {
+    cursor: pointer;
 }
-    

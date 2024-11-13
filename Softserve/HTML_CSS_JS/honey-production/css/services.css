@@ -1,0 +1,97 @@
+.services-wrapper {
+    margin-top: 180px;
+    margin: 0 auto;
+    background-image: url("../img/services-background.jfif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+    .services_title {
+        text-align: center;
+        font: 14px;
+        font-weight: 700;
+        font-family: sans;
+        color: #eb6d2f;
+    }
+
+    .services__heading {
+        margin-top: 20px;
+        font-family: "Signika Negative";
+        color: var(--services-heading-title-text-color);
+        font-size: 50px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    hr {
+        background-color: var(--hr-color);
+        width: 80px;
+        height: 4px;
+        margin: 15px auto;
+    }
+
+    .services__slogan {
+        width: 770px;
+        margin: 0 auto;
+        word-wrap: break-word;
+        font-size: 18px;
+        text-align: center;
+        color: var(--services-slogan-text-color);
+    }
+
+    .services__gallery {
+        display: flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin-top: 50px;
+
+        .services__gallery-item {
+            display: flex;
+            flex-direction: column;
+            width: 360px;
+            height: 350px;
+            border-radius: 7px;
+            background: var(--services-gallery-item-background-color);
+            box-shadow: 0 5px 10px 7px rgba(136, 140, 133, 0.05);
+            margin: 15px;
+
+            .service__gallery-item-picture {
+                margin: 30px auto;
+                width: 91px;
+                height: 100px;
+            }
+
+            .services__gallery-item-title {
+                text-align: center;
+                font-size: 25px;
+                font-family: "Signika Negative";
+                font-weight: 700;
+                word-wrap: break-word;
+                color: var(--service-gallery-item-title-text-color);
+                margin-bottom: 10px;
+            }
+
+            .services__gallery-item-description {
+                text-align: center;
+                word-wrap: break-word;
+                margin: 10px 30px 20px 30px;
+                font-size: 16px;
+                color: var(--service-gallery-item-description-text-color);
+            }
+
+            .services__gallery-item-learn-more {
+                text-align: center;
+                word-wrap: break-word;
+                font-weight: 700;
+                font-size: 13.5px;
+                color: var(--service-gallery-item-learn-more-text-color);
+                text-decoration: none;
+            }
+
+            .services__gallery-item-learn-more:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

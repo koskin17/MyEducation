@@ -34,7 +34,7 @@ body {
 }
 
 .hero__header__store-name {
-    --hero-header-store-name: #5a3733;
+    --hero-header-store-name-text-color: #5a3733;
 }
 
 hr {
@@ -47,4 +47,29 @@ hr {
 
 .hero__header__button-buy-now {
     --hero-header-button-buy-now-background-color: #eb6d2f;
+}
+
+.services__heading {
+    --services-heading-title-text-color: #5a3733;
+}
+
+.services__slogan {
+    --services-slogan-text-color: rgb(65,57,57);
+}
+
+.services__gallery-item {
+    --services-gallery-item-background-color: #ffffff;
+    --services-gallery-item-box-shadow: rgba(136, 140, 133, 0.05);
+}
+
+.services__gallery-item-title {
+    --service-gallery-item-title-text-color: #5a3733;
+}
+
+.services__gallery-item-description {
+    --service-gallery-item-description-text-color: rgb(65,57,57);
+}
+
+.services__gallery-item-learn-more {
+    --service-gallery-item-learn-more-text-color: #ffd832;
 }
