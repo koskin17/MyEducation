@@ -1,9 +1,7 @@
 @import url('var.css');
-@import url('header.css');
+@import url('header.menu.css');
+@import url('hero.header.css');
 
-/* * {
-    outline: 1px solid red;
-} */
 
 :root {
     scroll-behavior: smooth;
@@ -21,5 +19,11 @@
 
 body {
     background-color: var(--body-background-color);
+}
+
+hr {
+    background-color: var(--hr-color);
+    width: 10%;
+    height: 4px;
 }
     

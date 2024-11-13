@@ -29,6 +29,22 @@ body {
     --header-menu-button-text-hover: white;
 }
 
-.hero__header h1 {
-    --hero-header-h1-text-color: #eb6d2f;
+.hero__header-title {
+    --hero-header-title-text-color: #eb6d2f;
+}
+
+.hero__header__store-name {
+    --hero-header-store-name: #5a3733;
+}
+
+hr {
+    --hr-color: #eb6d2f;
+}
+
+.hero__header__main-offer {
+    --hero-header-main-offer-text-color: rgb(65,57,57);
+}
+
+.hero__header__button-buy-now {
+    --hero-header-button-buy-now-background-color: #eb6d2f;
 }

@@ -1,0 +1,53 @@
+.hero__header-wrapper {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 700px;
+    
+    background-image: url("../img/header-background.jfif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+    .hero__header-content {
+        padding: 230px 0px 250px 23%;
+    }
+
+    .hero__header-title {
+        color: var(--hero-header-title-text-color);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .hero__header__store-name {
+        font-size: 110px;
+        font-family: "Signika Negative";
+        color: var(--hero-header-store-name);
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .hero__header__main-offer {
+        color: var(--hero-header-main-offer-text-color);
+        font-size: 18px;
+        margin: 15px 0;
+    }
+
+    .hero__header__button-buy-now {
+        display: block;
+        margin-top: 30px;
+        width: 156px;
+        height: 55px;
+        padding: 17px 40px;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        background-color: var(--hero-header-button-buy-now-background-color);
+    }
+
+        .hero__header__button-buy-now:hover {
+            background-color: #f7bd00;
+    }
+}
