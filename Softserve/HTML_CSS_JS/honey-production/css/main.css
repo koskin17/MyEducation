@@ -20,6 +20,11 @@
 
 body {
     background-color: var(--body-background-color);
+
+    .header__menu-wrapper, hero__header-content, services-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
 
 a {
