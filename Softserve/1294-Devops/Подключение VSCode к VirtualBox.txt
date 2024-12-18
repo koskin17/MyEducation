@@ -60,7 +60,8 @@ ifconfig
 bash
 Копировать код
 ip addr
-Найди IP-адрес в интерфейсе, например 192.168.1.100.
+Найди IP-адрес в интерфейсе, например 192.168.1.100. (172.17.0.1 или 127.0.0.1 или  192.168.56.1 - это в рабочей сети)
+
 2. Настрой SSH-доступ на VM
 Установи OpenSSH-сервер на виртуальной машине:
 
@@ -68,6 +69,7 @@ bash
 Копировать код
 sudo apt update
 sudo apt install openssh-server -y
+
 Убедись, что служба SSH запущена:
 
 bash
@@ -75,6 +77,7 @@ bash
 sudo systemctl enable ssh
 sudo systemctl start ssh
 sudo systemctl status ssh
+
 Если SSH не запускается, проверь конфигурацию:
 
 bash
@@ -86,11 +89,13 @@ bash
 Копировать код
 PermitRootLogin yes
 PasswordAuthentication yes
+
 После изменений перезапусти службу:
 
 bash
 Копировать код
 sudo systemctl restart ssh
+
 Проверь SSH-доступ с хоста (где установлен VSCode):
 
 bash
@@ -135,14 +140,14 @@ ssh-copy-id username@192.168.1.100
 bash
 Копировать код
 ssh ubuntu-vm
+
 5. Подключение к VM из VSCode
 Открой VSCode.
 Нажми F1 (или Ctrl+Shift+P) и введи:
-makefile
-Копировать код
 Remote-SSH: Connect to Host...
 Выбери хост ubuntu-vm из списка (если его нет, добавь вручную).
 Подожди, пока VSCode установит необходимые серверные компоненты на VM.
+
 6. Установи дополнительные инструменты
 На виртуальной машине:
 Установи Python (если требуется):
@@ -161,6 +166,7 @@ sudo apt install build-essential -y
 В VSCode установи расширения:
 Python (для работы с Python-кодом).
 GitLens (для работы с Git).
+
 7. Проверка и устранение проблем
 Проблема: SSH не работает.
 
@@ -169,11 +175,13 @@ bash
 Копировать код
 sudo ufw allow 22
 Проверь брандмауэр (если есть).
+
 Проблема: VSCode не подключается.
 
 Проверь лог файла:
 В VSCode: нажми на Output (внизу) и выбери Remote-SSH.
 Убедись, что sshd запущен на VM.
+
 Проблема: Ошибка "Permission denied".
 
 Проверь права доступа к файлу ~/.ssh/id_rsa:
