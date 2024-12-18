@@ -1,0 +1,97 @@
+Привет! У меня есть установленный ubenur server на локальной машине virtualbox. И у меня есть задание: 1) Install and configure Docker in a virtual machine on your computer without using Docker Desktop 2) Download, configure, and run the operating system of your choice from Docker Hub (1+2 tasks - 70 points) * Configure the Docker container with nginx and run it. After connecting and starting, the system should show your name and surname (100 points) Напиши мне максимально подробную инструкцию по тому, как мне выполнить оба пункта этого задания?
+Привет! Конечно, я помогу тебе с этим заданием. Давай начнем с первого пункта.
+
+Шаг 1: Установка и настройка Docker в виртуальной машине без использования Docker Desktop
+Подготовка виртуальной машины:
+
+Убедись, что виртуальная машина уже установлена и запущена (например, в VirtualBox).
+
+Подключись к виртуальной машине через SSH или другой доступный способ.
+
+Установка Docker:
+
+Обнови пакеты и установи необходимые зависимости:
+
+bash
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+Добавь репозиторий Docker:
+
+bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+Установи Docker:
+
+bash
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io
+Проверь установку:
+
+bash
+sudo docker run hello-world
+Настройка пользователя для Docker:
+
+Добавь текущего пользователя в группу Docker:
+
+bash
+sudo usermod -aG docker $USER
+Перезапусти систему или выполните:
+
+bash
+newgrp docker
+Проверь, что теперь можно запускать Docker без sudo:
+
+bash
+docker run hello-world
+Шаг 2: Загрузка, настройка и запуск операционной системы из Docker Hub
+Выбор и загрузка образа:
+
+Открой Docker Hub и выбери нужный тебе образ (например, Ubuntu):
+
+bash
+docker pull ubuntu
+Запуск контейнера:
+
+Запусти контейнер с выбранным образом:
+
+bash
+docker run -it ubuntu /bin/bash
+Теперь ты находишься внутри контейнера и можешь настроить его по своему усмотрению.
+
+Шаг 3: Настройка контейнера с nginx и запуск
+Создание Dockerfile:
+
+Создай файл с именем Dockerfile и добавь следующий код:
+
+Dockerfile
+FROM ubuntu:latest
+RUN apt-get update && apt-get install -y nginx
+COPY index.html /var/www/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+Создай файл index.html с содержимым:
+
+html
+<html>
+<head>
+  <title>Привет, [Твое Имя] [Твою Фамилию]!</title>
+</head>
+<body>
+  <h1>Привет, [Твое Имя] [Твою Фамилию]!</h1>
+</body>
+</html>
+Сборка образа:
+
+Перейди в директорию с Dockerfile и выполните:
+
+bash
+docker build -t my-nginx .
+Запуск контейнера:
+
+Запусти контейнер с созданным образом:
+
+bash
+docker run -p 80:80 -d my-nginx
+Теперь ты можешь открыть браузер и перейти по адресу http://localhost для проверки.

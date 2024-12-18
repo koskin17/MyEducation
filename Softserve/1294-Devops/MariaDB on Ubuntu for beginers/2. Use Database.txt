@@ -1,0 +1,39 @@
+Use Database
+This is your stage for experimentation
+You can create a table "users" with next fields: ID, full name, email.
+
+Solutions
+Create a table
+CREATE TABLE users ( id INT(5) NOT NULL AUTO_INCREMENT, full_name VARCHAR(191) NULL DEFAULT NULL, email VARCHAR (100) NULL DEFAULT NULL, PRIMARY KEY (id)) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
+
+Add a 2 new users into table.
+
+Solutions
+Insert data in to table
+INSERT INTO users (full_name, email)  
+VALUES ('John Doe', 'john.doe@john.doe'),  
+('Jane Doe', 'jane.doe@john.doe')  ;
+
+Show all data from table "users" sorted by full name by descending.
+
+Solutions
+Select
+ SELECT * FROM users ORDER BY full_name DESC;
+
+Update Jane Doe on Judy Doe and show results
+
+Solutions
+Select
+ UPDATE users 
+ SET full_name = 'Judy Doe' 
+ WHERE full_name = 'Jane Doe';
+
+ SELECT * FROM users;
+
+Create an INNER JOIN query that will show all products with full user records that are joined by the level and user ID fields.
+
+Solutions
+Select
+SELECT * FROM products INNER JOIN users ON products.level = users.id  ORDER BY products.name;
+
+

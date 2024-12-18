@@ -1,0 +1,197 @@
+Which features does the kernel offer for containers?
+
+Питання 1Відповідь
+
+capabilities
+
+
+rules
+
+
+namespaces
+
+
+cgroups
+
+
+file system
+Sider Fusion
+The kernel provides several key features that are essential for containerization. Here's a brief overview of each of the listed features and how they contribute to the functionality and isolation of containers:
+
+Capabilities: Capabilities allow you to grant specific privileges to a container without giving it full root access. This makes it possible to fine-tune the level of permission a process inside a container has, improving security by limiting the potential impact of a compromised process.
+
+Namespaces: Namespaces provide isolation for various system resources within containers. This means each container can have its own network stack, process IDs, user IDs, mount points, and more, allowing containers to operate independently from each other and the host system. Key types of namespaces include:
+
+PID namespaces (process isolation)
+Network namespaces (network isolation)
+Mount namespaces (filesystem isolation)
+User namespaces (user and group ID mapping)
+cgroups (Control Groups): Cgroups allow for resource allocation and management among containers. You can limit CPU usage, memory consumption, and disk I/O for each container, ensuring that no single container can consume all the host's resources and affect the performance of others.
+
+File System: Container file systems generally use a layered approach (like OverlayFS) that allows for efficient storage and sharing of files. Each container can have its own filesystem that overlays the host filesystem, providing an isolated environment while enabling shared access to common files and the underlying image layers.
+
+Rules: While "rules" isn't a specific kernel feature, it typically refers to the policies and regulations that can be defined to manage and control interactions within and between containers. This can involve things like security policies, network/firewall rules, and access control mechanisms.
+
+In summary, the kernel supports containers primarily through namespaces, cgroups, capabilities, and file system features, focusing on isolation, resource management, and security. If you’d like any further details on any of these features, just let me know!
+
+The history of application containerization is intimately tied to which OS? Питання 2Відповідь a. Linux b. MacOS c. Windows d. Android
+The history of application containerization is intimately tied to which OS? Питання 2Відповідь a. Linux b. MacOS c. Windows d. Android
+The history of application containerization is intimately tied to which OS?
+
+Питання 2Відповідь
+
+a.
+Linux
+
+
+b.
+MacOS
+
+
+c.
+Windows
+
+
+
+d.
+Android
+Sider Fusion
+The history of application containerization is intimately tied to a. Linux.
+
+Linux introduced many of the key technologies that underpin containerization, such as namespaces and cgroups, which are used to provide isolation and resource management for containers. The modern concept of containerization became popular with the advent of technologies like Docker, which built on these Linux kernel features. While other operating systems have incorporated containerization concepts (like Windows with Windows Containers), Linux remains the foundational platform for container technology.
+
+What is a set of files and a combination of parameters which will allow creating the instances to run in separate containers as an isolated process? Питання 3Відповідь Docker image Docker registry Docker host Docker container
+
+Docker image
+Docker registry
+Docker host
+Docker container
+
+The correct answer is Docker image.
+
+A Docker image is a set of files and a combination of parameters that define an application and its environment, including the software, libraries, and dependencies needed to run it. Docker images serve as the blueprint for creating instances, or containers, which run as isolated processes. Each container created from an image will operate independently, ensuring that applications do not interfere with one another.
+
+What is a form of encapsulation to the application which holds all the dependencies which share the kernel with other containers in the duration of running the isolated processes on the host operating system ?
+
+Docker container
+Docker image
+Docker hub
+Docker registry
+
+The correct answer is Docker container.
+
+A Docker container is a runtime instance of a Docker image. It encapsulates the application along with all its dependencies and configurations, allowing it to run as an isolated process on the host operating system. While containers share the same kernel of the host OS, they provide a level of independence and isolation from one another, enabling multiple containers to run concurrently without interfering with each other.
+
+Which Docker engine command allows you to view a list of images ? 
+docker list
+docker images
+docker view
+docker show images
+
+The correct answer is docker images.
+
+The command docker images allows you to view a list of all the images stored in your local Docker environment. It displays information such as the repository name, tag, image ID, creation date, and size of each image.
+
+Which Docker engine command allows you delete a docker images ?
+docker del
+docker kill
+docker rm
+docker rmi
+docker reinstall
+
+The correct answer is docker rmi.
+
+The command docker rmi is used to delete one or more Docker images from your local Docker environment. If you want to remove an image, you would specify its name or ID after the docker rmi command.
+
+Which Docker engine command allows you run CLI shell in to Docker container ?
+
+docker exec 
+docker start -it <container name> bash
+docker exec -it <container name> bash
+docker run -it <container name> bash
+
+The correct answer is docker exec -it <container name> bash.
+
+This command allows you to run an interactive CLI shell (bash) inside a running Docker container. The -it flag enables interactive mode with a pseudo-TTY, allowing for user input and output.
+
+Which Docker engine command allows you run a container named <cont_name> on port 1234 from the  httpd:latest image ?
+
+docker run --name <cont_name>  -t -i -p 1234:80 httpd:2.4.23
+docker run --name <cont_name>  -t -i -p 1234:80 httpd:latest
+docker run  <cont_name>  -t -i -p 1234:80 httpd:latest
+docker run --name <cont_name>  -t -i -p 80:1234 httpd:latest
+docker start --name <cont_name>  -t -i -p 1234:80 httpd:latest
+
+The correct answer is docker run --name <cont_name> -t -i -p 1234:80 httpd:latest.
+
+This command does the following:
+
+docker run: Creates and starts a new container.
+--name <cont_name>: Names the container <cont_name>.
+-t: Allocates a pseudo-TTY (terminal).
+-i: Keeps standard input open even if not attached.
+-p 1234:80: Maps port 1234 on the host to port 80 in the container (where the HTTP server typically runs).
+httpd:latest: Specifies the image to use, in this case, the latest version of the HTTPD image.
+If you have any more questions or need clarification on Docker commands, feel free to ask!
+
+Which Docker command allows you to show all the containers on your system ?
+
+docker list -a
+docker ps
+docker show
+docker list
+docker ps -a
+
+The correct answer is docker ps -a.
+
+The command docker ps -a lists all containers on your system, including those that are currently running as well as those that have exited or been stopped. The -a flag stands for "all."
+
+Which Docker command allows you to create new images from an existing Dockerfile from the current directory ?
+
+docker run -t my-apache2 . 
+docker build -t my-apache2 ./ 
+docker create -t my-apache2 . 
+docker build -t my-apache2 .
+
+The correct answer is docker build -t my-apache2 .
+
+This command creates a new Docker image from a Dockerfile located in the current directory (denoted by the .). The -t my-apache2 option tags the newly created image with the name my-apache2.
+
+What is key features containerization?
+a.
+Isolation
+b.
+Portability
+c.
+Scalability
+d.
+All of the above
+e.
+Non-Efficiency
+
+The correct answer is d. All of the above.
+
+Key features of containerization include:
+
+Isolation: Containers run in isolation from each other and the host system, which helps prevent conflicts and ensures consistent environments.
+
+Portability: Containers can run consistently across different environments (development, testing, production) because they package the application and its dependencies together.
+
+Scalability: Containers can be easily scaled up or down depending on the needs of the application, allowing for efficient resource management.
+
+Non-Efficiency is not a feature associated with containerization; in fact, containerization is generally designed to improve efficiency in resource utilization.
+
+Which of the following statements is- the most correct?
+
+a.
+Docker allows you to run containers and build images.
+b.
+Docker allows you to run and build images.
+c.
+Docker allows you to run images and build containers.
+d.
+Docker allows you to run and build containers.
+
+The most correct statement is a. Docker allows you to run containers and build images.
+
+This statement accurately reflects Docker's primary functionalities: you can run containers based on images, and you can build images from Dockerfiles.

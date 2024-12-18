@@ -1,0 +1,119 @@
+Step 4 Dockerfile
+Docker
+Create Docker container from Dockerfile
+These instructions are processed sequentially, and each instruction results in the creation of a new image layer. Here's how instructions are used in a Dockerfile:
+
+FROM The FROM instruction specifies the base image from which you want to build your image. It is the first instruction in a Dockerfile. For example, you can start with a base image like Ubuntu, Alpine, or an official image like nginx. The image specified with FROM forms the foundation of your image.
+
+FROM ubuntu:20.04
+RUN The RUN instruction executes shell commands or scripts during the image-building process. It can be used to install software, update packages, and perform various system configurations.
+
+RUN apt-get update && apt-get install -y nginx
+COPY/ADD The COPY and ADD instructions are used to copy files and directories from the host machine into the image. COPY is preferred for simple file copying, while ADD can be used to copy files, extract archives, and more.
+
+COPY app /app
+**WORKDIR ** The WORKDIR instruction sets the working directory within the container for subsequent instructions. It allows you to specify a default directory for commands that follow.
+
+WORKDIR /app
+EXPOSE The EXPOSE instruction is used to declare the network ports that the container will listen on at runtime. This doesn't actually expose the ports; it's more of a documentation tool to indicate which ports should be made accessible.
+
+EXPOSE 80
+CMD/ENTRYPOINT These instructions specify the default command that should be executed when a container is started. CMD is used to provide a default command with arguments, while ENTRYPOINT is used to specify the executable that will be run when the container starts. The CMD can be overridden when running the container, whereas ENTRYPOINT cannot.
+
+CMD ["nginx", "-g", "daemon off;"]
+**ENV ** The ENV instruction sets environment variables within the container. These variables can be used in subsequent instructions or by the application running in the container.
+
+ENV APP_ENV=production
+LABEL The LABEL instruction adds metadata to the image, such as version, author, or description. These labels can be useful for documentation and organization.
+
+LABEL version="1.0" author="Your Name"
+ARG The ARG instruction defines build-time variables that can be used in the Dockerfile but are not persisted in the final image. They can be overridden when you build the image.
+
+ARG MY_ARG=default_value
+Let's go. Return to home directory:
+
+cd ~
+Create a new directory with name "docker_softserve" and go to it.
+
+mkdir docker_softserve
+cd docker_softserve
+Create a clear new Dockerfile
+
+touch Dockerfile
+Open the file:
+
+nano Dockerfile
+Paste the following code into your Dockerfile and save it.
+
+FROM php:8.2.11-apache
+COPY ./index.html /var/www/html/index.html
+EXPOSE 80
+WORKDIR /var/www/html/
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update  && apt-get install -yq apt-utils >/dev/null 2>&1
+RUN rm -rf /etc/apache2/sites-enabled/000-default.conf
+RUN echo "<?php echo 'PHP version: '. phpversion(); ?>" > testphp.php
+ENTRYPOINT [ "apache2-foreground" ]
+Add to the Dockerfile LABEL
+
+LABEL version="1.0" author="Your Name"
+Task: Add to Dockerfile command, that install nano editor.
+
+Save and exit the Dockerfile by use command Ctrl+O and Ctrl+X
+
+Explanation:
+
+The FROM instruction sets the base image as the official Apache image (httpd:2.4).
+
+The WORKDIR instruction sets the working directory within the container to /usr/local/apache2/htdocs, which is the default directory for Apache web content.
+
+The RUN instruction updates the package list and installs PHP and the Apache PHP module (libapache2-mod-php). This makes Apache capable of running PHP scripts.
+
+The RUN instruction creates a simple PHP file named index.php in the webroot with a basic PHP script that calls phpinfo(). You can replace this with your own PHP application files.
+
+The EXPOSE instruction declares that the container will expose port 80 for incoming web traffic.
+
+The ENTRYPOINT instruction specifies that the httpd-foreground command should be run when the container starts. httpd-foreground is a script used by the official Apache image to start the Apache web server.
+
+Create a new index file for the project to copy into your image:
+
+cat >index.html <<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="softserve" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hi!</h1>
+    <p>I'm learning Create a container from Dockerfile</p>
+    <p>That's cool</p>
+    <a href="testphp.php">Test PHP</a>
+</body>
+</html> 
+EOF
+Build a new docker image from current directory:
+
+docker build -t my-apache2 .
+Running a Container:
+
+You can run a container based on the image you just built with the following command:
+
+docker run -dit --name my-running-app -p 8282:80 my-apache2
+-d runs the container in detached mode. -p 8282:80 maps port 80 inside the container to port 8282 on the host.
+
+Now, your Apache web server with PHP support is up and running, and you can access it by running http://localhost:8282 .
+
+curl localhost:8282/testphp.php
+Or runing and navigate in browser Access to web page
+
+Show Dockerfile
+
+cat Dockerfile
+Run docker container with volume:
+
+mkdir data
+cp index.html data/
+docker run -dit --name new -p 8484:80 -v /root/docker_softserve/data/:/usr/local/apache2/htdocs/ httpd:2.4.58
+Runing and navigate in browser Access to web page

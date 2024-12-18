@@ -1,0 +1,69 @@
+Step 3 Setup container from existing container
+Docker
+Create a container from existing container
+Let's go into the container and view the contents of the web server directory. Type the next commant : docker exec -it myapache /bin/bash
+
+docker ps
+docker exec -it myapache /bin/bash 
+Show the index file in the apache directory:
+
+cat /usr/local/apache2/htdocs/index.html 
+Change information on file index.html
+
+nano /usr/local/apache2/htdocs/index.html 
+Add the following text to the file after the current text:
+
+It is second container!
+Save data ( Ctrl+O) + Enter and exit (Ctrl+X)
+
+Show file index.html.
+
+cat /usr/local/apache2/htdocs/index.html 
+Exit from container and return to back:
+
+exit
+Check output:
+
+curl localhost:8080
+Create a new container from existing container with name "newapache"
+
+docker ps
+docker commit myapache newapache
+Run a new container:
+
+docker run -dit --name myapache_new -p 8181:80 newapache
+Copy this string as answer.
+
+Stop old container myapache.
+
+docker stop myapache
+Check output in console:
+
+curl localhost:8181 
+Check output in browser: Access to web page on port 8181
+
+Create a new local index.html in your directory softserve
+
+mkdir softserve
+cd softserve
+cat >index.html <<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="softserve" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hi!</h1>
+    <p>I'm learning docker</p>
+    <p>That's cool</p>
+</body>
+</html> 
+EOF
+docker ps
+docker cp index.html myapache_new:/usr/local/apache2/htdocs/index.html 
+Check output in console ant copy them as answer:
+
+curl localhost:8181 
+Congratulations! Go to the next step.

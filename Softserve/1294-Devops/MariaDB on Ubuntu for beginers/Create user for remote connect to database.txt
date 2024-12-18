@@ -1,0 +1,58 @@
+Create user for remote connect to database
+ 
+Умови завершення
+First, connect to the MariaDB console using the root account:
+
+>  sudo mariadb
+
+To create a new database, run the following command from your MariaDB console:
+
+ > CREATE DATABASE sofserve_database;
+
+Now create a new user and grant them full privileges on the custom database you’ve just created.
+
+The following command creates a new user named sofserve_user that authenticates with the caching_sha2_password method. We’re defining this user’s password as password, but you should replace this value with a secure password of your own choosing.
+
+>  CREATE USER 'sofserve_user'@'%' IDENTIFIED BY 'password';
+
+Note: The previous ALTER USER statement sets the root MariaDB  user to authenticate with the caching_sha2_password plugin., caching_sha2_password is MariaDB ’s preferred authentication plugin, as it provides more secure password encryption than the older, but still widely used, MariaDB _native_password.
+
+However, some versions of PHP don’t work reliably with caching_sha2_password. PHP has reported that this issue was fixed as of PHP 7.4, but if you encounter an error when trying to log in to phpMyAdmin later on, you may want to set root to authenticate with MariaDB _native_password instead:
+
+> ALTER USER 'root'@'localhost' IDENTIFIED WITH MariaDB _native_password BY 'password';
+
+Now give this user permission over the sofserve_database database:
+
+>  GRANT ALL ON sofserve_database.* TO 'sofserve_user'@'%';
+
+This will give the sofserve_user user full privileges over the sofserve_database database, while preventing this user from creating or modifying other databases on your server.
+
+Now exit the MariaDB  shell with:
+
+> exit
+
+Test if the new user has the proper permissions by logging in to the MariaDB  console again, this time using the custom user credentials:
+
+>  mariadb  -u sofserve_user -p
+
+Notice the -p flag in this command, which will prompt you for the password used when creating the sofserve_user user. After logging in to the MariaDB  console, confirm that you have access to the sofserve_database database:
+
+>  SHOW DATABASES;
+
+This will give you the following output:
+
+Output
+
++--------------------+
+
+| Database           |
+
++--------------------+
+
+| sofserve_database   |
+
+| information_schema |
+
++--------------------+
+
+2 rows in set (0.000 sec)

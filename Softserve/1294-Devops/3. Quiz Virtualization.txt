@@ -1,0 +1,114 @@
+What is computer virtualization?
+
+The process of creating multiple virtual machines from a single hardware server.
+
+Компьютерная виртуализация подразумевает создание нескольких виртуальных машин, которые могут работать на одном физическом сервере, что позволяет эффективно использовать ресурсы оборудования. Если нужны дополнительные объяснения по этой теме, дай знать!
+
+Which of the following is a type of virtualization?
+
+a.
+Storage virtualization
+
+b.
+All of the above
+
+c.
+Network virtualization
+
+d.
+Server virtualization
+
+All
+
+What is the hypervisor?
+a. A tool that enables virtualization.
+
+Гипервизор — это программное обеспечение, которое позволяет создавать и управлять виртуальными машинами, тем самым обеспечивая виртуализацию. Если нужны дополнительные пояснения, не стесняйся спрашивать!
+
+What is the difference between full virtualization and para-virtualization? 
+c. Full virtualization emulates hardware while para-virtualization uses modified guest operating systems.
+
+В полном виртуализированном окружении гипервизор полностью эмулирует аппаратное обеспечение, позволяя запускать стандартные операционные системы без модификаций. В паравиртуализации операционные системы должны быть изменены для взаимодействия с гипервизором, поскольку они работают с частично эмулированным аппаратным обеспечением. Если есть дополнительные вопросы, дай знать!
+
+What is containerization? 
+d. The process of creating lightweight, portable software packages that can run on any platform.
+
+Контейнеризация позволяет упаковывать приложения и их зависимости в контейнеры, что обеспечивает их переносимость и позволяет запускать их в различных средах без необходимости изменения кода. Если нужен дополнительный контекст или пояснения, дай знать!
+
+What is the benefit of virtualization?
+
+a.
+It allows for easier management of resources
+
+b.
+It can increase security by isolating workloads
+
+c.
+It allows for greater flexibility and scalability
+
+d.
+All of the above
+
+d. All of the above.
+
+Виртуализация предоставляет множество преимуществ, включая более легкое управление ресурсами, повышение безопасности за счет изоляции рабочих нагрузок и возможность большей гибкости и масштабируемости. Каждое из этих преимуществ делает виртуализацию ценным инструментом в IT. Если есть дополнительные вопросы или темы для обсуждения, дай знать!
+
+What is a virtual machine? 
+c. A software-based computer running an operating system and applications.
+
+Виртуальная машина (VM) — это программный образ компьютера, который может выполнять операционную систему и приложения, функционируя как отдельный компьютер в рамках физического оборудования. Если тебе нужны дополнительные пояснения, просто дай знать!
+
+What is the difference between Type 1 and Type 2 hypervisors?
+a. Type 1 hypervisors run directly on the host machine while Type 2 hypervisors run on top of an operating system.
+
+Гипервизоры типа 1 (или нативные гипервизоры) работают непосредственно на физическом оборудовании, обеспечивая большую производительность и эффективность, тогда как гипервизоры типа 2 (или хостовые гипервизоры) устанавливаются на существующую операционную систему, что может привести к меньшей производительности. Если у тебя есть дополнительные вопросы, не стесняйся спрашивать!
+
+What is live migration?
+a. The process of moving a virtual machine from one host to another without downtime.
+
+Живая миграция позволяет перемещать виртуальные машины между хостами без прерывания их работы, что обеспечивает непрерывность сервисов и минимизирует время простоя. Если у тебя есть дополнительные вопросы или нужна дополнительная информация, дай знать!
+
+What is Oracle VirtualBox?
+d. A virtualization tool for creating and managing virtual machines.
+
+Oracle VirtualBox — это инструмент виртуализации, который позволяет пользователям создавать и управлять виртуальными машинами на своих компьютерах, обеспечивая возможность запускать различные операционные системы и приложения в изолированных средах. Если есть вопросы или нужны дополнительные пояснения, дай знать!
+
+Which operating systems can be run in Oracle VirtualBox?
+a. Windows, Linux, and macOS.
+
+Oracle VirtualBox поддерживает запуск множества операционных систем, включая Windows, Linux и macOS (хотя последняя может требовать некоторых дополнительных настроек из-за лицензионных ограничений). Если у тебя есть дополнительные вопросы или нужна более подробная информация, дай знать!
+
+What is a virtual hard disk in Oracle VirtualBox?
+b. A file that represents a physical hard disk in a virtual machine.
+
+Виртуальный жесткий диск в Oracle VirtualBox — это файл, который имитирует физический жесткий диск и используется для хранения данных виртуальной машины, включая операционную систему и приложения. Если у тебя есть дополнительные вопросы или нужна помощь, не стесняйся обращаться!
+
+What is the purpose of a virtual machine snapshot in Oracle VirtualBox?
+d. To save the current state of a virtual machine for backup or recovery purposes.
+
+Снимок виртуальной машины в Oracle VirtualBox позволяет сохранить текущее состояние виртуальной машины, включая ее настройки, данные и запущенные приложения, что упрощает восстановление системы в случае сбоя или необходимости вернуться к предыдущему состоянию. Если у тебя есть дополнительные вопросы или нужна помощь, дай знать!
+
+What is a virtual network adapter in Oracle VirtualBox?
+a. A virtual device that connects a virtual machine to a network.
+
+Виртуальный сетевой адаптер в Oracle VirtualBox — это виртуальное устройство, которое обеспечивает соединение виртуальной машины с сетью, позволяя ей обмениваться данными с другими виртуальными машинами и устройство, находящимися в той же сети. Если тебе нужна дополнительная информация или есть вопросы, не стесняйся спрашивать!
+
+What is the purpose of Guest Additions in Oracle VirtualBox?
+b. To improve performance and provide better integration between the host and guest operating systems.
+
+Guest Additions в Oracle VirtualBox устанавливаются внутри виртуальной машины и обеспечивают улучшение производительности, поддержку функций, таких как сплошная интеграция мыши, общий доступ к папкам и улучшенная графика, а также общение между хостовой и гостевой операционными системами. Если есть дополнительные вопросы или нужны пояснения, дай знать!
+
+What is the difference between a NAT network and a Bridged network in Oracle VirtualBox?
+a. A Bridged network allows a virtual machine to access the host network while a NAT network does not.
+
+В режиме Bridged сети виртуальная машина подключается к той же сети, что и хост, и может общаться с другими устройствами в этой сети, получая IP-адрес так же, как и физические устройства. В режиме NAT виртуальная машина получает доступ к интернету через хост, но не может напрямую общаться с другими устройствами в локальной сети. Если у тебя есть дополнительные вопросы по этому поводу, не стесняйся спрашивать!
+
+What is the maximum number of virtual CPUs that can be assigned to a virtual machine in Oracle VirtualBox?
+b. 64.
+
+В Oracle VirtualBox можно назначить до 64 виртуальных процессоров (vCPUs) для одной виртуальной машины, при условии, что хостовая система поддерживает такое количество виртуальных процессоров. Если у тебя есть другие вопросы или нужна дополнительная информация, дай знать!
+
+What is the purpose of the VirtualBox Extension Pack?
+b. To provide additional features and functionality, such as USB 2.0/3.0 support and remote desktop connections.
+
+Расширенный пакет VirtualBox (Extension Pack) добавляет дополнительные возможности, включая поддержку USB 2.0 и 3.0, поддержку RDP (Remote Desktop Protocol) и другие функции, которые не доступны в стандартной версии VirtualBox. Если у тебя есть дополнительные вопросы или нужна помощь, дай знать!

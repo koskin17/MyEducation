@@ -1,0 +1,22 @@
+Your laboratories
+Python 3 is a programming language that lets you work quickly and integrate systems more effectively.
+
+In this labs, we use Python 3 installed on an Ubuntu 2x.xx server.
+
+To verify whether pip is already installed for your preferred Python:
+
+python3 -m pip -V
+If all is well, you should see something like the following:
+
+python3 -m pip -V pip 21.0.1 from /usr/lib/python3.9/site-packages/pip (python 3.9)
+
+If so, pip is available, and you can move on to the next step. If you see an error like No module named pip, you’ll need to install pip under your chosen Python interpreter before proceeding. This may mean installing an additional OS package (for example, python3-pip), or installing the latest pip directly from the Python Packaging Authority by running the following:
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py --user
+Clone from github, install and run python server . Clone from github, install and run frontend. If you run a node.js frontend, please, update url address in .env to ACCESS WEB APP.
+
+https://e57e6b93-17bf-443f-b7e3-cadd0b802f62-10-244-4-177-5000.spch.r.killercoda.com/api
+Enjoy!
+
+Create a your application.

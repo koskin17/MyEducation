@@ -1,0 +1,40 @@
+Docker
+In this task, we will install and run a container with an Apache web server
+
+To begin with, you should go to dockerhub, you can without registration.
+
+dockerhub0.png
+
+Enter httpd in the search field
+
+dockerhub1.png
+
+After entering httpd in the search field (1), a page will appear from which you can immediately copy the installation command (2). In this case, the latest available version with the prefix latest will be installed. If you look in (3) Recent Tags, you will see available tags. Therefore, we press Tags (4). A page with available tags will open.
+
+dockerhub2.png
+
+Scroll to the desired tag, for example for version 2.4.57. Copy and run the image installation:
+
+dockerhub3.png
+
+docker pull httpd:2.4.58
+Let's run the downloaded container with the name "myapache"
+
+docker run -dit --name myapache -p 8080:80 httpd:2.4.58
+You can open start web page in to browser after few minuts :
+
+Access to web page
+
+You can see: dockerhub4.png
+
+Let's go into the container and view the contents of the web server directory.
+
+docker ps
+docker exec -it myapache /bin/bash 
+Show the index file in the apache directory:
+
+cat /usr/local/apache2/htdocs/index.html 
+Return to back
+
+exit
+Congratulations! Go to the next step.

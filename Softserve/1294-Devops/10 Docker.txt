@@ -1,0 +1,5 @@
+00:08:03	Den Rohachov:	Всім привіт
+00:20:37	Den Rohachov:	Вибачаюсь, тільки в мене немає презентації до контенту?
+00:21:22	Den Rohachov:	+
+00:23:00	Oleksii Nazarenko:	Є Podman. Він має безкоштовний десктоп і працює з Docker командами і контейнерами
+01:02:48	Ihor Kapatsila:	https://killercoda.com/mentorchita/scenario/docker
