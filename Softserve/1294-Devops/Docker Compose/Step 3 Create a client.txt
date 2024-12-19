@@ -1,0 +1,118 @@
+Step 3 Create a client
+Create a client
+Go to client folder:
+
+cd ~/softserve/client
+Create following files:
+
+touch Dockerfile client.py
+Open and edit client.py in editor:
+
+nano client.py
+Insert following code to file:
+
+#!/usr/bin/env python3
+import urllib.request
+fp = urllib.request.urlopen("http://localhost:1234/")
+encodedContent = fp.read()
+decodedContent = encodedContent.decode("utf8")
+print(decodedContent)
+fp.close()
+Save the file and exit the editor.
+
+This Python script is a simple HTTP client that retrieves the content of a webpage located at "http://localhost:1234/" and prints it to the console. Let's break down each part of the code:
+
+Import module:
+import urllib.request
+
+This line imports the urllib.request module, which provides an interface for opening and reading URLs.
+
+HTTP Request:
+fp = urllib.request.urlopen("http://localhost:1234/")
+
+This line opens a connection to the URL "http://localhost:1234/" using the urlopen function from urllib.request. The result (fp) is a file-like object representing the content of the URL.
+
+Read Content:
+encodedContent = fp.read()
+
+This line reads the content of the URL (in bytes) and stores it in the variable encodedContent.
+
+Decode Content:
+decodedContent = encodedContent.decode("utf8")
+
+This line decodes the content from bytes to a Unicode string using the UTF-8 encoding and stores it in the variable decodedContent.
+
+Print Content:
+print(decodedContent)
+
+This line prints the decoded content to the console.
+
+Close Connection:
+fp.close()
+
+This line closes the connection to the URL.
+
+In summary, this script performs a simple HTTP GET request to "http://localhost:1234/", retrieves the content, decodes it, and prints it to the console. It's a basic example of making a web request and handling the response in Python.
+
+Open Dockerfile in editor:
+
+nano Dockerfile
+Insert next code in to file:
+
+FROM python:latest
+ADD client.py /client/
+WORKDIR /client/
+Save the file and exit. Fine. Now let's return to the root directory of the project and edit the docker-compose.yml file.
+
+cd ..
+nano docker-compose.yml
+Insert following code:
+
+version: "3.3"
+services:
+   server:
+       build: server/
+       command: python ./server.py
+       ports:
+           - 1234:1234
+   client:
+       build: client/    
+       command: python ./client.py
+       network_mode: host
+       depends_on:
+            - server
+
+Save the file and exit
+
+This code represents a docker-compose.yml file, which is used to define and manage multi-container Docker applications. It specifies the configuration for two services: server and client. Let's break down each part of the code:
+
+version: "3.3"
+This indicates the version of the Docker Compose file format being used. In this case, it's version 3.3.
+
+services:
+   server:
+       build: server/
+       command: python ./server.py
+       ports:
+           - 1234:1234
+build: server/ : This specifies that the Docker image for the server service should be built from the server/ directory. The server/ directory likely contains a Dockerfile for building the server image.
+
+command: python ./server.py : This sets the command to be executed when the server container starts. It runs the Python script server.py.
+
+ports: - 1234:1234 : This maps port 1234 from the host to port 1234 in the server container, allowing external access to the server.
+
+   client:
+       build: client/
+       command: python ./client.py
+       network_mode: host
+       depends_on:
+            - server
+build: client/ : Similar to the server service, this specifies that the Docker image for the client service should be built from the client/ directory.
+
+command: python ./client.py : Sets the command to be executed when the client container starts. It runs the Python script client.py.
+
+network_mode: host : This allows the client container to use the host's network stack. It effectively runs the container in the host's network namespace, allowing it to connect to services running on the host directly.
+
+depends_on: - server : Specifies that the client service depends on the server service. This ensures that the server container is started before the client container.
+
+In summary, this docker-compose.yml file defines two services, server and client, with the server service building from the server/ directory and running a Python script, and the client service building from the client/ directory, running a different Python script, and depending on the server service. The client service is configured to use the host's network stack. This configuration is suitable for a scenario where a client and server application are interacting, and they need to communicate over the network.

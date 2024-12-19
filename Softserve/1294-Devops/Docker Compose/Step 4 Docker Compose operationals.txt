@@ -1,0 +1,36 @@
+Step 4 Docker Compose operationals
+Create and run
+Build project:
+
+docker-compose build
+Run services
+
+docker-compose up
+Check services in browser:
+
+Access to web page
+
+Open a new terminal window (Tab2) and run following command:
+
+cd softserve
+docker-compose logs
+Outputs the logs of containers for the specified services.
+
+List containers
+
+docker-compose ps
+Down the service.
+
+docker-compose down
+Up the service:
+
+docker-compose up
+Stopinng the service
+
+docker-compose stop
+Starting the service
+
+docker-compose start
+Restarting the service
+
+docker-compose  restart

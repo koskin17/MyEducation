@@ -1,0 +1,77 @@
+Step 2 Create server side program
+Create a simple application on Python and run it in Docker Compose
+Create a new directory and create a directory structure:
+
+mkdir softserve
+cd softserve
+mkdir server client
+touch docker-compose.yml
+In the server folder create the following files:
+
+cd server
+touch server.py index.html Dockerfile
+Open server.py file in an editor and write the following code to it:
+
+nano server.py
+#!/usr/bin/env python3
+import http.server
+import socketserver
+handler = http.server.SimpleHTTPRequestHandler
+with socketserver.TCPServer(("", 1234), handler) as httpd:
+     httpd.serve_forever()
+Save the file and exit (Ctrl+O, Ctrl+X)
+
+Shebang (#!/usr/bin/env python3):
+This line is known as a shebang and specifies the interpreter that should be used to execute the script. In this case, it points to the Python 3 interpreter.
+
+Import modules:
+import http.server import socketserver
+
+These lines import the necessary modules for creating an HTTP server (http.server) and handling sockets (socketserver).
+
+Handler Definition:
+handler = http.server.SimpleHTTPRequestHandler
+
+This line creates an instance of the SimpleHTTPRequestHandler class from the http.server module. This handler is a basic HTTP request handler that serves files from the current directory.
+
+Server Configuration and Start:
+with socketserver.TCPServer(("", 1234), handler) as httpd: httpd.serve_forever()
+
+This block of code is a context manager that creates a TCP server on port 1234 using the specified handler. The handler is a class that defines how the server will handle incoming requests.
+
+The serve_forever() method tells the server to start listening for requests and handling them until it is stopped.
+
+Open the index.html file in the editor for editing:
+
+nano index.html
+Paste the following code:
+
+My first docker-compose task!
+Save the file and exit.
+
+Open the Dockerfile file in the editor for editing:
+
+nano Dockerfile
+And copy the following code that creates a docker container for our application.
+
+FROM python:latest
+ADD server.py /server/
+ADD index.html /server/
+WORKDIR /server/
+Save the file and exit
+
+Explanation:
+
+FROM python:latest:
+This line specifies the base image for the new image. In this case, it uses the official Python image from Docker Hub, tagged as "latest." This means the image will be built on top of the latest version of the Python image available at the time of the build.
+
+ADD server.py /server/:
+This line adds the local file server.py to the image at the /server/ directory. The ADD command is used to copy files or directories from the build context (the directory containing the Dockerfile and any referenced files) to the image. In this case, it copies the Python server script server.py to the /server/ directory inside the image.
+
+ADD index.html /server/:
+Similar to the previous line, this command adds the local file index.html to the image at the /server/ directory. It copies the HTML file to the same directory inside the image.
+
+WORKDIR /server/:
+Sets the working directory for any subsequent instructions in the Dockerfile to /server/. The WORKDIR command is used to change the current working directory within the image. In this case, it ensures that any future commands will be executed in the context of the /server/ directory.
+
+Go to next step.

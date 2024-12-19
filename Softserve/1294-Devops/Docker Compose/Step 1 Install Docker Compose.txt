@@ -1,0 +1,61 @@
+Step 1 Install Docker Compose
+Install Docker Compose
+The easiest and recommended way to get Docker Compose is to install Docker Desktop. Docker Desktop includes Docker Compose along with Docker Engine and Docker CLI which are Compose prerequisites.
+
+If not ? Let`s try:
+
+Check if Docker Engine installed:
+
+docker --version
+Now let's install docker-compose:
+
+sudo apt install docker-compose
+Let's check the installation result:
+
+docker-compose --version
+Perfectly. Now you can work with Docker-compose and run commands and build your own projects.
+
+Below are descriptions of basic Docker Compose commands and their explanations:
+
+docker-compose up:
+Description: Launches containers based on the configuration defined in the docker-compose.yml file. Example:
+
+docker-compose up
+docker-compose down:
+Description: Stops and removes containers created with docker-compose up.
+
+Example: docker-compose down
+
+docker-compose ps:
+Description: Displays the status of running containers specified in the docker-compose.yml file.
+
+Example: docker-compose ps
+
+docker-compose build:
+Description: Builds Docker images with the specified configurations and Dockerfiles.
+
+Example: docker-compose build
+
+docker-compose exec:
+Description: Executes commands in the container's runtime environment.
+
+Example: docker-compose exec [service_name] [command]
+
+docker-compose logs:
+Description: Outputs the logs of containers for the specified services.
+
+Example: docker-compose logs [service_name]
+
+docker-compose pause/unpause:
+Description: Pauses or resumes the execution of containers for the specified services.
+
+Example pause: docker-compose pause [service_name]
+
+Example unpause: docker-compose unpause [service_name]
+
+docker-compose scale:
+Description: Scales the number of containers for a specified service.
+
+Example: docker-compose scale [service_name]=[number_of_containers]
+
+These commands make it easy to manage containers and applications using Docker Compose, allowing you to define, create, and scale environments for development and production.
