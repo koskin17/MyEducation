@@ -1,1 +1,1 @@
-$ ssh -p 2222 koskin@localhost
+ssh -p 2222 koskin@localhost

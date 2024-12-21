@@ -1,0 +1,222 @@
+
+Подробная инструкция по настройке Rest API приложения на Docker Compose
+
+---
+
+### 1. Подготовка виртуальной машины
+Убедитесь, что на вашей виртуальной машине установлены:
+- Git (для клонирования репозиториев);
+- Docker и Docker Compose.
+
+#### Проверка установок:
+```
+git --version
+docker --version
+docker-compose --version
+```
+
+Если что-то отсутствует:
+- Установите Git:
+  ```
+  sudo apt update
+  sudo apt install git -y
+  ```
+- Установите Docker:
+  ```
+  sudo apt update
+  sudo apt install -y docker.io
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  ```
+- Установите Docker Compose:
+  ```
+  sudo curl -L "https://github.com/docker/compose/releases/download/2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  docker-compose --version
+  ```
+
+---
+
+### 2. Клонирование репозиториев
+1. Создайте рабочую директорию (например, `projects`):
+   ```
+   mkdir ~/projects && cd ~/projects
+   ```
+
+2. Склонируйте оба репозитория:
+   ```
+   git clone git@github.com:DevOps2-Fundamentals/react-app-koskin17.git frontend
+	git clone git@github.com:DevOps2-Fundamentals/python-app-koskin17.git backend
+   ```
+
+   Замените `<URL_ВАШЕГО_FRONTEND_РЕПОЗИТОРИЯ>` и `<URL_ВАШЕГО_BACKEND_РЕПОЗИТОРИЯ>` на ссылки ваших репозиториев.
+
+3. Убедитесь, что репозитории успешно склонированы:
+   ```
+   ls
+   ```
+   Должны появиться две папки с вашими проектами.
+
+---
+
+### 3. Настройка Docker Compose для Rest API
+Создадим общий файл `docker-compose.yml` для запуска backend и frontend.
+
+1. Перейдите в директорию `~/projects`:
+   ```
+   cd ~/projects
+   ```
+
+2. Создайте файл `docker-compose.yml`:
+   ```
+   nano docker-compose.yml
+   ```
+
+3. Вставьте следующую конфигурацию:
+
+   ```yaml
+   version: '3.8'
+
+   services:
+     backend:
+       build:
+         context: ./<backend_directory>
+         dockerfile: Dockerfile
+       ports:
+         - "8000:8000"
+       volumes:
+         - ./<backend_directory>:/app
+       depends_on:
+         - db
+       environment:
+         - DATABASE_URL=postgresql://user:password@db:5432/app_db
+
+     frontend:
+       build:
+         context: ./<frontend_directory>
+         dockerfile: Dockerfile
+       ports:
+         - "3000:3000"
+       volumes:
+         - ./<frontend_directory>:/app
+       depends_on:
+         - backend
+
+     db:
+       image: postgres:15
+       environment:
+         POSTGRES_USER: user
+         POSTGRES_PASSWORD: password
+         POSTGRES_DB: app_db
+       volumes:
+         - db_data:/var/lib/postgresql/data
+
+   volumes:
+     db_data:
+   ```
+
+   Замените `<backend_directory>` и `<frontend_directory>` на имена папок ваших репозиториев.
+
+4. Сохраните и закройте файл (`Ctrl+O`, затем `Ctrl+X`).
+
+---
+
+### 4. Создание Dockerfile для каждого репозитория
+
+#### Backend
+1. Перейдите в директорию backend:
+   ```
+   cd ~/projects/<backend_directory>
+   ```
+
+2. Создайте файл `Dockerfile`:
+   ```
+   nano Dockerfile
+   ```
+
+3. Вставьте следующую конфигурацию:
+   ```dockerfile
+   FROM python:3.10-slim
+
+   WORKDIR /app
+
+   COPY requirements.txt /app/
+   RUN pip install --no-cache-dir -r requirements.txt
+
+   COPY . /app/
+
+   CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+   ```
+
+4. Убедитесь, что файл `requirements.txt` существует в репозитории и содержит все зависимости.
+
+---
+
+#### Frontend
+1. Перейдите в директорию frontend:
+   ```
+   cd ~/projects/<frontend_directory>
+   ```
+
+2. Создайте файл `Dockerfile`:
+   ```
+   nano Dockerfile
+   ```
+
+3. Вставьте следующую конфигурацию:
+   ```dockerfile
+   FROM node:18
+
+   WORKDIR /app
+
+   COPY package.json /app/
+   RUN npm install
+
+   COPY . /app/
+
+   CMD ["npm", "start"]
+   ```
+
+4. Убедитесь, что файл `package.json` существует и корректен.
+
+---
+
+### 5. Запуск Docker Compose
+1. Перейдите в директорию с `docker-compose.yml`:
+   ```
+   cd ~/projects
+   ```
+
+2. Запустите сервисы:
+   ```
+   docker-compose up --build
+   ```
+
+3. Проверьте доступность:
+   - Backend: [http://localhost:8000](http://localhost:8000)
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+
+---
+
+### 6. Устранение возможных проблем
+
+#### Проблема: "Permission denied" при выполнении команд Docker
+- Добавьте пользователя в группу Docker:
+  ```
+  sudo usermod -aG docker $USER
+  ```
+  Затем перезагрузите систему.
+
+#### Проблема: Не запускается контейнер
+- Проверьте логи:
+  ```
+  docker-compose logs <service_name>
+  ```
+
+#### Проблема: Ошибки сборки
+- Убедитесь, что файлы `Dockerfile`, `requirements.txt`, `package.json` корректны.
+- Убедитесь, что порты 3000 и 8000 не заняты.
+
+---
+
+Если что-то останется непонятным, пишите, помогу разобраться! 😊
