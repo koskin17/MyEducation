@@ -1,0 +1,219 @@
+### Подробная инструкция по настройке и запуску Rest API приложения с использованием Docker Compose
+
+#### **Шаг 1: Подготовка окружения**
+
+1. Убедитесь, что на вашей Linux-системе установлены следующие инструменты:
+
+   - **Docker**: проверьте, запустив команду `docker --version`.
+   - **Docker Compose**: проверьте, запустив команду `docker-compose --version`.
+
+2. Создайте рабочую директорию для вашего проекта:
+
+   ```bash
+   mkdir ~/rest_api_project && cd ~/rest_api_project
+   ```
+
+#### **Шаг 2: Клонирование репозиториев**
+
+1. Клонируйте репозиторий фронтенда:
+
+   ```bash
+   git clone https://github.com/<ваш-профиль>/react-app-koskin17-main.git frontend
+   ```
+
+2. Клонируйте репозиторий бекенда:
+
+   ```bash
+   git clone https://github.com/<ваш-профиль>/python-app-koskin17-main.git backend
+   ```
+
+3. Убедитесь, что оба репозитория склонированы:
+
+   ```bash
+   ls
+   ```
+
+   Вы должны увидеть директории `frontend` и `backend`.
+
+#### **Шаг 3: Настройка Docker для фронтенда**
+
+1. В директории `frontend` создайте файл `Dockerfile` со следующим содержимым:
+
+   ```dockerfile
+   FROM node:16
+   WORKDIR /app
+   COPY package*.json ./
+   RUN npm install
+   COPY . .
+   RUN mkdir -p /app/node_modules/.cache && chmod -R 777 /app/node_modules/.cache
+   EXPOSE 3000
+   CMD ["npm", "start"]
+   ```
+
+2. Проверьте, что файл создан корректно:
+
+   ```bash
+   cat frontend/Dockerfile
+   ```
+
+#### **Шаг 4: Настройка Docker для бекенда**
+
+1. В директории `backend` создайте файл `Dockerfile` со следующим содержимым:
+
+   ```dockerfile
+   FROM python:3.9
+   WORKDIR /app
+   COPY requirements.txt ./
+   RUN pip install --no-cache-dir -r requirements.txt
+   COPY . .
+   EXPOSE 5000
+   CMD ["python", "app.py", "--host=0.0.0.0"]
+   ```
+
+2. Проверьте, что файл создан корректно:
+
+   ```bash
+   cat backend/Dockerfile
+   ```
+
+#### **Шаг 5: Настройка Docker Compose**
+
+1. В корневой директории проекта создайте файл `docker-compose.yml` со следующим содержимым:
+
+   ```yaml
+   version: '3.8'
+   services:
+     backend:
+       build:
+         context: ./backend
+       ports:
+         - "5000:5000"
+       volumes:
+         - ./backend:/app
+       environment:
+         - DATABASE_URL=sqlite:///products.db
+       command: >
+         sh -c "python db.py --add_default_data && python app.py --host=0.0.0.0"
+
+     frontend:
+       build:
+         context: ./frontend
+       ports:
+         - "3000:3000"
+       volumes:
+         - ./frontend:/app
+       environment:
+         - REACT_APP_BASE_URL=http://localhost:5000/api
+   ```
+
+2. Проверьте, что файл создан корректно:
+
+   ```bash
+   cat docker-compose.yml
+   ```
+
+#### **Шаг 6: Запуск Docker Compose**
+
+1. Запустите Docker Compose:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Убедитесь, что оба сервиса запустились корректно. Вы должны увидеть сообщения о запуске:
+
+   - Для `frontend`: `Compiled successfully!`
+   - Для `backend`: `* Running on http://0.0.0.0:5000`
+
+#### **Шаг 7: Настройка переброски портов в виртуальной машине (VM)**
+
+Если вы работаете в виртуальной машине, необходимо настроить переброску портов, чтобы приложения были доступны с вашей основной системы.
+
+1. Откройте настройки вашей виртуальной машины. Для VirtualBox это можно сделать через интерфейс VirtualBox.
+
+2. Перейдите в раздел **Сеть** → **Дополнительно** → **Переадресация портов**.
+
+3. Добавьте правила для перенаправления:
+
+   - Для бекенда:
+     - Хост-порт: `5000`
+     - Гость-порт: `5000`
+   - Для фронтенда:
+     - Хост-порт: `3000`
+     - Гость-порт: `3000`
+
+4. Сохраните настройки и перезапустите виртуальную машину.
+
+5. Проверьте, что порты перенаправлены, с основной системы:
+
+   ```bash
+   curl http://localhost:5000/api/products
+   curl http://localhost:3000
+   ```
+
+6. Если команды возвращают корректный результат, настройка завершена.
+
+#### **Шаг 8: Проверка работы приложений**
+
+1. Откройте в браузере:
+
+   - Фронтенд: [http://localhost:3000](http://localhost:3000)
+   - Форма добавления товара: [http://localhost:3000/add](http://localhost:3000/add)
+
+2. Проверьте API через `curl` или Postman:
+
+   - Проверка базового API:
+     ```bash
+     curl http://localhost:5000/api/products
+     ```
+   - Проверка добавления товара:
+     ```bash
+     curl -X POST http://localhost:5000/api/products -H "Content-Type: application/json" -d '{"name": "Test Product", "price": 100}'
+     ```
+
+#### **Шаг 9: Устранение ошибок**
+
+1. **Если API не отвечает:**
+
+   - Проверьте, что в `backend/app.py` указаны маршруты для `/api` и `/api/products`.
+
+     ```bash
+     cat backend/app.py | grep 'route'
+     ```
+
+   - Убедитесь, что сервер Flask запускается с `host=0.0.0.0`. Это можно проверить в логах:
+
+     ```bash
+     docker-compose logs backend
+     ```
+
+2. **Если фронтенд не работает:**
+
+   - Проверьте переменные окружения в `frontend/.env`. Выполните команду:
+     ```bash
+     cat frontend/.env
+     ```
+     Убедитесь, что `REACT_APP_BASE_URL` указывает на `http://localhost:5000/api`.
+
+3. **Если возникают ошибки сборки:**
+
+   - Пересоберите контейнеры:
+     ```bash
+     docker-compose down
+     docker-compose up --build
+     ```
+
+4. **Если остались вопросы:**
+
+   - Проверьте логи контейнеров для выявления ошибок:
+
+     ```bash
+     docker-compose logs
+     ```
+
+   - Если ошибка связана с конкретным сервисом (например, `backend`), выполните:
+
+     ```bash
+     docker-compose logs backend
+     ```
+
