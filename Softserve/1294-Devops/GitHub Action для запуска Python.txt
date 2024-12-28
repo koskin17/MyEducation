@@ -1,0 +1,50 @@
+Пример GitHub Action для запуска Python-приложения
+Вот пример файла .github/workflows/python-app.yml, который настроит CI/CD для вашего Python-приложения:
+
+yaml
+name: Python Application CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Укажите нужную версию Python
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest
+
+  deploy:
+    name: Deploy to Production
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy app
+        run: |
+          # Ваш код для развертывания приложения
+          echo "Deploying app..."
+Этот пример настроит GitHub Actions для сборки и тестирования вашего Python-приложения при каждом коммите в ветку main и развертывания приложения при необходимости.

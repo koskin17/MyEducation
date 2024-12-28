@@ -1,0 +1,273 @@
+Привет! У меня есть 2 задания по теме обучения "Assignment CI/CD_Github_Actions"
+
+Please, create fork the github repository of your Python - technology.
+Use Git Action to implement a continuous integration process with the following steps.
+
+Задание 1:
+1. Set the trigger on the push event.
+2. Additionally, add the ability to run the script in manual mode.
+3. Select an operating system.
+4. Install the software.
+5. Clone the project.
+6. Download dependencies.
+7. Create a project build.
+8. Run unit tests.
+
+Update the project code in the repository. Verify the script has executed.
+
+Задание 2:
+*Advanced Task (100 points)
+1. Update the script. Add a trigger on the pull request event with types opened and synchronize.
+2. Update project code in a new branch. Create and accept a pull request.
+3. Upload and share a screenshot of the output of the executed script.
+
+У меня будет репозиторий с файлами на Python.
+Напиши мне, пожалуйста, максимально подробную инструкцию для новичка для того, чтобы правильно выполнить все шаги и на каждома шаге выполнить все необходимые проверки. Также сформируй для меня, пожалуйста, правильный yml-файл для git action для проекта на python с подрорбным объяснением каждой его команды (зачем и почему она использована)?
+Также сформируй для меня python-тесты, которые должны быть для python-приложения или добавь инструкцию по подключению python-тестов из Github Action?
+ChatGPT сказал:
+ChatGPT
+Память обновлена
+Вот подробная инструкция и примеры для выполнения заданий:
+
+Инструкция к выполнению
+1. Форк репозитория
+Зайдите в репозиторий на GitHub, который вы хотите форкнуть.
+Нажмите кнопку Fork в верхнем правом углу.
+После создания форка перейдите в свой профиль, найдите форкнутый репозиторий.
+2. Настройка GitHub Actions для CI
+Перейдите в ваш форкнутый репозиторий.
+В разделе Actions создайте новый Workflow.
+Назовите файл, например, .github/workflows/ci.yml.
+Вставьте следующий код (объяснение ниже):
+yaml
+Копировать код
+name: Python CI/CD
+
+on:
+  push:           # Триггер на событие push
+    branches:
+      - main      # Только для ветки main
+  workflow_dispatch: # Ручной запуск
+  pull_request:   # Триггер на pull_request
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Выбор операционной системы (Ubuntu)
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Полный клон для доступа ко всем коммитам
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' # Укажите версию Python
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        pytest tests/ --junitxml=results.xml
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: results.xml
+Объяснение файла
+on:
+
+Указывает, при каких событиях запускается Workflow: push, workflow_dispatch (ручной запуск), pull_request.
+Событие synchronize добавляет перезапуск на обновления PR.
+jobs.build.runs-on:
+
+Указывает операционную систему для выполнения шагов.
+steps:
+
+Checkout code: Скачивает код из репозитория.
+Set up Python: Устанавливает нужную версию Python.
+Install dependencies: Устанавливает зависимости из файла requirements.txt.
+Run tests: Запускает тесты с помощью pytest.
+Upload test results: Сохраняет результаты тестов как артефакты.
+3. Добавление тестов для Python
+Создайте папку tests в корне проекта.
+Добавьте в нее файл, например, test_sample.py:
+python
+Копировать код
+import pytest
+
+def test_addition():
+    assert 2 + 2 == 4
+
+def test_subtraction():
+    assert 5 - 3 == 2
+Убедитесь, что pytest добавлен в файл requirements.txt:
+Копировать код
+pytest
+4. Проверка работы CI
+Выполните git add, git commit, и git push для загрузки изменений.
+Зайдите в раздел Actions в репозитории, чтобы увидеть выполнение Workflow.
+Для задания №2 создайте новую ветку:
+bash
+Копировать код
+git checkout -b feature-branch
+Внесите изменения в код, выполните коммиты, создайте Pull Request через GitHub.
+Убедитесь, что Workflow запускается на событии Pull Request.
+5. Проверка результатов
+Убедитесь, что все шаги Workflow выполнены успешно.
+В разделе Actions найдите и скачайте артефакты тестов (если загружены).
+Сделайте скриншот результата для задания.
+Если потребуется помощь на любом из этапов, напишите!
+
+
+
+
+
+
+Вы сказали:
+Объясни мне вот этот шаг:
+steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+Что такое fetch-depth, в чём его смысл и почему он тут указан?
+ChatGPT сказал:
+ChatGPT
+Шаг: Checkout code
+Этот шаг выполняет клонирование (или скачивание) кода из вашего репозитория в рабочую директорию, чтобы дальнейшие шаги в Workflow могли с ним работать.
+
+Параметр fetch-depth
+fetch-depth определяет, сколько коммитов истории будет загружено при клонировании репозитория. По умолчанию GitHub Actions загружает только последний коммит, чтобы ускорить процесс (значение fetch-depth: 1).
+
+Почему fetch-depth: 0?
+Полное клонирование: Указывает Git'у загрузить всю историю коммитов (все изменения в проекте с самого начала).
+Причины использовать fetch-depth: 0:
+Доступ к полной истории: Если в последующих шагах вам нужно сравнивать текущий код с более ранними версиями, например, для проверки разницы между ветками, тестов или создания релизов.
+Работа с тегами и версиями: Полная история может быть необходима для работы с тегами или автоматического управления версиями.
+Анализ истории изменений: Если ваш Workflow анализирует историю коммитов или использует сторонние инструменты, такие как линтеры, требующие доступа к истории.
+Когда fetch-depth: 0 не нужен: Если Workflow не использует данные о прошлых коммитах, достаточно оставить fetch-depth: 1 (по умолчанию).
+Почему это указано здесь?
+В этом случае:
+
+Полное клонирование (fetch-depth: 0) добавлено, чтобы обеспечить доступ ко всей истории коммитов, на случай если потребуется сравнение изменений или работа с более глубокими зависимостями.
+Это полезно в контексте CI/CD, особенно если ваши тесты или шаги сборки зависят от анализа полной истории изменений.
+Если в вашем проекте нет необходимости в доступе к полной истории, можно убрать fetch-depth: 0 или заменить его на fetch-depth: 1, чтобы сократить время выполнения Workflow.
+
+
+
+
+
+
+Вы сказали:
+Я не понимаю, как в workflow подключаются python тесты и где они подключаются?
+Ты написал, что файл с тестами будет называться test_sample.py.
+В requirements.txt ты пишешь, чтобы я добавил pytest.
+Но в этом разделе yml-файла я не вижу вызова файла test_sapmle.py:
+    - name: Run tests
+      run: |
+        pytest tests/ --junitxml=results.xml
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: results.xml
+
+Как action поймет, что надо вызвать этот файл с тестами и как вообще тексты запустятся?
+ChatGPT сказал:
+ChatGPT
+Давайте разберем, как Python-тесты подключаются и запускаются в GitHub Actions:
+
+1. Как pytest запускает тесты
+pytest автоматически обнаруживает файлы с тестами, если они соответствуют следующим правилам:
+
+Файл начинается с test_ или заканчивается на _test.py.
+Внутри файла есть функции, начинающиеся с test_.
+Пример:
+
+Файл: test_sample.py
+Функции:
+python
+Копировать код
+def test_addition():
+    assert 2 + 2 == 4
+Когда вы вызываете pytest tests/, инструмент просканирует папку tests, найдет все подходящие файлы (например, test_sample.py) и запустит содержащиеся в них тесты.
+
+2. Почему файл с тестами не указывается в yml?
+pytest сам ищет тесты в указанной папке (tests/), поэтому вам не нужно явно указывать имя файла в Workflow. Достаточно указать директорию, где находятся тесты.
+
+3. Как это работает в вашем yml-файле?
+Шаг Run tests:
+
+yaml
+Копировать код
+- name: Run tests
+  run: |
+    pytest tests/ --junitxml=results.xml
+Команда pytest tests/:
+Запускает все тесты в папке tests.
+Автоматически находит файлы и функции, соответствующие правилам.
+Флаг --junitxml=results.xml:
+Генерирует отчет о тестах в формате XML, который можно использовать для анализа.
+Шаг Upload test results:
+
+yaml
+Копировать код
+- name: Upload test results
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: test-results
+    path: results.xml
+Загружает файл results.xml (результаты тестов) как артефакт, доступный для скачивания через интерфейс GitHub Actions.
+4. Что нужно сделать, чтобы тесты запустились?
+Создать папку для тестов: В корне репозитория создайте папку tests.
+
+Добавить файл с тестами: В папке tests создайте файл test_sample.py с таким содержимым:
+
+python
+Копировать код
+import pytest
+
+def test_addition():
+    assert 2 + 2 == 4
+
+def test_subtraction():
+    assert 5 - 3 == 2
+Убедиться, что pytest установлен: Добавьте pytest в requirements.txt:
+
+Копировать код
+pytest
+Обновить репозиторий: Загрузите изменения (файлы тестов и requirements.txt) в ваш репозиторий:
+
+bash
+Копировать код
+git add .
+git commit -m "Add tests and update requirements"
+git push origin main
+5. Как проверить работу тестов?
+Перейдите в раздел Actions в вашем репозитории.
+
+Найдите последний запущенный Workflow.
+
+Проверьте шаг Run tests:
+
+Если тесты прошли успешно, вы увидите зеленый статус.
+Если тесты упали, будут показаны сообщения об ошибках.
+Скачайте файл results.xml (шаг Upload test results) для детального анализа.
+
+Заключение
+Workflow сам запускает тесты, находя их с помощью pytest в указанной папке. Вам нужно лишь:
+
+Разместить файлы тестов в папке tests.
+Убедиться, что зависимости (pytest) установлены.

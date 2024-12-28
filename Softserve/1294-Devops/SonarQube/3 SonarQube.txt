@@ -1,0 +1,27 @@
+Java 17 with Maven 3.8.6
+apt install openjdk-17-jdk -y
+wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.2/apache-maven-3.9.2-bin.tar.gz
+tar xzf apache-maven-3.9.2-bin.tar.gz 
+mkdir /usr/share/maven
+cd apache-maven-3.9.2
+cp -R * /usr/share/maven
+touch /etc/profile.d/maven.sh
+
+echo 'export M2_HOME=/usr/share/maven' >>/etc/profile.d/maven.sh
+echo 'export MAVEN_HOME=/usr/share/maven' >>/etc/profile.d/maven.sh
+echo 'export PATH=${M2_HOME}/bin:${PATH}' >>/etc/profile.d/maven.sh
+source /etc/profile.d/maven.sh 
+mvn -version 
+Change the password after setup and run.
+
+Clone to the Github repository
+
+git clone https://github.com/softservedata/sonardemo.git
+Open a directory and run maven
+
+cd sonardemo
+mvn clean install
+Run test
+
+mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=admin (только в конце не password=admin, а пароль, который был указан для учётной записи Sonar)
+Test project

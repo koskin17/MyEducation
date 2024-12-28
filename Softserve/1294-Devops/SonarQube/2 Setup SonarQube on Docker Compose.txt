@@ -1,0 +1,77 @@
+Setup SonarQube on Docker Compose
+Setup systen environment, becouse Elasticsearch use a lot resource
+
+sysctl -w vm.max_map_count=524288
+sysctl -w fs.file-max=131072
+ulimit -n 131072
+ulimit -u 8192
+
+Create a config file mysonar.yml
+
+touch mysonar.yml
+Edit this file in nano :
+
+nano mysonar.yml
+Add next data:
+
+version: "3.3"
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+      sonar_network:
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    command: postgres -c 'max_connections=300'
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: sonar
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    networks:
+      sonar_network:
+    restart: unless-stopped
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+networks:
+  sonar_network:
+Run SonarQube
+
+docker-compose -f mysonar.yml -p sonar up -d
+Please open the menus on the top right corner and choose Traffic/Ports.
+
+traffic_Ports.png
+
+Type 9000 port to open it and cpress the access button to start SonarQube.
+
+custom_ports.png
+
+You can open SonarQube in to browser after few minuts by using login name "admin" and password "admin":
+
+Access to SonarQube (https://75a4909d-82ac-4096-8751-63a9a2019c26-10-244-6-156-9000.spch.r.killercoda.com/)

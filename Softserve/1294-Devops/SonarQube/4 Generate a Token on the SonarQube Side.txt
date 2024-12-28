@@ -1,0 +1,14 @@
+Generate a Token on the SonarQube Side
+Open security page at User > My Account > Security
+
+security_page.png
+
+Please, generate a new "User token" named Github_Token
+
+generate_token.png
+
+You should get a new token, for example
+
+copy_token.png
+
+Make sure you copy the token.

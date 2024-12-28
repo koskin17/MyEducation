@@ -1,0 +1,9 @@
+SonarQube Fundamentals
+
+SonarQube Basics
+
+SonarQube is an open-source tool for code quality analysis. It can scan source code for potential bugs and vulnerabilities and generates a report which allows you to identify issues. It scans up to 30 programming languages.
+
+SonarQube has two parts: a scanner application on the local machine to scan the code and a server application for keeping records.
+
+This guide explains how you can install and use SonarQube on a Ubuntu 22.04 server.
