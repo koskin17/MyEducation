@@ -1,0 +1,10 @@
+Доинсталировать python db.py -a
+В браузере localhost:5000/api
+
+Потом стопнуть frontend
+Открыть на редактирование файл .env и в нём после всего адреса и порта 5000 обавляем /api/products
+
+Потом запускаем npm run build и потом npm start
+Если не работает, то удаляем всю папку build и заново npm run build
+Есть команда для очистки кэша - npm cache clean. Для принудительного: npm cache clean --force
+

@@ -1,0 +1,32 @@
+Для проверки доступности портов 80 и 3000 в командной строке (cmd) Windows, вы можете использовать команды netstat или PowerShell. Вот как это сделать:
+
+Использование netstat в командной строке (cmd):
+Откройте командную строку:
+
+Нажмите Win + R, введите cmd и нажмите Enter.
+
+Выполните команду:
+
+plaintext
+netstat -an | find "80"
+netstat -an | find "3000"
+Использование PowerShell:
+Откройте PowerShell:
+
+Нажмите Win + R, введите powershell и нажмите Enter.
+
+Выполните команду:
+
+powershell
+Get-NetTCPConnection -LocalPort 80
+Get-NetTCPConnection -LocalPort 3000
+Объяснение команд:
+netstat -an: Показать все активные подключения и порты.
+
+find "80": Фильтрация результатов по порту 80.
+
+find "3000": Фильтрация результатов по порту 3000.
+
+Get-NetTCPConnection -LocalPort 80: Показать соединения на порту 80.
+
+Get-NetTCPConnection -LocalPort 3000: Показать соединения на порту 3000.
