@@ -1,0 +1,147 @@
+
+Словарь и краткий путеводитель БД.
+
+categories 					- категории (4)
+	category_id 				- категория id
+	category_name 				- назавание категории
+	desctiption 				- описание
+	picture 					- изображение
+	
+customer_cuctomer_demo 		- клиент_клиент_demo(2)
+	customer_id 				- Пользовательский ИД
+	customer_type_id 			- идентификатор типа клиента
+
+customer_demogaphics 			- демографические данные клиентов(2)
+	customer_type_id 			- идентификатор типа клиента
+	customer_desc 				- описание клиента
+
+customers 					- клиенты (11)
+	customer_id 				- Пользовательский ИД
+	company_name 				- название компании
+	contact_name 				- Контактное лицо
+	contact_title 				- название контакта
+	address 					- адрес
+	city 						- город
+	region 						- регион
+	postal_code					- Почтовый индекс
+	country 					- страна
+	phone 						- телефон
+	fax 						- факс
+	
+employee_territories 		- территории сотрудников (2)
+	employee_id					- идентификатор сотрудника
+	territory_id				- идентификатор территории
+	
+employees -					- сотрудники (18)
+	employee_id					- идентификатор сотрудника
+	last_name					- Фамилия
+	first_name					- Имя
+	title						- Заглавие
+	title_of_courtesy			- Знак любезности
+	birth_date					- Дата рождения
+	hire_date					- Дата приема на работу
+	address						- Адрес
+	city						- Город
+	region						- Регион
+	postal_code					- Почтовый индекс
+	country						- страна
+	home_phone					- домашний телефон
+	extension					- расширение
+	photo						- фоторграфия
+	notes						- заметка
+	reports_to					- докладывает
+	photo_path					- путь фотографии
+	
+order_details				- детали заказа (5)
+	order_id					- номер заказа
+	product_id					- Код товара
+	unit_price					- цена за единицу товара
+	quantity					- количество
+	discount					- скидка
+
+orders						- заказы (14)
+	order_id					- номер заказа
+	customer_id					- Пользовательский ИД
+	employee_id					- идентификатор сотрудника
+	order_date					- Дата заказа
+	required_date				- требуемая дата
+	shipped_date				- Дата доставки
+	ship_via					- Доставить через
+	freight						- фрахт
+	ship_name					- название доставки
+	ship_adress					- адрес доставки
+	ship_city					- город доставки
+	ship_region					- регион доставки
+	ship_postal_code			- почтовый индекс доставки
+	ship_country				- страна доставки
+	
+products					- товары (10)
+	product_id					- Код товара
+	product_name				- наименование товара
+	supplier_id					- идентификатор поставщика
+	category_id					- идентификатор категории
+	quantity_per_unit			- количество на единицу
+	unit_price					- цена за единицу товара
+	units_in_stock				- шт. на складе
+	units_on_order				- единицы под заказ
+	reorder_level				- уровень повторного заказа
+	discountinued				- discountinued
+	
+Shippers 					- Грузоотправители (2)
+	region_id					- идентификатор региона
+	region_description			- описание региона
+	
+Supplies					- поставки (12)
+	supplier_id					- идентификатор поставщика
+	company_name				- название компании
+	contact_name				- Контактное лицо
+	contact_title				- название контакта
+	address						- адрес
+	city						- город
+	region						- область
+	postal_code					- Почтовый индекс
+	country						- страна
+	phone						- Телефон
+	fax							- факс
+	homepage					- домашняя страница
+
+territories					- (3)
+	territory_id				- идентификатор территории
+	territory_description		- описание территории
+	region_id					- идентификатор региона
+	
+us_states					- США заявляют (4)
+	state_id					- идентификатор состояния
+	state_name					- название штата
+	state_abbr					- состояние сокр.
+	state_region				- государственный регион
+	
+	
+	
+	
+Commands					- Команды
+	INSERT INTO 				- Вставить в
+	ALTER TABLE 				- Изменить таблицу
+	ADD COLUMN 					- Добавить колонку
+	ADD CONSTRAINT				- Добавить ограничение
+	FOREIGN KEY					- Внешний ключ
+	PRIMARY KEY					- Основной ключ
+	REFERENCES					- Ссылки
+	CONSTRAINT					- Ограничение
+	DISTINCT					- Ограничить дубликаты
+	FROM						- Для
+	WHERE						- Где
+	ORDER BY					- Сортировка (Asc, Desc)
+	HAVING SUM					- Имеет сумму
+	HAVING						- Имеет (применяется к Group BY)
+	UNION						- Объединение
+	EXCEPT						- Исключить
+	INNER JOIN					- Внутреннее соединение
+
+
+	
+
+
+
+
+

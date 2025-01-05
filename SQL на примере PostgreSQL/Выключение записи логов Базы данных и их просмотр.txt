@@ -1,0 +1,128 @@
+Где мне в pgAdmin посмотреть историю всех SQL запросов к базе данных?
+В pgAdmin для просмотра истории всех SQL запросов к базе данных можно использовать расширение pg_stat_statements. Это расширение собирает статистику по запросам, которые обрабатывает сервер1. Чтобы включить его, выполните следующие шаги:
+
+Включите расширение:
+
+sql
+CREATE EXTENSION pg_stat_statements;
+Посмотрите статистику запросов:
+
+sql
+SELECT * FROM pg_stat_statements;
+Эта таблица содержит информацию о каждом выполненном запросе, такую как время выполнения, количество вызовов, количество строк и т.д.
+
+Если вам нужно хранить историю запросов, можно создать таблицу для исторических данных и настроить автоматический сбор информации. Например, можно использовать таблицу pg_stat_activity_history и функцию pg_stat_activity_snapshot для сбора данных каждую секунду в течение минуты.
+
+Если у вас возникнут дополнительные вопросы или потребуется помощь с настройкой, дайте знать!
+
+
+
+
+У меня на команду SELECT * FROM pg_stat_statements; ошибка ERROR: pg_stat_statements must be loaded via "shared_preload_libraries" ПОМИЛКА: pg_stat_statements must be loaded via "shared_preload_libraries" SQL state: 55000 Что это значит и как мне исправить?
+Ошибка указывает на то, что расширение pg_stat_statements должно быть загружено через параметр shared_preload_libraries, который настраивается в конфигурационном файле PostgreSQL postgresql.conf.
+
+Вот как можно исправить эту проблему:
+
+Откройте конфигурационный файл: Найдите файл postgresql.conf. Обычно он находится в каталоге данных PostgreSQL, например /etc/postgresql/xx/main/ или /var/lib/postgresql/xx/main/, где xx - версия PostgreSQL.
+
+Отредактируйте конфигурационный файл: Добавьте или измените строку shared_preload_libraries в postgresql.conf:
+
+ini
+shared_preload_libraries = 'pg_stat_statements'
+Перезапустите сервер PostgreSQL: После внесения изменений в конфигурационный файл, необходимо перезапустить сервер PostgreSQL для применения изменений. Это можно сделать с помощью команды:
+
+sh
+sudo systemctl restart postgresql
+или
+
+sh
+sudo service postgresql restart
+После перезапуска сервера, расширение должно быть загружено, и вы сможете выполнить команду:
+
+sql
+SELECT * FROM pg_stat_statements;
+Если у вас возникнут дополнительные вопросы или трудности, дайте знать!
+
+Как мне исправить эту ошибку, если я работую в Windowns 10 и в pgAdmin?
+В Windows 10 и с использованием pgAdmin вы также можете загрузить расширение pg_stat_statements через параметр shared_preload_libraries. Вот шаги для этого:
+
+Найдите файл postgresql.conf: Файл postgresql.conf обычно находится в каталоге данных PostgreSQL. Например, путь может быть таким:
+
+C:\Program Files\PostgreSQL\<версия>\data\postgresql.conf
+где <версия> — это версия вашей установки PostgreSQL.
+
+Отредактируйте файл postgresql.conf: Откройте файл postgresql.conf в текстовом редакторе (например, Notepad++) и найдите строку shared_preload_libraries. Добавьте или измените её следующим образом:
+
+ini
+shared_preload_libraries = 'pg_stat_statements'
+Сохраните изменения и закройте файл.
+
+Перезапустите сервер PostgreSQL: После внесения изменений, перезапустите сервер PostgreSQL. Для этого вы можете использовать pgAdmin:
+
+В pgAdmin подключитесь к вашему серверу.
+
+Щелкните правой кнопкой мыши на сервере и выберите "Services" → "Restart Server".
+
+После перезапуска сервера, расширение должно быть загружено, и вы сможете выполнить команду:
+
+sql
+SELECT * FROM pg_stat_statements;
+Если вам потребуется дополнительная помощь, не стесняйтесь спрашивать!
+
+Как мне в Win 10 перезапустить сервер PostgreSQL?
+Чтобы перезапустить сервер PostgreSQL на Windows 10, выполните следующие шаги:
+
+Откройте Панель управления:
+
+Нажмите кнопку "Пуск" и выберите "Панель управления".
+
+Перейдите в раздел "Администрирование":
+
+В Панели управления выберите "Система и безопасность", затем "Администрирование".
+
+Откройте "Службы":
+
+В разделе "Администрирование" найдите и откройте "Службы".
+
+Найдите службу PostgreSQL:
+
+В списке служб найдите службу PostgreSQL. Имя службы может содержать номер версии, например, PostgreSQL xx.
+
+Перезапустите службу:
+
+Щелкните правой кнопкой мыши по службе PostgreSQL и выберите "Перезапустить".
+
+После перезапуска службы вы сможете выполнить команду:
+
+sql
+SELECT * FROM pg_stat_statements;
+Если у вас возникнут дополнительные вопросы или потребуется помощь, дайте знать!
+
+У меня Win 10 на английском
+No worries! Here's how to restart the PostgreSQL server on Windows 10 in English:
+
+Open Control Panel:
+
+Click the Start button and select "Control Panel".
+
+Go to Administrative Tools:
+
+In Control Panel, go to "System and Security" and then select "Administrative Tools".
+
+Open Services:
+
+In the Administrative Tools window, find and open "Services".
+
+Find the PostgreSQL Service:
+
+In the Services list, look for the PostgreSQL service. The name of the service may include the version number, like PostgreSQL xx.
+
+Restart the Service:
+
+Right-click on the PostgreSQL service and choose "Restart".
+
+After restarting the service, you should be able to execute the following command:
+
+sql
+SELECT * FROM pg_stat_statements;
+If you run into any issues or need further assistance, feel free to ask!
