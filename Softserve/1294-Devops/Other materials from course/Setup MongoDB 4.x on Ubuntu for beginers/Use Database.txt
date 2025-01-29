@@ -1,0 +1,48 @@
+Use Database
+Switch Databases
+To display the database you are using, type db:
+
+db
+The operation should return test, which is the default database.
+
+To switch databases, issue the use helper, as in the following example:
+
+use
+
+To access a different database from the current database without switching your current database context, see the
+
+db.getSiblingDB()
+method.
+
+To list the databases available to the user, use the helper show dbs.
+
+Create database “softservedb”
+use softservedb 
+Terminate a Running Command
+To terminate a running command or query in mongosh, press Ctrl + C.
+
+When you enter Ctrl + C, mongosh:
+
+interrupts the active command,
+tries to terminate the ongoing, server-side operation, and
+returns a command prompt.
+Insert document into “softservedb” collection
+db.mycol.insertOne({title: 'MongoDB Overview', description: 'MongoDB is no sql database', by: 'tutorials point', url: 'http://www.mongodb.com/docs', tags: ['mongodb', 'database', 'NoSQL'], likes: 100 })
+db.mycol.insertOne({title: 'Database Overview', description: 'Database is no sql database', by: 'tutorials point', url: 'http://www.mongodb.com/docs', tags: ['mongodb', 'database', 'NoSQL'], likes: 15 })
+Find
+db.mycol.find().pretty()
+To return all data where the title equals "Database Overview" from the db.mycol collection:
+
+db.mycol.find( { "title": "Database Overview" } )
+Update existing record in “mycol” collection
+db.mycol.update({ likes: { $gt: 25 } },{ $set: { title: "Updated!" } }, { multi: true })
+Look for result in specific column
+db.mycol.find({},{ title:1}).pretty()
+Get the number of documents in “mycol” collection
+db.mycol.countDocuments()
+// Также можно использовать команду db.mycol.count(), но эта команда на данный момент не рекомендуется к использованию.
+// При её использовании будет выведена ошибка: DeprecationWarning: Collection.count() is deprecated. Use countDocuments or estimatedDocumentCount.
+Delete document with title – “Updated!” and count documents in collection
+db.mycol.remove( { title: "Updated!" } )
+db.mycol.count()
+

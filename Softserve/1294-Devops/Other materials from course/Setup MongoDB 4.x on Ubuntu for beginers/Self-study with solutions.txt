@@ -1,0 +1,33 @@
+Self-study with solutions
+This is your stage for experimentation
+1 Run mongo shell.
+
+mongosh
+2 You can create a database with your name.
+
+Solutions
+Create database
+use john_doe
+3 Insert one document into the "books" collection in the "john_doe" database.
+
+Solutions
+Create single documents
+db.books.insertOne({title: 'MongoDB DBA Guru Notebook', description: 'A funny customized lined notebook journal for a busy MongoDB DBA employee and team member.', author: 'Glen S. Howoff', publisher: 'Independently published', pages: '102', year: '2021', tags: ['mongodb', 'database', 'NoSQL'], copies: 10 })
+4 Insert multiple documents into the "books" collection in the "john_doe" database
+
+Solutions
+Create multiple documents
+db.books.insertMany([
+  {title: 'Mastering MongoDB 6.x', description: 'Expert techniques to run high-volume and fault-tolerant database solutions using MongoDB 6.x, 3rd Edition 3rd ed. Edition', author: 'Alex Giamas', publisher: 'Packt Publishing', pages: '460', year: '2022', tags: ['mongodb', 'database', 'NoSQL'], copies: 8 },
+   {title: 'MongoDB Fundamentals', description: 'Learn how to deploy and monitor databases in the cloud, manipulate documents, visualize data, and build applications running on MongoDB using Node.js', author: 'Amit Phaltankar,Juned Ahsan,Michael Harrison ,Liviu Nedov', publisher: 'Packt Publishing', pages: '748', year: '2021', tags: ['mongodb', 'database', 'NoSQL'], copies: 8 }
+])
+5 Changing the number of copies per 1 for the first book
+
+Solutions
+Update database
+db.books.updateOne({ title: 'MongoDB DBA Guru Notebook' },{ $set: { copies: 1 } })
+6 Show result
+
+Solutions
+Show result
+db.books.find()

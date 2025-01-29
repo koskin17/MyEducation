@@ -1,0 +1,26 @@
+Your laboratories
+In this labs, we use Java 17 and Node.js 18 LTS installed on an Ubuntu 2x.xx server.
+
+*Note: You need to wait until the environment is set up. It lasts a few minutes. The success of setting up the environment is determined by running the versioning commands.
+
+Verify the installation Java.
+
+java -version
+or
+
+sudo apt-get update 
+sudo apt install -y openjdk-17-jdk
+sudo apt install -y openjdk-17-jre
+Verify the installation Node.js.
+
+node -v
+Plese make a directory wit your name and go to this directory:
+
+Note: Enter your name instead of <your_name>
+mkdir <your_name>
+cd <your_name>
+Clone your git repository.
+
+Enjoy!
+
+Create a your application.

@@ -1,0 +1,34 @@
+Installing MongoDB
+Now you need to install the database system to be able to store and manage data. MongoDB is a popular NoSQL database management system.
+
+More details MongoDB
+
+Consider the installation option under Ubuntu Linux.
+
+Again, use apt to acquire and install this software:
+
+sudo apt update
+First, if not installed, download and install SSL lib(for example to ubuntu 22.04):
+
+apt install libssl1.1
+sudo apt update
+sudo apt-get install gnupg
+
+
+Note: The version matters!
+
+Doing so would make it possible for a package update to download and install repository key on MongoDB (Check for which version you are downloading : focal - 20.04; jammy - 22.04)
+
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -c --short)/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+sudo apt-get update
+After update install MongoDB
+
+sudo apt-get install -y mongodb-org=4.4.11 mongodb-org-server=4.4.11 mongodb-org-shell=4.4.11 mongodb-org-mongos=4.4.11 mongodb-org-tools=4.4.11
+Run MongoDB
+
+sudo systemctl start mongod
+Check installation
+
+sudo systemctl status mongod
+If it shows "enabled", it's good, please proceed to the next step.

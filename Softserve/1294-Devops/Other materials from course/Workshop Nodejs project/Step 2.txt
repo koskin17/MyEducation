@@ -1,0 +1,34 @@
+Create a test project
+For testing create a simple server project. Create a directory:
+
+mkdir softserve 
+cd softserve
+Create a project
+
+npm init -y
+Create a file:
+
+touch index.js
+Open the file in internal redactor:
+
+nano index.js
+Copy and insert ( Shift+Ins ) in to file next text:
+
+const http = require('http');
+
+const hostname = '0.0.0.0';
+const port = 8080;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('  Congratulation!\n Your server is worked!\n  Your SoftServe on KillerCode');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+For save and exit use Ctrl+O (Save) and Ctrl+X (Exit). You creates a simple web server running on port 8080. Run the server with the command:
+
+node index.js
+Check page : ACCESS WEB APP (https://f87aff77-77be-462e-b210-23875be6d62a-10-244-9-241-8080.spch.r.killercoda.com/)

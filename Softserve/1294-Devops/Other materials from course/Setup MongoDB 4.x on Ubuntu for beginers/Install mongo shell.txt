@@ -1,0 +1,41 @@
+Install Mongo Shell
+Download and setup key:
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add –
+apt-get install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+Update repository :
+
+sudo apt update
+Mongosh supports OpenSSL. You can also configure mongosh to use your system's OpenSSL installation.
+
+To install the latest stable version of mongosh with the included OpenSSL libraries:
+
+apt install -y mongodb-mongosh
+or
+
+To install mongosh with your OpenSSL 1.1 libraries:
+
+sudo apt-get install -y mongodb-mongosh-shared-openssl11
+or
+
+To install mongosh with your OpenSSL 3.0 libraries:
+
+sudo apt-get install -y mongodb-mongosh-shared-openssl3
+Run Mongo Shell:
+
+mongosh
+or
+
+mongosh "mongodb://localhost:27017"
+To exit from mongosh type in CLI "exit"
+
+exit
+If you will to remote connect to database, please make next steps:
+
+Connection refused means you probably do not have a firewall problem. Connection timeout indicates a firewall issue.
+Since you can connect locally via localhost, the error indicates that the mongo process is only listening on localhost.
+Edit the file /etc/mongod.conf. The interesting line is bindIp.
+It should look like this for IPv4 only: bindIp: 0.0.0.0
+If you have IPv6 enabled bindIp: ::,0.0.0.0 *Warning: enable authentication first. You might be hacked faster than you might expect.
