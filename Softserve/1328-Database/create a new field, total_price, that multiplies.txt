@@ -1,0 +1,20 @@
+---
+In the order_details table, we have the fields unit_price and quantity.
+For the orders with order_id in range 10250 ..10259 create a new field, total_price, that multiplies unit_price and quantity together. We’ll ignore the discount field for now.
+In addition, show the order_id, product_id, unit_price, and quantity. Order by order_id and product_id.
+
+SELECT order_id, product_id, unit_price, quantity, 
+       unit_price * quantity AS total_price
+FROM order_details
+WHERE order_id BETWEEN 10250 AND 10259
+ORDER BY order_id, product_id;
+
+-------
+Given customers table
+
+How many customers do we have in Germany? The result set should contain only one value with the alias number_of_german_customers.
+Note. In order to get the total number of customers in Germany, we need to use what’s called an aggregate function.
+
+SELECT COUNT(*) AS number_of_german_customers
+FROM customers
+WHERE country = 'Germany';
