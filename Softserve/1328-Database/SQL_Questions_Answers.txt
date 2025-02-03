@@ -1,10 +1,10 @@
 
-1. Show the date of the first order ever made in the orders table.
+1. Показать дату первого заказа, когда-либо сделанного в таблице заказов. / Show the date of the first order ever made in the orders table.
 Answer:
 SELECT MIN(order_date) AS first_order_date
 FROM orders;
 
-2. Show a list of countries where Northwind company has customers and the number of customers who work there (alias number_of_customers).
+2. Показать список стран, в которых у компании Northwind есть клиенты, и количество клиентов, работающих там (псевдоним number_of_customers). Результат должен быть отсортирован по number_of_customers в порядке убывания. / Show a list of countries where Northwind company has customers and the number of customers who work there (alias number_of_customers).
 The result should be sorted by number_of_customers in descending order.
 Answer:
 SELECT country, COUNT(*) AS number_of_customers
@@ -12,7 +12,7 @@ FROM customers
 GROUP BY country
 ORDER BY number_of_customers DESC;
 
-3. Show a list of countries where Northwind company has customers and the number of customers who work there (alias number_of_customers).
+3. Показать список стран, в которых у компании Northwind есть клиенты, и количество клиентов, работающих там (псевдоним number_of_customers). Результат должен содержать только данные о странах, где number_of_customers равно или превосходит 3. Результат должен быть отсортирован по number_of_customers в порядке убывания и по стране в порядке возрастания. / Show a list of countries where Northwind company has customers and the number of customers who work there (alias number_of_customers).
 The result should contain only the data about countries where the number_of_customers equals or exceeds 3.
 The result should be sorted by number_of_customers in descending order, and by country ascending.
 Answer:
@@ -22,7 +22,7 @@ GROUP BY country
 HAVING COUNT(*) >= 3
 ORDER BY number_of_customers DESC, country ASC;
 
-4. Show a list of all distinct values in the customers table for contact_title. Also include a count for each contact_title (alias total_contact_title).
+4. Показать список всех уникальных значений в таблице клиентов для contact_title. Также включить количество для каждого contact_title (псевдоним total_contact_title). Результат должен быть отсортирован в порядке убывания по total_contact_title и в порядке возрастания по contact_title. / Show a list of all distinct values in the customers table for contact_title. Also include a count for each contact_title (alias total_contact_title).
 The result set should be sorted in descending order by total_contact_title, and in ascending order by contact_title.
 Answer:
 SELECT contact_title, COUNT(*) AS total_contact_title
@@ -30,7 +30,7 @@ FROM customers
 GROUP BY contact_title
 ORDER BY total_contact_title DESC, contact_title ASC;
 
-5. Show the list of category_id, the number of all products within each category (number_of_products) only for those products with the value units_in_stock less than units_on_order.
+5. Показать список category_id, количество всех продуктов в каждой категории (number_of_products) только для тех продуктов, у которых значение units_in_stock меньше units_on_order. Отчет должен содержать только те строки, где number_of_products больше 1. Результат должен быть отсортирован в порядке возрастания по number_of_products. / Show the list of category_id, the number of all products within each category (number_of_products) only for those products with the value units_in_stock less than units_on_order.
 The report should contain only the rows where number_of_products is more than 1.
 The result set should be sorted in ascending order by number_of_products.
 Answer:
@@ -41,7 +41,7 @@ GROUP BY category_id
 HAVING COUNT(*) > 1
 ORDER BY number_of_products ASC;
 
-6. Show the number of orders (number_of_orders) and the average freight (average_freight) shipped to any Latin American country.
+6. Показать количество заказов (number_of_orders) и среднюю стоимость доставки (average_freight), отправленной в любую страну Латинской Америки. Используйте список стран: Бразилия, Мексика, Аргентина, Венесуэла. Значение average_freight должно быть округлено до 2-го знака после десятичной точки. Используйте столбец с псевдонимом number_of_orders для сортировки в порядке возрастания. / Show the number of orders (number_of_orders) and the average freight (average_freight) shipped to any Latin American country.
 Use the countries list: Brazil, Mexico, Argentina, Venezuela.
 The value average_freight should be rounded to the 2nd digit after the decimal point.
 Use column with the alias number_of_orders for sorting in ascending order.
@@ -55,7 +55,7 @@ GROUP BY ship_country
 HAVING COUNT(*) > 0
 ORDER BY number_of_orders ASC;
 
-7. Create a report about the total sum (total_order) of each order, where the discount was used. 
+7. Создать отчет о общей сумме (total_order) каждого заказа, в котором была использована скидка. Используйте выражение unit_price * quantity * (1 - discount). Значение total_order должно быть округлено до 2-го знака после десятичной точки. Результат должен содержать только строки с total_order больше 5000. / Create a report about the total sum (total_order) of each order, where the discount was used. 
 Use the expression unit_price * quantity * (1 - discount). The value total_order should be rounded to the 2nd digit after the decimal point. 
 The result should contain only the rows with total_order greater than 5000.
 Answer:
@@ -66,8 +66,7 @@ GROUP BY order_id
 HAVING total_order > 5000
 ORDER BY total_order DESC;
 
-8. Show employee_id and the total number of late orders (number_of_delayed_orders) for each of them.
-The condition of late orders is required_date less than shipped_date.
+8. Показать employee_id и общее количество просроченных заказов (number_of_delayed_orders) для каждого из них. Условие просроченных заказов - required_date меньше shipped_date. / Show employee_id and the total number of late orders (number_of_delayed_orders) for each of them. The condition of late orders is required_date less than shipped_date.
 Answer:
 SELECT employee_id,
        COUNT(*) AS number_of_delayed_orders
@@ -76,7 +75,7 @@ WHERE required_date < shipped_date
 GROUP BY employee_id
 ORDER BY number_of_delayed_orders DESC;
 
-9. Create a report that displays the number of female, male or other employees (number_of_employees) in the positions they held.
+9. Создать отчет, отображающий количество женщин, мужчин и других сотрудников (number_of_employees) на занимаемых ими позициях. / Create a report that displays the number of female, male or other employees (number_of_employees) in the positions they held.
 Answer:
 SELECT title,
        title_of_courtesy,
