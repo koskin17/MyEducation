@@ -1,0 +1,108 @@
+
+Тест 1:
+
+1. Что такое JOIN в реляционной СУБД?
+   a. Способ объединения данных из нескольких таблиц
+   b. Способ удаления данных из таблицы
+   c. Способ обновления данных в таблице
+
+Ответ: a. Способ объединения данных из нескольких таблиц
+
+2. Заполните пропуски в запросе, чтобы выбрать данные о клиентах и их платежах из обеих таблиц:
+   SELECT customer.customer_id, first_name, last_name, amount, payment_date
+   FROM customer Порожнє 1 Питання 1 Порожнє 2 Питання 1 payment
+   ON payment.Порожнє 3 Питання 1 = Порожнє 4 Питання 1
+   ORDER BY payment_date;
+   
+Ответ: 
+   FROM customer
+   LEFT JOIN payment
+   ON payment.customer_id = customer.customer_id
+
+3. Какой тип JOIN возвращает...?
+   a. Все строки из обеих таблиц, с соответствующими строками, где это возможно
+   b. Все строки из левой таблицы и соответствующие строки из правой таблицы
+   c. Все строки из правой таблицы и соответствующие строки из левой таблицы
+
+Ответ:
+   a. Все строки из обеих таблиц, с соответствующими строками, где это возможно
+
+4. Какой запрос объединяет результат двух или более SELECT операторов?
+   Ответ: UNION
+
+5. Какой JOIN возвращает декартово произведение двух таблиц?
+   Ответ: a. CROSS JOIN
+
+6. Заполните пропуски в запросе, чтобы получить результат с использованием LEFT JOIN:
+   SELECT film.film_id, title, inventory_id
+   FROM film Порожнє 1 Питання 6 Порожнє 2 Питання 6 inventory
+   ON film.film_id = Порожнє 4 Питання 6
+   ORDER BY title;
+   
+Ответ:
+   FROM film
+   LEFT JOIN inventory
+   ON film.film_id = inventory.film_id
+
+7. Какой тип JOIN нужен, если нужно включить строки, которые не имеют соответствующих значений?
+   Ответ: OUTER JOIN
+
+8. Какой запрос объединяет результаты нескольких запросов и исключает одинаковые записи?
+   Ответ: UNION
+
+9. Какой запрос объединяет несколько таблиц по одинаковым названиям столбцов?
+   Ответ: NATURAL JOIN
+
+10. В PostgreSQL поддерживаются INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN, CROSS JOIN, NATURAL JOIN и специальный тип JOIN, называемый SELF-JOIN.
+    Ответ: Правильно
+
+
+Тест 2:
+
+1. Сколько строк вернет следующий запрос, если у нас есть 2 клиента, один из которых имеет 3 заказа, а второй 5 заказов?
+   select * from customers join orders on orders.customer_id = customers.customer_id;
+   a. 0
+   b. 5
+   c. 8
+   d. 3
+   
+Ответ: c. 8
+
+2. Какой запрос правильный для подсчета клиентов, которые сделали хотя бы один заказ?
+   a. select count(distinct customers.customers_id) from customers join orders on orders.customer_id = customers.customers_id;
+   b. select count(*) from customers join orders on orders.customer_id = customers.customer_id;
+   
+Ответ: a. select count(distinct customers.customers_id) from customers join orders on orders.customer_id = customers.customers_id;
+
+3. Какой запрос возвращает клиентов, которые сделали заказ, и тех, кто не сделал?
+   a. select * from customers left join orders on orders.customer_id = customers.customer_id where orders.order_id is null;
+   b. select * from customers join orders on orders.customer_id = customers.customer_id;
+   c. select * from customers left join orders on orders.customer_id = customers.customer_id;
+   d. select * from customers left join orders on orders.customer_id = customers.customer_id where orders.order_id is not null;
+   
+Ответ: c. select * from customers left join orders on orders.customer_id = customers.customer_id;
+
+4. Что такое group function в SQL?
+   a. Ключевое слово DISTINCT заставляет group function учитывать дублирующиеся значения
+   b. Group functions игнорируют null значения
+   c. Group functions работают с множествами строк и возвращают несколько результатов для каждой группы
+   
+Ответ: b. Group functions игнорируют null значения
+
+5. Какой тип JOIN нужен, если вы хотите включить строки, не имеющие соответствующих значений?
+   Ответ: OUTER JOIN
+
+6. Какой запрос объединяет несколько таблиц и должен включать одинаковое количество столбцов?
+   Ответ: UNION
+
+7. Какой запрос объединяет несколько запросов и не включает одинаковые записи?
+   Ответ: UNION
+
+8. Какой запрос возвращает декартово произведение двух таблиц?
+   Ответ: a. CROSS JOIN
+
+9. Какой запрос используется для объединения двух таблиц, если в них есть одинаковые столбцы?
+   Ответ: NATURAL JOIN
+
+10. Запрос: select * from customers join orders on orders.customer_id = customers.customer_id; Вернет ли он клиентов, которые никогда не делали заказ?
+    Ответ: Неправильно
