@@ -1,0 +1,11 @@
+SELECT a.employee_id AS "Employee Id", a.first_name AS "Employee name", b.employee_id AS "Manager Id", b.first_name AS "Manager Name"
+FROM employees AS a, employees AS b /*подразумевается, что таблица а описывает подчинённых, а таблица b описывает руководителей*/
+WHERE a.reports_to = b.employee_id
+ORDER BY b.first_name
+
+
+SELECT a.employee_id AS "Employee Id", a.first_name AS "Employee name", b.employee_id AS "Manager Id", b.first_name AS "Manager Name"
+FROM employees AS a
+LEFT JOIN employees AS b
+ON a.reports_to = b.employee_id
+
