@@ -1,0 +1,7 @@
+SELECT order_date, first_name, last_name, hire_date
+FROM orders AS o, employees AS e
+WHERE o.order_date > e.hire_date
+
+SELECT a.company_name AS customer1, b.company_name AS customer2
+FROM customers AS a, customers  AS b
+WHERE a.country = 'France' AND a.city = b.city AND a.company_name <> b.company_name
