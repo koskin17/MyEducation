@@ -1,0 +1,29 @@
+/* Показать список клентов из Франции, которые заказывают не французкие товары */
+
+SELECT DISTINCT c.company_name AS customer, s.company_name AS supplier
+FROM customers AS c
+INNER JOIN orders AS o ON o.customer_id = c.customer_id /*из orders отбираем те, по которым совпадает customer_id*/
+INNER JOIN order_details AS od ON od.order_id = o.order_id /*из order_details отбираем те, по которым совпадает order_id*/
+INNER JOIN products AS p ON p.product_id = od.product_id /* из products отбираем те, по которым совпадает product_id*/
+INNER JOIN suppliers AS s ON s.supplier_id = p.supplier_id /*из supplier отбираем те, по которым совпадает supplier_id*/
+WHERE c.country = 'France' AND s.country <> 'France' /*ограничивает отбор только теми, у которых страна в customers = Франция, а страна в supplier не Франция*/
+
+В результате со здаётся одна очень большая таблица:
+
+SELECT *
+FROM customers AS c
+INNER JOIN orders AS o ON o.customer_id = c.customer_id
+INNER JOIN order_details AS od ON od.order_id = o.order_id
+INNER JOIN products AS p ON p.product_id = od.product_id
+INNER JOIN suppliers AS s ON s.supplier_id = p.supplier_id
+WHERE c.country = 'France' AND s.country <> 'France'
+
+Для того, чтобы увидеть комании из customer и supplier:
+
+SELECT DISTINCT c.company_name AS customer, s.company_name AS supplier
+FROM customers AS c
+INNER JOIN orders AS o ON o.customer_id = c.customer_id
+INNER JOIN order_details AS od ON od.order_id = o.order_id
+INNER JOIN products AS p ON p.product_id = od.product_id
+INNER JOIN suppliers AS s ON s.supplier_id = p.supplier_id
+WHERE c.country = 'France' AND s.country <> 'France'
