@@ -1,0 +1,100 @@
+Пример подзапроса:
+-- Выбираем всех работников, у которых средний вес обработанных посылок больше принятого нами среднего
+SELECT e.first_name||' '||e.last_name AS full_name
+FROM orders AS o JOIN employees AS e ON e.employee_id = o.employee_id
+GROUP BY e.first_name, e.last_name
+HAVING AVG(o.freight) >
+(
+-- Определяем средний вес посылок, обработанных конкретным работником
+       SELECT AVG(freight)::numeric(30,3)
+       FROM orders
+       WHERE employee_id = 4
+)
+
+/* 
+-- Пример SINGLE ROW SUBQUERY
+SELECT product_name
+FROM products
+WHERE supplier_id = 
+(
+       SELECT supplier_id
+       FROM suppliers
+       WHERE company_name LIKE 'Exotic%'
+) */
+
+SELECT first_name, last_name
+FROM employees AS e, orders AS o
+WHERE e.employee_id = o.employee_id
+AND o.freight = 
+(
+       SELECT MAX(freight) FROM orders
+)
+
+Пример MULTY ROW SUBQUERY
+SELECT order_id, ship_via
+FROM orders
+WHERE ship_via IN
+(
+       SELECT shipper_id
+       FROM shippers
+       WHERE phone LIKE '%99%'
+)
+
+-- Пример multy row subquery но с оператором NOT IN
+
+SELECT DISTINCT company_name, city
+FROM suppliers
+WHERE city NOT IN
+(
+       SELECT city
+       FROM customers
+       WHERE city IS NOT NULL - очень важно при изпользовании NOT IN убедиться и застраховаться, что NULL не будет возвращен / найден. В противном случае, если встретится хотя бы один NULL, то и весь запрос вернёт NULL
+	   
+	   И вообще рекомендуется добавлять IS NOT NULL к любому полю, если есть вероятность, что там может быть NULL
+);
+
+-- Пример вложенного запроса
+SELECT * FROM orders WHERE order_id IN
+(
+       SELECT order_id FROM order_details WHERE product_id =
+       (
+              SELECT product_id FROM products WHERE product_name = 'Chai'
+       )
+);
+
+-- Пример вложенного запроса
+SELECT * FROM orders WHERE order_id IN
+(
+       SELECT order_id FROM order_details WHERE product_id =
+       (
+              SELECT product_id FROM products WHERE product_name = 'Chai'
+       )
+);
+
+SELECT c.company_name
+FROM
+(
+       SELECT * FROM orders WHERE order_id IN
+       (
+              SELECT order_id FROM order_details WHERE product_id =
+              (
+                     SELECT product_id FROM products WHERE product_name = 'Chai'
+              )
+       )
+) AS o
+JOIN customers AS c ON c.customer_id = o.customer_id
+
+Или второй вариант
+SELECT DISTINCT  c.company_name, o.order_id
+FROM customers AS c
+JOIN
+(
+       SELECT * FROM orders WHERE order_id IN
+       (
+              SELECT order_id FROM order_details WHERE product_id =
+              (
+                     SELECT product_id FROM products WHERE product_name = 'Chai'
+              )
+       )
+) AS o ON c.customer_id = o.customer_id
+
