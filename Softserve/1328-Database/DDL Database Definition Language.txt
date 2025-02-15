@@ -1,0 +1,3 @@
+-- Создаём схему schema новой базы данных
+CREATE SCHEMA myshop
+
