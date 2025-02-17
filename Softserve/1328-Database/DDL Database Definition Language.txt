@@ -57,4 +57,7 @@ ALTER TABLE myshop.orders ADD FOREIGN KEY (client_id) REFERENCES myshop.clients(
 --ИНДЕКСЫ
 --В MySQL надо указывать, что эта колонка уникальная, а в PostgreSQL это не обязательно. Индексы нигде не светятся - это служебная информация.
 --Проиндексировать client_name
-CREATE INDEX idx_client_client_name ON TABLE myshop.clients (name) - 
+CREATE INDEX idx_client_client_name ON TABLE myshop.clients (name)
+
+-- Удаление данных из БД - DROP
+-- Из БД нельзя удалить ни таблицу, ни колонку, если на неё есть ссылки (FOREIGN KEY) из других таблиц.
