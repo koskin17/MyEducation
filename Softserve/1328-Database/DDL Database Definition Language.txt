@@ -48,3 +48,13 @@ CREATE TABLE myshop.ordered_products (
 )
 
 -- При изменении Базы Данных при помощи команды ALTER TABLE хорошим тоном является, чтобы одна команда ALTER TABLE меняла один параметр БД.
+ALTER TABLE myshop.orders ALTER COLUMN order_date SET DEFAULT (NOW())
+ALTER TABLE myshop.orders ALTER COLUMN quantity SET DEFAULT 0
+
+-- Изменение через добавление FOREIGN KEY
+ALTER TABLE myshop.orders ADD FOREIGN KEY (client_id) REFERENCES myshop.clients(client_id)
+
+--ИНДЕКСЫ
+--В MySQL надо указывать, что эта колонка уникальная, а в PostgreSQL это не обязательно. Индексы нигде не светятся - это служебная информация.
+--Проиндексировать client_name
+CREATE INDEX idx_client_client_name ON TABLE myshop.clients (name) - 
