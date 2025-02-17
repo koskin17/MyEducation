@@ -1,3 +1,50 @@
 -- Создаём схему schema новой базы данных
 CREATE SCHEMA myshop
 
+-- После создания новой схемы, которая не является public, при создании таблицы нужно обязательно указывать схему, в которой бы эту таблицу создаём. Также обязательно нужно указать primary_key для одного конкретного поля. При этом не обязательно указывать UNIQUE и NOT NULL потому что практически все современные СУБД уже внутри PRIMARY KEY понимают, что значения в этом поле должны быть уникальными и не могут быть пустыми. Также обязательно нужно установить, что этот PRIMARY KEY самостоятельно будет формироваться, т.е. увеличиваться на 1 при добавлении новой записи. Для PostgreSQL есть специальный тип данных SERIAL, который и устанавливается для поля PRIMARY KEY. Этот тип данных внутри себя уже имеет встроенную последовательность и самостоятельно увеличивает следующее значение на 1. Для больших данных есть специальный тип данных BIGSERIAL. 
+CREATE TABLE myshop.products (
+  product_id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(50),
+  quantity INT
+)
+
+CREATE TABLE myshop.clients (
+  client_id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(50)
+)
+
+--Помимо SERIAL можно добавлять AUTOINCREMENT и это аналог SERIAL. При этом в PostgreSQL не поддерживается AUTOINCREMENT и надо использовать SERIAL или BIGSERIAL
+CREATE TABLE myshop.category (
+  category_id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(50)
+)
+
+-- Для FOREING KEY хорошей практикой является его описание отдельной строко в конце таблицы. Т.е. это хорошо делать после того, как описаны все колонки таблицы и потом уже добавляются FOREING KEY для полей, которые ссылаются на другие таблицы. Это можно сделать: FOREING KEY (имя колонки, которая является FOREING KEY в этой таблицы) и потом ссылка на другую таблицу: REFERENCE имя_таблицы(имя колонки, на которую ссылкается FOREING KEY). Если же колонки должны быть не только FOREING KEY, но и PRIMARY KEY, то для них указывается PRIMARY KEY. Но PRIMARY KEY в таблице может быть только один. Для того, чтобы оба поля FOREING KEY были PRIMARY KEY в конце добавляется дополнительное условие и в скобках указывается два и более поля, которые должны быть PRIMARY KEY :
+PRIMARY KEY (product_id, category_id)
+
+CREATE TABLE myshop.product_categories (
+  product_id BIGINT, -- Здесь без автоинкременты потому что это ссылка и просто BIGINT
+  category_id BIGINT,
+
+  FOREIGN KEY (product_id) REFERENCES myshop.products(product_id),
+  FOREIGN KEY (category_id) REFERENCES myshop.category(category_id),
+  PRIMARY KEY (product_id, category_id)
+)
+
+CREATE TABLE myshop.orders (
+  order_id BIGINT PRIMARY KEY,
+  client_id BIGINT,
+  order_date  DATE
+)
+
+CREATE TABLE myshop.ordered_products (
+  product_id BIGINT,
+  order_id BIGINT,
+  quantity INT,
+
+  PRIMARY KEY (product_id, order_id),
+  FOREIGN KEY (order_id) REFERENCES myshop.orders(order_id),
+  FOREIGN KEY (product_id) REFERENCES myshop.products(product_id)
+)
+
+-- При изменении Базы Данных при помощи команды ALTER TABLE хорошим тоном является, чтобы одна команда ALTER TABLE меняла один параметр БД.
