@@ -29,3 +29,21 @@ SET quantity = quantity * 10
 WHERE name = 'Laptop'
 
 -- Также можно обновлять данные на основании условия, даже если результат условия находится не в активной таблице, т.е. при помощи WHERE, внутри которого можно написать подзапрос.
+-- К примеру, образовалась путаница с оформлением заказов и надо поменять заказ на другого заказчика, т.е. взять  конкретный заказ, найти заказчика с нужным ID по имени и этот ID поставить в качестве заказчика по конкретному заказу.
+-- Тут важно помнить, что в SET в качестве подзапроса можно испольховать только SINGLE ROW запрос
+-- Т.е. мы говорим: установи client_id по order_id = 1 такой, которому в таблице clients соответствует клиент с именем Mykola. 
+UPDATE myshop.orders
+SET client_id = (SELECT client_id FROM myshop.clients WHERE name = 'Mykola')
+WHERE order_id = 1
+
+-- В результате все заказы с order_id = 1 и с именем заказчика Mykola будут перезаписаны на client_id с именем Mykola.
+
+-- Допустим мы хотим проставить ID новой категории товару.
+UPDATE myshop.product_categories
+SET category_id = (SELECT category_id FROM myshop.category WHERE name = 'Accessories')
+WHERE product_id = (SELECT product_id FROM myshop.products WHERE name = 'Laptop')
+
+-- К примеру, мы хотим поменять какой-то продукт в заказанных продуктах.
+UPDATE myshop.ordered_products
+SET product_id = (SELECT product_id FROM myshop.products WHERE name = 'Portable speaker')
+WHERE order_id = 1 AND product_id = (SELECT product_id FROM myshop.products WHERE name = 'Laptop ')

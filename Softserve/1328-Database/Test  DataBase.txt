@@ -1,110 +1,115 @@
--- Resorts table
+-- КОД ДЛЯ СОЗДАНИЯ БАЗЫ ДАННЫХ В SUPABASE
+
+-- Создание таблицы курортов
 CREATE TABLE Resorts (
-    ResortID INT PRIMARY KEY AUTO_INCREMENT,
-    ResortName VARCHAR(255) NOT NULL,
-    ResortType VARCHAR(50) NOT NULL,
-    QualityLevel INT NOT NULL,
-    Location VARCHAR(255) NOT NULL
+    resort_id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(50) NOT NULL CHECK (type IN ('mountain-ski', 'sea', 'other')),
+    quality INT CHECK (quality BETWEEN 1 AND 5),
+    country VARCHAR(100) NOT NULL,
+    location VARCHAR(255) NOT NULL
 );
 
--- Clients table
+-- Создание таблицы предложений по стоимости отдыха
+CREATE TABLE Offers (
+    offer_id INT PRIMARY KEY,
+    resort_id INT NOT NULL,
+    cost DECIMAL(10,2) NOT NULL,
+    description TEXT,
+    FOREIGN KEY (resort_id) REFERENCES Resorts(resort_id)
+);
+
+-- Создание таблицы клиентов
 CREATE TABLE Clients (
-    ClientID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(50) NOT NULL,
-    LastName VARCHAR(50) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    Phone VARCHAR(20)
+    client_id INT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL
 );
 
--- Agents table
+-- Создание таблицы агентов
 CREATE TABLE Agents (
-    AgentID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(50) NOT NULL,
-    LastName VARCHAR(50) NOT NULL,
-    CommissionPercentage DECIMAL(5, 2) NOT NULL
+    agent_id INT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
+    commission_percentage DECIMAL(5,2) NOT NULL
 );
 
--- Photos table
+-- Создание таблицы контрактов
+CREATE TABLE Contracts (
+    contract_id INT PRIMARY KEY,
+    client_id INT NOT NULL,
+    agent_id INT NOT NULL,
+    resort_id INT NOT NULL,
+    offer_id INT NOT NULL,
+    sign_date DATE NOT NULL,
+    rest_start DATE NOT NULL,
+    rest_end DATE NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES Clients(client_id),
+    FOREIGN KEY (agent_id) REFERENCES Agents(agent_id),
+    FOREIGN KEY (resort_id) REFERENCES Resorts(resort_id),
+    FOREIGN KEY (offer_id) REFERENCES Offers(offer_id)
+);
+
+-- Создание таблицы фотографий
 CREATE TABLE Photos (
-    PhotoID INT PRIMARY KEY AUTO_INCREMENT,
-    ResortID INT NOT NULL,
-    PhotoTitle VARCHAR(255) NOT NULL,
-    PhotoFile VARCHAR(255) NOT NULL, -- Store file path
-    PhotoTags VARCHAR(255),
-    FOREIGN KEY (ResortID) REFERENCES Resorts(ResortID)
+    photo_id INT PRIMARY KEY,
+    resort_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    tags TEXT,
+    FOREIGN KEY (resort_id) REFERENCES Resorts(resort_id)
 );
 
--- Comments table
+-- Создание таблицы комментариев
 CREATE TABLE Comments (
-    CommentID INT PRIMARY KEY AUTO_INCREMENT,
-    PhotoID INT NOT NULL,
-    ClientID INT NOT NULL,
-    CommentText TEXT NOT NULL,
-    FOREIGN KEY (PhotoID) REFERENCES Photos(PhotoID),
-    FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
+    comment_id INT PRIMARY KEY,
+	resort_id INT NOT NULL,
+    photo_id INT NOT NULL,
+    client_id INT NOT NULL,
+    comment_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (photo_id) REFERENCES Photos(photo_id),
+    FOREIGN KEY (client_id) REFERENCES Clients(client_id)
+	FOREIGN KEY (resort_id) REFERENCES Resorts(resort_id)
 );
 
--- Test data for Resorts
-INSERT INTO Resorts (ResortName, ResortType, QualityLevel, Location) VALUES
-('Mountain Paradise', 'Ski', 4, 'Alps'),
-('Sunny Beach', 'Sea', 3, 'Costa Brava'),
-('Dream Island', 'Sea', 5, 'Ari Atoll'),
-('Alpine Tale', 'Ski', 5, 'Tyrol'),
-('Tropical Paradise', 'Sea', 4, 'Phuket'),
-('Azure Coast', 'Sea', 3, 'Nice'),
-('Mountain Lake', 'Mountain', 4, 'Banff'),
-('Treasure Island', 'Sea', 5, 'Mahe'),
-('White Mountains', 'Ski', 3, 'Bansko'),
-('Golden Sands', 'Sea', 4, 'Hurghada');
+-- Вставка тестовых данных
+INSERT INTO Resorts (name, type, quality, country, location) VALUES
+('Alpine Paradise', 'mountain-ski', 5, 'Switzerland', 'Alps'),
+('Tropical Bliss', 'sea', 4, 'Thailand', 'Phuket'),
+('Ski Haven', 'mountain-ski', 3, 'Canada', 'Whistler'),
+('Ocean Breeze', 'sea', 5, 'Maldives', 'North Male Atoll'),
+('Snowy Peaks', 'mountain-ski', 4, 'France', 'Chamonix'),
+('Sunny Retreat', 'sea', 3, 'Spain', 'Costa Brava'),
+('Luxury Escape', 'sea', 5, 'Bali', 'Uluwatu'),
+('Winter Wonderland', 'mountain-ski', 4, 'Austria', 'Tyrol'),
+('Golden Sands', 'sea', 4, 'Egypt', 'Sharm El-Sheikh'),
+('Icy Slopes', 'mountain-ski', 3, 'Norway', 'Lillehammer');
 
--- Test data for Clients
-INSERT INTO Clients (FirstName, LastName, Email, Phone) VALUES
-('Ivan', 'Petrov', 'ivan.petrov@example.com', '+380501234567'),
-('Maria', 'Sidorova', 'maria.sidorova@example.com', '+380679876543'),
-('Alexey', 'Kuznetsov', 'alexey.kuznetsov@example.com', '+380931122334'),
-('Elena', 'Smirnova', 'elena.smirnova@example.com', '+380665566778'),
-('Dmitry', 'Ivanov', 'dmitry.ivanov@example.com', '+380959988776'),
-('Olga', 'Vasilyeva', 'olga.vasilyeva@example.com', '+380684433221'),
-('Sergey', 'Pavlov', 'sergey.pavlov@example.com', '+380976655443'),
-('Natalia', 'Mikhailova', 'natalia.mihailova@example.com', '+380992211334'),
-('Andrey', 'Sokolov', 'andrey.sokolov@example.com', '+380638877665'),
-('Julia', 'Lebedeva', 'julia.lebedeva@example.com', '+380914433221');
+INSERT INTO Offers (resort_id, cost, description) VALUES
+(1, 2000.00, '5-star ski package'),
+(2, 1500.00, 'Luxury beach retreat'),
+(3, 1200.00, 'Skiing adventure'),
+(4, 2500.00, 'All-inclusive Maldives'),
+(5, 1800.00, 'Skiing in the Alps'),
+(6, 1000.00, 'Budget-friendly beach'),
+(7, 3000.00, 'Exclusive island getaway'),
+(8, 1700.00, 'Winter sports package'),
+(9, 1400.00, 'Red Sea diving experience'),
+(10, 1600.00, 'Scandinavian ski lodge');
 
--- Test data for Agents
-INSERT INTO Agents (FirstName, LastName, CommissionPercentage) VALUES
-('Elena', 'Smirnova', 5.00),
-('Dmitry', 'Ivanov', 7.50),
-('Anna', 'Petrova', 6.00),
-('Igor', 'Sidorov', 8.00),
-('Svetlana', 'Kuznetsova', 5.50),
-('Maxim', 'Vasilyev', 7.00),
-('Tatiana', 'Pavlova', 6.50),
-('Roman', 'Mikhailov', 8.50),
-('Victoria', 'Sokolova', 6.00),
-('Artem', 'Lebedev', 7.50);
+INSERT INTO Clients (full_name, email, phone) VALUES
+('John Doe', 'john.doe@example.com', '+123456789'),
+('Alice Smith', 'alice.smith@example.com', '+987654321'),
+('Robert Brown', 'robert.brown@example.com', '+192837465'),
+('Emma White', 'emma.white@example.com', '+918273645'),
+('Michael Green', 'michael.green@example.com', '+564738291'),
+('Sophia Black', 'sophia.black@example.com', '+102938475'),
+('David Johnson', 'david.johnson@example.com', '+564738291'),
+('Olivia Moore', 'olivia.moore@example.com', '+675849302'),
+('James Wilson', 'james.wilson@example.com', '+758493012'),
+('Emily Davis', 'emily.davis@example.com', '+849302756');
 
--- Test data for Photos
-INSERT INTO Photos (ResortID, PhotoTitle, PhotoFile, PhotoTags) VALUES
-(1, 'View from the top', '/images/mountain_view.jpg', 'mountains, skiing, winter'),
-(2, 'Costa Brava beach', '/images/beach_costa_brava.jpg', 'sea, beach, sun'),
-(3, 'Bungalow in the Maldives', '/images/maldives_bungalow.jpg', 'island, sea, bungalow'),
-(4, 'Snowy peaks of Tyrol', '/images/tirol_mountains.jpg', 'mountains, snow, alps'),
-(5, 'Patong Beach', '/images/phuket_beach.jpg', 'sea, tropics, vacation'),
-(6, 'Promenade des Anglais', '/images/nice_promenade.jpg', 'sea, city, france'),
-(7, 'Lake Louise', '/images/lake_louise.jpg', 'lake, mountains, canada'),
-(8, 'Anse Lazio beach', '/images/anse_lazio.jpg', 'island, beach, seychelles'),
-(9, 'Bansko ski resort', '/images/bansko_ski.jpg', 'mountains, skiing, bulgaria'),
-(10, 'Hurghada beach', '/images/hurghada_beach.jpg', 'sea, beach, egypt');
-
--- Test data for Comments
-INSERT INTO Comments (PhotoID, ClientID, CommentText) VALUES
-(1, 1, 'Great view!'),
-(2, 2, 'Beautiful beach!'),
-(3, 3, 'Dreamy place!'),
-(4, 4, 'Magnificent mountains!'),
-(5, 5, 'Super vacation!'),
-(6, 6, 'Beautiful city!'),
-(7, 7, 'Incredible lake!'),
-(8, 8, 'Paradise!'),
-(9, 9, 'Excellent resort!'),
-(10, 10, 'Wonderful beach!');
+-- КОД БАЗЫ ДАННЫХ ДЛЯ dbdesigner.net

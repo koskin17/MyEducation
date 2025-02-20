@@ -1,0 +1,37 @@
+Восстановление пароля для подключения к серверу PostgreSQL через pgAdmin4 может быть выполнено следующим образом:
+
+1. **Изменение конфигурационного файла pg_hba.conf**:
+   - Найдите файл `pg_hba.conf`, который обычно находится в каталоге данных PostgreSQL (например, `C:\Program Files\PostgreSQL\16\data`).
+   - Сделайте резервную копию этого файла, скопировав его в другое место или переименовав его в `pg_hba.conf.bk`.
+   - Откройте файл `pg_hba.conf` и измените все локальные подключения с `scram-sha-256` на `trust`. Это позволит вам войти в сервер PostgreSQL без использования пароля.
+     ```plaintext
+     # IPv4 local connections:
+     host    all             all             127.0.0.1/32            trust
+     # IPv6 local connections:
+     host    all             all             ::1/128                 trust
+     ```
+
+2. **Перезапуск сервера PostgreSQL**:
+   - Перезапустите сервер PostgreSQL. На Windows это можно сделать через службы (Services) или с помощью командной строки, запущенной от имени администратора:
+     ```plaintext
+     pg_ctl -D "C:\Program Files\PostgreSQL\16\data" restart
+     ```
+
+3. **Подключение к серверу PostgreSQL**:
+   - Подключитесь к серверу PostgreSQL с помощью любого инструмента, такого как `psql` или `pgAdmin4`. Пароль не потребуется.
+     ```plaintext
+     psql -U postgres
+     ```
+
+4. **Сброс пароля**:
+   - Выполните следующую команду для установки нового пароля для пользователя `postgres`:
+     ```plaintext
+     ALTER USER postgres WITH PASSWORD 'new_password';
+     ```
+
+5. **Восстановление файла pg_hba.conf**:
+   - Восстановите оригинальный файл `pg_hba.conf` и перезапустите сервер PostgreSQL.
+
+Эти шаги помогут вам восстановить доступ к серверу PostgreSQL и установить новый пароль.
+
+: [How To Reset Forgotten Password Of postgres User - PostgreSQL Tutorial](https://neon.tech/postgresql/postgresql-administration/postgresql-reset-password)
