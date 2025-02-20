@@ -1,0 +1,31 @@
+DML - Data Manipulation Language
+-- Обновление данных:
+-- При таком запросе все имена продуктов поменяются на Portable speaker:
+UPDATE myshop.products
+SET name = 'Portable speaker'
+
+-- По этому очень важно менять что-либо только при условии WHERE и любой UPDATE данных делать только вместе с 	условием WHERE
+UPDATE myshop.products
+SET name = 'Portable speaker' WHERE name = 'Headphones'
+
+-- Если условие не будет выполняться, то ничего не поменяется.
+-- Также при UPDATE рекомендуется возвращать изменёные результаты
+UPDATE myshop.products
+SET name = 'Portable speaker' WHERE name = 'Headphones'
+RETURNING *
+
+-- В результате вернутся все строки, которые были изменены.
+-- Также можно возвращать только конкретную колонку, указав её имя, к примеру: RETURNING name - отобразит колонку все строки в колонке Name, которые были изменены.
+
+-- Изменение наименования категории
+UPDATE myshop.category
+SET name = 'Electronic Devices'
+WHERE name = 'Electronics'
+RETURNING category_id
+
+-- При UPDATE можно применять разные операции (математические и т.д.), а также применять операцию конкатенации строк
+UPDATE myshop.products
+SET quantity = quantity * 10
+WHERE name = 'Laptop'
+
+-- Также можно обновлять данные на основании условия, даже если результат условия находится не в активной таблице, т.е. при помощи WHERE, внутри которого можно написать подзапрос.

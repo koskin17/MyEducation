@@ -1,0 +1,110 @@
+-- Resorts table
+CREATE TABLE Resorts (
+    ResortID INT PRIMARY KEY AUTO_INCREMENT,
+    ResortName VARCHAR(255) NOT NULL,
+    ResortType VARCHAR(50) NOT NULL,
+    QualityLevel INT NOT NULL,
+    Location VARCHAR(255) NOT NULL
+);
+
+-- Clients table
+CREATE TABLE Clients (
+    ClientID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Phone VARCHAR(20)
+);
+
+-- Agents table
+CREATE TABLE Agents (
+    AgentID INT PRIMARY KEY AUTO_INCREMENT,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    CommissionPercentage DECIMAL(5, 2) NOT NULL
+);
+
+-- Photos table
+CREATE TABLE Photos (
+    PhotoID INT PRIMARY KEY AUTO_INCREMENT,
+    ResortID INT NOT NULL,
+    PhotoTitle VARCHAR(255) NOT NULL,
+    PhotoFile VARCHAR(255) NOT NULL, -- Store file path
+    PhotoTags VARCHAR(255),
+    FOREIGN KEY (ResortID) REFERENCES Resorts(ResortID)
+);
+
+-- Comments table
+CREATE TABLE Comments (
+    CommentID INT PRIMARY KEY AUTO_INCREMENT,
+    PhotoID INT NOT NULL,
+    ClientID INT NOT NULL,
+    CommentText TEXT NOT NULL,
+    FOREIGN KEY (PhotoID) REFERENCES Photos(PhotoID),
+    FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
+);
+
+-- Test data for Resorts
+INSERT INTO Resorts (ResortName, ResortType, QualityLevel, Location) VALUES
+('Mountain Paradise', 'Ski', 4, 'Alps'),
+('Sunny Beach', 'Sea', 3, 'Costa Brava'),
+('Dream Island', 'Sea', 5, 'Ari Atoll'),
+('Alpine Tale', 'Ski', 5, 'Tyrol'),
+('Tropical Paradise', 'Sea', 4, 'Phuket'),
+('Azure Coast', 'Sea', 3, 'Nice'),
+('Mountain Lake', 'Mountain', 4, 'Banff'),
+('Treasure Island', 'Sea', 5, 'Mahe'),
+('White Mountains', 'Ski', 3, 'Bansko'),
+('Golden Sands', 'Sea', 4, 'Hurghada');
+
+-- Test data for Clients
+INSERT INTO Clients (FirstName, LastName, Email, Phone) VALUES
+('Ivan', 'Petrov', 'ivan.petrov@example.com', '+380501234567'),
+('Maria', 'Sidorova', 'maria.sidorova@example.com', '+380679876543'),
+('Alexey', 'Kuznetsov', 'alexey.kuznetsov@example.com', '+380931122334'),
+('Elena', 'Smirnova', 'elena.smirnova@example.com', '+380665566778'),
+('Dmitry', 'Ivanov', 'dmitry.ivanov@example.com', '+380959988776'),
+('Olga', 'Vasilyeva', 'olga.vasilyeva@example.com', '+380684433221'),
+('Sergey', 'Pavlov', 'sergey.pavlov@example.com', '+380976655443'),
+('Natalia', 'Mikhailova', 'natalia.mihailova@example.com', '+380992211334'),
+('Andrey', 'Sokolov', 'andrey.sokolov@example.com', '+380638877665'),
+('Julia', 'Lebedeva', 'julia.lebedeva@example.com', '+380914433221');
+
+-- Test data for Agents
+INSERT INTO Agents (FirstName, LastName, CommissionPercentage) VALUES
+('Elena', 'Smirnova', 5.00),
+('Dmitry', 'Ivanov', 7.50),
+('Anna', 'Petrova', 6.00),
+('Igor', 'Sidorov', 8.00),
+('Svetlana', 'Kuznetsova', 5.50),
+('Maxim', 'Vasilyev', 7.00),
+('Tatiana', 'Pavlova', 6.50),
+('Roman', 'Mikhailov', 8.50),
+('Victoria', 'Sokolova', 6.00),
+('Artem', 'Lebedev', 7.50);
+
+-- Test data for Photos
+INSERT INTO Photos (ResortID, PhotoTitle, PhotoFile, PhotoTags) VALUES
+(1, 'View from the top', '/images/mountain_view.jpg', 'mountains, skiing, winter'),
+(2, 'Costa Brava beach', '/images/beach_costa_brava.jpg', 'sea, beach, sun'),
+(3, 'Bungalow in the Maldives', '/images/maldives_bungalow.jpg', 'island, sea, bungalow'),
+(4, 'Snowy peaks of Tyrol', '/images/tirol_mountains.jpg', 'mountains, snow, alps'),
+(5, 'Patong Beach', '/images/phuket_beach.jpg', 'sea, tropics, vacation'),
+(6, 'Promenade des Anglais', '/images/nice_promenade.jpg', 'sea, city, france'),
+(7, 'Lake Louise', '/images/lake_louise.jpg', 'lake, mountains, canada'),
+(8, 'Anse Lazio beach', '/images/anse_lazio.jpg', 'island, beach, seychelles'),
+(9, 'Bansko ski resort', '/images/bansko_ski.jpg', 'mountains, skiing, bulgaria'),
+(10, 'Hurghada beach', '/images/hurghada_beach.jpg', 'sea, beach, egypt');
+
+-- Test data for Comments
+INSERT INTO Comments (PhotoID, ClientID, CommentText) VALUES
+(1, 1, 'Great view!'),
+(2, 2, 'Beautiful beach!'),
+(3, 3, 'Dreamy place!'),
+(4, 4, 'Magnificent mountains!'),
+(5, 5, 'Super vacation!'),
+(6, 6, 'Beautiful city!'),
+(7, 7, 'Incredible lake!'),
+(8, 8, 'Paradise!'),
+(9, 9, 'Excellent resort!'),
+(10, 10, 'Wonderful beach!');

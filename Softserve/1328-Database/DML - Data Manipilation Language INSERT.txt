@@ -1,0 +1,55 @@
+DML - Data Manipulation Language
+-- Вставка данных:
+INSERT INTO myshop.products (name, quantity)
+VALUES ('Laptop', 15)
+
+INSERT INTO myshop.products (name, quantity)
+VALUES ('Smartphone', 30)
+
+-- Если у поля указанно значение DEFAULT, то количество перечисленных столбцов всё-равно должно совпадать с кол-вом передаваемых значений. Т.е. если значение не передаёстся в столбец, то и его имя должно быть удалено из перечня столбцов. В противном случае будет ошибка
+--- Вот так будет ошибка:
+INSERT INTO myshop.products (name, quantity)
+VALUES ('Headphones')
+
+-- А вот так ошибки не будет и будет проставлено значение DEFAULT 0
+INSERT INTO myshop.products (name)
+VALUES ('Headphones')
+
+-- Вставка нескольких значений. Значения для столбца нужно просто перечислить в скобках "()".
+При этом, имена колонок можно указывать в любом порядке, независимо от того, как они идут в таблице.
+INSERT INTO myshop.category (name)
+VALUES ('Electronics'), ('Accessories')
+
+INSERT INTO myshop.clients (name)
+VALUES ('Mykola'), ('Patron')
+
+-- Можно передавать данные в таблицу без перечисления наименований колонок, но в этом есть большой риск: можно перепутать порядок столбцов, можно передать не тот тип данных (к примеру в ID вставить текст в кавычках '').
+Также в этом случае необходимо явно прописывать NULL для тех колонок, в которых будут пустые значения.
+
+В крайнем случае можно запросить из базы данных перечень колонок к таблице следующим образом:
+SELECT COLUMN_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'category';
+
+-- Также вставлять данные в таблицу БД можно при помощи SELECT, т.е. выбирать данные из одной таблицы и вставлять выборку в поля другой таблицы. При этом можно добавлять условия отбора WHERE, сортировки SORT BY и т.д.
+К примеру, при таком запросе, не знаю client_id, но зная имя клиента, в таблицу orders можно вставить заказ конкретного клиента. 
+INSERT INTO myshop.orders (client_id, order_id)
+SELECT client_id, 1 FROM myshop.clients WHERE name = 'Patron'
+
+Также в запросах SELECT можно использовать подзапросы.
+-- Вставляем в таблицу продуктовых категорий продукты и категории из разных таблицы
+INSERT INTO myshop.product_categories (product_id, category_id)
+-- Отбираем данные из таблиц
+SELECT p.product_id, c.category_id
+FROM myshop.products AS p, myshop.category AS c
+WHERE p.name = 'Laptop' AND c.name = 'Electronics'
+
+-- Сложный вариант:
+INSERT INTO myshop.ordered_products (product_id, order_id, quantity)
+SELECT p.product_id, o.order_id, 10 FROM myshop.products AS p, myshop.orders AS o
+JOIN myshop.clients AS c ON o.client_id = c.client_id
+WHERE p.name = 'Smartphone' AND c.name = 'Patron'
+
+--Простой вариант
+INSERT INTO myshop.ordered_products (product_id, order_id, quantity)
+VALUES (1, 1, 5)
