@@ -1,1 +1,52 @@
 -- SQL Veiws --
+-- Для создание View используется команда CREATE VIEW
+-- Можно использовать CREATE OR REPLACE VIEW - проверяет наличие вьюшки и заново её создаёт, если такая есть
+-- Также обязательно указывается название вьюшки CREATE OR REPLACE VIEW example
+-- Это название является алиасов для запроса, который спрятан в этой вьюшке.
+-- Результат вьюшек размещается среди таблиц Базы Данных под соответствующим названием, которое было прописано в качестве алиаса.
+-- В вьюшке нельзя использовать две одинаковые колонки (одна колонка два раза). Если SELECT пропустит указание колонки 2 раза и потом в результате просто покажет одну колонку, то при формировании вьюшке такоего делать нельзя.
+
+-- Пример создания горизонтальной вьюшки
+CREATE OR REPLACE VIEW myshop.horizontal_view AS
+SELECT *
+FROM myshop.products
+WHERE quantity > 20
+
+
+SELECT * FROM myshop.horizontal_view
+
+-- Пример создания вертикальной вьюшки
+CREATE OR REPLACE VIEW myshop.vertical_veiw AS
+SELECT name, quantity
+FROM myshop.products
+
+SELECT * FROM myshop.vertical_veiw
+
+-- Пример создания миксованной вьюшки
+CREATE OR REPLACE VIEW myshop.mixed_veiw AS
+SELECT name
+FROM myshop.clients
+WHERE client_id IN (SELECT client_id FROM myshop.orders GROUP BY client_id HAVING COUNT(order_id) >= 1)
+
+-- Пример создания вьюшки с JOIN
+CREATE OR REPLACE VIEW myshop.join_view AS
+SELECT p.name AS product_name, c.name AS category_name
+FROM myshop.products AS p
+JOIN myshop.product_categories AS pc ON pc.product_id = p.product_id
+JOIN myshop.category AS c ON c.category_id = pc.category_id
+
+-- Вариант вьбшки с подзапросом
+CREATE OR REPLACE VIEW myshop.subquery_view AS
+SELECT p.name, (SELECT COUNT(*) FROM myshop.product_categories AS pc WHERE pc.product_id = p.product_id) AS category_count
+FROM myshop.products AS p
+
+-- Вариант вьюшки с UNION
+CREATE OR REPLACE VIEW myshop.union_view AS
+SELECT name, 'products' AS type FROM myshop.products
+UNION
+SELECT name, 'category' FROM myshop.category
+
+-- Вариант вьюшки на базе вьюшке
+CREATE OR REPLACE VIEW myshop.based_on_other_view AS
+SELECT name, quantity * 2 AS double_quantity
+FROM myshop.vertical_veiw
