@@ -1,0 +1,27 @@
+-- COMMON TABLE EXPRESSION или CTE
+-- Такая таблица, как и вьюшка, является виртуальной, но она существует только в рамках одного и только того запроса, который выполняется здесь и сейчас. Т.е. внутри запроса можно сделать виртуальную таблицу, внутри этого запроса как-то с ней поработать, а после завешения этого запроса эта виртуальная таблица пропадёт. Это чем-т похоже на подзапрос. Главное преимущество CTE в том, что оно позволяет рекурсивные запросы, т.е. внутри виртуальной таблицы сделать запрос к этой самой таблице. 
+-- К примеру:
+SELECT o.order_id, c.name AS client_name, os.total_quantity
+FROM myshop.orders AS o
+JOIN myshop.clients AS c ON o.client_id = c.client_id
+JOIN (
+  SELECT op.order_id, SUM(op.quantity) AS total_quantity
+  FROM myshop.ordered_products AS op
+  GROUP BY op.order_id
+) AS os
+ON o.order_id = os.order_id
+
+-- Такой запрос довольно громоздкий, их может быть много и не совсем удобно. CTE позволяет подзапрос вынести отдельно, т.е. сделать как бы виртуальную таблицу из него и к ней обращаться.
+-- Для этого используется ключевое слово WITH. Дальше идёт название той вирт.таблицы, которая будет создана, т.е. как бы её. А потом внутри основного запроса указывается имя этой таблицы или её алиас. Это как вынесту функцию за пределы основной программы и потом вызывать эту функцию из основной таблицы.
+-- При этом важно помнить, что CTE не должно быть разделено с основным запросом, т.е. ";" между CTE и основным запросом не ставится
+WITH OrderSummary AS (
+  SELECT op.order_id, SUM(op.quantity) AS total_quantity
+  FROM myshop.ordered_products AS op
+  GROUP BY op.order_id
+)
+
+SELECT o.order_id, c.name AS client_name, os.total_quantity
+FROM myshop.orders AS o
+JOIN myshop.clients AS c ON o.client_id = c.client_id
+JOIN OrderSummary AS os
+ON o.order_id = os.order_id 

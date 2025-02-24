@@ -2,7 +2,7 @@
 
 -- Создание таблицы курортов
 CREATE TABLE Resorts (
-    resort_id INT PRIMARY KEY,
+    resort_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     type VARCHAR(50) NOT NULL CHECK (type IN ('mountain-ski', 'sea', 'other')),
     quality INT CHECK (quality BETWEEN 1 AND 5),
@@ -12,7 +12,7 @@ CREATE TABLE Resorts (
 
 -- Создание таблицы предложений по стоимости отдыха
 CREATE TABLE Offers (
-    offer_id INT PRIMARY KEY,
+    offer_id SERIAL PRIMARY KEY,
     resort_id INT NOT NULL,
     cost DECIMAL(10,2) NOT NULL,
     description TEXT,
@@ -21,15 +21,15 @@ CREATE TABLE Offers (
 
 -- Создание таблицы клиентов
 CREATE TABLE Clients (
-    client_id INT PRIMARY KEY,
+    client_id SERIAL PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NOT NULL
 );
 
 -- Создание таблицы агентов
 CREATE TABLE Agents (
-    agent_id INT PRIMARY KEY,
+    agent_id SERIAL PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20) UNIQUE NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Agents (
 
 -- Создание таблицы контрактов
 CREATE TABLE Contracts (
-    contract_id INT PRIMARY KEY,
+    contract_id SERIAL PRIMARY KEY,
     client_id INT NOT NULL,
     agent_id INT NOT NULL,
     resort_id INT NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE Contracts (
 
 -- Создание таблицы фотографий
 CREATE TABLE Photos (
-    photo_id INT PRIMARY KEY,
+    photo_id SERIAL PRIMARY KEY,
     resort_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     file_path VARCHAR(255) NOT NULL,
@@ -64,14 +64,14 @@ CREATE TABLE Photos (
 
 -- Создание таблицы комментариев
 CREATE TABLE Comments (
-    comment_id INT PRIMARY KEY,
+    comment_id SERIAL PRIMARY KEY,
 	resort_id INT NOT NULL,
     photo_id INT NOT NULL,
     client_id INT NOT NULL,
     comment_text TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (photo_id) REFERENCES Photos(photo_id),
-    FOREIGN KEY (client_id) REFERENCES Clients(client_id)
+    FOREIGN KEY (client_id) REFERENCES Clients(client_id),
 	FOREIGN KEY (resort_id) REFERENCES Resorts(resort_id)
 );
 
@@ -107,9 +107,46 @@ INSERT INTO Clients (full_name, email, phone) VALUES
 ('Emma White', 'emma.white@example.com', '+918273645'),
 ('Michael Green', 'michael.green@example.com', '+564738291'),
 ('Sophia Black', 'sophia.black@example.com', '+102938475'),
-('David Johnson', 'david.johnson@example.com', '+564738291'),
+('David Johnson', 'david.johnson@example.com', '+564738292'),
 ('Olivia Moore', 'olivia.moore@example.com', '+675849302'),
 ('James Wilson', 'james.wilson@example.com', '+758493012'),
 ('Emily Davis', 'emily.davis@example.com', '+849302756');
+
+INSERT INTO Agents (full_name, email, phone, commission_percentage) VALUES
+('Anna Ivanova', 'anna.ivanova@example.com', '+380123456789', 12.50),
+('Boris Petrov', 'boris.petrov@example.com', '+380987654321', 10.00),
+('Elena Smirnova', 'elena.smirnova@example.com', '+380192837465', 15.75),
+('Igor Sidorov', 'igor.sidorov@example.com', '+380918273645', 9.30),
+('Marina Pavlova', 'marina.pavlova@example.com', '+380564738291', 11.25);
+
+INSERT INTO Contracts (client_id, agent_id, resort_id, offer_id, sign_date, rest_start, rest_end) VALUES
+-- Клиент 1 с двумя контрактами
+(1, 1, 1, 1, '2023-01-10', '2023-05-01', '2023-05-15'),
+(1, 2, 2, 2, '2023-02-15', '2023-06-05', '2023-06-20'),
+
+-- Клиент 2 с двумя контрактами
+(2, 3, 3, 3, '2023-03-20', '2023-07-10', '2023-07-25'),
+(2, 4, 4, 4, '2023-04-25', '2023-08-15', '2023-08-30'),
+
+-- Клиент 3 с двумя контрактами
+(3, 5, 5, 5, '2023-05-30', '2023-09-20', '2023-10-05'),
+(3, 1, 6, 6, '2023-06-10', '2023-10-01', '2023-10-15'),
+
+-- Клиент 4 с двумя контрактами
+(4, 2, 7, 7, '2023-07-15', '2023-11-05', '2023-11-20'),
+(4, 3, 8, 8, '2023-08-20', '2023-12-10', '2023-12-25'),
+
+-- Клиент 5 с двумя контрактами
+(5, 4, 9, 9, '2023-09-25', '2024-01-15', '2024-01-30'),
+(5, 5, 10, 10, '2023-10-30', '2024-02-20', '2024-03-05'),
+
+-- Оставшиеся клиенты с одним контрактом
+(6, 1, 1, 2, '2023-11-10', '2024-04-01', '2024-04-15'),
+(7, 2, 2, 3, '2023-12-15', '2024-05-05', '2024-05-20'),
+(8, 3, 3, 4, '2024-01-20', '2024-06-10', '2024-06-25'),
+(9, 4, 4, 5, '2024-02-25', '2024-07-15', '2024-07-30'),
+(10, 5, 5, 6, '2024-03-30', '2024-08-20', '2024-09-05'),
+(6, 1, 6, 7, '2024-04-10', '2024-10-01', '2024-10-15'),
+(7, 2, 7, 8, '2024-05-15', '2024-11-05', '2024-11-20');
 
 -- КОД БАЗЫ ДАННЫХ ДЛЯ dbdesigner.net
