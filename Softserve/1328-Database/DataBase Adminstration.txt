@@ -1,0 +1,14 @@
+-- Посмотреть имеющиеся разрешения на конкретную таблицу
+SELECT * FROM information_schema.role_table_grants
+WHERE table_name = 'offers' AND table_schema = 'public'
+
+-- Создать пользователя Базы Данных.
+-- Пользователи не привязываются к конкретной schema. Они создаются в глобальном объекте.
+-- После создания пользователя у тебя ещё нет никаких прав, т.е. он ничего делать с БД ничего не может.
+CREATE USER patron WITH PASSWORD 'password';
+
+-- Создание ролей
+CREATE ROLE readonly;
+
+-- Создание ролей
+CREATE ROLE readwrite;

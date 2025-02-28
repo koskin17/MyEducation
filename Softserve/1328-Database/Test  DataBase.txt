@@ -20,12 +20,16 @@ CREATE TABLE Offers (
 );
 
 -- Создание таблицы клиентов
-CREATE TABLE Clients (
+CREATE TABLE clients (
     client_id SERIAL PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
-    phone VARCHAR(20) UNIQUE NOT NULL
+    phone VARCHAR(20) UNIQUE NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_clients_email ON clients(email);
+CREATE INDEX idx_clients_phone ON clients(phone);
 
 -- Создание таблицы агентов
 CREATE TABLE Agents (
