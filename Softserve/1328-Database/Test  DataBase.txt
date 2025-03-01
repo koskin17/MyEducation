@@ -153,4 +153,57 @@ INSERT INTO Contracts (client_id, agent_id, resort_id, offer_id, sign_date, rest
 (6, 1, 6, 7, '2024-04-10', '2024-10-01', '2024-10-15'),
 (7, 2, 7, 8, '2024-05-15', '2024-11-05', '2024-11-20');
 
--- Добавление ролей и пользователей в Базу Данных
+1. Создание ролей
+-- Создаем роль начальника отдела продаж
+CREATE ROLE sales_manager_lead WITH LOGIN PASSWORD 'LeadPassword123';
+
+-- Создаем роль менеджера по продажам
+CREATE ROLE sales_manager WITH LOGIN PASSWORD 'ManagerPassword123';
+
+2. Назначение разрешений (permissions)
+-- Начальник отдела продаж: полный доступ к клиентам и агентам
+GRANT SELECT, INSERT, UPDATE, DELETE ON Clients TO sales_manager_lead;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Agents TO sales_manager_lead;
+
+-- Менеджер по продажам: только чтение клиентов + возможность добавлять новых
+GRANT SELECT, INSERT ON Clients TO sales_manager;
+
+-- Оба могут просматривать контракты, но только начальник может изменять
+GRANT SELECT ON Contracts TO sales_manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Contracts TO sales_manager_lead;
+
+3. Создание пользователей и назначение им ролей
+-- Создаем пользователя для начальника отдела продаж
+CREATE USER boss_sales WITH PASSWORD 'BossPassword123';
+GRANT sales_manager_lead TO boss_sales;
+
+-- Создаем пользователя для менеджера по продажам
+CREATE USER employee_sales WITH PASSWORD 'EmployeePassword123';
+GRANT sales_manager TO employee_sales;
+
+4. Проверка назначенных прав
+-- Посмотреть все права для конкретной роли
+SELECT grantee, privilege_type, table_name
+FROM information_schema.role_table_grants
+WHERE grantee IN ('sales_manager_lead', 'sales_manager');
+
+-- Вариант с порядком действий: создания ролей, добавления пользователей, назначение ролей, назначение разрешений / permissions
+-- 1. Создание ролей
+CREATE ROLE sales_manager_lead;
+CREATE ROLE sales_manager;
+
+-- 2. Создание пользователей
+CREATE USER boss_sales WITH PASSWORD 'Boss123';
+CREATE USER employee_sales WITH PASSWORD 'Employee123';
+
+-- 3. Назначение ролей пользователям
+GRANT sales_manager_lead TO boss_sales;
+GRANT sales_manager TO employee_sales;
+
+-- 4. Назначение разрешений ролям
+-- Начальник отдела продаж (полный доступ к клиентам, агентам, контрактам и предложениям без возможности удаления записей из любой таблицы для сохранения информации для будущей аналитики)
+GRANT SELECT, INSERT, UPDATE ON clients, agents, contracts, offers TO sales_manager_lead;
+
+-- Менеджер по продажам (может просматривать клиентов и добавлять новых, а также только просматривать контракты, предложения и агентов)
+GRANT SELECT, INSERT ON clients TO sales_manager;
+GRANT SELECT ON contracts, offers, agents TO sales_manager;
