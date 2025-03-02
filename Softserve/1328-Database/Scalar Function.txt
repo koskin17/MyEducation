@@ -1,0 +1,84 @@
+-- 12. Functions and Stored Procedures
+--- UDF - User Define Functions
+---- Scalar Function
+	 Суть скалярной функции в том, что она возвращает только одно значение.
+	 При описании функции указывается язык. Указывать язык можно как в начале описания функции, так и в конце в качестве последнего параметра.
+	
+	 CREATE FUNCTION myshop.calculate_inventory_value(id BIGINT, unit_price NUMERIC)
+	-- Так как unit_price может быть числом с плавающей точкой, то и при умножении на кол-во получится число с плавающей точкой.
+	-- В итоге возвращаться будет тоже число с плавающей точкой.
+	RETURNS NUMERIC AS $$
+	-- Создание промежуточной / локальной переменной, которая нужна будет внутри функции
+	DECLARE
+	  -- Вычисляемое кол-во будет иметь целочисленный тип данных
+	  product_quantity INT;
+	BEGIN
+	  -- Теперь выбираем кол-во из таблицы products при выполнении условия и вставляем это кол-во в нашу промежуточную переменную
+	  SELECT quantity INTO product_quantity FROM myshop.products WHERE product_id = id;
+	  -- Теперь возвращаем эту переменную, в которую мы отобрали кол-во и умножаем это кол-во на переданную в функцию unit_price
+	  RETURN product_quantity * unit_price;
+	END;
+	$$
+	-- Описание языка функции
+	LANGUAGE plpgsql
+
+	-- Теперь функцию можно использовать изолированно
+	-- Допустим мы хотим рассчитать по первому товару при цене 50
+	SELECT myshop.calculate_inventory_value(1, 50.0) AS inventory_value;
+	
+	CREATE FUNCTION myshop.get_client_name(id BIGINT)
+	RETURNS VARCHAR(50) AS
+	$$
+	BEGIN
+	  -- В простой функции можно сразу возвращать результат подзапроса
+	  RETURN (SELECT name FROM myshop.clients WHERE client_id = id);
+	END;
+	$$
+	-- Описание языка функции
+	LANGUAGE plpgsql
+
+	SELECT myshop.get_client_name(2)
+
+---- Условные операторы в SQL
+	-- К примеру, функция, которая будет контролировать минимальный остаток товара на складе
+	-- Функция получает id товара и минимальное кол-во
+	CREATE FUNCTION myshop.is_product_available(id BIGINT, threshold INT)
+	-- Возвращает функци TRUE или FALSE
+	RETURNS BOOLEAN AS
+	$$
+	-- Декларируем промежуточную / внутреннюю переменную для функции
+	DECLARE
+	  product_quantity INT;
+	BEGIN
+	  -- Выбираем кол-во товара под переданным в функцию id и заносим это кол-во в промежуточную переменную
+	  -- В этом случае можно сразу возвращать BOOLEAN значение, но для примера показана логика проверки / отбора
+	  SELECT quantity INTO product_quantity FROM myshop.products WHERE product_id = id;
+	  -- Добавляем условие и проверяем полученное значение на соответсвие минимальному значению
+	  IF product_quantity > threshold THEN
+		RETURN TRUE;
+	  ELSE
+		RETURN FALSE;
+	  -- Конец условного оператора IF
+	  END IF;
+	END;
+	$$
+	-- Описание языка функции
+	LANGUAGE plpgsql
+	
+	--Пример использования функции, которую мы описали
+	SELECT
+	  p.product_id,
+	  p.name AS product_name,
+	  p.quantity AS current_stock,
+	  myshop.is_product_available(p.product_id, 10) AS is_available,
+	  COALESCE(op.total_orders, 0) AS total_orders
+	FROM myshop.products AS p
+	-- Джойним с подзапросом по продуктам, которые уже проданы.
+	JOIN (
+	  SELECT product_id, COUNT(order_id) AS total_orders
+	  FROM myshop.ordered_products
+	  GROUP BY product_id
+	) AS op ON p.product_id = op.product_id
+	
+-- Важно помнить, что внутри функции нельзя делать обновление Базы Данных. Т.е. функции возвращают какой-то результат, но они не должны оставлять после себя какие-то следы действий, т.е. что-то менять в Базе Данных.
+-- Функции предназначены для полученя и какой-то модификации данных.
