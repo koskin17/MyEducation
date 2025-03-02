@@ -1,2 +1,58 @@
 ---- Table Function.
 	 Их суть в том, что они вохвращают не один результат или строку, а полноценную таблицу, которую потом можно использовать для анализа или для джойна JOIN с другими таблицами.
+	 При описании табличной функции мы внутри функции должны описать все колонки, которые будут в результирующей таблице.
+	 
+	-- К примеру, функция, которая возвращает все детали по продуктам
+	-- В функцию не передаются никакие аргументы
+	-- Создаём функцию без передачи каких-то параметров
+	CREATE OR REPLACE FUNCTION myshop.get_product_details()
+	-- Функция будет возвращать таблицу
+	RETURNS TABLE (
+	  product_id BIGINT,
+	  product_name VARCHAR,
+	  category_name VARCHAR
+	)
+	AS
+	$$
+	BEGIN
+	  -- В функцию будет передаваться запрос
+	  RETURN QUERY
+	  -- Из-за того, что при создании таблицы CREATE TABLE мы прописали названия колонок, база сама сделает алиас наименований колонок с перечисленными полями в SELECT
+	  -- Выбираем имя id продукта, имя продукта и категорию
+	  SELECT p.product_id, p.name, c.name
+	  -- Из таблицы продукты
+	  FROM myshop.products AS p
+	  -- По которым id продукта совпадает с id продукта в таблице "категории продуктов"
+	  JOIN myshop.product_categories AS pc ON p.product_id = pc.product_id
+	  -- И также по которым id в "категории" совпадает с id в "категории продуктов"
+	  JOIN myshop.category AS c ON c.category_id = pc.category_id;
+	END;
+	$$
+	LANGUAGE plpgsql;
+
+	-- Теперь вызываем эту функцию
+	SELECT * FROM myshop.get_product_details();
+	
+	-- Кастомный тип
+	CREATE TYPE myshop.client_order_info AS (
+	  client_name VARCHAR,
+	  order_count INT
+	);
+
+	-- Теперь создаём функцию, которая будет возвращать кол-во заказов по всем клиентам
+	CREATE OR REPLACE FUNCTION myshop.get_clients_orders()
+	-- Возвращает функция что-то похожее на таблицу или множество всех колонок той таблицы или кастомного типа данных, которую мы создадим кодом выше
+	-- Командой возврата всех колонок является команда SETOF
+	RETURNS SETOF myshop.client_order_info AS
+	$$
+	BEGIN
+	  RETURN QUERY
+	  SELECT c.name, COUNT(o.order_id)::INT
+	  FROM myshop.clients AS c
+	  JOIN myshop.orders AS o ON c.client_id = o.client_id
+	  GROUP BY c.name;
+	END;
+	$$
+	LANGUAGE plpgsql;
+
+	SELECT client_name, order_count FROM myshop.get_clients_orders()

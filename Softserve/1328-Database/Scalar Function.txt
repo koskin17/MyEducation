@@ -35,7 +35,7 @@
 	END;
 	$$
 	-- Описание языка функции
-	LANGUAGE plpgsql
+	LANGUAGE plpgsql;
 
 	SELECT myshop.get_client_name(2)
 
