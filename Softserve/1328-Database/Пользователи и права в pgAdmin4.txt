@@ -1,0 +1,25 @@
+В pgAdmin4 можно посмотреть пользователей и их права с помощью SQL-запросов. Вот несколько шагов для получения этой информации:
+
+1. **Просмотр пользователей**:
+   ```sql
+   SELECT * FROM pg_user;
+   ```
+
+2. **Просмотр ролей**:
+   ```sql
+   SELECT * FROM pg_roles;
+   ```
+
+3. **Просмотр прав пользователей на конкретные таблицы**:
+   ```sql
+   SELECT grantee, table_catalog, table_schema, table_name, privilege_type
+   FROM information_schema.role_table_grants;
+   ```
+
+4. **Просмотр прав пользователей на конкретные объекты (таблицы, схемы и т.д.)**:
+   ```sql
+   SELECT grantee, object_type, object_name, privilege_type
+   FROM information_schema.role_usage_grants;
+   ```
+
+Эти запросы помогут получить информацию о пользователях и их правах в вашей базе данных. Если нужно что-то уточнить или добавить, дайте знать!
