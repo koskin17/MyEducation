@@ -1,4 +1,5 @@
 idea
+node_modules/
 FAST API/venv
 .venv/pyvenv.cfg
 .venv/Lib/site-packages/pip/__init__.py
