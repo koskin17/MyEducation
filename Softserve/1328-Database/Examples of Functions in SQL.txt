@@ -1,0 +1,205 @@
+-- 1. Функция для получения количества клиентов
+-- CREATE FUNCTION get_clients_count()
+-- RETURNS INT AS $$
+-- DECLARE
+--     client_count INT;
+-- BEGIN
+--     SELECT COUNT(*) INTO client_count FROM Clients;
+--     RETURN client_count;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- 2. Функция получения информации о клиенте по ID
+-- CREATE FUNCTION get_client_by_id(p_client_id INT)
+-- RETURNS TABLE (full_name VARCHAR, email VARCHAR, phone VARCHAR) AS $$
+-- BEGIN
+--     RETURN QUERY SELECT clients.full_name, clients.email, clients.phone FROM clients WHERE client_id = p_client_id;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- 3. Функция для проверки существования email в базе
+-- CREATE FUNCTION email_exists(p_email VARCHAR) RETURNS VARCHAR AS $$
+-- DECLARE
+--     exists VARCHAR;
+-- BEGIN
+--     SELECT p_email FROM clients WHERE clients.email = p_email INTO exists;
+--     RETURN exists;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- 2.1. Процедура добавления нового клиента
+-- CREATE PROCEDURE add_client(
+--     p_full_name VARCHAR(255),
+--     p_email VARCHAR(50),
+--     p_phone VARCHAR(20)
+-- )
+-- LANGUAGE plpgsql
+-- AS $$
+-- BEGIN
+--     -- Проверяем, существует ли уже такой email или телефон
+--     IF EXISTS (SELECT p_email FROM clients WHERE clients.email = p_email OR phone = p_phone) THEN
+--         RAISE EXCEPTION 'Клиент с таким email или телефоном уже существует!';
+--     END IF;
+
+--     -- Вставка нового клиента
+--     INSERT INTO clients (full_name, email, phone) VALUES (p_full_name, p_email, p_phone);
+-- END;
+-- $$;
+
+-- CALL add_client('New Client', 'new.client@example.com', '+1122334455');
+
+-- 2.2. поиска клиента по email
+-- CREATE PROCEDURE get_client_by_email(
+--     IN client_email VARCHAR,
+--     OUT client_id INT,
+--     OUT full_name VARCHAR,
+--     OUT phone VARCHAR,
+--     OUT created_at TIMESTAMP
+-- )
+-- LANGUAGE plpgsql
+-- AS $$
+-- BEGIN
+--     -- Получаем данные клиента
+--     SELECT c.client_id, c.full_name, c.phone, c.created_at 
+--     INTO client_id, full_name, phone, created_at
+--     FROM clients AS c
+--     WHERE c.email = client_email;
+-- END;
+-- $$;
+-- 3.1. Процедура обновления только переданной информации о клиенте.
+-- CREATE PROCEDURE update_client_info(
+--     p_client_id INT,
+--     p_full_name VARCHAR(255) DEFAULT NULL,
+--     p_email VARCHAR(50) DEFAULT NULL,
+--     p_phone VARCHAR(20) DEFAULT NULL
+-- )
+-- LANGUAGE plpgsql
+-- AS $$
+-- BEGIN
+--     UPDATE Clients
+--     SET 
+--         full_name = COALESCE(p_full_name, full_name),
+--         email = COALESCE(p_email, email),
+--         phone = COALESCE(p_phone, phone)
+--     WHERE client_id = p_client_id;
+-- END;
+-- $$;
+
+-- 3.2. Процедура обновления только email клиента
+-- CREATE PROCEDURE update_client_email(
+--     p_client_id INT,
+--     p_new_email VARCHAR(50)
+-- )
+-- LANGUAGE plpgsql
+-- AS $$
+-- BEGIN
+--     -- Проверяем, существует ли уже такой email
+--     IF EXISTS (SELECT p_new_email FROM clients WHERE clients.email = p_new_email) THEN
+--         RAISE EXCEPTION 'Email уже используется другим клиентом!';
+--     END IF;
+
+--     -- Обновляем email клиента
+--     UPDATE clients SET email = p_new_email WHERE client_id = p_client_id;
+-- END;
+-- $$;
+
+-- CALL update_client_email(10, 'TestEmail');
+
+--- Оптимизированный код Copilot
+-- 1. Функция для получения количества клиентов
+CREATE FUNCTION get_clients_count()
+RETURNS INT AS $$
+BEGIN
+    RETURN (SELECT COUNT(*) FROM Clients);
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2. Функция получения информации о клиенте по ID
+CREATE FUNCTION get_client_by_id(p_client_id INT)
+RETURNS TABLE (full_name VARCHAR, email VARCHAR, phone VARCHAR) AS $$
+BEGIN
+    RETURN QUERY SELECT full_name, email, phone FROM clients WHERE client_id = p_client_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 3. Функция для проверки существования email в базе
+CREATE FUNCTION email_exists(p_email VARCHAR) RETURNS BOOLEAN AS $$
+BEGIN
+    RETURN EXISTS (SELECT 1 FROM clients WHERE email = p_email);
+END;
+$$ LANGUAGE plpgsql;
+
+-- 2.1. Процедура добавления нового клиента
+CREATE PROCEDURE add_client(
+    p_full_name VARCHAR(255),
+    p_email VARCHAR(50),
+    p_phone VARCHAR(20)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Проверяем, существует ли уже такой email или телефон
+    IF EXISTS (SELECT 1 FROM clients WHERE email = p_email OR phone = p_phone) THEN
+        RAISE EXCEPTION 'Клиент с таким email или телефоном уже существует!';
+    END IF;
+
+    -- Вставка нового клиента
+    INSERT INTO clients (full_name, email, phone) VALUES (p_full_name, p_email, p_phone);
+END;
+$$;
+
+-- 2.2. Процедура поиска клиента по email
+CREATE PROCEDURE get_client_by_email(
+    IN client_email VARCHAR,
+    OUT client_id INT,
+    OUT full_name VARCHAR,
+    OUT phone VARCHAR,
+    OUT created_at TIMESTAMP
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Получаем данные клиента
+    SELECT c.client_id, c.full_name, c.phone, c.created_at 
+    INTO client_id, full_name, phone, created_at
+    FROM clients AS c
+    WHERE c.email = client_email;
+END;
+$$;
+
+-- 3.1. Процедура обновления только переданной информации о клиенте
+CREATE PROCEDURE update_client_info(
+    p_client_id INT,
+    p_full_name VARCHAR(255) DEFAULT NULL,
+    p_email VARCHAR(50) DEFAULT NULL,
+    p_phone VARCHAR(20) DEFAULT NULL
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE clients
+    SET 
+        full_name = COALESCE(p_full_name, full_name),
+        email = COALESCE(p_email, email),
+        phone = COALESCE(p_phone, phone)
+    WHERE client_id = p_client_id;
+END;
+$$;
+
+-- 3.2. Процедура обновления только email клиента
+CREATE PROCEDURE update_client_email(
+    p_client_id INT,
+    p_new_email VARCHAR(50)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Проверяем, существует ли уже такой email
+    IF EXISTS (SELECT 1 FROM clients WHERE email = p_new_email) THEN
+        RAISE EXCEPTION 'Email уже используется другим клиентом!';
+    END IF;
+
+    -- Обновляем email клиента
+    UPDATE clients SET email = p_new_email WHERE client_id = p_client_id;
+END;
+$$;
