@@ -1,0 +1,156 @@
+Код для Microsoft SQL Server и только для него
+
+-- Создание базы данных
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'Test1C_DB')
+BEGIN
+    CREATE DATABASE Test1C_DB;
+END;
+GO
+
+USE Test1C_DB;
+GO
+
+-- Таблица товаров
+CREATE TABLE Products (
+    ProductID INT IDENTITY(1,1) PRIMARY KEY, -- Используем IDENTITY вместо AUTO_INCREMENT
+    ProductName VARCHAR(100) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    Stock INT NOT NULL
+);
+GO
+
+-- Таблица клиентов
+CREATE TABLE Customers (
+    CustomerID INT IDENTITY(1,1) PRIMARY KEY, -- Используем IDENTITY вместо AUTO_INCREMENT
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Phone VARCHAR(20) NOT NULL
+);
+GO
+
+-- Таблица заказов
+CREATE TABLE Orders (
+    OrderID INT IDENTITY(1,1) PRIMARY KEY, -- Используем IDENTITY вместо AUTO_INCREMENT
+    CustomerID INT NOT NULL,
+    ProductID INT NOT NULL,
+    OrderDate DATE NOT NULL,
+    Quantity INT NOT NULL,
+    TotalPrice DECIMAL(10, 2),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+GO
+
+-- Генерация данных для таблицы "Products" (Товары)
+CREATE PROCEDURE GenerateProducts
+AS
+BEGIN
+    DECLARE @i INT = 1;
+
+    WHILE @i <= 500
+    BEGIN
+        INSERT INTO Products (ProductName, Category, Price, Stock)
+        VALUES (
+            CONCAT('Продукт_', @i),
+            CASE
+                WHEN @i % 5 = 1 THEN 'Электроника'
+                WHEN @i % 5 = 2 THEN 'Аксессуары'
+                WHEN @i % 5 = 3 THEN 'Игры'
+                WHEN @i % 5 = 4 THEN 'Гаджеты'
+                ELSE 'Компьютеры'
+            END,
+            CAST(RAND() * 10000 + 1000 AS DECIMAL(10, 2)),
+            FLOOR(RAND() * 100) + 1
+        );
+
+        SET @i = @i + 1;
+    END
+END;
+GO
+
+EXEC GenerateProducts;
+GO
+
+-- Генерация данных для таблицы "Customers" (Клиенты)
+
+CREATE PROCEDURE GenerateCustomers
+AS
+BEGIN
+    DECLARE @i INT = 1;
+
+    WHILE @i <= 500
+    BEGIN
+        INSERT INTO Customers (FirstName, LastName, Email, Phone)
+        VALUES (
+            CONCAT('Имя_', @i),
+            CONCAT('Фамилия_', @i),
+            CONCAT('user', @i, '@example.com'),
+            CONCAT('380', CAST(FLOOR(RAND() * 1000000000) AS VARCHAR))
+        );
+
+        SET @i = @i + 1;
+    END
+END;
+GO
+
+EXEC GenerateCustomers;
+GO
+
+-- Генерация данных для таблицы "Orders" (Заказы)
+
+CREATE PROCEDURE GenerateOrders
+AS
+BEGIN
+    DECLARE @i INT = 1;
+
+    WHILE @i <= 500
+    BEGIN
+        DECLARE @CustomerID INT = FLOOR(1 + (RAND() * 500));
+        DECLARE @ProductID INT = FLOOR(1 + (RAND() * 500));
+        DECLARE @Quantity INT = FLOOR(1 + (RAND() * 10));
+        DECLARE @Price DECIMAL(10, 2) = (SELECT Price FROM Products WHERE ProductID = @ProductID);
+
+        INSERT INTO Orders (CustomerID, ProductID, OrderDate, Quantity, TotalPrice)
+        VALUES (
+            @CustomerID,
+            @ProductID,
+            DATEADD(DAY, -FLOOR(RAND() * 365), GETDATE()), -- Случайная дата за последний год
+            @Quantity,
+            @Price * @Quantity
+        );
+
+        SET @i = @i + 1;
+    END
+END;
+GO
+
+EXEC GenerateOrders;
+GO
+
+-- Исправление кодировки в Базе Данных
+--- Проверить текущую кодировку базы данных:
+SELECT name, collation_name 
+FROM sys.databases 
+WHERE name = 'Test1C_DB';
+
+--- Изменить кодировку базы данных: Если ваша база данных создана с неправильным collation (например, не поддерживает кириллицу), вы можете изменить её:
+ALTER DATABASE Test1C_DB
+COLLATE Cyrillic_General_CI_AS; -- Пример для русскоязычных данных
+
+--- Проверить кодировку таблиц и столбцов: Иногда проблема может быть не в базе данных, а в кодировке столбцов. Для проверки используйте:
+SELECT TABLE_NAME, COLUMN_NAME, COLLATION_NAME
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'dbo';
+
+--- Если столбцы имеют неверное collation, исправьте их:
+ALTER TABLE Customers 
+ALTER COLUMN FirstName NVARCHAR(50) COLLATE Cyrillic_General_CI_AS;
+ALTER TABLE Customers 
+ALTER COLUMN LastName NVARCHAR(50) COLLATE Cyrillic_General_CI_AS;
+
+--- Использовать правильные типы данных: Убедитесь, что текстовые столбцы имеют тип данных NVARCHAR или NCHAR, а не VARCHAR или CHAR. NVARCHAR поддерживает Юникод, который подходит для кириллицы:
+ALTER TABLE Products
+ALTER COLUMN ProductName NVARCHAR(100);
+
