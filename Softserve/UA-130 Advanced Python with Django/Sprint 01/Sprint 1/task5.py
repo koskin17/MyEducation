@@ -27,12 +27,12 @@
 
 # Для преобразования инфиксного выражения в постфиксное (обратную польскую нотацию) можно использовать алгоритм сортировочной станции (Shunting Yard Algorithm), разработанный Э. Дейкстрой.
 # Решение на Python
-def toPostFixExpression(expression):
+def toPostFixExpression(e):
     precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '%': 2}  # Приоритет операторов
     output = []  # Итоговый список (постфиксная нотация)
     operators = []  # Стек для операторов
     
-    for token in expression:
+    for token in e:
         if token.isdigit():  # Число -> сразу в выходной список
             output.append(token)
         elif token in precedence:  # Оператор
@@ -53,5 +53,5 @@ def toPostFixExpression(expression):
     return output
 
 # Пример использования
-expression = ["2", "+", "3"]
-print(toPostFixExpression(expression))  # Вывод: ['2', '3', '+']
+e = ["2", "+", "3"]
+print(toPostFixExpression(e))  # Вывод: ['2', '3', '+']
