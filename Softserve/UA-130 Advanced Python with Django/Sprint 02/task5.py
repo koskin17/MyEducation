@@ -10,7 +10,7 @@
 # "4899,me_bagdad,22723,y",
 # "6600,af_zulu,09720,n"
 
-# Using regular expression write method max_population() for parsing strings and get info about location with highest population 
+# Using regular expression write method max_populationulation() for parsing strings and get info about location with highest population 
 
 # For example:
 
@@ -25,7 +25,7 @@
 # "4899,me_bagdad,22723,y",
 # "6600,af_zulu,09720,n"]
 
-# print(max_population(data))
+# print(max_populationulation(data))
 # ('eu_kyiv', 24834)
 
 # Вот решение задачи с использованием **регулярного выражения** для извлечения данных и последующего поиска города с наибольшим населением:
@@ -36,8 +36,8 @@ def max_population(data):
     # Регулярное выражение для извлечения id, name, population, is_capital
     pattern = r"(\d+),([\w_]+),(\d+),([yn])"
 
-    max_city = None
-    max_pop = 0
+    city = None
+    max_population = 0
 
     # Начинаем обработку данных, пропуская заголовок (data[0])
     for entry in data[1:]:
@@ -47,11 +47,11 @@ def max_population(data):
             population = int(population)  # Преобразуем в число
             
             # Проверяем, является ли население самым большим
-            if population > max_pop:
-                max_pop = population
-                max_city = city_name
+            if population > max_population:
+                max_population = population
+                city = city_name
 
-    return (max_city, max_pop) if max_city else None
+    return (city, max_population) if city else None
 
 # Тестовые примеры:
 data = [
@@ -66,7 +66,7 @@ data = [
     "6600,af_zulu,09720,n"
 ]
 
-print(max_population(data))  # Ожидаемый результат: ('eu_kyiv', 24834)
+print(max_populationulation(data))  # Ожидаемый результат: ('eu_kyiv', 24834)
 
 # ### 🔎 **Как работает код?**
 # 1. **Используется регулярное выражение `r"(\d+),([\w_]+),(\d+),([yn])"`**
@@ -77,7 +77,7 @@ print(max_population(data))  # Ожидаемый результат: ('eu_kyiv'
 
 # 2. **Проходим по строкам (кроме заголовка)** и извлекаем данные с помощью `re.match()`.
 
-# 3. **Определяем город с максимальным населением**, сравнивая текущий `population` с `max_pop`.
+# 3. **Определяем город с максимальным населением**, сравнивая текущий `population` с `max_population`.
 
 # 4. **Возвращаем кортеж (`город`, `население`)**, если найден максимум.
 
