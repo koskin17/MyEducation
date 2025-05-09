@@ -1,258 +1,223 @@
-# Create function create_account(user_name: string, password: string, secret_words: list). This function should return inner function check.
+## 1. Assignment (in English)
 
-# The function check compares the values of its arguments with password and secret_words: the password must match completely, secret_words may be misspelled (just one element).
+# Create a function `create_account(user_name: string, password: string, secret_words: list)`. This function should return an inner function `check`.
 
-# Password should contain at least 6 symbols including one uppercase letter, one lowercase letter,  special character and one number.
+# The function `check` compares the values of its arguments with the saved `password` and `secret_words`: the password must match exactly, and the `secret_words` list is considered correct if it may contain exactly one mispelled element (i.e. at most one element differs when compared regardless of order).
 
-# Otherwise function create_account raises ValueError. 
+# Additionally, the password must contain at least 6 symbols, including **one uppercase letter**, **one lowercase letter**, **one special character** (non-alphanumeric), and **one number**.  
+# If the password does not meet these criteria, the function `create_account` should raise a `ValueError`.
 
-# For example: 
+# For example:
+#   tom = create_account("Tom", "Qwerty1", ["1", "word"])
 
-# tom = create_account("Tom", "Qwerty1", ["1", "word"]) raises Value error 
+#   should raise a `ValueError` (because the password is missing a special character).
 
-# If tom = create_account("Tom", "Qwerty1_", ["1", "word"])  
+#   If  
+#   tom = create_account("Tom", "Qwerty1_", ["1", "word"])
+#   then:
+#   - `tom("Qwerty1_", ["1", "word"])` returns `True`
+#   - `tom("Qwerty1_", ["word"])` returns `False` due to different lengths of the secret words lists.
+#   - `tom("Qwerty1_", ["word", "12"])` returns `True`
+#   - `tom("Qwerty1!", ["word", "1"])` returns `False` because the password does not match exactly.
 
-# then 
+## 2. Перевод задания на русский язык
 
-# tom("Qwerty1_",  ["1", "word"]) return True 
+# Создайте функцию  
 
-# tom("Qwerty1_",  ["word"]) return False due to different length of   ["1", "word"] and  ["word"]
+# create_account(user_name: string, password: string, secret_words: list)
 
-# tom("Qwerty1_",  ["word", "12"]) return True
+# Эта функция должна возвращать внутреннюю функцию `check`.
 
-# tom("Qwerty1!",  ["word", "1"]) return False because "Qwerty1!" not equals to "Qwerty1_"
+# Функция `check` сравнивает значения переданных ей аргументов с сохранёнными `password` и `secret_words`: пароль должен совпадать полностью, а список секретных слов считается правильным, если допускается ровно одна ошибка (то есть, не более одного элемента отличается при сравнении вне зависимости от порядка).
 
-# Решение 1
+# Кроме того, пароль должен содержать не менее 6 символов, включая **одну заглавную букву**, **одну строчную букву**, **один спецсимвол** (не букву и не цифру) и **одну цифру**.  
+# Если пароль не соответствует этим критериям, функция `create_account` должна выбрасывать исключение `ValueError`.
 
-# Ниже приведён один из вариантов решения задачи:
+# Например:
+# -  
+#   ```python
+#   tom = create_account("Tom", "Qwerty1", ["1", "word"])
 
-# - Функция `create_account` сначала проверяет, соответствует ли пароль следующим требованиям:
-#   - Не менее 6 символов.
-#   - Содержит хотя бы одну заглавную букву.
-#   - Содержит хотя бы одну строчную букву.
-#   - Содержит хотя бы одну цифру.
-#   - Содержит хотя бы один специальный символ (то есть символ, для которого `not c.isalnum()` возвращает True).
+#   должно вызвать исключение `ValueError` (так как в пароле отсутствует спецсимвол).
 
-# - Если пароль не проходит валидацию, генерируется исключение `ValueError`.
+# -  
+#   Если  
 
-# - Функция возвращает внутреннюю функцию `check`, которая сравнивает переданный пароль с сохранённым и проверяет список секретных слов.  
-#   **Проверка списка секретных слов** устроена так:
-#   - Если длины списков не совпадают, возвращается `False`.
-#   - Списки сортируются (то есть игнорируется порядок) и затем производится поэлементное сравнение.
-#   - Если количество несовпадений (то есть «опечаток») не более одного, проверка считается успешной и функция возвращает `True`. В противном случае – `False`.
+#   tom = create_account("Tom", "Qwerty1_", ["1", "word"])
 
-# Вот само решение:
+#   тогда:
+#   - `tom("Qwerty1_", ["1", "word"])` возвращает `True`
+#   - `tom("Qwerty1_", ["word"])` возвращает `False` из-за разной длины списков секретных слов.
+#   - `tom("Qwerty1_", ["word", "12"])` возвращает `True`
+#   - `tom("Qwerty1!", ["word", "1"])` возвращает `False`, так как пароль не совпадает полностью.
 
-# def create_account(user_name: str, password: str, secret_words: list):
-#     # Проверка валидности пароля:
-#     if len(password) < 6:
-#         raise ValueError("Password must be at least 6 characters long.")
-#     if not any(c.isupper() for c in password):
-#         raise ValueError("Password must contain at least one uppercase letter.")
-#     if not any(c.islower() for c in password):
-#         raise ValueError("Password must contain at least one lowercase letter.")
-#     if not any(c.isdigit() for c in password):
-#         raise ValueError("Password must contain at least one digit.")
-#     if not any(not c.isalnum() for c in password):
-#         raise ValueError("Password must contain at least one special character.")
+## 3. Final Working Code
+
+def create_account(user_name: str, password: str, secret_words: list):
+    # Validate the password based on the criteria:
+    def validate_password(pw: str) -> bool:
+        if len(pw) < 6:
+            return False
+        if not any(c.isupper() for c in pw):   # must contain at least one uppercase
+            return False
+        if not any(c.islower() for c in pw):   # must contain at least one lowercase
+            return False
+        if not any(c.isdigit() for c in pw):     # must contain at least one digit
+            return False
+        # must contain at least one special character (non-alphanumeric)
+        if not any(not c.isalnum() for c in pw):
+            return False
+        return True
+
+    if not validate_password(password):
+        raise ValueError("Invalid password")
     
-#     # Сохраняем данные аккаунта
-#     stored_password = password
-#     stored_secret_words = secret_words[:]  # копия списка секретных слов
+    # Save the provided password and a copy of secret_words
+    stored_password = password
+    stored_secret_words = secret_words[:]
 
-#     def check(provided_password, provided_secret_words: list):
-#         # Пароль должен совпадать точно
-#         if provided_password != stored_password:
-#             return False
-        
-#         # Длины списков секретных слов должны совпадать
-#         if len(provided_secret_words) != len(stored_secret_words):
-#             return False
+    # Define the inner function 'check'
+    def check(provided_password, provided_secret_words: list):
+        # The provided password must match exactly
+        if provided_password != stored_password:
+            return False
+        # The lists of secret words must have the same length
+        if len(provided_secret_words) != len(stored_secret_words):
+            return False
 
-#         # Сравнение списков в порядке, не зависящем от порядка элементов
-#         sorted_stored = sorted(stored_secret_words)
-#         sorted_provided = sorted(provided_secret_words)
+        # Compare the saved secret_words with provided ones regardless of order.
+        # We allow at most one mismatch.
+        copy_list = stored_secret_words.copy()
+        match_count = 0
+        for word in provided_secret_words:
+            if word in copy_list:
+                copy_list.remove(word)
+                match_count += 1
+        mismatches = len(stored_secret_words) - match_count
+        return mismatches <= 1
 
-#         # Подсчёт несовпадающих элементов
-#         mismatches = sum(1 for s, p in zip(sorted_stored, sorted_provided) if s != p)
-
-#         # Разрешается не более одной опечатки (несовпадение)
-#         return mismatches <= 1
-
-#     return check
+    # Ensure the inner function name is "check"
+    check.__name__ = "check"
+    return check
 
 
-# # Примеры использования:
+# ----- Example tests -----
 
-# # Пример 1: Пароль "Qwerty1" не подходит (нет спецсимвола), выбрасывается ValueError:
-# try:
-#     tom = create_account("Tom", "Qwerty1", ["1", "word"])
-# except ValueError as e:
-#     print(e)  # Password must contain at least one special character.
+# Test arrays for secret words:
+initial_arr = ["one", "two", "three"]
 
-# # Пример 2:
-# tom = create_account("Tom", "Qwerty1_", ["1", "word"])
+# Test 1: Exact match with same list
+checked_arr_1_true = ["one", "two", "three"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_1_true))  # Expected: True
 
-# # Точный совпадение:
-# print(tom("Qwerty1_", ["1", "word"]))  # True
+# Test 2: One secret word is slightly different (allowed mispelling)
+checked_arr_2_true = ["one", "tw0", "three"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_2_true))  # Expected: True
 
-# # Разная длина списка секретных слов → False
-# print(tom("Qwerty1_", ["word"]))        # False
+# Test 3: Another variation with one mismatch
+checked_arr_3_true = ["one", "two", "thre3"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_3_true))  # Expected: True
 
-# # Допускается одна опечатка при сравнении (игнорируется порядок)
-# print(tom("Qwerty1_", ["word", "12"]))    # True
+# Test 4: Different order but matching elements (allowed)
+checked_arr_4_true = ["two", "one", "three"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_4_true))  # Expected: True
 
-# # Неверный пароль → False
-# print(tom("Qwerty1!", ["word", "1"]))     # False
-# ```
+# Test 5: Exact matching (again)
+checked_arr_5_true = ["one", "two", "three"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_5_true))  # Expected: True
 
-# ### Объяснение
+# Test 6: Different order
+checked_arr_6_true = ["three", "two", "one"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_6_true))  # Expected: True
+
+# Test 7: More than one mismatch → should return False
+checked_arr_7_false = ["one", "tw0", "thr0e"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_7_false))  # Expected: False
+
+# Test 8: Completely different secret words list → should return False
+checked_arr_8_false = ["1", "2", "3"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_8_false))  # Expected: False
+
+# Test 9: Different lengths of secret words lists → should return False
+checked_arr_9_false = ["one", "two"]
+val1 = create_account("123", "qQ1!45", initial_arr)
+print(val1("qQ1!45", checked_arr_9_false))  # Expected: False
+
+# Test for password validation:
+try:
+    create_account("123", "qQ1345", initial_arr)
+except ValueError:
+    print("Raises ValueError")  # Expected output
+
+# Testing that the inner function name is "check"
+check_func = create_account("test", "qQ1!45", ["a", "b"])
+print("check" in [check_func.__name__])  # Expected: True
+
+# Tests for another account (user2)
+user2 = create_account("User2", "yu6r*Tt5", ["word1", "abc3", "list"])
+print(user2("yu6r*Tt5", ["abc3", "word1", "list"]))    # Expected: True
+print(user2("yu6r*Tt5", ["abc3", "word1", "zzzzzz"]))     # Expected: True
+print(user2("yu6r*Tt5", ["abc3", "abc3", "abc3"]))        # Expected: False
+print(user2("yu6r*Tt5", ["word1", "zzzz", "z"]))          # Expected: False
+
+# Test for user3:
+# Note: Using 'initial_arr' as secret_words for this test, which in this context are ["one", "two", "three"]
+user3 = create_account("User", "MmKk*9kj", ["1", "2", "1"])
+print(user3("MmKk*9kj", ["1", "2", "1"]))  # Expected: True
+
+# Test for simple user:
+try:
+    simple_user = create_account("A", "Aa!1", ["word"])
+except ValueError:
+    print("Raises ValueError")  # Expected: Raises ValueError due to password not meeting criteria
+
+simple_user = create_account("A", "Aa!190", ["word"])
+print(simple_user("Aa!190", ["word"]))  # Expected: True
+
+# ## 4. Detailed Explanation of the Code
+
+# ### **Password Validation**
+
+# 1. **Function `validate_password`:**  
+#    - Проверяет, что длина пароля не меньше 6 символов.
+#    - Проверяет наличие хотя бы одной заглавной буквы с помощью `any(c.isupper() for c in pw)`.
+#    - Проверяет наличие хотя бы одной строчной буквы через `any(c.islower() for c in pw)`.
+#    - Проверяет наличие хотя бы одной цифры с помощью `any(c.isdigit() for c in pw)`.
+#    - Проверяет наличие хотя бы одного спецсимвола, используя условие `any(not c.isalnum() for c in pw)`, где спецсимвол – это символ, который не является ни буквой, ни цифрой.
+#    - Если хотя бы одно из условий нарушается, функция возвращает `False`.
+
+# 2. Если функция `validate_password` возвращает `False`, происходит выброс исключения `ValueError`. Это гарантирует, что аккаунт создаётся только с корректным паролем.
+
+### **Сохранение Данных**
+
+# - Сохранён пароль и копия списка секретных слов (`stored_secret_words = secret_words[:]`) для дальнейшего сравнения.
+
+### **Внутренняя Функция `check`**
 
 # 1. **Проверка пароля:**  
-#    Если пароль не соответствует требованиям (по длине, наличию символов разных категорий), выбрасывается исключение `ValueError`.
+#    - Сначала функция сравнивает предоставленный пароль с сохранённым. Если они не совпадают (точное сравнение), возвращается `False`.
 
-# 2. **Функция `check`:**  
-#    - Сначала сравнивается пароль: должна быть полная эквивалентность.
-#    - Затем проверяется, что длина списка секретных слов совпадает.
-#    - Для сравнения списков сортируются и поэлементно сравниваются. Допускается ровно одна несовпадающая пара (то есть один неверно введённый элемент).
+# 2. **Проверка длины списков секретных слов:**  
+#    - Функция проверяет, совпадает ли длина переданного списка секретных слов с длиной сохранённого. Если длины различаются, функция сразу возвращает `False`.
 
-# 3. **Примеры использования:**  
-#    Примеры демонстрируют:
-#    - Неверный пароль (без спецсимвола) приводит к исключению.
-#    - При корректном пароле функция `check` возвращает `True` только если все условия соблюдены, с допуском одной ошибки в списке секретных слов.
+# 3. **Сравнение секретных слов:**  
+#    - Для сравнения списков независимо от порядка создаётся копия сохранённого списка (`copy_list`).
+#    - Для каждого слова из переданного списка, если слово находится в копии, оно удаляется из копии, а счётчик совпадений (`match_count`) увеличивается.
+#    - Подсчитывается число несовпадений как разница между исходной длиной списка секретных слов и количеством совпадений.
+#    - Функция возвращает `True`, если число несовпадений не превышает 1 (то есть допускается ровно одна ошибка), иначе – `False`.
 
-# Этот вариант решения удовлетворяет условиям задачи. Если останутся вопросы – спрашивай!
+# 4. **Установка имени функции:**  
+#    - Перед возвратом `check` ей присваивается имя `"check"` через `check.__name__ = "check"`, что удовлетворяет требованию тестов, проверяющим имя внутренней функции.
 
-# Решение 2
+### **Примеры Тестирования**
 
-# import re
-
-# def create_account(user_name: str, password: str, secret_words: list):
-#     """
-#     Создает учетную запись с заданным именем пользователя, паролем и секретными словами.
-#     Возвращает внутреннюю функцию 'check', которая проверяет введенные пароль и
-#     секретные слова на соответствие.
-
-#     Args:
-#         user_name: Имя пользователя (строка).
-#         password: Пароль (строка).
-#         secret_words: Список секретных слов (список строк).
-
-#     Returns:
-#         Внутренняя функция 'check'.
-
-#     Raises:
-#         ValueError: Если пароль не соответствует требованиям.
-#     """
-#     if not isinstance(user_name, str):
-#         raise ValueError("Имя пользователя должно быть строкой.")
-#     if not isinstance(password, str):
-#         raise ValueError("Пароль должен быть строкой.")
-#     if not isinstance(secret_words, list) or not all(isinstance(word, str) for word in secret_words):
-#         raise ValueError("Секретные слова должны быть списком строк.")
-
-#     # Проверка сложности пароля
-#     if len(password) < 6:
-#         raise ValueError("Пароль должен содержать не менее 6 символов.")
-#     if not re.search(r"[A-Z]", password):
-#         raise ValueError("Пароль должен содержать хотя бы одну заглавную букву.")
-#     if not re.search(r"[a-z]", password):
-#         raise ValueError("Пароль должен содержать хотя бы одну строчную букву.")
-#     if not re.search(r"[^a-zA-Z0-9]", password):
-#         raise ValueError("Пароль должен содержать хотя бы один специальный символ.")
-#     if not re.search(r"[0-9]", password):
-#         raise ValueError("Пароль должен содержать хотя бы одну цифру.")
-
-#     def check(input_password: str, input_secret_words: list):
-#         """
-#         Внутренняя функция для проверки введенных пароля и секретных слов.
-
-#         Args:
-#             input_password: Введенный пароль (строка).
-#             input_secret_words: Введенные секретные слова (список строк).
-
-#         Returns:
-#             True, если пароль совпадает и хотя бы один элемент из введенных
-#             секретных слов присутствует в оригинальных секретных словах (допускается
-#             одна опечатка), False в противном случае.
-#         """
-#         if input_password == password:
-#             if len(input_secret_words) == len(secret_words):
-#                 for input_word in input_secret_words:
-#                     if input_word in secret_words:
-#                         return True
-#                 return False
-#             elif len(input_secret_words) == len(secret_words) - 1:
-#                 count = 0
-#                 for input_word in input_secret_words:
-#                     if input_word in secret_words:
-#                         count += 1
-#                 return count == len(input_secret_words)
-#             elif len(input_secret_words) == len(secret_words) + 1:
-#                 count = 0
-#                 for secret_word in secret_words:
-#                     if secret_word in input_secret_words:
-#                         count += 1
-#                 return count == len(secret_words)
-#             else:
-#                 return False
-#         else:
-#             return False
-
-#     return check
-
-# # Примеры использования
-# try:
-#     tom_invalid = create_account("Tom", "Qwerty1", ["1", "word"])
-# except ValueError as e:
-#     print(f"Ошибка при создании аккаунта Tom: {e}")
-
-# tom = create_account("Tom", "Qwerty1_", ["1", "word"])
-
-# print(f"tom('Qwerty1_', ['1', 'word']): {tom('Qwerty1_', ['1', 'word'])}")
-# print(f"tom('Qwerty1_', ['word']): {tom('Qwerty1_', ['word'])}")
-# print(f"tom('Qwerty1_', ['word', '12']): {tom('Qwerty1_', ['word', '12'])}")
-# print(f"tom('Qwerty1!', ['word', '1']): {tom('Qwerty1!', ['word', '1'])}")
-
-# lisa = create_account("Lisa", "P@$$wOrd1", ["key", "lock", "secret"])
-# print(f"lisa('P@$$wOrd1', ['key', 'lock', 'secret']): {lisa('P@$$wOrd1', ['key', 'lock', 'secret'])}")
-# print(f"lisa('P@$$wOrd1', ['key', 'secret']): {lisa('P@$$wOrd1', ['key', 'secret'])}")
-# print(f"lisa('P@$$wOrd1', ['key', 'lock', 'extra', 'secret']): {lisa('P@$$wOrd1', ['key', 'lock', 'extra', 'secret'])}")
-# print(f"lisa('P@$$wOrd1', ['wrong', 'lock', 'secret']): {lisa('P@$$wOrd1', ['wrong', 'lock', 'secret'])}")
-# ```
-
-# **Объяснение:**
-
-# 1.  **Функция `create_account(user_name, password, secret_words)`:**
-#     * Принимает имя пользователя (`user_name`), пароль (`password`) и список секретных слов (`secret_words`) в качестве аргументов.
-#     * Выполняет **валидацию типов** для входных аргументов и выбрасывает `ValueError`, если типы не соответствуют ожидаемым.
-#     * Проверяет **сложность пароля** с использованием регулярных выражений (`re`):
-#         * Длина не менее 6 символов.
-#         * Содержит хотя бы одну заглавную букву (`[A-Z]`).
-#         * Содержит хотя бы одну строчную букву (`[a-z]`).
-#         * Содержит хотя бы один специальный символ (`[^a-zA-Z0-9]`).
-#         * Содержит хотя бы одну цифру (`[0-9]`).
-#     * Если пароль не соответствует хотя бы одному из требований, функция выбрасывает `ValueError` с соответствующим сообщением.
-#     * Определяет **внутреннюю функцию `check(input_password, input_secret_words)`**. Эта функция будет возвращена функцией `create_account`.
-
-# 2.  **Внутренняя функция `check(input_password, input_secret_words)`:**
-#     * Принимает введенный пароль (`input_password`) и список введенных секретных слов (`input_secret_words`) в качестве аргументов.
-#     * Сначала проверяет, **совпадает ли введенный пароль с оригинальным паролем** (`input_password == password`).
-#     * Если пароль совпадает, проверяет **секретные слова**:
-#         * **Полное совпадение длины:** Если длина введенных секретных слов совпадает с длиной оригинальных секретных слов, функция проверяет, присутствует ли *каждое* введенное секретное слово в оригинальных секретных словах. Если все введенные слова найдены, возвращается `True`, иначе `False`.
-#         * **Одна опечатка (один элемент отличается):** Функция проверяет, отличается ли длина введенных секретных слов от длины оригинальных секретных слов ровно на 1.
-#             * Если длина введенных слов на 1 меньше, проверяется, содержатся ли *все* введенные слова в оригинальных.
-#             * Если длина введенных слов на 1 больше, проверяется, содержатся ли *все* оригинальные слова во введенных.
-#         * Если разница в длине больше 1, считается, что более одной опечатки, и возвращается `False`.
-#     * Если введенный пароль не совпадает с оригинальным, функция возвращает `False`.
-
-# 3.  **Возвращение `check`:**
-#     * Функция `create_account` возвращает ссылку на внутреннюю функцию `check`. Благодаря **замыканию (closure)**, функция `check` "помнит" значения `password` и `secret_words` из области видимости `create_account`, даже после того как `create_account` завершила свое выполнение.
-
-# **Примеры использования демонстрируют:**
-
-# * Генерацию `ValueError`, если пароль не соответствует требованиям.
-# * Успешную проверку (`True`), когда пароль совпадает и секретные слова совпадают по длине и содержанию.
-# * Неуспешную проверку (`False`), когда пароль совпадает, но длина секретных слов отличается более чем на 1.
-# * Успешную проверку (`True`), когда пароль совпадает и длина секретных слов отличается на 1, при этом все слова из более короткого списка присутствуют в более длинном.
-# * Неуспешную проверку (`False`), когда пароль не совпадает.
+# - Приведены примеры тестов для различных вариантов ввода секретных слов, проверки корректности пароля, а также дополнительные тесты, демонстрирующие выброс исключения `ValueError` для неверно заданного пароля.
+# - Даны тесты для разных пользователей (например, `user2` и `user3`) и проверка того, что список секретных слов сравнивается корректно (без учета порядка, с допуском одной ошибки).
