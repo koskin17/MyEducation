@@ -42,25 +42,29 @@
 
 # Чтобы решение соответствовало требованиям задачи (быть генератором, возвращать случайные слова без повторений до конца списка, а затем начинать снова), можно использовать следующий подход:
 
-import random
+# import random
+from random import shuffle
 
 def randomWord(words):
     """
     Генератор, возвращающий случайные слова из списка.
     Слова не повторяются до тех пор, пока не будут использованы все,
     затем выбор начинается снова с перемешанного исходного списка.
+    При попытке получить значение из генератора, созданного с пустым списком,
+    возвращает None.
 
     Args:
         words: Список строк (слов).
 
     Yields:
-        Случайное слово из списка.
+        Случайное слово из списка. Возвращает None, если список изначально пуст.
     """
     if not words:
-        return  # Если список пуст, генератор ничего не выдает
+        while True:
+            yield None  # Бесконечно возвращаем None, если список пуст
 
-    accessible_words = list(words)  # Создаем копию, чтобы не изменять оригинал
-    random.shuffle(accessible_words)
+    accessible_words = list(words)
+    shuffle(accessible_words)
     index = 0
 
     while True:
@@ -68,21 +72,37 @@ def randomWord(words):
             yield accessible_words[index]
             index += 1
         else:
-            accessible_words = list(words)  # Создаем новую копию
-            random.shuffle(accessible_words)
+            accessible_words = list(words)
+            shuffle(accessible_words)
             index = 0
 
+# Пример использования (для пустого списка):
+empty_list = []
+emptyRandom = randomWord(empty_list)
+print(next(emptyRandom))
+print(next(emptyRandom))
+print(next(emptyRandom))
+
+# Пример использования (для непустого списка):
 word_list = ['book', 'apple', 'word']
 word_generator = randomWord(word_list)
 
 print(next(word_generator))
 print(next(word_generator))
 print(next(word_generator))
+print()
+print(next(word_generator))
+print(next(word_generator))
+print(next(word_generator))
+print()
 print(next(word_generator))
 print(next(word_generator))
 print(next(word_generator))
 
 # **Объяснение исправленного решения:**
+
+# Обработка пустого списка: В начале функции добавлено условие if not words:.
+# Бесконечный yield None: Если входной список words пуст, мы входим в бесконечный цикл while True: и каждый раз выполняем yield None. Это означает, что при каждом вызове next() на генераторе, созданном с пустым списком, будет возвращаться None, и ошибка StopIteration не возникнет.
 
 # 1.  **Генераторная функция:** Функция `randomWord` теперь использует `yield` для возврата каждого случайного слова, делая её генератором.
 # 2.  **Копия списка:** Мы создаем копию входного списка `words` в `accessible_words`, чтобы не изменять исходный список.
