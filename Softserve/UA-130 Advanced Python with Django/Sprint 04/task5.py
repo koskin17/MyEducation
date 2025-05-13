@@ -73,33 +73,33 @@
 ## **Код решения**
 class Gallows:
     def __init__(self):
-        """Инициализация игры: пустой список слов и статус 'игра не окончена'"""
+        """Game initialization: empty word list and 'game not over' status"""
         self.words = []
         self.game_over = False
 
     def play(self, word):
-        """Добавление слова в игру с проверкой по двум правилам"""
+        """Adding a word to the game with two rules"""
         if self.game_over:
-            return "game over"  # Если игра окончена, нельзя продолжать
+            return "game over"  # If the game is over, you can't continue
 
-        # Проверяем условие 2: слово не должно повторяться
+        # Check condition 2: the word must not be repeated
         if word in self.words:
             self.game_over = True
             return "game over"
 
-        # Проверяем условие 1: первое буква нового слова = последней букве предыдущего
+        # Check condition 1: the first letter of the new word = the last letter of
         if self.words and self.words[-1][-1] != word[0]:
             self.game_over = True
             return "game over"
 
-        # Если слово соответствует всем условиям, добавляем его в список
+        # If the word matches all conditions, add it to the list
         self.words.append(word)
         return self.words
 
     def restart(self):
-        """Перезапуск игры"""
-        self.words = []  # Очищаем список слов
-        self.game_over = False  # Обновляем статус игры
+        """Restarting the game"""
+        self.words = []  # Clear the word list
+        self.game_over = False  # Update the game status
         return "game restarted"
 
 ## **Разбор кода, шаг за шагом**
@@ -142,4 +142,25 @@ print(game.play("hive"))  # "game over" (слово уже было исполь
 # - Проверяет **две игровые логики** (буквы + повторение).  
 # - Позволяет **перезапускать игру**.  
 # - Сохраняет **историю сказанных слов**.  
-# - Держит `game_over` в актуальном состоянии.  
+# - Держит `game_over` в актуальном состоянии.
+
+# my_gallows = Gallows()
+# my_gallows.play('apple')
+# my_gallows.play('ear')
+# my_gallows.play('rhino')
+# my_gallows.words
+# # Words should be accessible.
+# my_gallows.restart()
+# # Words list should be set back to empty.
+# my_gallows.play('hostess')
+# my_gallows.play('stash')
+# my_gallows.play('hostess')
+# # Words cannot have already been said.
+# my_gallows.play('apple')
+# my_gallows.play('ear')
+# my_gallows.play('rhino')
+# # Corn does not start with an "o".
+# my_gallows.play('corn')
+# my_gallows.words
+# my_gallows.restart()
+# my_gallows.words
