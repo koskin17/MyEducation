@@ -49,33 +49,76 @@
 # student2.take_test(paper3, ["1A", "2C", "3A", "4C", "5D", "6C", "7B"])
 # print(student2.tests_taken)  # {"Chemistry" : "Failed! (25%)", "Computing" : "Failed! (43%)"}
 
+# class Testpaper:
+#     def __init__(self, subject, markscheme, pass_mark):
+#         """Test initialization"""
+#         self.subject = subject               # subject name
+#         self.markscheme = markscheme          # List of correct answers
+#         self.pass_mark = int(pass_mark[:-1])  # Passing percentage (remove '%' and turn into a number)
+
+# class Student:
+#     def __init__(self):
+#         """Creating a student"""
+#         self.tests_taken = "No tests taken"  # Default: no passed tests
+
+#     def take_test(self, testpaper, answers):
+#         """Take the test and save the result"""
+#         # Count the number of correct answers
+#         correct_answers = sum(1 for a, b in zip(answers, testpaper.markscheme) if a == b)
+#         total_questions = len(testpaper.markscheme)  # Total number of questions
+#         percentage = (correct_answers / total_questions) * 100  # Calculating percentage
+
+#         # Determine whether the student passed the test
+#         result = "Passed!" if percentage >= testpaper.pass_mark else "Failed!"
+#         result += f" ({round(percentage)}%)"  # Rounding off the percentage
+
+#         # Update `tests_taken` (change `"No tests taken"` to a dictionary)
+#         if self.tests_taken == "No tests taken":
+#             self.tests_taken = {}  
+#         self.tests_taken[testpaper.subject] = result
+
 class Testpaper:
     def __init__(self, subject, markscheme, pass_mark):
-        """Инициализация теста"""
-        self.subject = subject               # Название предмета
-        self.markscheme = markscheme          # Список правильных ответов
-        self.pass_mark = int(pass_mark[:-1])  # Проходной процент (убираем '%' и превращаем в число)
+        """Test initialization"""
+        self.subject = subject              # subject name
+        self.markscheme = markscheme       # List of correct answers
+        self._pass_mark_value = int(pass_mark.strip().rstrip('%'))  # numerical values
+        self._pass_mark_str = pass_mark.strip()                     # for display
+
+    @property
+    def pass_mark(self):
+        """Returns the passing score as a string"""
+        return self._pass_mark_str
+
+    def get_pass_mark_value(self):
+        """Returns a numeric value for comparison"""
+        return self._pass_mark_value
+
 
 class Student:
     def __init__(self):
-        """Создание студента"""
-        self.tests_taken = "No tests taken"  # По умолчанию: нет пройденных тестов
+        """Creating a student"""
+        self.tests_taken = "No tests taken" # Default: no passed tests
 
     def take_test(self, testpaper, answers):
-        """Прохождение теста и сохранение результата"""
-        # Подсчитываем количество правильных ответов
-        correct_answers = sum(1 for a, b in zip(answers, testpaper.markscheme) if a == b)
-        total_questions = len(testpaper.markscheme)  # Общее число вопросов
-        percentage = (correct_answers / total_questions) * 100  # Вычисление процента
+        """Take the test and save the result"""
+        # Count the number of correct answers
+        correct = sum(1 for a, b in zip(answers, testpaper.markscheme) if a == b)
+        total = len(testpaper.markscheme)   # Total number of questions
+        percentage = (correct / total) * 100    # Calculating percentage
+        rounded_percentage = round(percentage)
 
-        # Определяем, прошёл ли студент тест
-        result = "Passed!" if percentage >= testpaper.pass_mark else "Failed!"
-        result += f" ({round(percentage)}%)"  # Округляем процент
+        # Compare with a numeric value
+        if rounded_percentage >= testpaper.get_pass_mark_value():
+            result = f"Passed! ({rounded_percentage}%)"
+        else:
+            result = f"Failed! ({rounded_percentage}%)"
 
-        # Обновляем `tests_taken` (изменяем `"No tests taken"` на словарь)
         if self.tests_taken == "No tests taken":
-            self.tests_taken = {}  
+            self.tests_taken = {}
+
         self.tests_taken[testpaper.subject] = result
+
 
 # Подробное, пошаговое объяснение кода
 # 🔹 Класс Testpaper (экземпляр теста)
@@ -95,22 +138,62 @@ class Student:
 
 # ✅ Проверим код на примерах
 # # Создаем тесты
-paper1 = Testpaper("Maths", ["1A", "2C", "3D", "4A", "5A"], "60%")
-paper2 = Testpaper("Chemistry", ["1C", "2C", "3D", "4A"], "75%")
-paper3 = Testpaper("Computing", ["1D", "2C", "3C", "4B", "5D", "6C", "7A"], "75%")
+# paper1 = Testpaper("Maths", ["1A", "2C", "3D", "4A", "5A"], "60%")
+# paper2 = Testpaper("Chemistry", ["1C", "2C", "3D", "4A"], "75%")
+# paper3 = Testpaper("Computing", ["1D", "2C", "3C", "4B", "5D", "6C", "7A"], "75%")
 
-# # Создаем студентов
+# # # Создаем студентов
+# student1 = Student()
+# student2 = Student()
+
+# print(student1.tests_taken)  # "No tests taken"
+
+# # # Student 1 проходит тест по математике
+# student1.take_test(paper1, ["1A", "2D", "3D", "4A", "5A"])
+# print(student1.tests_taken)  # {"Maths" : "Passed! (80%)"}
+
+# # # Student 2 проходит тест по химии и по информатике
+# student2.take_test(paper2, ["1C", "2D", "3A", "4C"])
+# student2.take_test(paper3, ["1A", "2C", "3A", "4C", "5D", "6C", "7B"])
+# print(student2.tests_taken)  # {"Chemistry" : "Failed! (25%)", "Computing" : "Failed! (43%)"}
+
+# Тест1
+paper1 = Testpaper('Maths', ['1A', '2C', '3D', '4A', '5A'], '60%')
 student1 = Student()
+print(student1.tests_taken)
+student1.take_test(paper1, ['1A', '2D', '3D', '4A', '5A'])
+print(student1.tests_taken)
+print(paper1.subject)
+print(paper1.markscheme)
+print(paper1.pass_mark)
+
+# Тест2
+paper2 = Testpaper('Chemistry', ['1C', '2C', '3D', '4A'], '75%')
 student2 = Student()
+student2.take_test(paper2, ['1C', '2D', '3A', '4C'])
+print(student2.tests_taken)
+print(paper2.subject)
+print(paper2.markscheme)
+print(paper2.pass_mark)
 
-print(student1.tests_taken)  # "No tests taken"
+# Тест3
+paper3 = Testpaper('Computing', ['1D', '2C', '3C', '4B', '5D', '6C', '7A'], '75%')
+student2 = Student()
+student3 = Student()
+student2.take_test(paper3, ['1A', '2C', '3A', '4C', '5D', '6C', '7B'])
+print(student3.tests_taken)
+student3.take_test(paper1, ['1C', '2D', '3A', '4C', '5A'])
+student3.take_test(paper3, ['1A', '2C', '3A', '4C', '5D', '6C', '7B'])
+print(student3.tests_taken)
+print(paper3.subject)
+print(paper3.markscheme)
+print(paper3.pass_mark)
 
-# # Student 1 проходит тест по математике
-student1.take_test(paper1, ["1A", "2D", "3D", "4A", "5A"])
-print(student1.tests_taken)  # {"Maths" : "Passed! (80%)"}
-
-# # Student 2 проходит тест по химии и по информатике
-student2.take_test(paper2, ["1C", "2D", "3A", "4C"])
-student2.take_test(paper3, ["1A", "2C", "3A", "4C", "5D", "6C", "7B"])
-print(student2.tests_taken)  # {"Chemistry" : "Failed! (25%)", "Computing" : "Failed! (43%)"}
-
+# Тест4
+student3 = Student()
+paper4 = Testpaper('Physics', ['1A', '2B', '3A', '4C', '5A', '6C', '7A', '8C', '9D', '10A', '11A'], '90%')
+student3.take_test(paper4, ['1A', '2C', '3A', '4C', '5D', '6C', '7B', '8C', '9D', '10A', '11A'])
+print(student3.tests_taken)
+print(paper4.subject)
+print(paper4.markscheme)
+print(paper4.pass_mark)
