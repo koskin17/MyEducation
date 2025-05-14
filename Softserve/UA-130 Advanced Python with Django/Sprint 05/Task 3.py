@@ -11,21 +11,23 @@
 # day_of_week(11)                     # output:  "There is no such day of the week! Please try again."
 # day_of_week("Monday")       # output:   "You did not enter a number! Please try again."
 
+# Dictionary of numbers corresponding to days of the week
+days = {
+        1: "Monday",
+        2: "Tuesday",
+        3: "Wednesday",
+        4: "Thursday",
+        5: "Friday",
+        6: "Saturday",
+        7: "Sunday"
+        }
+
 def day_of_week(day):
     try:
         # Convert the input parameter to a number
         day = int(day)
         
-        # Dictionary of numbers corresponding to days of the week
-        days = {
-            1: "Monday",
-            2: "Tuesday",
-            3: "Wednesday",
-            4: "Thursday",
-            5: "Friday",
-            6: "Saturday",
-            7: "Sunday"
-        }
+        
         
         # Check if the number is in the range 1-7
         if day in days:
@@ -40,6 +42,9 @@ def day_of_week(day):
 day_of_week(2)          # Output: "Tuesday"
 day_of_week(11)         # Output: "There is no such day of the week! Please try again."
 day_of_week("Monday")   # Output: "You did not enter a number! Please try again."
+print(day_of_week(2))        # Output: "Tuesday"
+print(day_of_week(11))         # Output: "There is no such day of the week! Please try again."
+print(day_of_week("Monday"))   # Output: "You did not enter a number! Please try again."
 
 # ### **Объяснение кода**
 # 1. **Преобразуем параметр в `int`** (`int(day)`).  
