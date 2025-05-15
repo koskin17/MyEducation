@@ -1,0 +1,2 @@
+ERROR: Invalid balance. Balance must be a non-negative number.
+ERROR: Failed to create account: Invalid balance. Balance must be a non-negative number.
