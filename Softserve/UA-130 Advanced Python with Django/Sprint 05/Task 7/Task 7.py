@@ -21,29 +21,26 @@
 #     print("MyExceptions")
 # MyExceptions
 
-# Создание собственного класса исключения
+# Create your own exception class
 class MyExceptions(Exception):
     pass
 
 def sum_slice_array(arr, first, second):
-    # try:
-        # Проверяем, что first и second являются числами и >= 1
+    # Check that first and second are integers and at least 1
     if not (isinstance(first, int) and isinstance(second, int) and first >= 1 and second >= 1):
         raise MyExceptions("Numbers must be integers and at least 1")
 
-    # Проверяем, что first и second не выходят за границы списка
+    # Check that first and second are within the list bounds
     if first > len(arr) or second > len(arr):
         raise MyExceptions("Indexes are out of range")
 
-    # Проверяем, что элементы списка, на которые указывают first и second, являются числами
-    if not (isinstance(arr[first - 1], (int, float)) and isinstance(arr[second - 1], (int, float))):
+    first_elem = arr[first - 1]
+    second_elem = arr[second - 1]
+    # Check that the list elements pointed to by first and second are numbers
+    if not (isinstance(first_elem, (int, float)) and isinstance(second_elem, (int, float))):
         raise MyExceptions("Elements must be numbers")
-    # except MyExceptions as e:
-    #     return "MyExceptions"
     
-    # Возвращаем сумму двух элементов
-    return float(arr[first - 1] + arr[second - 1])
-    
+    return float(first_elem + second_elem)
     
 
 # # Примеры вызова функции

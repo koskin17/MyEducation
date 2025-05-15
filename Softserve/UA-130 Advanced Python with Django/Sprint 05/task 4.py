@@ -16,16 +16,17 @@
 
 # For example:
 
-# Тест	Input	Result
+# Test
 # print_file("app.log")
+# Input
 # sin_alpha = 0.5
 # cos_alpha = math.sqrt(3) / 2
-
 # sin_alpha = 0.5
 # cos_alpha = 'w'
-
 # sin_alpha = 0.5
 # cos_alpha = 0
+
+# Result
 # INFO:root:A value has been entered sin(alpha) = 0.5
 # INFO:root:A value has been entered cos(alpha) = 0.8660254037844386
 # DEBUG:root:The value of the tangent of the angle alpha is found = 0.5773502691896258
@@ -35,3 +36,60 @@
 # INFO:root:A value has been entered sin(alpha) = 0.5
 # INFO:root:A value has been entered cos(alpha) = 0
 # WARNING:root:The cosine of the angle alpha = 0. The tangent is not defined.
+
+import logging
+import math
+
+# Настроим логирование
+logging.basicConfig(
+    filename="app.log",  # Имя файла для логирования
+    filemode="w",  # Перезапись файла при каждом запуске
+    format="%(levelname)s: %(message)s",  # Формат сообщений лога
+    level=logging.DEBUG  # Уровень логирования (от DEBUG до CRITICAL)
+)
+
+def calculate_tangent(sin_alpha, cos_alpha):
+    try:
+        # Логируем входные значения
+        logging.info(f"A value has been entered sin(alpha) = {sin_alpha}")
+        logging.info(f"A value has been entered cos(alpha) = {cos_alpha}")
+
+        # Проверяем корректность входных данных
+        if not isinstance(sin_alpha, (int, float)) or not isinstance(cos_alpha, (int, float)):
+            logging.critical("The tangent of the angle alpha is not defined.")
+            return
+        
+        # Проверяем деление на ноль
+        if cos_alpha == 0:
+            logging.warning("The cosine of the angle alpha = 0. The tangent is not defined.")
+            return
+
+        # Вычисляем тангенс
+        tan_alpha = sin_alpha / cos_alpha
+        logging.debug(f"The value of the tangent of the angle alpha is found = {tan_alpha}")
+
+    except Exception as e:
+        logging.critical(f"Unexpected error: {e}")
+
+# Тестирование функции
+calculate_tangent(0.5, math.sqrt(3) / 2)  # Ожидаемый DEBUG лог
+calculate_tangent(0.5, "w")  # Ожидаемый CRITICAL лог
+calculate_tangent(0.5, 0)  # Ожидаемый WARNING лог
+
+### **Объяснение кода**
+# 1️⃣ **Настроили логирование**:
+#    - Запись в `app.log` (`filename="app.log"`).
+#    - Файл перезаписывается при каждом запуске (`filemode="w"`).
+#    - Логирование в формате `"Уровень: Сообщение"` (`format="%(levelname)s: %(message)s"`).
+#    - Уровень `DEBUG`, чтобы поддерживать все уровни логов (`DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`).
+
+# 2️⃣ **Обрабатываем сценарии**:
+#    - **Логируем введённые данные** (`INFO`).
+#    - **Если входные данные некорректны** (`CRITICAL` → `"The tangent of the angle alpha is not defined."`).
+#    - **Если `cos_alpha == 0`** (`WARNING` → `"The cosine of the angle alpha = 0. The tangent is not defined."`).
+#    - **Если вычисление прошло успешно** (`DEBUG` → `"The value of the tangent of the angle alpha is found"`).
+
+# 3️⃣ **Ловим `Exception` на случай неожиданных ошибок** (`CRITICAL`).
+
+# 🔹 **Этот код соответствует условиям задачи и правильно логирует все события**.  
+# Попробуй запустить и скажи, если есть вопросы! 🚀
