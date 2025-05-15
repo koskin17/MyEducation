@@ -1,6 +1,7 @@
 venv
 idea
 node_modules/
+./package-lock.json
 FAST API/venv
 .venv/pyvenv.cfg
 .venv/Lib/site-packages/pip/__init__.py
