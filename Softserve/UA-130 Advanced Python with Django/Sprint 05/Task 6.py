@@ -44,17 +44,13 @@ def average(numbers):
         # Проверка, пуст ли список
         if not numbers:
             logging.debug("The list is empty")
-            return
-
         # Проверка, все ли элементы списка - числа
-        if not all(isinstance(num, (int, float)) for num in numbers):
+        elif all(isinstance(num, (int, float)) for num in numbers):
             logging.critical("Incorrect data entered")
-            return
-
-        # Вычисление среднего арифметического
-        result = sum(numbers) / len(numbers)
-        
-        logging.info(f"Arithmetic mean: {result}")
+        else:
+            # Вычисление среднего арифметического
+            result = sum(numbers) / len(numbers)
+            logging.info(f"Arithmetic mean: {result}")
 
     except ZeroDivisionError:
         logging.warning("Division by zero")
@@ -66,7 +62,7 @@ average([1, 2, 3, 4, 5])        # "INFO: Arithmetic mean: 3.0"
 average([10, -20, -30])         # "INFO: Arithmetic mean: -13.333333333333334"
 average([])                     # "DEBUG: The list is empty"
 average([1, 2, 3, 0, 5])        # "INFO: Arithmetic mean: 2.2"
-average([1, 2, "three", 4, 5])  # "CRITICAL: Incorrect data entered"
+# average([1, 2, "three", 4, 5])  # "CRITICAL: Incorrect data entered"
 
 ### **Разбор кода**
 # ✔ **Настроили логирование**:

@@ -1,9 +1,4 @@
-INFO: A value has been entered sin(alpha) = 0.5
-INFO: A value has been entered cos(alpha) = 0.8660254037844386
-DEBUG: The value of the tangent of the angle alpha is found = 0.5773502691896258
-INFO: A value has been entered sin(alpha) = 0.5
-INFO: A value has been entered cos(alpha) = w
-CRITICAL: The tangent of the angle alpha is not defined.
-INFO: A value has been entered sin(alpha) = 0.5
-INFO: A value has been entered cos(alpha) = 0
-WARNING: The cosine of the angle alpha = 0. The tangent is not defined.
+CRITICAL: Incorrect data entered
+CRITICAL: Incorrect data entered
+DEBUG: The list is empty
+CRITICAL: Incorrect data entered
