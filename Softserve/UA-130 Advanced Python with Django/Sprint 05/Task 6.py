@@ -31,24 +31,25 @@
 
 import logging
 
-# Настройка логирования
+# Setting up logging
 logging.basicConfig(
-    filename="app.log",  # Имя файла лога
-    filemode="w",  # Метод записи файла (перезапись)
-    format="%(levelname)s: %(message)s",  # Формат вывода
-    level=logging.DEBUG  # Уровень логирования (самый низкий уровень - DEBUG)
+    filename="app.log",  # Log file name
+    filemode="w",  # File writing method (overwrite)
+    format="%(name)s - %(levelname)s - %(message)s",  # Output format
+    level=logging.DEBUG  # Logging level (lowest level - DEBUG)
 )
 
 def average(numbers):
     try:
-        # Проверка, пуст ли список
+        # Check if the list is empty
         if not numbers:
             logging.debug("The list is empty")
-        # Проверка, все ли элементы списка - числа
-        elif all(isinstance(number, (int, float)) for number in numbers):
+            logging.warning("Division by zero")
+       # Check if all elements of a list are numbers
+        elif not all(isinstance(number, (int, float)) for number in numbers):
             logging.critical("Incorrect data entered")
         else:
-            # Вычисление среднего арифметического
+            # Calculating the arithmetic mean
             result = sum(numbers) / len(numbers)
             logging.info(f"Arithmetic mean: {result}")
 
@@ -62,7 +63,7 @@ average([1, 2, 3, 4, 5])        # "INFO: Arithmetic mean: 3.0"
 average([10, -20, -30])         # "INFO: Arithmetic mean: -13.333333333333334"
 average([])                     # "DEBUG: The list is empty"
 average([1, 2, 3, 0, 5])        # "INFO: Arithmetic mean: 2.2"
-# average([1, 2, "three", 4, 5])  # "CRITICAL: Incorrect data entered"
+average([1, 2, "three", 4, 5])  # "CRITICAL: Incorrect data entered"
 
 ### **Разбор кода**
 # ✔ **Настроили логирование**:
