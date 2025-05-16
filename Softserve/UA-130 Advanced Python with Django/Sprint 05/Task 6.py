@@ -45,7 +45,7 @@ def average(numbers):
         if not numbers:
             logging.debug("The list is empty")
         # Проверка, все ли элементы списка - числа
-        elif all(isinstance(num, (int, float)) for num in numbers):
+        elif all(isinstance(number, (int, float)) for number in numbers):
             logging.critical("Incorrect data entered")
         else:
             # Вычисление среднего арифметического
