@@ -275,32 +275,32 @@ app_logger.addHandler(app_handler)
 
 
 class AccountError(Exception):
-    """Пользовательское исключение для некорректных операций."""
+    """Custom exception for invalid operations."""
     def __init__(self, message):
         super().__init__(message)
-        app_logger.error(message)  # Записываем ошибку в лог приложения
+        app_logger.error(message)  # Write the error to the application log
 
 
 class Account:
-    """Класс банковского счёта."""
-    account_counter = 1  # Авто-инкремент pk
+    """Bank account class."""
+    account_counter = 1  # Auto-increment pk
 
     def __init__(self, name, balance):
-        # Валидация имени
+        # Name validation
         if not isinstance(name, str):
             raise AccountError("Invalid name type. Name must be a string.")
 
-        # Валидация баланса
+        # Balance validation
         if not isinstance(balance, (int, float)) or balance < 0:
             raise AccountError("Invalid balance. Balance must be a non-negative number.")
 
-        # Инициализация аккаунта
+        # Account initialization
         self.pk = Account.account_counter
         Account.account_counter += 1
         self.name = name
         self.balance = balance
 
-        # 🔹 Настройка индивидуального логгера
+        # Setting up a custom logger
         self.logger = logging.getLogger(f"Account_{self.pk}")
         self.logger.setLevel(logging.DEBUG)
 
@@ -341,7 +341,7 @@ class Account:
 
 
 def create_account(name, initial_balance):
-    """Функция для создания аккаунта с обработкой ошибок."""
+    """Account creation function with error handling."""
     try:
         account = Account(name, initial_balance)
         return account
