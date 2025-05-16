@@ -1,0 +1,160 @@
+Супер! 🤝
+Тоді давай зробимо все поетапно й **дуже просто**.
+
+---
+
+## ✅ Частина 1: Шаблон класу, який **сам себе логгує**
+
+---
+
+### 📦 Що ми хочемо:
+
+* Кожен клас має **власний лог-файл**, наприклад: `UserManager.log`
+* Усі дії класу логуються автоматично
+* Лог-файл створюється **одразу в конструкторі (`__init__`)**
+
+---
+
+### 🧱 Код шаблону класу з самостійним логуванням:
+
+```python
+import logging
+
+class UserManager:
+    def __init__(self):
+        # 🔹 Ім'я логгера = ім'я класу ("UserManager")
+        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger.setLevel(logging.DEBUG)
+
+        # 🔹 Ім'я лог-файлу = UserManager.log
+        handler = logging.FileHandler(f"{self.__class__.__name__}.log")
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+
+        # 🔹 Щоб не дублювати записи
+        if not self.logger.handlers:
+            self.logger.addHandler(handler)
+
+        self.logger.info("Клас UserManager створено")
+
+    def create_user(self, name):
+        self.logger.info(f"Користувач '{name}' створений!")
+
+    def delete_user(self, name):
+        self.logger.warning(f"Користувач '{name}' видалений!")
+```
+
+---
+
+### 📌 Що буде в `UserManager.log`:
+
+```
+2025-05-15 14:00:01 - UserManager - INFO - Клас UserManager створено
+2025-05-15 14:00:01 - UserManager - INFO - Користувач 'Іван' створений!
+2025-05-15 14:00:01 - UserManager - WARNING - Користувач 'Іван' видалений!
+```
+
+---
+
+### 🧪 Використання:
+
+```python
+um = UserManager()
+um.create_user("Іван")
+um.delete_user("Іван")
+```
+
+---
+
+## ✅ Частина 2: **Автоматичне логування всіх методів класу**
+
+---
+
+### 📦 Що ми хочемо:
+
+* Щоб **усі методи автоматично логувалися** при виклику
+* Без ручного `self.logger.info(...)` у кожному з них
+
+---
+
+### 🎩 Як це зробити?
+
+Ми створимо **декоратор**, який буде обгортати методи й сам логувати їх виконання.
+
+---
+
+### 🧙‍♂️ Код декоратора:
+
+```python
+def log_method_calls(cls):
+    """
+    Декоратор класу: автоматично логує виклики усіх його методів.
+    """
+    import functools
+
+    # Проходимо по всіх атрибутах класу
+    for attr_name, attr_value in cls.__dict__.items():
+        if callable(attr_value) and not attr_name.startswith("__"):
+            @functools.wraps(attr_value)
+            def wrapper(self, *args, __method=attr_value, __name=attr_name, **kwargs):
+                self.logger.info(f"Метод {__name} викликаний з аргументами: {args}, {kwargs}")
+                return __method(self, *args, **kwargs)
+            setattr(cls, attr_name, wrapper)
+    return cls
+```
+
+---
+
+### 🏗 Застосування:
+
+```python
+@log_method_calls
+class ProductManager:
+    def __init__(self):
+        self.logger = logging.getLogger(self.__class__.__name__)
+        self.logger.setLevel(logging.INFO)
+
+        handler = logging.FileHandler(f"{self.__class__.__name__}.log")
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+
+        if not self.logger.handlers:
+            self.logger.addHandler(handler)
+
+        self.logger.info("Клас ProductManager створено")
+
+    def add_product(self, product):
+        print(f"Продукт '{product}' додано")
+
+    def remove_product(self, product):
+        print(f"Продукт '{product}' видалено")
+```
+
+---
+
+### 🧪 Використання:
+
+```python
+pm = ProductManager()
+pm.add_product("Ноутбук")
+pm.remove_product("Ноутбук")
+```
+
+---
+
+### 📂 У `ProductManager.log` буде автоматично:
+
+```
+2025-05-15 14:15:00 - ProductManager - INFO - Клас ProductManager створено
+2025-05-15 14:15:01 - ProductManager - INFO - Метод add_product викликаний з аргументами: ('Ноутбук',), {}
+2025-05-15 14:15:02 - ProductManager - INFO - Метод remove_product викликаний з аргументами: ('Ноутбук',), {}
+```
+
+---
+
+## 🧠 Висновок:
+
+| Частина           | Що дає                             |
+| ----------------- | ---------------------------------- |
+| Клас з логуванням | Кожен клас має логгер і лог-файл   |
+| Декоратор         | Автоматично логує всі методи класу |

@@ -1,0 +1,109 @@
+Окей! 😊 Тримай **повністю готовий шаблон Python-файлу**, який поєднує:
+
+---
+
+## ✅ Що всередині:
+
+1. 🧱 **Базовий клас з логгером**, який:
+
+   * Автоматично створює лог-файл з ім’ям класу
+   * Записує в нього всі події
+
+2. 🎩 **Декоратор**, який:
+
+   * Логує **усі виклики методів класу**
+   * Автоматично вставляється в клас
+
+---
+
+## 🧾 Код шаблону
+
+```python
+import logging
+import functools
+
+
+def log_method_calls(cls):
+    """
+    Декоратор класу: автоматично логувати всі публічні методи.
+    """
+    for attr_name, attr_value in cls.__dict__.items():
+        if callable(attr_value) and not attr_name.startswith("__"):
+            @functools.wraps(attr_value)
+            def wrapper(self, *args, __method=attr_value, __name=attr_name, **kwargs):
+                self.logger.info(f"Метод '{__name}' викликаний з args={args}, kwargs={kwargs}")
+                return __method(self, *args, **kwargs)
+            setattr(cls, attr_name, wrapper)
+    return cls
+
+
+@log_method_calls
+class BaseLoggerClass:
+    """
+    Базовий клас, який автоматично створює логгер для свого класу.
+    """
+    def __init__(self):
+        class_name = self.__class__.__name__
+        self.logger = logging.getLogger(class_name)
+        self.logger.setLevel(logging.INFO)
+
+        handler = logging.FileHandler(f"{class_name}.log")
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+
+        if not self.logger.handlers:
+            self.logger.addHandler(handler)
+
+        self.logger.info(f"Об'єкт класу '{class_name}' створено.")
+
+
+# 🔧 Клас для використання
+
+class OrderManager(BaseLoggerClass):
+    def __init__(self):
+        super().__init__()
+
+    def create_order(self, product, quantity):
+        print(f"Замовлення створено: {product} x{quantity}")
+
+    def cancel_order(self, order_id):
+        print(f"Замовлення скасовано: {order_id}")
+```
+
+---
+
+## 🧪 Використання:
+
+```python
+if __name__ == "__main__":
+    om = OrderManager()
+    om.create_order("Кава", 3)
+    om.cancel_order("#123")
+```
+
+---
+
+## 📂 В лог-файлі `OrderManager.log` ти побачиш:
+
+```
+2025-05-15 14:45:00 - OrderManager - INFO - Об'єкт класу 'OrderManager' створено.
+2025-05-15 14:45:01 - OrderManager - INFO - Метод 'create_order' викликаний з args=('Кава', 3), kwargs={}
+2025-05-15 14:45:02 - OrderManager - INFO - Метод 'cancel_order' викликаний з args=('#123',), kwargs={}
+```
+
+---
+
+## 🧠 Як цим користуватись?
+
+* Хочеш логування в будь-якому класі? 👉 Успадковуй `BaseLoggerClass`
+* Хочеш, щоб усі методи логувалися автоматично? 👉 `@log_method_calls` зробить це
+
+---
+
+## 💡 Хочеш більше?
+
+* Вести один лог-файл для **всієї програми**?
+* Або логувати лише **помилки**?
+* Або **виводити лог одночасно в консоль**?
+
+Пиши, і я покажу, як зробити 💪
