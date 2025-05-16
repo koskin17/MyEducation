@@ -42,39 +42,36 @@ import math
 
 # Настроим логирование
 logging.basicConfig(
-    filename="app.log",  # Имя файла для логирования
-    filemode="w",  # Перезапись файла при каждом запуске
-    format="%(levelname)s: %(message)s",  # Формат сообщений лога
-    level=logging.DEBUG  # Уровень логирования (от DEBUG до CRITICAL)
+    filename="app.log",  # Name of file for logging
+    filemode="w",  # Overwrite file on every startup
+    format="%(levelname)s:%(name)s:%(message)s",  # Log message format
+    level=logging.DEBUG  # Logging level (from DEBUG to CRITICAL)
 )
 
-def calculate_tangent(sin_alpha, cos_alpha):
+def findingTangent(sin_alpha, cos_alpha):
     try:
-        # Логируем входные значения
+        # Logging input values
         logging.info(f"A value has been entered sin(alpha) = {sin_alpha}")
         logging.info(f"A value has been entered cos(alpha) = {cos_alpha}")
 
-        # Проверяем корректность входных данных
+        # Check the correctness of the input data
         if not isinstance(sin_alpha, (int, float)) or not isinstance(cos_alpha, (int, float)):
             logging.critical("The tangent of the angle alpha is not defined.")
-            return
-        
-        # Проверяем деление на ноль
-        if cos_alpha == 0:
+        # Check for division by zero
+        elif cos_alpha == 0:
             logging.warning("The cosine of the angle alpha = 0. The tangent is not defined.")
-            return
-
-        # Вычисляем тангенс
-        tan_alpha = sin_alpha / cos_alpha
-        logging.debug(f"The value of the tangent of the angle alpha is found = {tan_alpha}")
+        else:
+            # Calculate the tangent
+            tan_alpha = sin_alpha / cos_alpha
+            logging.debug(f"The value of the tangent of the angle alpha is found = {tan_alpha}")
 
     except Exception as e:
         logging.critical(f"Unexpected error: {e}")
 
 # Тестирование функции
-calculate_tangent(0.5, math.sqrt(3) / 2)  # Ожидаемый DEBUG лог
-calculate_tangent(0.5, "w")  # Ожидаемый CRITICAL лог
-calculate_tangent(0.5, 0)  # Ожидаемый WARNING лог
+findingTangent(0.5, math.sqrt(3) / 2)  # Ожидаемый DEBUG лог
+findingTangent(0.5, "w")  # Ожидаемый CRITICAL лог
+findingTangent(0.5, 0)  # Ожидаемый WARNING лог
 
 ### **Объяснение кода**
 # 1️⃣ **Настроили логирование**:
