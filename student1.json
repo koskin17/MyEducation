@@ -1,8 +1,1 @@
-{
-    "full_name": "Alice Johnson",
-    "avg_rank": 4.5,
-    "courses": [
-        "Math",
-        "Physics"
-    ]
-}
+{"full_name": "Alice Johnson", "avg_rank": 4.5, "courses": ["Math", "Physics"]}
