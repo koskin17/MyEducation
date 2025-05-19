@@ -1,0 +1,5 @@
+[
+    {"full_name": "Alice Johnson", "avg_rank": 4.5, "courses": ["Math", "Physics"]},
+    {"full_name": "Bob Smith", "avg_rank": 3.8, "courses": ["Biology", "Chemistry"]},
+    {"full_name": "Charlie Brown", "avg_rank": 4.2, "courses": ["Computer Science", "Math"]}
+]
