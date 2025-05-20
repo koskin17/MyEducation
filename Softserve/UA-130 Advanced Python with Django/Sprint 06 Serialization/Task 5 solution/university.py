@@ -125,8 +125,8 @@
 #     department_dict = {dept['id']: dept['name'] for dept in departments}
 
 #     # 4. Готовим CSV-файл
-#     with open(csv_file, mode='w', newline='', encoding='utf-8') as csvfile:
-#         writer = csv.writer(csvfile)
+#     with open(csv_file, mode='w', newline='', encoding='utf-8') as out_file:
+#         writer = csv.writer(out_file)
 #         writer.writerow(['name', 'department'])  # первой строкой в файл записываем заголовки
 
 #         for user in users:
@@ -154,11 +154,11 @@ import json
 import jsonschema
 from jsonschema import validate
 import csv
-import os
-from pathlib import Path
+# import os
+# from pathlib import Path
 
 
-# JSON Schemas
+# Schema for validating students's JSON file
 student_schema = {
     "type": "array",
     "items": {
@@ -171,7 +171,7 @@ student_schema = {
         "required": ["id", "name", "department_id"]
     }
 }
-
+# Schema for validating departments's JSON file
 department_schema = {
     "type": "array",
     "items": {
@@ -191,7 +191,7 @@ class InvalidInstanceError(Exception):
 class DepartmentName(Exception):
     pass
 
-# Validator
+# File validator by schemes
 def validate_json(data, schema):
     try:
         validate(instance=data, schema=schema)
@@ -200,20 +200,25 @@ def validate_json(data, schema):
 
 # Main function
 def user_with_department(csv_file, user_json, department_json):
-    
+    # Open file with users
     with open(user_json, encoding='utf-8') as f:
         users = json.load(f)
 
+    # Open file with departments
     with open(department_json, encoding='utf-8') as f:
         departments = json.load(f)
 
+    # Validate JSON files by schemes
     validate_json(users, student_schema)
     validate_json(departments, department_schema)
 
+    # Create a dictionary for departments for quick access
     department_dict = {dept['id']: dept['name'] for dept in departments}
 
-    with open(csv_file, mode='w', newline='', encoding='utf-8') as csvfile:
-        writer = csv.writer(csvfile)
+    # Create CSV file and write data
+    # with open(os.path.join(os.path.dirname(__file__), csv_file), mode='w', newline='', encoding='utf-8') as out_file:
+    with open(csv_file, mode='w', newline='', encoding='utf-8') as out_file:
+        writer = csv.writer(out_file)
         writer.writerow(['name', 'department'])
 
         for user in users:
@@ -227,10 +232,10 @@ def user_with_department(csv_file, user_json, department_json):
 # 1. 🔁 Проверь, что `users.json` и `departments.json` лежат в твоей папке с репозиторием.
 # 2. 🧪 Можешь запустить функцию вручную:
 
-script_path = Path(__file__).resolve()  # Полный путь к файлу
-print(script_path)
+# script_path = Path(__file__).resolve()  # Полный путь к файлу
+# print(script_path)
 
-user_with_department("out.csv", "users.json", "departments.json")
+user_with_department("out.csv", r"E:\My project\MyEducation\Softserve\UA-130 Advanced Python with Django\Sprint 06 Serialization\Task 5 solution\users.json", r"E:\My project\MyEducation\Softserve\UA-130 Advanced Python with Django\Sprint 06 Serialization\Task 5 solution\departments.json")
 
 # 3. ✅ Убедись, что `out.csv` содержит нужные строки.
 # 4. 💾 Закоммить и пуш на GitHub:
@@ -340,8 +345,8 @@ department_schema = {
 #     dept_dict = {dept['id']: dept['name'] for dept in departments}
     
 #     # 4. Создаём CSV-файл и записываем данные
-#     with open(csv_file, 'w', newline='', encoding='utf-8') as csvfile:
-#         writer = csv.writer(csvfile)
+#     with open(csv_file, 'w', newline='', encoding='utf-8') as out_file:
+#         writer = csv.writer(out_file)
 #         # Записываем заголовок
 #         writer.writerow(['name', 'department'])
         
@@ -392,4 +397,85 @@ department_schema = {
 # - Если данные не удовлетворяют схеме, выбрасывает исключение `InvalidInstanceError`;
 # - Если пользователь ссылается на несуществующий департамент, выбрасывает исключение `DepartmentName`;
 # - Успешно генерирует CSV-файл, связывающий имена пользователей с именами департаментов.
+
+# КОД ДЛЯ ПРОХОЖДЕНИЯ ТЕСТОВ:
+# import json
+# import jsonschema
+# from jsonschema import validate
+# import csv
+
+# # Schema for validating students's JSON file
+# student_schema = {
+#     "type": "array",
+#     "items": {
+#         "type": "object",
+#         "properties": {
+#             "id": {"type": "integer"},
+#             "name": {"type": "string"},
+#             "department_id": {"type": "integer"}
+#         },
+#         "required": ["name", "department_id"] #для прохождения тестов id не должны быть обязательными полем
+#     }
+# }
+
+# # Schema for validating departments's JSON file
+# department_schema = {
+#     "type": "array",
+#     "items": {
+#         "type": "object",
+#         "properties": {
+#             "id": {"type": "integer"},
+#             "name": {"type": "string"}
+#         },
+#         "required": ["id", "name"]
+#     }
+# }
+
+# # Custom Exceptions
+# class InvalidInstanceError(Exception):
+#     pass
+
+# class DepartmentName(Exception):
+#     pass
+
+# # File validator by schemes
+# def validate_json(data, schema):
+#     try:
+#         validate(instance=data, schema=schema)
+#         return True   # при проверке данных на валидность возвращаем True
+#     except jsonschema.exceptions.ValidationError:
+#         return False  # при проверке данных на валидность возвращаем False
+
+# # Main function
+# def user_with_department(csv_file, user_json, department_json):
+#     # Open file with users
+#     with open(user_json, encoding='utf-8') as f:
+#         users = json.load(f)
+
+#     # Open file with departments
+#     with open(department_json, encoding='utf-8') as f:
+#         departments = json.load(f)
+
+#     # Validation JSON files by schemes
+#     if not validate_json(users, student_schema):
+#         raise InvalidInstanceError("Invalid users.json format")   # здесь выбрасываем исключение, если данные не валидны
+
+#     if not validate_json(departments, department_schema):
+#         raise InvalidInstanceError("Invalid departments.json format") # здесь выбрасываем исключение, если данные не валидны
+
+#     # Create a dictionary for departments for quick access
+#     department_dict = {dept['id']: dept['name'] for dept in departments}
+
+#     # Create CSV file and write data
+#     # with open(os.path.join(os.path.dirname(__file__), csv_file), mode='w', newline='', encoding='utf-8') as out_file:
+#     with open(csv_file, mode='w', newline='', encoding='utf-8') as out_file:
+#         writer = csv.writer(out_file)
+#         writer.writerow(['name', 'department'])
+
+#         for user in users:
+#             dept_id = user['department_id']
+#             if dept_id not in department_dict:
+#                 raise DepartmentName(f"Department with ID {dept_id} not found.")
+#             writer.writerow([user["name"], department_dict[dept_id]])
+
  
