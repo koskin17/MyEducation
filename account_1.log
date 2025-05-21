@@ -1,4 +1,0 @@
-INFO: Account 1 created for Alice with balance 1000.00
-INFO: Deposited 500.00. New balance: 1500.00
-INFO: Withdrawn 200.00. New balance: 1300.00
-DEBUG: Balance check. Current balance: 1300.00
