@@ -27,8 +27,6 @@ def day_of_week(day):
         # Convert the input parameter to a number
         day = int(day)
         
-        
-        
         # Check if the number is in the range 1-7
         if day in days:
             return days[day]

@@ -209,7 +209,6 @@ class LeafElement:
         """ Salary of employee """
         return self.salary
 
-
 class CompositeElement:
     def __init__(self, *args):
         """
