@@ -97,16 +97,14 @@ import unittest
 from math import sqrt
 
 class TriangleNotValidArgumentException(Exception):
-    """Exception class for invalid triangle arguments."""
-
-    def __init__(self, message="Invalid triangle arguments."):
+    """Exception for invalid triangle arguments"""
+    def __init__(self, message="Not valid arguments"):
         self.message = message
         super().__init__(self.message)
 
 class TriangleNotExistException(Exception):
-    """Exception class if triangle with given sides does not exist."""
-
-    def __init__(self, message="Triangle with given sides does not exist."):
+    """Exception when triangle cannot be created with given sides"""
+    def __init__(self, message="Can't create triangle with this arguments"):
         self.message = message
         super().__init__(self.message)
 
@@ -122,21 +120,25 @@ class Triangle:
     def __init__(self, sides):
         # Check the type
         if not isinstance(sides, (list, tuple)):
-            raise TriangleNotValidArgumentException("Sides must be given as list or tuple.")
+            raise TriangleNotValidArgumentException()
 
         # Check the lenght
         if len(sides) != 3:
-            raise TriangleNotValidArgumentException("There must be exactly 3 sides.")
+            raise TriangleNotValidArgumentException()
 
         a, b, c = sides
 
-        # Chech that all nimbers is a positive numbers
-        if not all(isinstance(x, (int, float)) and x > 0 for x in (a, b, c)):
-            raise TriangleNotValidArgumentException("All sides must be positive numbers.")
+        # Chech that all numbers is a number
+        if not all(isinstance(x, (int, float)) for x in (a, b, c)):
+            raise TriangleNotValidArgumentException()
+        
+        # Check that all numbers is a positive number
+        if not all(x > 0 for x in (a, b, c)):
+            raise TriangleNotExistException()
 
         # Triangle inequality
         if a + b <= c or a + c <= b or b + c <= a:
-            raise TriangleNotExistException("A triangle with such sides cannot exist.")
+            raise TriangleNotExistException()
 
         # After all tests save given sides
         self.a = a
@@ -149,6 +151,8 @@ class Triangle:
         return round(area, 2)
 
 class TriangleTest(unittest.TestCase):
+    """ Tests with correct parameters / sides """
+
     def test_valid_triangles(self):
         valid_test_data = [
             ((3, 4, 5), 6.0),
@@ -168,14 +172,13 @@ class TriangleTest(unittest.TestCase):
                 triangle = Triangle(sides)
                 self.assertAlmostEqual(triangle.get_area(), expected_area, delta=0.02)
                 """
-                ✅ Правильніше — використовувати delta=:
-
-                self.assertAlmostEqual(triangle.get_area(), expected_area, delta=0.02)
-
-                Це дозволяє перевірити, що похибка не перевищує певний поріг.
+                More correct to use delta=: self.assertAlmostEqual(triangle.get_area(), expected_area, delta=0.02)
+                This allows to check that the error does not exceed a certain threshold.
                 """
 
     def test_not_valid_triangle(self):
+        """ Tests with not exist triangle"""
+
         not_valid_triangle = [
             (1, 2, 3),
             (1, 1, 2),
@@ -185,7 +188,9 @@ class TriangleTest(unittest.TestCase):
             (127, 17, 33),
             (145, 166, 700),
             (1000, 2000, 1),
-            (717, 17, 7)
+            (717, 17, 7),
+            (0, 7, 7),
+            (-7, 7, 7)
         ]
         for sides in not_valid_triangle:
             with self.subTest(sides=sides):
@@ -193,6 +198,8 @@ class TriangleTest(unittest.TestCase):
                     Triangle(sides)
 
     def test_invalid_arguments(self):
+        """ Tests with not correct parameters / sides """
+
         not_valid_arguments = [
             ('3', 4, 5),
             ('a', 2, 3),
@@ -203,9 +210,7 @@ class TriangleTest(unittest.TestCase):
             (7, 7, 7, 7),
             'str',
             10,
-            ('a', 'str', 7),
-            (-7, 7, 7),
-            (0, 7, 7)
+            ('a', 'str', 7)
         ]
         for args in not_valid_arguments:
             with self.subTest(args=args):
