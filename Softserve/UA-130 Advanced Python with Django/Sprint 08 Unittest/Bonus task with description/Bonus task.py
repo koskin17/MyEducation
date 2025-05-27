@@ -125,6 +125,7 @@ import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
+import os
 
 class Role(Enum):
     TRAINEE = 0
@@ -138,7 +139,7 @@ class Subject:
 @dataclass
 class Score:
     subject_id: str
-    score: str  # Наприклад, 'A', 'B', 'C'
+    score: str  # Example, 'A', 'B', 'C'
 
 @dataclass
 class User:
@@ -237,12 +238,21 @@ def grades_to_json(users: List[User], subjects: List[Subject], json_file: str):
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(grades_data, f, indent=4)
 
-# Приклад використання
+# Example of use
 if __name__ == "__main__":
-    users = get_users_with_grades("user.json", "subjects.json", "grades.json")
-    subjects = get_subjects_from_json("subjects.json")
+    current_dir = os.getcwd() # Get the current directory of the py-script run
+    folder = "Softserve/UA-130 Advanced Python with Django/Sprint 08 Unittest/Bonus task with description" # We indicate where exactly the files are located that the script will work with
+    base_path = os.path.join(current_dir, folder) # Connecting the path to files
 
-    # Приклад: показати оцінки
+    # Fixing file paths
+    users_json = os.path.join(base_path, "users.json")
+    subjects_json = os.path.join(base_path, "subjects.json")
+    grades_json = os.path.join(base_path, "grades.json")
+
+    users = get_users_with_grades(users_json, subjects_json, grades_json)
+    subjects = get_subjects_from_json(subjects_json)
+
+    # Example: show the current ratings
     current_user = users[0]
     grades = get_grades_for_user(current_user.username, current_user, users)
     if grades is not None:
@@ -251,10 +261,10 @@ if __name__ == "__main__":
     else:
         print("No grades available.")
 
-    # Збереження даних назад у JSON
-    users_to_json(users, "new_users.json")
-    subjects_to_json(subjects, "new_subjects.json")
-    grades_to_json(users, subjects, "new_grades.json")
+    # Saving data to JSON
+    users_to_json(users, f"{base_path}/new_users.json")
+    subjects_to_json(subjects, f"{base_path}/new_subjects.json")
+    grades_to_json(users, subjects, f"{base_path}/new_grades.json")
 
 # ## 🔷 Головна мета коду
 
@@ -585,3 +595,170 @@ if __name__ == "__main__":
 # | `json.load(f)`   | читає весь JSON-файл у Python об’єкт   |
 # | `json.dump(...)` | записує об’єкт у файл у форматі JSON   |
 
+
+# ## ✅ **1. Таблиця для повторення синтаксису (type hints, field)**
+# | Синтаксис                               | Що це значить / Приклад                               | Пояснення простими словами                 |
+# | --------------------------------------- | -------------------------------------------------- | --------------------------------------------- |
+# | `name: str`                             | `name: str = "Bob"`                                | `name` має бути рядком (`str`)                |
+# | `scores: List[int]`                     | `scores: List[int] = [5, 4, 3]`                    | список цілих чисел                            |
+# | `-> int`                                | `def get_age() -> int:`                            | функція повертає `int`                        |
+# | `-> Optional[str]`                      | `def get_name() -> Optional[str]:`                 | може повернути `str` або `None`               |
+# | `List[Score]`                           | `scores: List[Score] = [...]`                      | список об'єктів типу `Score`                  |
+# | `field(default_factory=...)`            | `scores: List[Score] = field(default_factory=list)`| кожному об’єкту — свій список, а не загальний |
+# | `field(default_factory=lambda: uuid...)`| `id: str = field(default_factory=lambda: uuid...)` | автоматично генерує унікальний ID             |
+
+# ## ✅ **2. Що таке `field()` із `dataclasses`?**
+# 🔧 Так, ти правильно зрозумів!
+# from dataclasses import field
+# 📌 `field()` — це **функція з модуля `dataclasses`**, яка дозволяє:
+# | Мета                                    | Приклад                                           |
+# | --------------------------------------- | ------------------------------------------------- |
+# | Встановити значення за замовчуванням    | `field(default=0)`                                |
+# | Згенерувати значення автоматично        | `field(default_factory=lambda: uuid.uuid4().hex)` |
+# | Уникнути спільного списку між об'єктами | `field(default_factory=list)`                     |
+
+# **Чому не можна просто `scores = []`?**
+# Тому що всі об’єкти будуть **розділяти один і той самий список**, а `field()` дає **свій список кожному об’єкту**.
+
+# ## ✅ **3. Схема — спрощена візуалізація**
+# Ось як виглядає логіка у коді з класами:
+# Клас User:
+#     - username: str
+#     - password: str
+#     - role: Role (Enum)
+#     - id: str = uuid
+#     - scores: List[Score] = []
+
+# Клас Score:
+#     - subject_id: str
+#     - score: str
+
+# Клас Subject:
+#     - title: str
+#     - id: str
+
+# Клас Role (Enum):
+#     - TRAINEE = 0
+#     - MENTOR = 1
+
+# @dataclass
+# class User:
+#     username: str
+#     password: str
+#     role: Role
+#     id: str = field(default_factory=lambda: uuid.uuid4().hex)
+#     scores: List[Score] = field(default_factory=list)
+
+# ## ✅ **4. Приклади з кодом**
+# ### ➤ Простий клас без `dataclass`:
+# class Person:
+#     def __init__(self, name: str, age: int):
+#         self.name = name
+#         self.age = age
+
+# ### ➤ Те саме з `dataclass`:
+# from dataclasses import dataclass
+# @dataclass
+# class Person:
+#     name: str
+#     age: int
+
+# `dataclass` сам створить `__init__`, `__repr__`, `__eq__` тощо. Менше писати руками ✅
+
+# ## ✅ **5. Optional / Union — пояснення**
+
+# from typing import Optional
+# def get_email() -> Optional[str]:
+#     return "example@email.com"
+
+# 🔹 `Optional[str]` == `Union[str, None]`
+# Тобто функція може повернути рядок або `None`.
+
+# ## ✅ **Як вирішити основну задачу**
+# У тебе є JSON-файли: `users.json`, `subjects.json`, `grades.json`, а також функції, які:
+# * **читають дані з цих файлів** (наприклад, `get_users_with_grades(...)`)
+# * **працюють з об’єктами**: `User`, `Subject`, `Score`
+# * **зберігають зміни назад у файли** (через `json.dump`)
+
+# ### 👉 Проблема, яку ти описуєш:
+# Ти виконуєш скрипт із папки `E:\My project\MyEducation\`, але файли лежать у підкаталозі.
+# Щоб Python "побачив" файли, треба передати **повний шлях до файлу** (або правильно сформований відносний шлях).
+
+# ## ✅ Як отримати поточну директорію та побудувати шлях
+# ### 🔧 Рішення:
+# ```python
+# import os
+
+# # Отримуємо шлях до поточної директорії, звідки запущений скрипт
+# current_dir = os.path.dirname(__file__)
+
+# # Або ще безпечніше для IDE / Jupyter:
+# # current_dir = os.getcwd()
+
+# # Склеюємо шлях до файлів (коректно для Windows і Linux)
+# folder = "Softserve/UA-130 Advanced Python with Django/Sprint 08 Unittest/Bonus task with description"
+
+# base_path = os.path.join(current_dir, folder)
+
+# # Повні шляхи до файлів
+# users_json = os.path.join(base_path, "user.json")
+# subjects_json = os.path.join(base_path, "subjects.json")
+# grades_json = os.path.join(base_path, "grades.json")
+
+# # Використання
+# users = get_users_with_grades(users_json, subjects_json, grades_json)
+# subjects = get_subjects_from_json(subjects_json)
+
+# ## ✅ Відповіді на твої запитання
+
+# | № | Запитання                                                   | Відповідь                                                                                                                                                                             |
+# | - | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+# | 1 | `title: str` — це аннотація типу?                           | Так ✅. Це *type hint*, підказка Python (і IDE), що `title` має бути `str`.                                                                                                            |
+# | 2 | `id: str = field(default_factory=lambda: uuid.uuid4().hex)` | `id` — поле типу `str`, яке автоматично отримає значення, створене `lambda`. `field()` використовується з `dataclass` і дозволяє встановлювати **фабрику значення за замовчуванням**. |
+# | 3 | `username: str` vs `scores: List[Score] = field(...)`       | У першому випадку просто аннотація без дефолтного значення. У другому — задається початкове значення через `field(...)` (наприклад, щоб уникнути спільного списку).                   |
+# | 4 | `json.load(f)` — як працює?                                 | Він одразу читає весь файл, парсить його як JSON і повертає **структуру Python**: список, словник тощо. Не читає "построчно" — одразу весь файл.                                      |
+# | 5 | `def get_subjects_from_json(path: str) -> List[Subject]`    | `: str` — аннотація типу аргументу. `-> List[Subject]` — тип повертаного значення.                                                                                                    |
+# | 6 | `-> bool`                                                   | Функція повертає `True` або `False`.                                                                                                                                                  |
+# | 7 | `Optional[List[Score]]`                                     | **`Optional`** = або `List[Score]`, або `None`. Це підказка, що функція може не повернути значення. `List[Score]` = список елементів типу `Score`.                                    |
+# | 8 | `json.dump(data, f, indent=4)`                              | Пише у файл `f` **весь** об'єкт `data` у вигляді форматованого JSON. `indent=4` — відступ 4 пробіли, для зручності читання.                                                           |
+
+# ---
+
+# ## ✅ Таблиця по синтаксису
+
+# | Синтаксис                     | Опис                                                      |
+# | ----------------------------- | --------------------------------------------------------- |
+# | `x: str`                      | Підказка: `x` — це рядок                                  |
+# | `x: int = 0`                  | `x` — ціле число, значення за замовчуванням — 0           |
+# | `x: List[str] = field(...)`   | `x` — список рядків, `field()` створює новий список       |
+# | `-> bool`                     | Функція повертає `True` або `False`                       |
+# | `Optional[str]`               | Або `str`, або `None`                                     |
+# | `field(default_factory=list)` | Для `dataclass`, створює новий список для кожного об’єкта |
+
+# ---
+
+# ## ✅ Простий приклад `dataclass` + field
+
+# ```python
+# from dataclasses import dataclass, field
+# from typing import List
+# import uuid
+
+# @dataclass
+# class User:
+#     username: str
+#     password: str
+#     role: int
+#     id: str = field(default_factory=lambda: uuid.uuid4().hex)
+#     scores: List[int] = field(default_factory=list)
+# ```
+
+# ---
+
+# ## ✅ Висновки
+
+# * 🟢 Використовуй `os.path.join(...)` замість ручного зшивання рядків → це кросплатформенно.
+# * 🟢 `field(default_factory=...)` — основний спосіб задання "розумного" значення для полів у `dataclass`.
+# * 🟢 JSON-файли краще читати й писати через `with open(...)` — це безпечніше.
+
+# Хочеш — можу намалювати схему як `dataclass` зберігає дані або показати детальніше приклади з Optional, Enum тощо 🙌
