@@ -111,3 +111,388 @@
 # 4. Збережи назад:
 # users_to_json(users, "new_users.json")
 # grades_to_json(users, subjects, "new_grades.json")
+
+# Ось повний код рішення задачі, яку ти описав. Він включає:
+# * Класи `User`, `Subject`, `Score` з використанням `@dataclass`.
+# * Перерахування `Role` для ролей користувачів.
+# * Функції для завантаження та збереження даних з/у JSON.
+# * Методи для створення користувачів, додавання оцінок та отримання оцінок.
+# * Функції для додавання користувачів та предметів з перевіркою унікальності.
+# * Функції для отримання оцінок користувача з урахуванням ролі.
+
+import json
+import uuid
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import List, Optional
+
+class Role(Enum):
+    TRAINEE = 0
+    MENTOR = 1
+
+@dataclass
+class Subject:
+    title: str
+    id: str = field(default_factory=lambda: uuid.uuid4().hex)
+
+@dataclass
+class Score:
+    subject_id: str
+    score: str  # Наприклад, 'A', 'B', 'C'
+
+@dataclass
+class User:
+    username: str
+    password: str
+    role: Role
+    id: str = field(default_factory=lambda: uuid.uuid4().hex)
+    scores: List[Score] = field(default_factory=list)
+
+    @staticmethod
+    def create_user(username: str, password: str, role: Role) -> 'User':
+        return User(username=username, password=password, role=role)
+
+    def add_score_for_subject(self, subject: Subject, score: Score):
+        self.scores.append(score)
+
+def get_subjects_from_json(subjects_json_path: str) -> List[Subject]:
+    with open(subjects_json_path, 'r', encoding='utf-8') as f:
+        subjects_data = json.load(f)
+    return [Subject(**subject) for subject in subjects_data]
+
+def get_users_with_grades(users_json_path: str, subjects_json_path: str, grades_json_path: str) -> List[User]:
+    with open(users_json_path, 'r', encoding='utf-8') as f:
+        users_data = json.load(f)
+    with open(grades_json_path, 'r', encoding='utf-8') as f:
+        grades_data = json.load(f)
+
+    users = []
+    for user_data in users_data:
+        role = Role(user_data['role'])
+        user = User(
+            username=user_data['username'],
+            password=user_data['password'],
+            role=role,
+            id=user_data['id']
+        )
+        user_grades = [grade for grade in grades_data if grade['user_id'] == user.id]
+        for grade in user_grades:
+            score = Score(subject_id=grade['subject_id'], score=grade['score'])
+            user.scores.append(score)
+        users.append(user)
+    return users
+
+def add_user(user: User, users: List[User]) -> bool:
+    if any(u.username == user.username for u in users):
+        return False
+    users.append(user)
+    return True
+
+def add_subject(subject: Subject, subjects: List[Subject]) -> bool:
+    if any(s.title == subject.title for s in subjects):
+        return False
+    subjects.append(subject)
+    return True
+
+def get_grades_for_user(username: str, current_user: User, users: List[User]) -> Optional[List[Score]]:
+    if current_user.role == Role.MENTOR:
+        for user in users:
+            if user.username == username:
+                return user.scores
+    elif current_user.username == username:
+        return current_user.scores
+    return None
+
+def users_to_json(users: List[User], json_file: str):
+    users_data = []
+    for user in users:
+        users_data.append({
+            'username': user.username,
+            'password': user.password,
+            'role': user.role.value,
+            'id': user.id
+        })
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(users_data, f, indent=4)
+
+def subjects_to_json(subjects: List[Subject], json_file: str):
+    subjects_data = []
+    for subject in subjects:
+        subjects_data.append({
+            'title': subject.title,
+            'id': subject.id
+        })
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(subjects_data, f, indent=4)
+
+def grades_to_json(users: List[User], subjects: List[Subject], json_file: str):
+    grades_data = []
+    for user in users:
+        for score in user.scores:
+            grades_data.append({
+                'user_id': user.id,
+                'subject_id': score.subject_id,
+                'score': score.score
+            })
+    with open(json_file, 'w', encoding='utf-8') as f:
+        json.dump(grades_data, f, indent=4)
+
+# Приклад використання
+if __name__ == "__main__":
+    users = get_users_with_grades("user.json", "subjects.json", "grades.json")
+    subjects = get_subjects_from_json("subjects.json")
+
+    # Приклад: показати оцінки
+    current_user = users[0]
+    grades = get_grades_for_user(current_user.username, current_user, users)
+    if grades is not None:
+        for score in grades:
+            print(f"Subject ID: {score.subject_id}, Score: {score.score}")
+    else:
+        print("No grades available.")
+
+    # Збереження даних назад у JSON
+    users_to_json(users, "new_users.json")
+    subjects_to_json(subjects, "new_subjects.json")
+    grades_to_json(users, subjects, "new_grades.json")
+
+# ## 🔷 Головна мета коду
+
+# Ми працюємо зі шкільною системою:
+
+# * Є **користувачі (Users)** — наприклад, учень або ментор.
+# * Є **предмети (Subjects)**.
+# * Є **оцінки (Grades)** — які пов'язують учня з певним предметом.
+# * Всі ці дані зберігаються у **JSON-файлах**, які треба:
+
+#   * зчитувати;
+#   * обробляти в Python;
+#   * знову зберігати у файл.
+
+# ---
+
+# ## 🔹 Почнемо з **класів**
+
+# ### 1. `class Role(Enum)`
+
+# ```python
+# class Role(Enum):
+#     TRAINEE = 0
+#     MENTOR = 1
+# ```
+
+# 🔸 Це **перерахування (Enum)** — особливий клас для фіксованого списку значень:
+
+# * `TRAINEE = 0` — учень.
+# * `MENTOR = 1` — ментор.
+
+# ➡️ Ми використовуємо Enum, щоб уникати випадкових помилок. Замість того щоб писати `"mentor"` чи `"trainee"`, ми точно знаємо, що можна тільки `Role.TRAINEE` або `Role.MENTOR`.
+
+# ---
+
+# ### 2. `@dataclass class Subject`
+
+# ```python
+# @dataclass
+# class Subject:
+#     title: str
+#     id: str = field(default_factory=lambda: uuid.uuid4().hex)
+# ```
+
+# 🔸 Це **предмет**. Має:
+
+# * `title`: назву предмета (наприклад, "Math").
+# * `id`: унікальний ідентифікатор (генерується автоматично через `uuid`).
+
+# > ✅ Ми використовуємо **@dataclass**, тому що це простий клас для зберігання даних. Він автоматично створює:
+
+# * `__init__`
+# * `__repr__`
+# * `__eq__`
+#   та інші методи без потреби писати їх вручну.
+
+# ---
+
+# ### 3. `@dataclass class Score`
+
+# ```python
+# @dataclass
+# class Score:
+#     subject_id: str
+#     score: str
+# ```
+
+# 🔸 Це **оцінка**, яка пов’язує учня з конкретним предметом:
+
+# * `subject_id` — id предмета.
+# * `score` — оцінка, наприклад, `'A'`, `'B'`.
+
+# ---
+
+# ### 4. `@dataclass class User`
+
+# ```python
+# @dataclass
+# class User:
+#     username: str
+#     password: str
+#     role: Role
+#     id: str = field(default_factory=lambda: uuid.uuid4().hex)
+#     scores: List[Score] = field(default_factory=list)
+# ```
+
+# 🔸 Це **користувач**:
+
+# * `username`, `password`, `role`
+# * `id` — унікальний ідентифікатор
+# * `scores` — список об'єктів `Score`, які зберігають оцінки
+
+# #### Метод `create_user`
+
+# ```python
+# @staticmethod
+# def create_user(username: str, password: str, role: Role) -> 'User':
+#     return User(username=username, password=password, role=role)
+# ```
+
+# ✅ Це **статичний метод** — створює нового користувача. Ми винесли створення сюди, щоб логіка була зібрана в класі `User`.
+
+# #### Метод `add_score_for_subject`
+
+# ```python
+# def add_score_for_subject(self, subject: Subject, score: Score):
+#     self.scores.append(score)
+# ```
+
+# ✅ Додає оцінку до списку оцінок користувача.
+
+# ---
+
+# ## ❓Чому 3 класи з `@dataclass`, а `Role` — ні?
+
+# * `Role` — це Enum. Він не повинен бути data-класом, бо призначений лише для фіксованих значень.
+# * Інші (`User`, `Subject`, `Score`) — просто **сховища даних**, тому `@dataclass` допомагає зменшити код.
+
+# ---
+
+# ## 🔹 Тепер розбираємося з **функціями**
+
+# ---
+
+# ### `get_subjects_from_json(path)`
+
+# ```python
+# def get_subjects_from_json(subjects_json_path: str) -> List[Subject]:
+#     with open(subjects_json_path, 'r', encoding='utf-8') as f:
+#         subjects_data = json.load(f)
+#     return [Subject(**subject) for subject in subjects_data]
+# ```
+
+# 📌 Зчитує список предметів з JSON і створює список об’єктів `Subject`.
+
+# ---
+
+# ### `get_users_with_grades(...)`
+
+# ```python
+# def get_users_with_grades(users_json_path, subjects_json_path, grades_json_path):
+#     ...
+# ```
+
+# 📌 Зчитує:
+
+# * список користувачів з `users.json`
+# * список оцінок з `grades.json`
+#   Потім:
+# * створює об'єкти `User`
+# * додає до кожного його оцінки
+
+# ---
+
+# ### `add_user(user, users)`
+
+# ```python
+# def add_user(user: User, users: List[User]) -> bool:
+#     if any(u.username == user.username for u in users):
+#         return False
+#     users.append(user)
+#     return True
+# ```
+
+# 📌 Додає користувача в список, якщо ще немає користувача з таким іменем. Повертає `True` або `False`.
+
+# ---
+
+# ### `add_subject(subject, subjects)`
+
+# Аналогічна до `add_user`, тільки для предметів.
+
+# ---
+
+# ### `get_grades_for_user(username, current_user, users)`
+
+# ```python
+# def get_grades_for_user(username, current_user, users):
+#     ...
+# ```
+
+# 📌 Повертає оцінки:
+
+# * або **тільки свої**, якщо користувач — Trainee
+# * або **будь-якого**, якщо користувач — Mentor
+
+# ---
+
+# ## 🔹 Збереження в JSON
+
+# ```python
+# def users_to_json(users, json_file)
+# def subjects_to_json(subjects, json_file)
+# def grades_to_json(users, subjects, json_file)
+# ```
+
+# 📌 Ці функції записують назад у JSON:
+
+# * тільки потрібні поля
+# * без зайвих атрибутів (`scores`, `Role` обробляється вручну як `.value`)
+
+# ---
+
+# ## 🧪 main-блок
+
+# ```python
+# if __name__ == "__main__":
+#     ...
+# ```
+
+# 📌 Тут:
+
+# * ми зчитуємо дані
+# * тестуємо метод `get_grades_for_user`
+# * зберігаємо нові JSON файли
+
+# ---
+
+# ## ❓ Чому частина функцій не в класі?
+
+# ➡️ Бо вони працюють з **усіма користувачами або всіма предметами**, а не з одним об'єктом.
+# Тому краще зробити їх окремими функціями, щоб не навантажувати клас зайвою відповідальністю.
+
+# ---
+
+# ## 🔚 Підсумок
+
+# | Компонент                 | Навіщо                                                      |
+# | ------------------------- | ----------------------------------------------------------- |
+# | `@dataclass`              | Короткий, зручний спосіб створити клас для зберігання даних |
+# | `Enum Role`               | Безпечне представлення ролей                                |
+# | `create_user`             | Зручне створення юзера                                      |
+# | `get_users_with_grades()` | Збірка користувачів + їх оцінок з файлів                    |
+# | `get_grades_for_user()`   | Доступ до оцінок з перевіркою ролі                          |
+# | `add_user`, `add_subject` | Перевірка унікальності                                      |
+# | `..._to_json()`           | Збереження змін назад                                       |
+
+# ---
+
+# Хочеш — можу створити і версію з юніт-тестами, або зробити графічне пояснення структури.
+# Пиши будь-які питання — я тут!
