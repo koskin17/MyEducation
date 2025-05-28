@@ -143,6 +143,23 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
 import os
+import re
+
+class NonUniqueException(Exception):
+    """Raised when a user with the same username already exists."""
+    def __init__(self, username: str):
+        self.username = username
+        super().__init__(f"User with name {username} already exists")
+
+class PasswordValidationException(Exception):
+    """Raised when password doesn't meet complexity requirements."""
+    def __init__(self, message: str = "Invalid password"):
+        super().__init__(message)
+
+class ForbiddenException(Exception):
+    """Raised when access to grades is denied."""
+    def __init__(self, message: str = "Access denied"):
+        super().__init__(message)
 
 class Role(Enum):
     TRAINEE = 0
@@ -152,10 +169,21 @@ class Role(Enum):
     # * `MENTOR = 1` — ментор.
     # ➡️ Ми використовуємо Enum, щоб уникати випадкових помилок. Замість того щоб писати `"mentor"` чи `"trainee"`, ми точно знаємо, що можна тільки `Role.TRAINEE` або `Role.MENTOR`.
 
+# Aliases for test compatibility
+Role.Mentor = Role.MENTOR
+Role.Trainee = Role.TRAINEE
+
+class Grade(Enum):
+    A = 'A'
+    B = 'B'
+    C = 'C'
+    D = 'D'
+    F = 'F'
+
 @dataclass
 class Subject:
     title: str
-    id: str = field(default_factory=lambda: uuid.uuid4().hex)
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
     # 🔸 Це **предмет**. Має:
     # * `title`: назву предмета (наприклад, "Math").
     # * `id`: унікальний ідентифікатор (генерується автоматично через `uuid`).
@@ -166,6 +194,13 @@ class Subject:
     # * `__eq__`
     #   та інші методи без потреби писати їх вручну.
 
+# Ещё один вариант, без @dataclass
+# class Subject:
+#     """Represents a school subject."""
+#     def __init__(self, title: str, id: uuid.UUID = None):
+#         self.title = title
+#         self.id = id or uuid.uuid4()
+
 @dataclass
 class Score:
     subject_id: str
@@ -174,13 +209,21 @@ class Score:
     # * `subject_id` — id предмета.
     # * `score` — оцінка, наприклад, `'A'`, `'B'`.
 
+# add a pseudo-enum for tests:
+Score.A = Score(subject_id="", score='A')
+Score.B = Score(subject_id="", score='B')
+Score.C = Score(subject_id="", score='C')
+Score.D = Score(subject_id="", score='D')
+Score.F = Score(subject_id="", score='F')
+
 @dataclass
 class User:
-    username: str
-    password: str
-    role: Role
-    id: str = field(default_factory=lambda: uuid.uuid4().hex)
-    scores: List[Score] = field(default_factory=list)
+    def __init__(self, username: str, password: str, role: Role, id: uuid.UUID = None):
+        self.username = username
+        self.password = password
+        self.role = role
+        self.id = id or uuid.uuid4()
+        self.scores: List[Score] = []
     # 🔸 Це **користувач**:
     # * `username`, `password`, `role`
     # * `id` — унікальний ідентифікатор
@@ -188,12 +231,29 @@ class User:
 
     @staticmethod
     def create_user(username: str, password: str, role: Role) -> 'User':
+        if not User._is_valid_password(password):
+            raise PasswordValidationException("Invalid password")
         return User(username=username, password=password, role=role)
     # ✅ Це **статичний метод** — створює нового користувача. Ми винесли створення сюди, щоб логіка була зібрана в класі `User`.
 
+    @staticmethod
+    def _is_valid_password(password: str) -> bool:
+        return bool(re.match(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{6,}$', password))
+
     def add_score_for_subject(self, subject: Subject, score: Score):
-        self.scores.append(score)
+        actual_score = Score(subject_id=subject.id, score=score.score)
+        self.scores.append(actual_score)
     # ✅ Додає оцінку до списку оцінок користувача.
+
+    def __str__(self):
+        """Custom string for display the role of users"""
+        if not hasattr(User, "_subject_map"):
+            return f"{self.username} with role Role.{self.role.name.capitalize()}: {self.scores}"
+        result_scores = []
+        for score in self.scores:
+            title = User._subject_map.get(score.subject_id, str(score.subject_id))
+            result_scores.append({title: score.score})
+        return f"{self.username} with role Role.{self.role.name.capitalize()}: {result_scores}"
 
 def get_subjects_from_json(subjects_json_path: str) -> List[Subject]:
     # ## ✅ **Що значить `get_subjects_from_json(path: str) -> List[Subject]:`?**
@@ -204,8 +264,8 @@ def get_subjects_from_json(subjects_json_path: str) -> List[Subject]:
     # Це теж **аннотації типів** (type hints).
     # Не впливає на виконання, але покращує читабельність, перевірку, автодоповнення.
     with open(subjects_json_path, 'r', encoding='utf-8') as f:
-        subjects_data = json.load(f)
-    return [Subject(**subject) for subject in subjects_data]
+        data = json.load(f)
+    return [Subject(s['title'], uuid.UUID(s['id'])) for s in data]
     # 📌 Зчитує список предметів з JSON і створює список об’єктів `Subject`.
     # 🟢 JSON-файли краще читати й писати через `with open(...)` — це безпечніше.
 
@@ -241,18 +301,11 @@ def get_users_with_grades(users_json_path: str, subjects_json_path: str, grades_
     #     users = []
     # * Створюємо **порожній список**, куди будемо додавати об'єкти `User`.
 
-    for user_data in users_data:
-        role = Role(user_data['role'])
-        user = User(
-            username=user_data['username'],
-            password=user_data['password'],
-            role=role,
-            id=user_data['id']
-        )
-        user_grades = [grade for grade in grades_data if grade['user_id'] == user.id]
-        for grade in user_grades:
-            score = Score(subject_id=grade['subject_id'], score=grade['score'])
-            user.scores.append(score)
+    for u in users_data:
+        user = User(u['username'], u['password'], Role(u['role']), uuid.UUID(u['id']))
+        for g in grades_data:
+            if uuid.UUID(g['user_id']) == user.id:
+                user.scores.append(Score(subject_id=uuid.UUID(g['subject_id']), score=g['score']))
         users.append(user)
     return users
 
@@ -335,7 +388,7 @@ def add_user(user: User, users: List[User]) -> bool:
     # 📌 Це значить, що функція **повертає булеве значення** — `True` або `False`.
     # 📌 Додає користувача в список, якщо ще немає користувача з таким іменем. Повертає `True` або `False`.
     if any(u.username == user.username for u in users):
-        return False
+        raise NonUniqueException(user.username)
     users.append(user)
     return True
 
@@ -344,9 +397,22 @@ def add_subject(subject: Subject, subjects: List[Subject]) -> bool:
     if any(s.title == subject.title for s in subjects):
         return False
     subjects.append(subject)
+
+    # 🛠 Оновлюємо subject_map, якщо вона вже була ініціалізована
+    if hasattr(User, "_subject_map"):
+        User._subject_map[subject.id] = subject.title
+
     return True
 
-def get_grades_for_user(username: str, current_user: User, users: List[User]) -> Optional[List[Score]]:
+def check_if_user_present(username: str, password: str, users: List[User]) -> bool:
+    """Check if user with given credentials exists."""
+    return any(u.username == username and u.password == password for u in users)
+
+def subject_id_to_title_map(subjects: List[Subject]) -> dict:
+    """Create mapping from subject UUID to title."""
+    return {s.id: s.title for s in subjects}
+
+def get_grades_for_user(username: str, current_user: User, users: List[User]) -> Optional[List[dict]]:
     # ## ✅ **7. Пояснення до `Optional[List[Score]]`**
     # | Елемент                    | Що це означає                                  |
     # | -------------------------- | ---------------------------------------------- |
@@ -358,13 +424,26 @@ def get_grades_for_user(username: str, current_user: User, users: List[User]) ->
     # 📌 Повертає оцінки:
     # * або **тільки свої**, якщо користувач — Trainee
     # * або **будь-якого**, якщо користувач — Mentor
-    if current_user.role == Role.MENTOR:
-        for user in users:
-            if user.username == username:
-                return user.scores
-    elif current_user.username == username:
-        return current_user.scores
-    return None
+    if not hasattr(User, "_subject_map"):
+        try:
+            subjects = get_subjects_from_json("subjects.json")
+            User._subject_map = subject_id_to_title_map(subjects)
+        except Exception:
+            User._subject_map = {}
+
+    # Access Verification
+    if current_user.role != Role.MENTOR and current_user.username != username:
+        raise ForbiddenException("Access denied")
+
+    user = next((u for u in users if u.username == username), None)
+    if not user:
+        return None
+
+    # Formatting grades
+    return [
+        {User._subject_map.get(score.subject_id, str(score.subject_id)): score.score}
+        for score in user.scores
+    ]
 
 def users_to_json(users: List[User], json_file: str):
     # записують назад у JSON:
@@ -377,7 +456,7 @@ def users_to_json(users: List[User], json_file: str):
             'username': user.username,
             'password': user.password,
             'role': user.role.value,
-            'id': user.id
+            'id': str(user.id)
         })
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(users_data, f, indent=4)
@@ -426,7 +505,7 @@ def grades_to_json(users: List[User], subjects: List[Subject], json_file: str):
         for score in user.scores:
             grades_data.append({
                 'user_id': user.id,
-                'subject_id': score.subject_id,
+                'subject_id': str(score.subject_id),
                 'score': score.score
             })
     with open(json_file, 'w', encoding='utf-8') as f:
