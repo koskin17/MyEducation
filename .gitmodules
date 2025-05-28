@@ -1,3 +1,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 06 Serialization/Task 5"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 06 Serialization/Task 5
 	url = https://github.com/python-fundamentals-ml/serialization-koskin17.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 09 Networking/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 09 Networking/Task
+	url = https://github.com/PP-SimpleHTTPRequestHandler/pp-130-koskin17.git
