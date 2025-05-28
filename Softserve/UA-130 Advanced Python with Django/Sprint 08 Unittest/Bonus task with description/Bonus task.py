@@ -480,7 +480,7 @@ def subjects_to_json(subjects: List[Subject], json_file: str):
     for subject in subjects:
         subjects_data.append({
             'title': subject.title,
-            'id': subject.id
+            'id': str(subject.id)
         })
     with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(subjects_data, f, indent=4)
@@ -545,9 +545,10 @@ if __name__ == "__main__":
     grades = get_grades_for_user(current_user.username, current_user, users)
     if grades is not None:
         for score in grades:
-            print(f"Subject ID: {score.subject_id}, Score: {score.score}")
-    else:
-        print("No grades available.")
+            for subject_title, grade_value in score.items():
+                print(f"Subject: {subject_title}, Score: {grade_value}")
+        else:
+            print("No grades available.")
 
     # Saving data to JSON
     users_to_json(users, f"{base_path}/new_users.json")
