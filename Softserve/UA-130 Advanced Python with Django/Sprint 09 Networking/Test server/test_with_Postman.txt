@@ -1,0 +1,57 @@
+## 📦 Запити в Postman:
+
+### 📘 `GET /users`
+
+* Метод: `GET`
+* URL: `http://localhost:8000/users`
+* 🔘 Body: нічого не потрібно
+* 🔁 Натисни Send → побачиш список користувачів
+
+---
+
+### 📘 `POST /user`
+
+* Метод: `POST`
+* URL: `http://localhost:8000/user`
+* Вкладка **Body** → **raw** → **JSON**
+
+```json
+{
+  "id": 1,
+  "username": "admin",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "admin@example.com",
+  "password": "1234"
+}
+```
+
+* Натисни Send → сервер відповість або `201`, або `400`
+
+---
+
+### 📘 `PUT /user/<id>`
+
+* Метод: `PUT`
+* URL: `http://localhost:8000/user/1`
+* Body → raw → JSON:
+
+```json
+{
+  "username": "updated_user",
+  "firstName": "New",
+  "lastName": "Name",
+  "email": "new@email.com",
+  "password": "pass123"
+}
+```
+
+---
+
+### 📘 `DELETE /user/<id>`
+
+* Метод: `DELETE`
+* URL: `http://localhost:8000/user/1`
+* Натисни Send → користувача буде видалено
+
+---
