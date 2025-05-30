@@ -17,14 +17,13 @@ USERS_LIST = [
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def _set_response(self, status_code=200, body=None):
-        """Встановлює HTTP-відповідь з заданим статусом та тілом."""
+        """Sets an HTTP response with the given status and body."""
+        
         self.send_response(status_code)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         self.wfile.write(json.dumps(body if body else {}).encode('utf-8'))
         ## ✅ **2. Як працює `_set_response`**
-        # def _set_response(self, status_code=200, body=None):
-
         # # Це **не вбудований метод!** Це **наш власний** метод, який ми написали, щоб не дублювати однаковий код кожного разу.
 
         # ### Що він робить:
@@ -35,18 +34,17 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         # ### 🔍 Приклад:
         # self._set_response(200, {"message": "OK"})
-
         # # Відповідь:
         # # * Status: 200 OK
         # # * Content-Type: application/json
         # # * Body: `{"message": "OK"}`
 
     def _pars_body(self):
-        """Зчитує та парсить JSON-тіло запиту."""
+        """Reads and parses the JSON body of the request."""
+
         content_length = int(self.headers.get('Content-Length', 0))
         ## ✅ **3. Що означає:**
         # content_length = int(self.headers.get('Content-Length', 0))
-
         ### 🔍 Пояснення:
         # * `self.headers` — це словник з HTTP-заголовками запиту (headers, які приходять від браузера/клієнта).
         # * `.get('Content-Length', 0)` — бере значення заголовка `"Content-Length"` (розмір тіла запиту в байтах), або `0`, якщо його нема.
@@ -84,7 +82,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             return None
         
     def _is_valid_user(self, user):
-        """Перевіряє, чи об'єкт користувача має всі необхідні поля."""
+        """Checks if the user object has all required fields."""
+
         required_fields = {"id", "username", "firstName", "lastName", "email", "password"}
         return isinstance(user, dict) and required_fields.issubset(user.keys())
         ## ✅ **1. Що означає:**
@@ -93,9 +92,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         ### 🔍 Пояснення:
         # * `required_fields` — це **множина** (set), в якій перераховані всі **обов’язкові поля** для користувача.
-        # * `data` — це те, що прийшло від клієнта (наприклад, тіло POST-запиту у форматі JSON).
-        # * `isinstance(data, dict)` — перевіряє, що `data` — це саме **словник (dict)**.
-        # * `data.keys()` — повертає всі ключі у словнику `data`.
+        # * `user` — це те, що прийшло від клієнта (наприклад, тіло POST-запиту у форматі JSON).
+        # * `isinstance(user, dict)` — перевіряє, що `data` — це саме **словник (dict)**.
+        # * `user.keys()` — повертає всі ключі у словнику `user`.
         # * `required_fields.issubset(data.keys())` — перевіряє, чи **всі обов'язкові поля є в словнику**.
 
         ### 🔍 Приклад 1 — вірний:
@@ -116,7 +115,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # ⛔️ Відсутні `"username"`, `"lastName"` і `"password"` → `issubset` поверне `False`.
     
     def _is_valid_update_data(self, data):
-        """Перевіряє, чи об'єкт оновлення має всі необхідні поля."""
+        """Checks if the update object has all required fields."""
+
         required_fields = {"username", "firstName", "lastName", "email", "password"}
         return isinstance(data, dict) and required_fields.issubset(data.keys())
 
@@ -265,6 +265,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             # Якщо шлях точно `/reset`:
             # * Повертаємо список користувачів у початковий стан
             # * Відправляємо відповідь 200 OK
+            # * Це означає, що ми скидаємо список користувачів до початкового стану
+
             global USERS_LIST
             USERS_LIST = [
                 {
@@ -304,6 +306,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             user = next((user for user in USERS_LIST if user["username"] == username), None)
             # Шукаємо користувача у списку по `username`.
             # `next(...)` повертає першого знайденого, або `None`.
+            #  функиция next() работает намного быстрее, чем обычный цикл for и она сразу останавливается, как только находит первого пользователя. Если использовать какой-то вариант с any(), то функция any() вернёт булевое значение True / False, а не имя пользователя, которое мы ищем.
             if user:
             # Якщо користувач знайдений — повертаємо його, інакше — помилка 400
                 self._set_response(200, user)
@@ -318,7 +321,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         - /user/createWithList — додає список користувачів
         """
         parsed_path = urlparse(self.path)
-        path_parts = parsed_path.path.strip("/").split("/")
+        # path_parts = parsed_path.path.strip("/").split("/")
 
         data = self._pars_body()
         if data is None:
