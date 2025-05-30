@@ -406,11 +406,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self._set_response(418)
 
     def do_PUT(self):
-        """Processes POST requests:
-            - /user — adds a single user
-            - /user/createWithList — adds a list of users
+        """Processes PUT requests:
+            - /user/<id> — updates user data
         """
-        
+
         parsed_path = urlparse(self.path)
         path_parts = parsed_path.path.strip("/").split("/")
 
