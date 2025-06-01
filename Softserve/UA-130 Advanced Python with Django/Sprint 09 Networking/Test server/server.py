@@ -14,7 +14,7 @@ import json
 import sqlite3
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
-from pathlib import Path
+    from pathlib import Path
 
 
 # === 1. Створюємо або відкриваємо базу, створюємо таблицю ===
