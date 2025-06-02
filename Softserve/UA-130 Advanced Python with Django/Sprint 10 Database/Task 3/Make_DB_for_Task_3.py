@@ -56,9 +56,9 @@ def create_test_database():
     ]
 
     cursor.executemany("""
-        INSERT INTO customers (id, name, city, grade, salesperson_id)
-        VALUES (?, ?, ?, ?, ?)
-    """, sample_data)
+                       INSERT INTO customers (id, name, city, grade, salesperson_id)
+                       VALUES (?, ?, ?, ?, ?)
+                       """, sample_data)
 
     # Save changes aтв close connestion
     connection.commit()
