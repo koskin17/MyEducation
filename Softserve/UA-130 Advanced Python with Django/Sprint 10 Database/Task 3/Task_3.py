@@ -132,7 +132,7 @@ def getting_customers_on_condition():
             print(f"City:  {row[2]}")
             print(f"Grade:  {row[3]}")
             print(f"Seller:  {row[4]}")
-            print()  # empry line
+            print()  # empty line
     except sqlite3.Error as error:
         print("Error while connecting to SQLite", error)
     finally:
