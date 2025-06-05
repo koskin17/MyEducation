@@ -4,3 +4,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 09 Networking/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 09 Networking/Task
 	url = https://github.com/PP-SimpleHTTPRequestHandler/pp-130-koskin17.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 11"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 11
+	url = https://github.com/POM-Django-MTV/pp-130-pp-130-s11-team-4.git
