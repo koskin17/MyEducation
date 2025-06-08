@@ -7,3 +7,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 11"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 11
 	url = https://github.com/POM-Django-MTV/pp-130-pp-130-s11-team-4.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 12 Django ORM/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 12 Django ORM/Task
+	url = https://github.com/POM-Django-ORM/pp-130-pp-130-s12-team-13-1.git
