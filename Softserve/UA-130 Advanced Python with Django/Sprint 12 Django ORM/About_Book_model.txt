@@ -1,0 +1,127 @@
+from django.db import models
+from author.models import Author  # Імпортуємо модель Author для зв'язку
+
+class Book(models.Model):
+    """
+    Модель, яка представляє книгу в системі.
+    """
+
+    # Назва книги (максимум 128 символів)
+    name = models.CharField(max_length=128)
+
+    # Опис книги (довільна довжина)
+    description = models.TextField()
+
+    # Кількість доступних примірників книги, за замовчуванням 10
+    count = models.IntegerField(default=10)
+
+    # Зв’язок багато до багатьох з авторами
+    authors = models.ManyToManyField(Author, related_name='books')
+
+    def __str__(self):
+        """
+        Повертає зручний рядок для відображення інформації про книгу.
+        :return: рядок з ID, назвою, описом, кількістю і списком авторів
+        """
+        author_names = [author.name for author in self.authors.all()]  # отримуємо імена всіх авторів
+        return f"Book ID: {self.id}, Name: {self.name}, Description: {self.description}, Count: {self.count}, Authors: {author_names}"
+
+    def __repr__(self):
+        """
+        Технічне представлення об'єкта, з назвою класу і ID.
+        :return: рядок формату <Book id=...>
+        """
+        return f"<{self.__class__.__name__} id={self.id}>"
+
+    @staticmethod
+    def get_by_id(book_id):
+        """
+        Пошук книги за ID.
+        :param book_id: ID книги, яку хочемо знайти
+        :return: об'єкт Book або None, якщо не знайдено
+        """
+        try:
+            return Book.objects.get(id=book_id)  # пробуємо знайти книгу
+        except Book.DoesNotExist:
+            return None  # якщо не знайдена, повертаємо None
+
+    @staticmethod
+    def delete_by_id(book_id):
+        """
+        Видалити книгу за ID.
+        :param book_id: ID книги
+        :return: True, якщо книга існувала і була видалена, або False
+        """
+        book = Book.get_by_id(book_id)
+        if book:
+            book.delete()  # видаляємо з бази
+            return True
+        return False
+
+    @staticmethod
+    def create(name, description, count=10, authors=None):
+        """
+        Створення нової книги з вказаними параметрами.
+        :param name: Назва книги
+        :param description: Опис книги
+        :param count: Кількість примірників (за замовчуванням 10)
+        :param authors: список авторів (може бути None)
+        :return: створений об'єкт Book
+        """
+        book = Book.objects.create(name=name, description=description, count=count)  # створюємо книгу
+        if authors:
+            book.authors.set(authors)  # додаємо авторів (якщо передані)
+        return book
+
+    def to_dict(self):
+        """
+        Повертає словникове представлення книги.
+        :return: словник з полями книги (для JSON тощо)
+        """
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'count': self.count,
+            'authors': [author.name for author in self.authors.all()]  # список імен авторів
+        }
+
+    def update(self, name=None, description=None, count=None):
+        """
+        Оновлює поля книги, якщо передані нові значення.
+        :param name: нова назва (або None)
+        :param description: новий опис (або None)
+        :param count: нова кількість (або None)
+        :return: None
+        """
+        if name is not None:
+            self.name = name
+        if description is not None:
+            self.description = description
+        if count is not None:
+            self.count = count
+        self.save()  # зберігаємо зміни до БД
+
+    def add_authors(self, authors):
+        """
+        Додає авторів до книги.
+        :param authors: список об'єктів Author
+        :return: None
+        """
+        self.authors.add(*authors)  # додаємо авторів за допомогою ManyToMany
+
+    def remove_authors(self, authors):
+        """
+        Видаляє авторів з книги.
+        :param authors: список об'єктів Author
+        :return: None
+        """
+        self.authors.remove(*authors)
+
+    @staticmethod
+    def get_all():
+        """
+        Отримати всі книги з бази даних.
+        :return: QuerySet всіх книг
+        """
+        return Book.objects.all()

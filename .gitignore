@@ -3,6 +3,11 @@ idea
 node_modules/
 ./package-lock.json
 FAST API/venv
+
+# Local history for Visual Studio Code
+.vscode/local-history/
+.history/
+
 .venv/pyvenv.cfg
 .venv/Lib/site-packages/pip/__init__.py
 .venv/Lib/site-packages/pip/__main__.py

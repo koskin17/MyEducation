@@ -1,0 +1,116 @@
+from django.db import models
+from book.models import Book
+from authentication.models import CustomUser
+from datetime import datetime
+
+
+class Order(models.Model):
+    """
+    Модель, яка представляє замовлення книги користувачем.
+    """
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')  # Користувач
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='orders')        # Книга
+    created_at = models.DateTimeField(auto_now_add=True)         # Дата створення замовлення (автоматично)
+    plated_end_at = models.DateTimeField()                       # Заплановане повернення
+    end_at = models.DateTimeField(null=True, blank=True)         # Фактичне повернення (може бути порожнім)
+
+    def __str__(self):
+        """
+        Повертає зручний опис замовлення: вся інформація про книгу.
+        :return: рядок з описом книги (name, description, count, authors)
+        """
+        authors = ', '.join(author.name for author in self.book.authors.all())
+        return (
+            f"Book ID: {self.book.id}, Name: {self.book.name}, "
+            f"Description: {self.book.description}, Count: {self.book.count}, "
+            f"Authors: [{authors}]"
+        )
+
+    def __repr__(self):
+        """
+        Технічне представлення замовлення.
+        :return: <Order id=...>
+        """
+        return f"<{self.__class__.__name__} id={self.id}>"
+
+    def to_dict(self):
+        """
+        Перетворює об'єкт замовлення у словник для серіалізації.
+        :return: словник з ключовими полями замовлення
+        """
+        return {
+            'id': self.id,
+            'book': self.book.id,
+            'user': self.user.id,
+            'created_at': int(self.created_at.timestamp()),       # timestamp у секундах
+            'end_at': int(self.end_at.timestamp()) if self.end_at else None,
+            'plated_end_at': int(self.plated_end_at.timestamp()),
+        }
+
+    @staticmethod
+    def create(user, book, plated_end_at):
+        """
+        Створює нове замовлення.
+        :param user: користувач
+        :param book: книга
+        :param plated_end_at: запланована дата повернення (timestamp)
+        :return: створене замовлення
+        """
+        # Конвертуємо timestamp у datetime
+        plated_end = datetime.fromtimestamp(plated_end_at)
+        return Order.objects.create(user=user, book=book, plated_end_at=plated_end)
+
+    @staticmethod
+    def get_by_id(order_id):
+        """
+        Отримати замовлення за ID.
+        :param order_id: ID замовлення
+        :return: Order або None
+        """
+        try:
+            return Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            return None
+
+    def update(self, plated_end_at=None, end_at=None):
+        """
+        Оновлює замовлення з новими датами.
+        :param plated_end_at: нова запланована дата (timestamp)
+        :param end_at: нова фактична дата (timestamp)
+        :return: None
+        """
+        if plated_end_at is not None:
+            self.plated_end_at = datetime.fromtimestamp(plated_end_at)
+        if end_at is not None:
+            self.end_at = datetime.fromtimestamp(end_at)
+        self.save()
+
+    @staticmethod
+    def get_all():
+        """
+        Отримати всі замовлення.
+        :return: QuerySet всіх замовлень
+        """
+        return Order.objects.all()
+
+    @staticmethod
+    def get_not_returned_books():
+        """
+        Отримати всі замовлення, які ще не повернули (end_at — None).
+        :return: QuerySet
+        """
+        return Order.objects.filter(end_at__isnull=True)
+
+    @staticmethod
+    def delete_by_id(order_id):
+        """
+        Видалити замовлення за ID.
+        :param order_id: ID замовлення
+        :return: True, якщо видалено, або False, якщо не знайдено
+        """
+        order = Order.get_by_id(order_id)
+        if order:
+            order.delete()
+            return True
+        return False
