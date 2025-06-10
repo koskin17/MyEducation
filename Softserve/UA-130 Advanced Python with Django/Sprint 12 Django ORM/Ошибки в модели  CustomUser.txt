@@ -1,0 +1,129 @@
+Привет! Я сделал свои модели и сделал push на git.
+По моим моделям у меня локально все тесты прошли, а вот по модели CustomUser тесты показывают 4 ошибки.
+
+
+
+🎉 Вітаю — ти вже дуже близько до перемоги! Твій `Order.create` тепер працює і тест проходить ✅
+Залишилось **4 останні помилки — всі вони стосуються `CustomUser`**. Ось розбір кожної:
+
+---
+
+## ✅ Зміст помилок
+
+| Тест                         | Суть помилки                                                      |
+| ---------------------------- | ----------------------------------------------------------------- |
+| `test__str__`                | Метод `__str__()` повертає не той формат, що очікується           |
+| `test_get_by_email_positive` | `created_at` не дорівнює `TEST_DATE`                              |
+| `test_get_by_id_positive`    | Те саме: `created_at != TEST_DATE`                                |
+| `test_to_dict`               | Значення `created_at` і `updated_at` не співпадають з `TEST_DATE` |
+
+---
+
+## 🔎 Причина №1: `timezone.now()` не підмінився
+
+У `Order` ми підмінили час через:
+
+```python
+with mock.patch('django.utils.timezone.now') as mock_time:
+    mock_time.return_value = TEST_DATE
+```
+
+Але якщо в `CustomUser` моделі ти використовуєш:
+
+```python
+from datetime import datetime
+created_at = models.DateTimeField(default=datetime.now)
+```
+
+або `auto_now_add=True`, то **це не спрацює з `mock.patch('django.utils.timezone.now')`**, і Django візьме реальний поточний час. ❌
+
+---
+
+## ✅ Рішення №1: змінити `created_at` і `updated_at` у `CustomUser`
+
+🔧 **Заміни в `CustomUser` ось так:**
+
+```python
+from django.utils import timezone
+
+created_at = models.DateTimeField(default=timezone.now)
+updated_at = models.DateTimeField(default=timezone.now)
+```
+
+Якщо у тебе було:
+
+```python
+created_at = models.DateTimeField(auto_now_add=True)
+```
+
+То заміни його також на `default=timezone.now` — саме це дозволить працювати `mock.patch`.
+
+---
+
+## 🔎 Причина №2: метод `__str__()` у `CustomUser`
+
+У тесті `test__str__` відбувається порівняння:
+
+```python
+user_returned = str(CustomUser.objects.get(id=111))
+self.assertEqual(user_returned, user_to_expect)
+```
+
+Очікується, що `__str__()` поверне **рядок у форматі JSON-подібного словника**:
+
+```python
+'id': 111, 'email': ..., 'created_at': ..., ...
+```
+
+---
+
+## ✅ Рішення №2: зробити `__str__()` як `to_dict()`, але у вигляді `str(dict)`
+
+Ось приклад:
+
+```python
+def __str__(self):
+    return (
+        f"'id': {self.id}, 'email': '{self.email}', 'first_name': '{self.first_name}', "
+        f"'middle_name': '{self.middle_name}', 'last_name': '{self.last_name}', "
+        f"'created_at': {int(self.created_at.timestamp())}, "
+        f"'updated_at': {int(self.updated_at.timestamp())}, "
+        f"'role': {self.role}, 'is_active': {self.is_active}"
+    )
+```
+
+---
+
+## ✅ Рішення №3: метод `to_dict()` у `CustomUser`
+
+Переконайся, що він повертає саме ті поля в тому порядку, який очікується:
+
+```python
+def to_dict(self):
+    return {
+        'id': self.id,
+        'email': self.email,
+        'first_name': self.first_name,
+        'middle_name': self.middle_name,
+        'last_name': self.last_name,
+        'created_at': int(self.created_at.timestamp()),
+        'updated_at': int(self.updated_at.timestamp()),
+        'role': self.role,
+        'is_active': self.is_active,
+    }
+```
+
+---
+
+## ✅ Після всіх змін:
+
+1. Зроби `makemigrations` та `migrate`, якщо змінював модель.
+2. Запусти тести ще раз:
+
+```bash
+python manage.py test
+```
+
+---
+
+Хочеш — я можу надіслати повну версію `CustomUser`, яка проходить тести. Написати?
