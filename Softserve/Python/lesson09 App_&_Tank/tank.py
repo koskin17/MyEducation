@@ -15,7 +15,7 @@ STEP = 5
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-tank_icon_base = pygame.image.load("\\Softserve\\lesson09\\tank.png")
+tank_icon_base = pygame.image.load("E:\My project\MyEducation\Softserve\Python\lesson09\tank.png")
 tank_size = (50, 50)
 tank_icon = pygame.transform.scale(tank_icon_base, tank_size)
 tank_pos = [50, 50]
