@@ -10,3 +10,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 12 Django ORM/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 12 Django ORM/Task
 	url = https://github.com/POM-Django-ORM/pp-130-pp-130-s12-team-13-1.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 13 Django View & Templates/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 13 Django View & Templates/Task
+	url = https://github.com/POM-Django-View-Templates/pp-130-pp-130-s13-team-12.git
