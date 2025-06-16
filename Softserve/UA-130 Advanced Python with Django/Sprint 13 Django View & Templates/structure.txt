@@ -1,0 +1,74 @@
+Структура проєкту в: E:\My project\MyEducation\Softserve\UA-130 Advanced Python with Django\Sprint 13 Django View & Templates\Task
+
+📄 .git
+📄 .gitignore
+📄 README.md
+📁 library
+    📁 authentication
+        📄 __init__.py
+        📄 admin.py
+        📄 apps.py
+        📄 models.py
+        📁 templates
+            📁 authentication
+                📄 guest.html
+                📄 librarians.html
+                📄 login.html
+                📄 profile.html
+                📄 register.html
+        📄 urls.py
+        📄 views.py
+    📁 author
+        📄 __init__.py
+        📄 apps.py
+        📄 models.py
+        📁 templates
+            📄 author_list.html
+            📄 create_author.html
+        📄 urls.py
+        📄 views.py
+    📁 book
+        📄 __init__.py
+        📄 apps.py
+        📄 models.py
+        📁 templates
+            📄 books_by_user.html
+            📄 create_book.html
+            📁 librarian
+                📄 book_detail.html
+                📄 book_list.html
+            📄 update_book.html
+            📁 user
+                📄 book_detail.html
+                📄 book_list.html
+        📄 urls.py
+        📄 views.py
+    📁 library
+        📄 __init__.py
+        📄 asgi.py
+        📄 settings.py
+        📄 urls.py
+        📄 wsgi.py
+    📄 manage.py
+    📁 media
+        📁 book_covers
+            📄 a_сhristmas_сarol.jpg
+            📄 the_count_of_monte_cristo.jpg
+    📁 order
+        📄 __init__.py
+        📄 apps.py
+        📄 models.py
+        📁 templates
+            📁 librarian
+                📄 order_list.html
+            📁 user
+                📄 create_order.html
+                📄 order_list.html
+        📄 urls.py
+        📄 views.py
+    📁 static
+        📁 css
+            📄 styles.css
+    📁 templates
+        📄 base.html
+📄 requirements.txt
