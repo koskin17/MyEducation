@@ -1,0 +1,125 @@
+Чудово, що ти переходиш до роботи з **Django forms** — це дуже важливий крок у розвитку будь-якого Django-проєкту! 🔧
+Зараз поясню все просто, покроково й допоможу зробити це завдання на 💯.
+
+---
+
+## 📌 Що значить твоє завдання:
+
+> **"Update POST/PUT methods and templates for adding/editing functionality using Django forms."**
+
+Означає:
+
+1. 📝 Тобі потрібно реалізувати **створення** (`POST`) і **редагування** (`PUT`) об'єктів (наприклад, книг, авторів, замовлень);
+2. Використати для цього **Django forms** — а не просто `request.POST` + ручний `Book.objects.create(...)`;
+3. Зробити або оновити відповідні **HTML-шаблони** для введення/редагування даних.
+
+---
+
+## 🧠 Що таке **Django forms**?
+
+Це спеціальні класи, які:
+
+* автоматично створюють HTML-форму на основі моделі або полів;
+* роблять валідацію;
+* дозволяють зручно обробляти `POST`/`PUT` у вигляді Python-об'єкта.
+
+---
+
+## 🔧 Що конкретно потрібно зробити?
+
+### ✨ Приклад: створення книги (Book)
+
+#### 🔹 1. Створити форму
+
+Файл `book/forms.py`:
+
+```python
+from django import forms
+from book.models import Book
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['name', 'count', 'authors']  # Додай потрібні поля
+```
+
+#### 🔹 2. Створити в `views.py`:
+
+```python
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import BookForm
+from .models import Book
+
+def create_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')  # або інша сторінка
+    else:
+        form = BookForm()
+    return render(request, 'book/book_form.html', {'form': form})
+
+def update_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'book/book_form.html', {'form': form})
+```
+
+#### 🔹 3. Створити шаблон `book_form.html`:
+
+```html
+<h2>{{ form.instance.pk|yesno:"Edit book,Create book" }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+```
+
+#### 🔹 4. Додати ці шляхи у `book/urls.py`:
+
+```python
+from django.urls import path
+from .views import create_book, update_book
+
+urlpatterns = [
+    path('add/', create_book, name='create_book'),
+    path('<int:pk>/edit/', update_book, name='update_book'),
+]
+```
+
+---
+
+## ✅ Що в результаті буде:
+
+| Дія              | URL             | Метод              | Форма                |
+| ---------------- | --------------- | ------------------ | -------------------- |
+| Створити книгу   | `/book/add/`    | `POST`             | Django Form          |
+| Редагувати книгу | `/book/1/edit/` | `PUT` (або `POST`) | Django Form з даними |
+
+---
+
+## ❗ Отже, відповідь на твоє питання:
+
+> Чи тільки 2 методи треба зробити?
+
+📌 Не тільки:
+
+* потрібно ще створити форму (`BookForm`);
+* написати шаблон (`book_form.html`);
+* зареєструвати URL-и.
+
+---
+
+## ✅ Я готовий допомогти
+
+Пиши, з якою саме моделлю (Book, Author, Order, User?) ти хочеш почати — і я допоможу зробити повну реалізацію: форма + view + шаблон.
+
+Ти вже на просунутому етапі — продовжуємо! 💪📋
