@@ -16,6 +16,3 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 14 Django admin/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 14 Django admin/Task
 	url = https://github.com/it-acad/pp-130-koskin17.git
-[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 15 Django Forms/Task"]
-	path = Softserve/UA-130 Advanced Python with Django/Sprint 15 Django Forms/Task
-	url = https://github.com/POM-Django-Forms/pp-130-pp-130-s15-team-12.git
