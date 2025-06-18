@@ -1,0 +1,50 @@
+dbmate
+Dbmate is a database migration tool that will keep your database schema in sync across multiple developers and your production servers.
+
+It is a standalone command line tool that can be used with Go, Node.js, Python, Ruby, PHP, or any other language or framework you are using to write database-backed applications. This is especially helpful if you are writing multiple services in different languages, and want to maintain some sanity with consistent development tools. Dbmate using for RDBMS.
+
+Details: Overview dbmate
+
+Install dbmate
+sudo curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+sudo chmod +x /usr/local/bin/dbmate
+Create a directory for works
+
+mkdir softserve
+cd softserve
+Create an .env file. This file contains database configuration data.
+
+echo "DATABASE_URL=\"mysql://staging_user:password1@127.0.0.1:3306/staging\" " > .env
+Create a new migration for the database. This will create a directory structure. It includes the "db" folder and the "migrations" folder in it (which corresponds to the standard project directory structure). Or create this in manual.
+
+dbmate n new_users_table
+Check status
+
+dbmate status
+It`s good. Next add field in to database structure. Open created in early step the migration file in editor, for example
+
+nano db/migrations/20230502053951_new_users_table.sql
+Add next data to file:
+
+-- migrate:up
+create table users (
+  id integer,
+  name varchar(100),
+  email varchar(50) not null
+);
+
+-- migrate:down
+drop table users;
+Save and exit by use Ctrl-o, Enter, Ctrl-x.
+
+Run migration
+
+dbmate up
+Check result(password mypass):
+
+mariadb -u root -p
+use staging
+show tables;
+Return to CLI.
+
+exit

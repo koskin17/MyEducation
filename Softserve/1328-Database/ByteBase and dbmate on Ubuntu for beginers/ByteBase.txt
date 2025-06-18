@@ -1,0 +1,32 @@
+Learn some basic using MySQL (MariaDB) with ByteBase shema migration tools on Ubuntu.
+
+MariaDB Community Server is the open source relational database loved by developers all over the world. MariaDB Community Server is released under the GNU Public License v2. Throughout its history, MariaDB has shown its commitment to open source and the open source community.
+
+Bytebase is an open-source database DevOps tool, it's the GitLab for managing databases throughout the application development lifecycle. It offers a web-based workspace for DBAs and Developers to collaborate and manage the database change safely and efficiently.
+
+As DevOps enters the mainstream, teams are adopting tools like GitLab/GitHub for managing code, and Terraform for managing Infrastructure. Similarly, Bytebase is the tool for managing databases during application development.
+
+Bytebase complements the existing cloud provider's database platforms or the company's internal database operation platforms. While those platforms take care of the database instance level operations (e.g. provisioning a database instance), Bytebase helps teams to use the provisioned database to build their application.
+
+Let's start.
+
+Setup environment
+You have already installed the MariaDB database management system and created 2 databases "staging" and "production". In "staging" create a table "tasks" and in "production" create a table "completed". Default data is inserted into both tables. Check status a database:
+
+sudo systemctl status mariadb
+Deploy Bytebase via Docker.
+Make sure your Docker is running, and start the Bytebase Docker container with following command:
+
+docker run --init \
+  --name bytebase \
+  --platform linux/amd64 \
+  --restart always \
+  --publish 5678:8080 \
+  --health-cmd "curl --fail http://localhost:5678/healthz || exit 1" \
+  --health-interval 5m \
+  --health-timeout 60s \
+  --volume ~/.bytebase/data:/var/opt/bytebase \
+  bytebase/bytebase:2.22.1 \
+  --data /var/opt/bytebase \
+  --port 8080
+Bytebase is now running via Docker, and you can access it via localhost:5678
