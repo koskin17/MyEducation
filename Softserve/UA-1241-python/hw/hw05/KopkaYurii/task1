@@ -1,0 +1,8 @@
+list = [1, 2, 3, 4, 5]
+
+float_list = []
+for i in list:
+    float_list.append(float(i))
+
+print("Standart list:", list)
+print("Converted list:", float_list)

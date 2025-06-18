@@ -1,0 +1,10 @@
+a=int(input())
+b=0
+c=1
+i=0
+while i <=a :
+    i=c+b
+    if i <=a:
+        print(i,end =" ")
+    b=c
+    c=i

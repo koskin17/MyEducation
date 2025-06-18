@@ -1,0 +1,20 @@
+# s = set()
+# print(type(s), s)
+# s = set("gehfvklcfdbvkjdshvhjsdhfdsfkjdsfgsdhgfsdgfhsdgfjdsgfdsgfhsdgjfgdsfgdhjgdfgd")
+# print(type(s), s)
+# # s = {}#<class 'dict'> {}
+# s = {"a", 1, 5, 1 ,99}
+# print(type(s), s)
+print([method for method in dir(set) if not method.startswith("_")])
+print([method for method in dir(frozenset) if not method.startswith("_")])
+# s = set("gehfvklcfdbvkjdshvhjsdhfdsfkjdsfgsdhgfsdgfhsdgfjdsgfdsgfhsdgjfgdsfgdhjgdfgd")
+# print(s)
+# s.add("sdfsd")
+# # s.add([1,2,3]) #TypeError: unhashable type: 'list'
+# print(s) 
+# print(s.pop())
+# print(s)
+# s.remove("g") 
+# print(s) 
+# s.update("qweqweqweqewqewqe")
+# print(s)

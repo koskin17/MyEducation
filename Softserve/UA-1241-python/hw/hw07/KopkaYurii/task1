@@ -1,0 +1,12 @@
+def find_largest_number(a, b):
+    """
+    Returns the largest of two numbers.
+    a (float): The first number.
+    b (float): The second number.
+    Returns:
+    float: The largest number between a and b.
+    """
+    return max(a, b)
+
+result = find_largest_number(10, 20)
+print("The largest number is:", result)
