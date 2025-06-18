@@ -1,0 +1,18 @@
+https://pypi.org/project/PyInstaller/
+
+1. В командной строке переходив в папку с файлами Питон.
+
+# сборка приложения с настройками по умолчанию
+pyinstaller notepad.py
+
+# Cборка приложения в виде одного файла. При этом все необходимые библиотеки запаковываются в этот
+файл. В резульате, при запуске этого файла операционная система сначала его распакует, а потом запустит исполняемый файл.
+pyinstaller -F notepad.py
+
+# noconsole
+pyinstaller -w notepad.py
+
+# icon
+pyinstaller -F -w -i "C:\Python\compilation\notepad\nt.ico" notepad.py
+
+pyinstaller -F -w -i "C:\Users\LeaBlankez\Desktop\1\98201.png" nt.py
