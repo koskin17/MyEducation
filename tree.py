@@ -20,7 +20,7 @@ def print_tree(root_path, indent="", ignore_dirs=None):
             print(f"{indent}📄 {entry}")
 
 # 👉 Вкажи свій шлях до Django-проєкту
-project_path = r"E:\My project\MyEducation\Softserve\UA-130 Advanced Python with Django\Sprint 13 Django View & Templates\Task"  # або "/home/user/myproject" для Linux/Mac
+project_path = r"E:\My project\MyEducation\Softserve\UA-130 Advanced Python with Django\Sprint 15 Django Forms\Task"
 
 print(f"Структура проєкту в: {project_path}\n")
 print_tree(project_path)
