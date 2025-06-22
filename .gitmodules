@@ -19,3 +19,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 15 Django Forms/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 15 Django Forms/Task
 	url = https://github.com/POM-Django-Forms/pp-130-pp-130-s15-team-12.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 16 Django REST/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 16 Django REST/Task
+	url = https://github.com/POM-Django-REST/pp-130-pp-130-s16-team-11.git
