@@ -1,0 +1,200 @@
+## ⚙️ Общие настройки
+
+* **Base URL**: `http://127.0.0.1:8000/api/v1/`
+* **Content-Type (в Headers)**:
+
+  ```
+  Key: Content-Type
+  Value: application/json
+  ```
+* **Authorization**, если нужно (например, если включена защита):
+
+  ```
+  Key: Authorization
+  Value: Token <ваш_токен>
+  ```
+
+---
+
+## 1️⃣ Пользователи (User)
+
+### 🔹 Create (POST)
+```
+POST http://127.0.0.1:8000/api/v1/user/
+```
+```json
+{
+  "email": "UserForPostman@example.com",
+  "password": "123",
+  "first_name": "UserForPostman",
+  "middle_name": "UserForPostman",
+  "last_name": "UserForPostman",
+  "role": 0,
+  "is_active": true
+}
+```
+
+📘 Библиотекарь:
+```json
+{
+  "email": "LibForPostman@example.com",
+  "password": "123",
+  "first_name": "LibForPostman",
+  "middle_name": "LibForPostman",
+  "last_name": "LibForPostman",
+  "role": 1,
+  "is_active": true
+}
+```
+
+---
+### 🔹 Read (GET)
+```
+GET http://127.0.0.1:8000/api/v1/user/
+```
+или:
+```
+GET http://127.0.0.1:8000/api/v1/user/1/
+```
+---
+### 🔹 Update (PUT / PATCH)
+```
+PUT http://127.0.0.1:8000/api/v1/user/1/
+```
+```json
+{
+  "first_name": "UpdatedName",
+  "last_name": "UpdatedLast",
+  "middle_name": "UpdatedMiddle",
+  "email": "updated@example.com",
+  "password": "123",
+  "role": 1,
+  "is_active": false
+}
+```
+---
+### 🔹 Delete (DELETE)
+```
+DELETE http://127.0.0.1:8000/api/v1/user/1/
+```
+---
+## 2️⃣ Авторы (Author)
+### 🔹 Create (POST)
+```
+POST http://127.0.0.1:8000/api/v1/author/
+```
+```json
+{
+  "name": "AuthorForPostman",
+  "surname": "AuthorForPostman",
+  "patronymic": "AuthorForPostman"
+}
+```
+---
+
+### 🔹 Read (GET)
+
+```
+GET http://127.0.0.1:8000/api/v1/author/
+```
+или:
+```
+GET http://127.0.0.1:8000/api/v1/author/1/
+```
+---
+### 🔹 Update (PUT)
+```
+PUT http://127.0.0.1:8000/api/v1/author/1/
+```
+```json
+{
+  "name": "NewNameAuthorForPostman",
+  "surname": "NewSurnameAuthorForPostman",
+  "patronymic": "NewPatronymicAuthorForPostman"
+}
+```
+---
+### 🔹 Delete (DELETE)
+```
+DELETE http://127.0.0.1:8000/api/v1/author/1/
+```
+---
+## 3️⃣ Книги (Book)
+### 🔹 Create (POST)
+```
+POST http://127.0.0.1:8000/api/v1/book/
+```
+
+```json
+{
+  "name": "BookForPostman",
+  "description": "Description of BookForPostman",
+  "count": 5,
+  "authors": [1, 3]
+}
+```
+---
+###  Read (GET)
+
+```
+GET http://127.0.0.1:8000/api/v1/book/
+```
+или:
+```
+GET http://127.0.0.1:8000/api/v1/book/1/
+```
+---
+### 🔹 Update (PUT)
+```
+PUT http://127.0.0.1:8000/api/v1/book/1/
+```
+```json
+{
+  "name": "NewNameOfBookForPostman",
+  "description": "NewDescriptionOfBookForPostman",
+  "count": 3,
+  "authors": [1]
+}
+```
+---
+### 🔹 Delete (DELETE)
+```
+DELETE http://127.0.0.1:8000/api/v1/book/1/
+```
+---
+## 4️⃣ Заказы (Order)
+### 🔹 Create (POST)
+```
+POST http://127.0.0.1:8000/api/v1/order/
+```
+```json
+{
+  "user": 1,      // id пользователя
+  "book": 1,      // id книги
+  "plated_end_at": "2025-07-10T00:00:00Z"
+}
+```
+---
+### 🔹 Read (GET)
+```
+GET http://127.0.0.1:8000/api/v1/order/
+```
+или:
+```
+GET http://127.0.0.1:8000/api/v1/order/1/
+```
+---
+### 🔹 Update (PUT / PATCH)
+```
+PATCH http://127.0.0.1:8000/api/v1/order/1/
+```
+```json
+{
+  "end_at": "2025-07-05T00:00:00Z"
+}
+```
+---
+### 🔹 Delete (DELETE)
+```
+DELETE http://127.0.0.1:8000/api/v1/order/1/
+```
