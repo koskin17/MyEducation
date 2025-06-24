@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Books by User{% endblock %}
+
+{% block content %}
+    <h1>Books issued to user</h1>
+
+    {% if books %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Authors</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.description }}</td>
+                    <td>
+                        {% for author in book.authors.all %}
+                            {{ author.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            No authors
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No books issued to this user.</p>
+    {% endif %}
+
+    <p><a href="{% url 'librarian_book_list' %}">← Back to all books</a></p>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<br>
+<br>
+<!-- Login as a guest -->
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" name="guest">Enter as a guest</button>
+</form>
+
+<h2>Authorization</h2>
+
+<!-- Login as librarian -->
+<h3>Login as a librarian</h3>
+<form method="post">
+  {% csrf_token %}
+  <label>Email:</label><br>
+  <input type="email" name="email"><br>
+  <label>Password:</label><br>
+  <input type="password" name="password"><br><br>
+  <button type="submit">Entrance as librarian</button>
+</form>
+
+<br>
+
+<!-- Registration as librarian -->
+<a href="{% url 'register' %}">
+  <button>Registration as a librarian</button>
+</a>
+
+<p></p>
+
+<!--Button: All librarians -->
+<form action="{% url 'librarians' %}" method="get">
+  <button type="submit">All librarians</button>
+</form>
+
+<br>
+
+<!-- Search of the librarian by email -->
+<form action="{% url 'librarians' %}" method="get">
+  <input type="email" name="email" placeholder="Email librarian">
+  <button type="submit">Search librarian</button>
+</form>
+
+{% endblock %}

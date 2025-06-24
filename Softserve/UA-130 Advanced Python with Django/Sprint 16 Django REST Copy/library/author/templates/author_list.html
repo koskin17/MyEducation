@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Authors{% endblock %}
+
+{% block content %}
+<h2>Authors</h2>
+
+<a href="{% url 'create_author' %}">➕ Add New Author</a>
+<a href="{% url 'profile' request.user.id %}">👤 Profile</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+        <tr>
+            <td>{{ author.id }}</td>
+            <td>{{ author.name }} {% if author.patronymic %}{{ author.patronymic }}{% endif %} {{ author.surname }}</td>
+            <td>
+                {% if not author.books.exists %}
+                    <a href="{% url 'delete_author' author.id %}" class="delete-btn">Delete</a>
+                {% else %}
+                    <em>Has books</em>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No authors found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{{ request.META.HTTP_REFERER|default:'/' }}">← Назад</a>
+{% endblock %}

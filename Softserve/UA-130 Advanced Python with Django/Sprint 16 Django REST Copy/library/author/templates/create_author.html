@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Create Author{% endblock %}
+
+{% block content %}
+<h2>Create a New Author</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="id_name">Name:</label><br />
+    <input type="text" id="id_name" name="name" maxlength="20" required /><br />
+
+    <label for="id_surname">Surname:</label><br />
+    <input type="text" id="id_surname" name="surname" maxlength="20" required /><br />
+
+    <label for="id_patronymic">Patronymic:</label><br />
+    <input type="text" id="id_patronymic" name="patronymic" maxlength="20" /><br />
+
+    <button type="submit">Create</button>
+</form>
+
+<br />
+<a href="{% url 'author_list' %}">← Back to Author List</a>
+{% endblock %}

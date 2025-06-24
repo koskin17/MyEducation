@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile: {{ user.first_name }}{% endblock %}
+
+{% block content %}
+  <h2>Welcome, {{ user.first_name }}! You are logged in as 
+    {% if user.role == 1 %}a librarian{% elif user.role == 2 %}a guest{% else %}a user{% endif %}.
+  </h2>
+  
+  <!-- Search of the librarian by email -->
+  <form action="{% url 'librarians' %}" method="get">
+    <input type="email" name="email" placeholder="Email librarian">
+    <button type="submit">Search librarian</button>
+  </form>
+
+  <div class="nav-buttons">
+    {% if user.role == 1 %}
+      <a href="{% url 'librarians' %}"><button>All librarians</button></a>
+      <a href="{% url 'author_list' %}"><button>Authors</button></a>
+      <a href="{% url 'librarian_book_list' %}"><button>Books</button></a>
+      <a href="{% url 'all_orders' %}"><button>Orders</button></a>
+      <a href="{% url 'base' %}"><button>Home</button></a>
+    {% else %}
+      <a href="{% url 'user_book_list' %}"><button>Books</button></a>
+      <a href="{% url 'my_orders' %}"><button>My Orders</button></a>
+      <a href="{% url 'base' %}"><button>Home</button></a>
+    {% endif %}
+  </div>
+{% endblock %}

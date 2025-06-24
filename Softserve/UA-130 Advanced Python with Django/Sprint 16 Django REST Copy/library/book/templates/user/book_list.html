@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Books{% endblock %}
+
+{% block content %}
+<h2>Available Books</h2>
+
+<form method="get" style="margin-top: 10px;">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by book name" />
+    <select name="author">
+        <option value="">All authors</option>
+        {% for author in authors %}
+        <option value="{{ author.id }}" {% if author.id|stringformat:"s" == author_id %}selected{% endif %}>
+            {{ author.name }} {{ author.surname }}
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>
+                <a href="?{% if query %}q={{ query }}&{% endif %}{% if author_id %}author={{ author_id }}&{% endif %}sort={% if sort == 'name' %}-name{% else %}name{% endif %}">
+                  Name {% if sort == 'name' %}🔼{% elif sort == '-name' %}🔽{% endif %}
+                </a>
+            </th>              
+            <th>Description</th>
+            <th>Count</th>
+            <th>Authors</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="{{ book.name }}" style="max-height: 60px;" />
+                {% endif %}
+            </td>
+            <td><a href="{% url 'user_book_detail' book.id %}">{{ book.name }}</a></td>
+            <td>{{ book.description }}</td>
+            <td>{{ book.count }}</td>
+            <td>
+                {% for author in book.authors.all %}
+                    {{ author.name }} {{ author.surname }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No authors
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No books found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{{ request.META.HTTP_REFERER|default:'/' }}">← Назад</a>
+{% endblock %}

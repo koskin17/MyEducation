@@ -1,0 +1,21 @@
+<h2>Registration</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br>
+
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br>
+
+    <label>First name:</label><br>
+    <input type="text" name="first_name"><br>
+
+    <label>Patronymic:</label><br>
+    <input type="text" name="middle_name"><br>
+
+    <label>Last name:</label><br>
+    <input type="text" name="last_name"><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+<a href="{% url 'login' %}">← Back to the entrance</a>

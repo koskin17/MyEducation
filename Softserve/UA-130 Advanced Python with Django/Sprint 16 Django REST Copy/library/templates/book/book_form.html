@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Form for add book{% endblock %}
+
+{% block content %}
+  <h2>{{ form.instance.pk|yesno:"Edit book,Create book" }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

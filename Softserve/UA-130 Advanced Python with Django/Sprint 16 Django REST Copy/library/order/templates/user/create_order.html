@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Create Order{% endblock %}
+
+{% block content %}
+<h2>Create New Order</h2>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="book">Select Book:</label>
+    <select name="book" id="book">
+        {% for book in books %}
+            <option value="{{ book.id }}">{{ book.name }} (Available: {{ book.count }} units)</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">Create Order</button>
+</form>
+{% endblock %}

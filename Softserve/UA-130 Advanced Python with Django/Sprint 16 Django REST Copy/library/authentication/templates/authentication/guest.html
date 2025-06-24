@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Guest Profile{% endblock %}
+
+{% block content %}
+  <h2>You are logged in as a guest.</h2>
+
+  <div class="nav-buttons">
+    <a href="{% url 'user_book_list' %}"><button>Books</button></a>
+    <a href="{% url 'my_orders' %}"><button>My Orders</button></a>
+    <br>
+    <br>
+    <br>
+
+    <a href="{% url 'base' %}"><button>Home</button></a>
+  </div>
+{% endblock %}

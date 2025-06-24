@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}List of librarians{% endblock %}
+
+{% block content %}
+    <h2>List of librarians</h2>
+
+    {% if librarians %}
+        <ul>
+            {% for librarian in librarians %}
+                <li><a href="{% url 'profile' librarian.id %}">
+                        {{ librarian.first_name }} {{ librarian.last_name }}
+                    </a>
+                 — {{ librarian.email }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No librarian found with this email.</p>
+    {% endif %}
+
+    <a href="{{ request.META.HTTP_REFERER|default:'/' }}">← Назад</a>
+{% endblock %}

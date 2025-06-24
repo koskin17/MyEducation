@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Book Details{% endblock %}
+
+{% block content %}
+<h2>{{ book.name }}</h2>
+
+{% if book.image %}
+    <img src="{{ book.image.url }}" alt="{{ book.name }}" style="max-height: 300px; margin-bottom: 15px;" />
+{% endif %}
+
+<p><strong>Description:</strong> {{ book.description }}</p>
+<p><strong>Count:</strong> {{ book.count }}</p>
+<p><strong>Authors:</strong> 
+    {% for author in book.authors.all %}
+        {{ author.name }} {{ author.surname }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        No authors
+    {% endfor %}
+</p>
+
+<a href="{% url 'librarian_book_list' %}">← Back to Book List</a>
+{% endblock %}
