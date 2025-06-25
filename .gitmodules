@@ -22,3 +22,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 16 Django REST/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 16 Django REST/Task
 	url = https://github.com/POM-Django-REST/pp-130-pp-130-s16-team-11.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 17 Test Automations (SELENIUM)/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 17 Test Automations (SELENIUM)/Task
+	url = https://github.com/POM-Selenium/pp-130-koskin17.git
