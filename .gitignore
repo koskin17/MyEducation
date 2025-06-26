@@ -8,6 +8,9 @@ FAST API/venv
 .vscode/local-history/
 .history/
 
+# WebDriver for Chrome
+chromedriver-win64.zip
+
 .venv/pyvenv.cfg
 .venv/Lib/site-packages/pip/__init__.py
 .venv/Lib/site-packages/pip/__main__.py
