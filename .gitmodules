@@ -25,3 +25,6 @@
 [submodule "Softserve/UA-130 Advanced Python with Django/Sprint 17 Test Automations (SELENIUM)/Task"]
 	path = Softserve/UA-130 Advanced Python with Django/Sprint 17 Test Automations (SELENIUM)/Task
 	url = https://github.com/POM-Selenium/pp-130-koskin17.git
+[submodule "Softserve/UA-130 Advanced Python with Django/Sprint 18 Virtualisation & Docker image/Task"]
+	path = Softserve/UA-130 Advanced Python with Django/Sprint 18 Virtualisation & Docker image/Task
+	url = https://github.com/POM-Django-Docker/pp-130-koskin17.git
