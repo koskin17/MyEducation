@@ -1,0 +1,26 @@
+Ты уже запустил контейнер backend-pgadmin-1, и он проброшен на порт 5050.
+
+✅ Шаги:
+Открой в браузере:
+http://localhost:5050
+Авторизуйся:
+Email: admin@example.com
+Password: admin123
+(эти данные ты указал в .env → PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD)
+
+После входа:
+
+Нажми "Add New Server"
+Во вкладке General укажи:
+Name: StartHubDB (можно любое имя)
+
+Перейди во вкладку Connection, введи:
+Host name/address: db ✅
+Port: 5432
+Username: postgres
+Password: koskin17
+
+Нажми Save
+В левой панели:
+Открой: Servers → StartHubDB → Databases → StartHubDB → Schemas → public → Tables
+🎉 Там ты увидишь все таблицы, созданные миграциями (auth_user, users_customuser, django_migrations и т.д.)

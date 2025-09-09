@@ -1,0 +1,175 @@
+---
+
+# 1. Готовая Postman коллекция (JSON)
+
+```json
+{
+  "info": {
+    "_postman_id": "jwt-logout-example-001",
+    "name": "JWT Logout Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Token (Login)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"your_username\",\n  \"password\": \"your_password\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/token/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "token", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Access Protected Endpoint",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/protected/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "protected", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Logout (Blacklist Refresh Token)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/logout/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["logout", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Refresh Access Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/token/refresh/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "token", "refresh", ""]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "refresh_token",
+      "value": ""
+    }
+  ]
+}
+```
+
+---
+
+# 2. Как импортировать и использовать эту коллекцию в Postman
+
+1. Открой Postman.
+
+2. Нажми слева на кнопку **Import**.
+
+3. В появившемся окне выбери вкладку **Raw Text**.
+
+4. Вставь туда JSON коллекции (весь код из блока выше).
+
+5. Нажми **Continue**, затем **Import**.
+
+6. В списке коллекций появится коллекция с названием **JWT Logout Testing**.
+
+---
+
+# 3. Как работать с коллекцией
+
+* В коллекции есть 4 запроса:
+
+  * **Get Token (Login)** — получить access и refresh токены.
+  * **Access Protected Endpoint** — запрос к защищённому эндпоинту (замени URL и метод под свой API).
+  * **Logout (Blacklist Refresh Token)** — отправить refresh токен в blacklist.
+  * **Refresh Access Token** — обновить access токен по refresh токену.
+
+* Перед запуском запроса **Get Token (Login)** открой его и замени в теле JSON:
+
+  * `"your_username"` на свой логин,
+  * `"your_password"` на свой пароль.
+
+* После успешного получения токенов:
+
+  * В ответе найди `access` и `refresh`.
+  * Скопируй значения токенов и вверху справа в Postman в **Environment** или **Collection Variables** вставь их в переменные:
+
+    * `access_token` — для использования в заголовках Authorization.
+    * `refresh_token` — для тела запроса logout и обновления токена.
+
+* Далее можешь последовательно запускать:
+
+  1. **Access Protected Endpoint** — чтобы проверить, что access токен работает.
+  2. **Logout (Blacklist Refresh Token)** — чтобы "отозвать" refresh токен.
+  3. **Refresh Access Token** — чтобы проверить, сработал ли blacklist: должен быть отказ.
+
+---
+
+Если хочешь — могу помочь сделать ENV-файл для Postman с этими переменными или автоматизировать подстановку токенов через тесты Postman.
+
+---
+
+Если что — пиши, помогу!

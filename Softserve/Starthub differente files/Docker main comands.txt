@@ -1,0 +1,35 @@
+Полный порядок основных команд для работы с Django в Docker
+📌 1. Запустить проект
+docker compose up -d
+
+📌 2. Остановить проект
+docker compose down
+
+📌 3. Просмотреть логи
+docker compose logs -f
+docker compose logs -f web
+
+📌 4. Зайти в контейнер (интерактивно)
+docker compose exec web sh
+или, если внутри установлен bash:
+docker compose exec web bash
+
+📌 5. Запуск Django-команд внутри контейнера
+docker compose exec web python manage.py makemigrations
+docker compose exec web python manage.py migrate
+docker compose exec web python manage.py createsuperuser
+docker compose exec web python manage.py collectstatic
+
+📌 6. Перезапуск контейнеров
+docker compose restart
+
+📌 7. Пересобрать образы (если менялся Dockerfile или зависимости)
+docker compose build
+или с пересборкой и запуском:
+docker compose up -d --build
+
+📌 8. Проверить список контейнеров
+docker ps
+
+📌 9. Удалить все контейнеры, образы и тома проекта
+docker compose down --volumes --rmi local

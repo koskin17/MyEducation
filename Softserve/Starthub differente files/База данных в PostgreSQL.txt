@@ -1,0 +1,118 @@
+-- 🔐 Користувачі
+CREATE TABLE UserProfile (
+    id SERIAL PRIMARY KEY,
+    login VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL, -- поддержка bcrypt/argon2
+    email TEXT UNIQUE NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    bio TEXT,
+    linkedin TEXT,
+    website TEXT,
+    location_id INTEGER REFERENCES Locations(id),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 🌍 Локації (нормалізована 3NF)
+CREATE TABLE Locations (
+    id SERIAL PRIMARY KEY,
+    city VARCHAR(100),
+    region VARCHAR(100),
+    country VARCHAR(100)
+);
+
+-- 📊 Індустрії
+CREATE TABLE Industries (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- 🏁 Стадії інвестування
+CREATE TABLE InvestmentStages (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
+
+---
+investment_stage = стадія інвестування
+Це описує, на якому етапі розвитку проєкту (стартапу) інвестор готовий вкладати гроші. У світі венчурного інвестування є загальноприйняті стадії:
+Назва	Опис
+idea або pre-seed	Ідея, можливо є лише прототип
+seed	Є продукт, шукають перше фінансування
+series A	Є користувачі, масштабування
+series B	Активне зростання
+series C	Міжнародний розвиток
+exit або IPO	Готовність до продажу/виходу на біржу
+---
+
+-- 📊 Статуси інвестпропозицій
+CREATE TABLE OfferStatus (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL CHECK (name IN ('очікує розгляду', 'прийнято', 'відхилено'))
+);
+
+-- 🧠 Інвестори
+CREATE TABLE InvestorInfo (
+    user_id INTEGER PRIMARY KEY REFERENCES UserProfile(id) ON DELETE CASCADE,
+    min_investment_amount NUMERIC,
+    max_investment_amount NUMERIC
+);
+
+-- 🔗 Багато-до-багатьох для індустрій інвестора
+CREATE TABLE InvestorIndustries (
+    user_id INTEGER REFERENCES UserProfile(id) ON DELETE CASCADE,
+    industry_id INTEGER REFERENCES Industries(id),
+    PRIMARY KEY (user_id, industry_id)
+);
+
+-- 🔗 Багато-до-багатьох для стадій інвестора
+CREATE TABLE InvestorStages (
+    user_id INTEGER REFERENCES UserProfile(id) ON DELETE CASCADE,
+    stage_id INTEGER REFERENCES InvestmentStages(id),
+    PRIMARY KEY (user_id, stage_id)
+);
+
+-- 🚀 Стартапи
+CREATE TABLE Startups (
+    id SERIAL PRIMARY KEY,
+    owner_id INTEGER REFERENCES UserProfile(id) ON DELETE CASCADE,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    website TEXT,
+    pitch_deck_url TEXT,
+    industry_id INTEGER REFERENCES Industries(id),
+    stage_id INTEGER REFERENCES InvestmentStages(id),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 🤝 Пропозиції інвестицій
+CREATE TABLE InvestmentOffers (
+    id SERIAL PRIMARY KEY,
+    investor_id INTEGER REFERENCES UserProfile(id),
+    startup_id INTEGER REFERENCES Startups(id),
+    amount NUMERIC NOT NULL,
+    message TEXT,
+    status_id INTEGER REFERENCES OfferStatus(id),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 💬 Повідомлення між користувачами
+CREATE TABLE Messages (
+    id SERIAL PRIMARY KEY,
+    sender_id INTEGER REFERENCES UserProfile(id),
+    receiver_id INTEGER REFERENCES UserProfile(id),
+    content TEXT NOT NULL,
+    sent_at TIMESTAMP DEFAULT NOW(),
+    is_read BOOLEAN DEFAULT FALSE,
+	read_at TIMESTAMP DEFAULT NULL
+);
+
+-- ⭐️ Відгуки між користувачами
+CREATE TABLE Reviews (
+    id SERIAL PRIMARY KEY,
+    reviewer_id INTEGER REFERENCES UserProfile(id),
+    reviewed_user_id INTEGER REFERENCES UserProfile(id),
+    rating INTEGER CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT NOW()
+);

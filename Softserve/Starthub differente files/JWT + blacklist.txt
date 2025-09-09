@@ -1,0 +1,394 @@
+## 🔧 Цель
+
+Реализовать logout с использованием **JWT** + **blacklist**, чтобы токен терял силу немедленно после выхода.
+---
+## ✅ Этапы реализации
+---
+### 🔹 1. Установить зависимости
+```bash
+pip install djangorestframework-simplejwt
+```
+---
+### 🔹 2. Добавить приложение blacklist в `settings.py`
+
+```python
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+]
+```
+---
+### 🔹 3. Настроить JWT-аутентификацию в `settings.py`
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+```
+---
+### 🔹 4. Настроить параметры SimpleJWT (в `settings.py`)
+```python
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # или 15-30 мин
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
+```
+'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5):
+Что это? Время жизни access-токена. Это тот токен, который используется для доступа к API.
+Что делает? Устанавливает, что access-токен будет действителен всего 5 минут. После этого времени он "испортится", и вы больше не сможете его использовать для запросов к API. Это сделано для безопасности: если его украдут, у злоумышленника будет очень мало времени, чтобы им воспользоваться.
+
+'REFRESH_TOKEN_LIFETIME': timedelta(days=1):
+Что это? Время жизни refresh-токена. Этот токен используется для получения нового access-токена.
+Что делает? Устанавливает, что refresh-токен будет действителен 1 день. Он выдаётся реже и имеет больший срок действия. Он менее опасен, чем access-токен, так как сам по себе не даёт прямого доступа к API, но его всё равно нужно беречь.
+
+'ROTATE_REFRESH_TOKENS': False:
+Что это? Поворот refresh-токенов.
+Что делает? При значении False (как здесь) refresh-токен остаётся тем же до истечения своего срока. При значении True каждый раз, когда вы используете refresh-токен для получения нового access-токена, вы получаете и новый refresh-токен. Это повышает безопасность, так как каждый токен используется только один раз.
+
+'BLACKLIST_AFTER_ROTATION': True:
+Что это? Это напрямую связано с предыдущим пунктом.
+Что делает? При значении True (как здесь) старый refresh-токен немедленно добавляется в "черный список" (token_blacklist), как только вы получаете новый. Это гарантирует, что старый токен больше нельзя будет использовать. Важно: эта настройка работает только если 'ROTATE_REFRESH_TOKENS' установлен в True.
+
+'AUTH_HEADER_TYPES': ('Bearer',):
+Что это? Тип аутентификации в заголовке HTTP-запроса.
+Что делает? Указывает, что access-токен должен передаваться в заголовке Authorization с префиксом Bearer. Например: Authorization: Bearer <ваш-токен>. Это стандартная и общепринятая практика.
+
+'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',):
+Что это? Класс, который будет использоваться для создания токенов.
+Что делает? Говорит Simple JWT, что для создания access-токенов нужно использовать стандартный класс AccessToken. Это базовая настройка, которую обычно не меняют.
+
+---
+
+### 🔹 5. Выполнить миграции для токенов
+
+```bash
+python manage.py migrate
+```
+
+---
+
+### 🔹 6. Добавить в `urls.py` эндпоинты JWT
+
+В файле `config/urls.py`:
+
+```python
+from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+urlpatterns = [
+    ...
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/', include('users.urls')),  # если ты вынесешь свои URL'ы
+]
+```
+
+---
+
+### 🔹 7. Реализовать logout с blacklist
+
+Создай в `users/views.py` новый View:
+
+```python
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"detail": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+```
+
+---
+
+### 🔹 8. Добавить маршрут logout
+
+В `users/urls.py` (создай, если его нет):
+
+```python
+from django.urls import path
+from .views import LogoutView
+
+urlpatterns = [
+    path('logout/', LogoutView.as_view(), name='logout'),
+]
+```
+
+---
+
+### 🔹 9. Протестировать logout через Postman
+
+1. Получи `access` и `refresh` через:
+
+   * `POST на http://localhost:8000/api/auth/token/`
+   * Тело:
+
+     ```json
+     {
+       "email": "test@email.com",
+       "password": "test123456"
+     }
+     ```
+
+2. Отправь `POST` на `http://localhost:8000/api/logout/`:
+
+   * В headers:
+
+     ```
+     Authorization: Bearer <access_token>
+     ```
+   * В теле:
+
+     ```json
+     {
+       "refresh": "<refresh_token>"
+     }
+     ```
+
+Если всё правильно — получишь:
+
+```json
+{
+  "detail": "Logout successful."
+}
+```
+
+Если попробуешь использовать refresh — будет ошибка `Token is blacklisted`.
+
+---
+
+## 📦 Полный код
+
+### 🔹 `settings.py` (фрагмент)
+
+```python
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+```
+
+---
+
+### 🔹 `config/urls.py`
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/', include('users.urls')),
+]
+```
+
+---
+
+### 🔹 `users/urls.py`
+
+```python
+from django.urls import path
+from .views import LogoutView
+
+urlpatterns = [
+    path('logout/', LogoutView.as_view(), name='logout'),
+]
+```
+
+---
+
+### 🔹 `users/views.py`
+
+```python
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({"detail": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+```
+
+---
+
+## ✅ Готово!
+
+Ты реализовал:
+
+* JWT-аутентификацию с `access` и `refresh`
+* Чёрный список (blacklist) токенов
+* Безопасный `logout`
+
+Отличный вопрос!
+
+Сейчас объясню, **где и как SimpleJWT сохраняет токены в БД** и как работает **blacklist**, опираясь на то, что мы подключили `rest_framework_simplejwt.token_blacklist`.
+
+---
+
+## 🗂 Где происходит сохранение токена в БД?
+
+Когда ты используешь `RefreshToken()` и вызываешь метод `.blacklist()`, токен сохраняется в **таблицу базы данных**, предоставленную приложением `token_blacklist`.
+
+### 🧱 Какие таблицы создаёт SimpleJWT:
+
+После команды:
+
+```bash
+python manage.py migrate
+```
+
+в базе появляются две таблицы:
+
+1. **`outstandingtoken`** – здесь сохраняются **все выданные refresh-токены**.
+2. **`blacklistedtoken`** – здесь сохраняются **заблокированные refresh-токены**.
+
+---
+
+## 🔄 Как это работает?
+
+### ✅ 1. Выдача refresh токена (`/api/token/`)
+
+Когда пользователь логинится, SimpleJWT:
+
+* создаёт refresh-токен (если настроено)
+* сохраняет его в таблицу `outstandingtoken` (автоматически, если включено приложение `token_blacklist`)
+
+```python
+# Это делает сам SimpleJWT при выдаче токена
+```
+
+### ❌ 2. Logout (`POST /api/logout/`)
+
+Когда ты вызываешь `token.blacklist()` в коде:
+
+```python
+token = RefreshToken(refresh_token)
+token.blacklist()
+```
+
+Он:
+
+* ищет этот токен в `OutstandingToken`
+* создаёт связанный `BlacklistedToken`
+
+Теперь этот токен считается **недействительным**.
+
+---
+
+## 📦 Где именно в коде всё сохраняется?
+
+Внутри SimpleJWT:
+
+```python
+# при вызове .blacklist()
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken
+
+def blacklist(self):
+    if not settings.SIMPLE_JWT['BLACKLIST_AFTER_ROTATION']:
+        raise TokenError(_('Blacklisting is not enabled'))
+
+    BlacklistedToken.objects.create(token=self)
+```
+
+---
+
+## 🔐 Как работает проверка?
+
+Когда пользователь отправляет `refresh` или `access`:
+
+* JWT-аутентификатор проверяет подпись
+* проверяет срок действия
+* если токен — **refresh**, он проверяется также:
+
+  * есть ли он в `OutstandingToken`
+  * **не находится ли он в `BlacklistedToken`**
+
+Если он в чёрном списке — будет ошибка: `Token is blacklisted`.
+
+---
+
+## 📌 Итого
+
+| Таблица            | Содержит                                              |
+| ------------------ | ----------------------------------------------------- |
+| `outstandingtoken` | Все выданные refresh токены                           |
+| `blacklistedtoken` | Заблокированные refresh токены (например, при logout) |
+
+---
+
+### Хочешь посмотреть, что в БД?
+
+Выполни в Django shell:
+
+```bash
+python manage.py shell
+```
+
+```python
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
+
+# Все выданные refresh токены:
+OutstandingToken.objects.all()
+
+# Все заблокированные:
+BlacklistedToken.objects.all()
+```
+
+---
+
+Хочешь — могу показать, как визуализировать эти токены через Django Admin.

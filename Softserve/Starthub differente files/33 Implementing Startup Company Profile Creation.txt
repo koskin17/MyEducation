@@ -1,0 +1,820 @@
+Implementing Startup Company Profile Creation #33
+
+ЗАДАНИЕ:
+1. Familiarization with Project Requirements:
+Actions:
+Review all documentation, including user stories and acceptance criteria for the startup profile management feature.
+Identify what information needs to be captured in the startup profiles, such as company name, project details, and contact information.
+2. Database Model Implementation:
+Objective: Define the database models to store startup profile information and any related project data.
+
+Actions:
+
+Step 1: Create a new model for StartUpProfile in models.py.
+from django.db import models
+
+class StartUpProfile(models.Model):
+    company_name = models.CharField(max_length=255, unique=True)
+    description = models.TextField()
+    website = models.URLField(blank=True, null=True)
+    startup_logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+Step 2: Define relationships if there are projects associated with each startup.
+class Project(models.Model):
+    startup = models.ForeignKey(StartUpProfile, on_delete=models.CASCADE, related_name='projects')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    required_funding = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+Step 3: Run migrations to apply the changes to the database:
+
+python manage.py makemigrations
+python manage.py migrate
+3. API Endpoint Creation for Profile Management:
+Objective: Build API endpoints to manage profiles, including the ability to create, update, and view profiles.
+
+Actions:
+
+Step 1: Create a serializer for StartUpProfile and Project.
+
+from rest_framework import serializers
+from .models import StartUpProfile, Project
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
+class StartUpProfileSerializer(serializers.ModelSerializer):
+    projects = ProjectSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = StartUpProfile
+        fields = ['id', 'company_name', 'description', 'website', 'startup_logo', 'projects']
+Step 2: Create views for handling API requests (using Django Rest Framework):
+
+from rest_framework import viewsets
+from .models import StartUpProfile
+from .serializers import StartUpProfileSerializer
+
+class StartUpProfileViewSet(viewsets.ModelViewSet):
+    queryset = StartUpProfile.objects.all()
+    serializer_class = StartUpProfileSerializer
+Step 3: Define the URLs for the StartUpProfile API endpoints in urls.py.
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import StartUpProfileViewSet
+
+router = DefaultRouter()
+router.register(r'startup-profiles', StartUpProfileViewSet, basename='startupprofile')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+Step 4: Ensure that the API routes are registered in the project's main urls.py:
+
+from django.urls import path, include
+
+urlpatterns = [
+    path('api/', include('yourapp.urls')),
+]
+4. Input Validation and Data Security:
+Objective: Ensure the integrity of the data submitted through the API and protect sensitive information.
+Actions:
+Step 1: Use Django Rest Framework's built-in validators to validate the data input. For example, ensure that the company_name is unique and not empty.
+Step 2: Implement custom validation rules in the serializers if necessary:
+class StartUpProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StartUpProfile
+        fields = '__all__'
+
+    def validate_company_name(self, value):
+        if not value:
+            raise serializers.ValidationError("Company name cannot be empty.")
+        return value
+Step 3: Enforce security practices, such as restricting API access to authenticated users:
+from rest_framework.permissions import IsAuthenticated
+
+class StartUpProfileViewSet(viewsets.ModelViewSet):
+    queryset = StartUpProfile.objects.all()
+    serializer_class = StartUpProfileSerializer
+    permission_classes = [IsAuthenticated]
+5. Front-End Integration (Optional):
+Objective: Create a simple interface or form for managing startup profiles.
+Actions:
+Step 1: Use Django templates and forms to create a basic UI:
+<form method="POST" action="{% url 'startupprofile-create' %}">
+    {% csrf_token %}
+    <label for="company_name">Company Name:</label>
+    <input type="text" name="company_name" id="company_name">
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
+    <button type="submit">Submit</button>
+</form>
+6. Testing and Debugging:
+Objective: Write tests for the StartUpProfile API to ensure that all functionality works as expected.
+Actions:
+Step 1: Write unit tests using Django's test framework:
+from django.test import TestCase
+from .models import StartUpProfile
+
+class StartUpProfileTest(TestCase):
+    def test_profile_creation(self):
+        profile = StartUpProfile.objects.create(
+            company_name="Test Company",
+            description="A test startup",
+            website="http://example.com"
+        )
+        self.assertEqual(profile.company_name, "Test Company")
+Step 2: Test the API endpoints using Django Rest Framework's APIClient:
+from rest_framework.test import APITestCase
+from django.urls import reverse
+
+class StartUpProfileAPITest(APITestCase):
+    def test_create_profile(self):
+        url = reverse('startupprofile-list')
+        data = {
+            "company_name": "Test Company",
+            "description": "Test description",
+            "website": "http://example.com"
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, 201)
+7. Documentation and Code Review:
+Objective: Ensure proper documentation of the developed features and conduct a code review to ensure quality.
+Actions:
+Step 1: Document the API endpoints and usage in the project's README.md.
+8. User Story Validation:
+Objective: Ensure that the developed features meet the acceptance criteria in the user story.
+Actions:
+Step 1: Review the user story and acceptance criteria.
+
+Хорошо, вот твое задание в понятном переводе на русский, без лишней воды, но с сохранением смысла:
+
+---
+ПЕРЕВОД ЗАДАНИЯ
+
+## **Задание: Реализация функционала управления профилем стартапа**
+
+### **1. Ознакомление с требованиями проекта**
+
+* Прочитать всю документацию, user stories и acceptance criteria по функционалу управления профилем стартапа.
+* Определить, какие данные должны храниться в профиле стартапа — например:
+
+  * название компании
+  * описание проекта
+  * контактная информация
+  * сайт
+  * логотип
+  * список связанных проектов
+
+---
+
+### **2. Реализация моделей базы данных**
+
+**Цель:** создать модели в Django для хранения информации о стартапах и их проектах.
+
+**Действия:**
+
+1. Создать модель `StartUpProfile` с полями:
+   * `company_name` (уникальное название компании)
+   * `description` (описание)
+   * `website` (сайт)
+   * `startup_logo` (логотип)
+   * `created_at`, `updated_at` (даты создания/обновления)
+2. Создать модель `Project`, связав её с `StartUpProfile` через `ForeignKey`.
+3. Применить миграции:
+
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+---
+
+### **3. Создание API для управления профилями**
+
+**Цель:** реализовать CRUD API (создание, чтение, обновление, удаление) для работы с профилями стартапов.
+
+**Действия:**
+
+1. Создать сериализаторы `StartUpProfileSerializer` и `ProjectSerializer`.
+2. Создать ViewSet `StartUpProfileViewSet`.
+3. Зарегистрировать маршруты в `urls.py` с использованием `DefaultRouter`.
+4. Подключить маршруты в основном `urls.py` проекта.
+
+---
+
+### **4. Валидация данных и безопасность**
+
+**Цель:** защитить данные и убедиться, что ввод корректен.
+
+**Действия:**
+
+1. Использовать встроенные валидаторы DRF (например, уникальность `company_name`).
+2. При необходимости — добавить собственные проверки в сериализатор.
+3. Ограничить доступ к API только для авторизованных пользователей (`IsAuthenticated`).
+
+---
+
+### **5. (Опционально) Интеграция с фронтендом**
+
+**Цель:** сделать простую HTML-форму для управления профилем.
+
+* Использовать Django templates и формы для создания и отправки данных.
+
+---
+
+### **6. Тестирование и отладка**
+
+**Цель:** убедиться, что API и модели работают корректно.
+
+**Действия:**
+
+1. Написать unit-тесты для моделей.
+2. Написать API-тесты с использованием `APITestCase`.
+3. Проверить ручками через Postman или DRF web interface.
+
+---
+
+### **7. Документация и код-ревью**
+
+**Цель:** сделать документацию и пройти проверку кода.
+
+* Описать API в `README.md`.
+
+---
+
+### **8. Проверка выполнения требований**
+
+**Цель:** убедиться, что сделанное соответствует user stories и acceptance criteria.
+
+SUBTASK ДЛЯ ЗАДАНИЯ
+
+К этому заданию есть ещё вот такой subtask:
+Story Overview
+As a
+New user (representing a company or startup seeking investment),
+
+I want to
+register on the CraftMerge platform by completing a form with validation and confirmation steps,
+
+So that I can
+create an account to access services tailored to my business profile and investment needs.
+
+✅ Acceptance Criteria
+#	Criteria
+1	All required fields must be clearly marked with an asterisk *.
+2	The form should include the following fields:
+- Company Name
+- Email
+- Password + Confirm Password
+- Last Name
+- First Name
+- Representative Type
+- Business Entity Type
+3	Submission must be blocked until all required fields are completed.
+4	Password must contain uppercase, lowercase, numbers, and meet length rules.
+5	Inline error messages must be displayed for each invalid or empty field.
+6	Duplicate email should trigger: Ця електронна пошта вже зареєстрована.
+7	Password mismatch should show: Паролі не співпадають.
+8	Invalid format password should show: Пароль не відповідає вимогам.
+9	After successful submission, show: Реєстрація майже завершена with email confirmation instructions.
+10	Allow resending of activation email with valid email entry.
+11	Зареєструватися button must remain disabled until validations pass.
+12	Увійти button must redirect to the login screen.
+🖌️ UI/UX Notes
+Real-time form validation with red border and message for invalid inputs.
+User cannot proceed without selecting at least one option in Who are you representing and Type of entity.
+Final confirmation screen is clean and minimal, focusing user attention on email confirmation.
+A fallback screen allows resending the confirmation email.
+🔗 Dependencies
+Email uniqueness check API
+Password policy/strength validator
+Email delivery system for sending confirmation emails
+Frontend validation library (if used)
+📎 Example Screens from UI Mockups
+Step	Description
+✅ Registration Form	User enters details, required field marked
+❌ Validation Errors	Fields turn red with error messages if invalid
+❌ Email Exists	Warning if email already in use
+❌ Password Mismatch	User gets immediate feedback
+❌ Password Policy	Message shown if password doesn't meet criteria
+⏳ Confirmation Sent	Message prompting user to check email
+🔁 Resend Email	Fallback in case user did not receive email
+🧭 Navigation
+Зареєструватися → Validates form → Triggers email confirmation flow
+Увійти → Redirects to login page
+Повернутись до входу → Returns user to main login screen
+Activation fallback screen accessible if user didn’t receive email
+📌 Notes
+Form is multilingual ready (currently in Ukrainian).
+Aligns with security best practices (no weak passwords, avoids email enumeration beyond messaging).
+UX designed for accessibility on mobile and desktop devices.
+Image
+
+Image
+
+Image
+
+Image
+
+Image
+
+Image
+
+Image
+
+🔧 Sub-tasks for REG-101: User Registration Flow
+🛠 Frontend Implementation
+
+REG-101-1: Design and implement registration form layout (responsive, mobile-first)
+
+REG-101-2: Create input fields for:
+Company Name
+Email
+Password
+Confirm Password
+First Name
+Last Name
+Representative Type (radio buttons or dropdown)
+Business Entity Type (radio buttons or dropdown)
+
+REG-101-3: Add visual indicators for required fields (*)
+
+REG-101-4: Add client-side validation logic:
+Required fields
+Password rules
+Password confirmation
+
+REG-101-5: Display inline error messages dynamically based on input state
+
+REG-101-6: Disable “Зареєструватися” button until all validations pass
+
+REG-101-7: Implement redirect from “Увійти” to login screen
+🧪 Backend Integration
+
+REG-101-8: Create API endpoint for user registration
+
+REG-101-9: Implement server-side email uniqueness check with response handling
+
+REG-101-10: Enforce password policy server-side and return structured error if invalid
+
+REG-101-11: Generate activation token and send email upon registration
+
+REG-101-12: Create endpoint to resend activation email by email input
+✅ Confirmation & Fallback Screens
+
+REG-101-13: Implement confirmation screen: Реєстрація майже завершена
+
+REG-101-14: Build fallback screen to resend confirmation email
+
+REG-101-15: Add success and error handling for resend request
+🧪 QA & Testing
+
+REG-101-16: Write unit tests for frontend form validation logic
+
+REG-101-17: Write integration tests for registration endpoint
+
+REG-101-18: Perform cross-browser and mobile responsiveness testing
+
+REG-101-19: Verify email delivery and activation flow
+📄 Documentation
+
+REG-101-20: Document API endpoints for registration and resend activation
+
+REG-101-21: Update user onboarding documentation in the product wiki
+
+Понял, ты не знаком с **CraftMerge Platform**, но судя по описанию — тебе вообще не нужно её "знать" или "уметь пользоваться" как готовым продуктом.
+
+Тут ситуация такая:
+
+* **CraftMerge** — это просто название платформы/проекта, над которым вы работаете.
+* Тебе дали **User Story** (пользовательскую историю) и **Acceptance Criteria** (критерии приёмки), чтобы ты реализовал **регистрацию пользователя** в рамках этого проекта.
+* Это значит, что твоя задача — **создать backend (и возможно частично frontend) для регистрации нового пользователя с валидацией, отправкой подтверждения на email и проверками по критериям**.
+
+---
+
+## Перевод и упрощённое объяснение Subtask
+
+### **Кто пользователь?**
+
+Новый пользователь — компания или стартап, ищущий инвестиции.
+
+### **Что он хочет сделать?**
+
+Зарегистрироваться на платформе, заполнив форму с проверкой введённых данных и подтверждением по email.
+
+### **Зачем?**
+
+Чтобы получить доступ к сервисам, которые будут подстраиваться под его бизнес-профиль и потребности в инвестициях.
+
+---
+
+### **Критерии приёмки (Acceptance Criteria)**
+
+1. Все обязательные поля помечены `*`.
+2. Поля формы:
+
+   * Название компании
+   * Email
+   * Пароль + подтверждение пароля
+   * Фамилия
+   * Имя
+   * Тип представителя (например: владелец, юрист, агент)
+   * Тип организации (например: ООО, ИП, корпорация)
+3. Отправка формы блокируется, пока обязательные поля не заполнены.
+4. Пароль должен содержать:
+
+   * заглавные буквы
+   * строчные буквы
+   * цифры
+   * соответствовать минимальной длине (правило будет задано)
+5. При ошибках — показывать сообщение прямо под полем.
+6. Если email уже зарегистрирован → сообщение: *"Ця електронна пошта вже зареєстрована."*
+7. Если пароли не совпадают → *"Паролі не співпадають."*
+8. Если пароль не соответствует правилам → *"Пароль не відповідає вимогам."*
+9. После успешной регистрации → показать сообщение: *"Реєстрація майже завершена"* с инструкциями по подтверждению email.
+10. Дать возможность повторно отправить письмо подтверждения.
+11. Кнопка **"Зареєструватися"** остаётся неактивной, пока форма не валидна.
+12. Кнопка **"Увійти"** → переходит на экран входа.
+
+---
+
+### **UI/UX заметки**
+
+* Проверка формы в реальном времени (поля красные + текст ошибки при неверном вводе).
+* Пользователь не может продолжить, если не выбрал хотя бы один вариант в полях:
+
+  * *Кого вы представляете?*
+  * *Тип организации*
+* Экран подтверждения — минималистичный, фокус на инструкции.
+* Есть запасной экран для повторной отправки письма подтверждения.
+* Интерфейс многоязычный (сейчас — украинский).
+* Всё должно работать и на мобильных, и на десктопе.
+
+---
+
+### **Технические зависимости**
+
+* API для проверки уникальности email.
+* Валидатор пароля.
+* Сервис для отправки писем.
+* (Если используется) библиотека для валидации на фронтенде.
+
+---
+
+### **Подзадачи**
+
+* **Frontend**: сделать форму, проверки на стороне клиента, отключение кнопки до выполнения условий, сообщения об ошибках.
+* **Backend**: API для регистрации, проверка уникальности email, генерация токена активации, отправка письма, API для повторной отправки.
+* **Тестирование**: unit-тесты, интеграционные тесты, кроссбраузерная проверка, тест отправки писем.
+* **Документация**: описать API, процесс регистрации, обновить wiki.
+
+---
+
+💡 Т.е. тебе не нужно “разбираться в CraftMerge” как в готовой системе — это просто **проект**, а твоя роль — реализовать **часть функционала**: регистрацию с подтверждением email и валидацией, чтобы она соответствовала этим правилам.
+
+РАЗДЕЛЕНИЕ ЗАДАЧ
+
+* **Твое задание** (с регистрацией и профилем стартапа) — это **начальная точка**: пользователь создаёт учётную запись, и при этом часть данных из формы регистрации ляжет в **User**, а часть — в **Startup** (или Investor, если пользователь — инвестор).
+* **Задание других разработчиков** — это **моделирование сущностей** в базе (User, Startup, Investor, Project) с правильными связями.
+
+---
+
+## Как это всё стыкуется
+
+1. **Регистрация нового пользователя**
+
+   * У тебя на backend будет `User` модель (скорее всего кастомная, возможно `AbstractUser`).
+   * При регистрации ты:
+
+     1. Создаёшь пользователя (`User`).
+     2. Проверяешь уникальность email.
+     3. Применяешь валидацию пароля.
+     4. Отправляешь письмо с подтверждением.
+     5. В зависимости от выбора пользователя ("Тип представителя" и "Тип организации") — создаёшь связанный объект:
+
+        * Если это стартап — в таблице `Startup` (модель из задания коллег).
+        * Если это инвестор — в таблице `Investor`.
+
+2. **Startup и Investor модели**
+
+   * У других разработчиков задача — реализовать сами модели.
+   * В твоей логике регистрации ты просто будешь использовать их модель для создания соответствующей записи.
+   * Например:
+
+     ```python
+     if data['representative_type'] == 'startup':
+         Startup.objects.create(user=new_user, company_name=data['company_name'], ...)
+     elif data['representative_type'] == 'investor':
+         Investor.objects.create(user=new_user, company_name=data['company_name'], ...)
+     ```
+
+3. **Project модель**
+
+   * Это уже следующая фаза работы — проекты будут связаны с конкретными стартапами или инвесторами.
+   * В твоей текущей задаче ты просто должен заложить основу (правильные связи и регистрацию, чтобы стартап/инвестор появлялся в базе).
+
+---
+
+## Вывод
+
+Твоя задача **не изолирована**, а напрямую связана с моделями, которые создают коллеги:
+
+* Ты создаёшь API регистрации и первичное заполнение профиля.
+* Коллеги создают модели `Startup`, `Investor` и `Project`.
+* Твой код регистрации будет использовать их модели для сохранения связанных данных.
+
+---
+ТОЧНОЕ РАЗДЕЛЕНИЕ ОТВЕТСТВЕННОСТИ
+
+---
+
+## **1️⃣ Что уже реализовано и что делаешь ты**
+
+### **Backend (в рамках app `users`)**
+
+* **Модель `UserProfile`** уже есть:
+  * Наследуется от `AbstractUser`
+  * Есть email (уникальный), role (`UserRole`), username, first\_name, last\_name
+  * created\_at автоматически создаётся
+* **Модель `UserRole`** уже есть
+* **PasswordResetToken** реализован
+* **ViewSet `UserViewSet`** уже содержит:
+  * Регистрацию (`register`)
+  * Логин (`login`)
+  * Получение своего профиля (`me`)
+  * Сброс пароля (`reset_password`, `reset_password_request`, `validate_reset_token`)
+* Сериализаторы для регистрации (`UserRegistrationSerializer`) уже подключены
+* JWT-токены реализованы для аутентификации (`RefreshToken`)
+
+**Что тебе остаётся реализовать в рамках твоего задания:**
+
+1. **Регистрация стартапа/инвестора вместе с UserProfile**:
+
+   * После создания `UserProfile` — создать **StartupProfile** или **InvestorProfile** в зависимости от типа пользователя (`representative_type` / role\_id)
+   * Заполнить поля:
+     * StartupProfile: company\_name, description, website, industry\_id, locations\_id, views\_count=0
+     * InvestorProfile: company\_name, website
+	 
+2. **Email подтверждение**:
+   * Генерация токена активации
+   * Отправка письма с инструкциями
+   * API для повторной отправки письма активации
+   
+3. **Валидация полей регистрации**:
+   * Company Name (обязательно)
+   * Email уникальный
+   * Пароль + подтверждение пароля
+   * Role / Representative Type выбран
+   * Inline ошибки в API
+   
+4. **Интеграция с фронтендом** (по Subtask REG-101):
+   * Валидация на фронтенде (красные поля, ошибки)
+   * Кнопка «Зареєструватися» неактивна до прохождения валидации
+   * Экран подтверждения email и fallback экран для повторной отправки
+
+---
+
+## **2️⃣ Что ты используешь / берёшь из работы других разработчиков**
+
+**Модели и данные, которые уже разрабатываются сторонними разработчиками:**
+
+* `StartupProfile`:
+  * id (связь с UserProfile.id)
+  * company\_name, description, website
+  * views\_count
+  * industry\_id → `Industry`
+  * locations\_id → `Location`
+* `InvestorProfile`:
+  * id (связь с UserProfile.id)
+  * company\_name, website
+* `Industry`, `Location`:
+  * Справочники, чтобы заполнить dropdown или выбор отрасли/локации
+* `StartupProject` и другие сущности (Messages, Notification и т.д.) — не нужны сейчас, но позже будут использоваться для проектов стартапов
+* Сторонние разработчики должны сделать **миграции и CRUD для этих моделей**
+
+**Что тебе важно уточнить у сторонних разработчиков:**
+
+1. Модели `StartupProfile` и `InvestorProfile` уже созданы и готовы к использованию?
+2. Поля `industry_id` и `locations_id` уже есть и есть ли у них данные для dropdown?
+3. Настроены ли `on_delete` связи (`CASCADE`, `SET_NULL`) для `UserProfile` → `StartupProfile`/`InvestorProfile`?
+4. Есть ли методы для создания/обновления Startup/Investor через ORM, или нужно создавать напрямую через `.objects.create()`?
+
+---
+
+## **3️⃣ Что делают другие разработчики**
+
+* **Создание моделей**:
+
+  * StartupProfile, InvestorProfile, StartupProject, ProjectStatus
+  * Industry, Location
+  * Message, Notification, NotificationType, SavedStartup, StartupRating
+  * UserRole (уже есть)
+* **Настройка связей и миграций**
+* **CRUD операции с этими моделями** (возможно, через отдельные ViewSet’ы)
+* **Наполнение справочников** (Industry, Location)
+* **Базовая валидация полей модели** (уникальность, типы полей)
+
+---
+
+✅ **Итоговое разделение ответственности**
+
+| Зона                         | Кто делает                   | Что именно                                                                                                                                       |
+| ---------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| User Registration            | Ты                           | Создание UserProfile, регистрация через API, JWT, password validation, email подтверждение, повторная отправка                                   |
+| Startup / Investor Profile   | Ты (используя модели коллег) | Создание StartupProfile или InvestorProfile после регистрации, заполнение полей company\_name, description, website, industry\_id, locations\_id |
+| Модели и связи               | Другие разработчики          | Создание всех моделей (StartupProfile, InvestorProfile, StartupProject и справочники), миграции, CRUD, on\_delete, уникальные ограничения        |
+| Справочники                  | Другие разработчики          | Industry, Location, UserRole (для заполнения dropdown)                                                                                           |
+| Frontend (форма регистрации) | Ты / фронтенд                | Поля формы, валидация, кнопки Зареєструватися/Увійти, экран подтверждения, fallback                                                              |
+
+---
+РАЗДЕЛЕНИЕ ЗАДАЧ С УЧЁТОМ ИМЕЮЩЕГОСЯ КОДА
+
+## **1️⃣ Что уже реализовано и что делаешь ты**
+
+### **Backend (в рамках app `users`)**
+* **Модель `UserProfile`** уже есть:
+  * Наследуется от `AbstractUser`
+  * Есть email (уникальный), role (`UserRole`), username, first\_name, last\_name
+  * created\_at автоматически создаётся
+* **Модель `UserRole`** уже есть
+* **PasswordResetToken** реализован
+* **ViewSet `UserViewSet`** уже содержит:
+  * Регистрацию (`register`)
+  * Логин (`login`)
+  * Получение своего профиля (`me`)
+  * Сброс пароля (`reset_password`, `reset_password_request`, `validate_reset_token`)
+* Сериализаторы для регистрации (`UserRegistrationSerializer`) уже подключены
+* JWT-токены реализованы для аутентификации (`RefreshToken`)
+
+**Что тебе остаётся реализовать в рамках твоего задания:**
+1. **Регистрация стартапа/инвестора вместе с UserProfile**:
+   * После создания `UserProfile` — создать **StartupProfile** или **InvestorProfile** в зависимости от типа пользователя (`representative_type` / role\_id)
+   * Заполнить поля:
+     * StartupProfile: company\_name, description, website, industry\_id, locations\_id, views\_count=0
+     * InvestorProfile: company\_name, website
+2. **Email подтверждение**:
+   * Генерация токена активации
+   * Отправка письма с инструкциями
+   * API для повторной отправки письма активации
+3. **Валидация полей регистрации**:
+   * Company Name (обязательно)
+   * Email уникальный
+   * Пароль + подтверждение пароля
+   * Role / Representative Type выбран
+   * Inline ошибки в API
+4. **Интеграция с фронтендом** (по Subtask REG-101):
+   * Валидация на фронтенде (красные поля, ошибки)
+   * Кнопка «Зареєструватися» неактивна до прохождения валидации
+   * Экран подтверждения email и fallback экран для повторной отправки
+
+---
+
+## **2️⃣ Что ты используешь / берёшь из работы других разработчиков**
+
+**Модели и данные, которые уже разрабатываются сторонними разработчиками:**
+* `StartupProfile`:
+  * id (связь с UserProfile.id)
+  * company\_name, description, website
+  * views\_count
+  * industry\_id → `Industry`
+  * locations\_id → `Location`
+* `InvestorProfile`:
+  * id (связь с UserProfile.id)
+  * company\_name, website
+* `Industry`, `Location`:
+  * Справочники, чтобы заполнить dropdown или выбор отрасли/локации
+* `StartupProject` и другие сущности (Messages, Notification и т.д.) — не нужны сейчас, но позже будут использоваться для проектов стартапов
+* Сторонние разработчики должны сделать **миграции и CRUD для этих моделей**
+
+**Что тебе важно уточнить у сторонних разработчиков:**
+1. Модели `StartupProfile` и `InvestorProfile` уже созданы и готовы к использованию?
+2. Поля `industry_id` и `locations_id` уже есть и есть ли у них данные для dropdown?
+3. Настроены ли `on_delete` связи (`CASCADE`, `SET_NULL`) для `UserProfile` → `StartupProfile`/`InvestorProfile`?
+4. Есть ли методы для создания/обновления Startup/Investor через ORM, или нужно создавать напрямую через `.objects.create()`?
+---
+## **3️⃣ Что делают другие разработчики**
+* **Создание моделей**:
+  * StartupProfile, InvestorProfile, StartupProject, ProjectStatus
+  * Industry, Location
+  * Message, Notification, NotificationType, SavedStartup, StartupRating
+  * UserRole (уже есть)
+* **Настройка связей и миграций**
+* **CRUD операции с этими моделями** (возможно, через отдельные ViewSet’ы)
+* **Наполнение справочников** (Industry, Location)
+* **Базовая валидация полей модели** (уникальность, типы полей)
+---
+✅ **Итоговое разделение ответственности**
+| Зона                         | Кто делает                   | Что именно                                                                                                                                       |
+| ---------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| User Registration            | Ты                           | Создание UserProfile, регистрация через API, JWT, password validation, email подтверждение, повторная отправка                                   |
+| Startup / Investor Profile   | Ты (используя модели коллег) | Создание StartupProfile или InvestorProfile после регистрации, заполнение полей company\_name, description, website, industry\_id, locations\_id |
+| Модели и связи               | Другие разработчики          | Создание всех моделей (StartupProfile, InvestorProfile, StartupProject и справочники), миграции, CRUD, on\_delete, уникальные ограничения        |
+| Справочники                  | Другие разработчики          | Industry, Location, UserRole (для заполнения dropdown)                                                                                           |
+| Frontend (форма регистрации) | Ты / фронтенд                | Поля формы, валидация, кнопки Зареєструватися/Увійти, экран подтверждения, fallback                                                              |
+
+---
+ПОДТВЕРЖДЕНИЕ РЕГИСТРАЦИИ С ТОКЕНОМ И СОХРАНЕНИЕМ В БАЗЕ ДАННЫХ
+
+Тебе нужно **доработать метод `register`**, чтобы после создания `UserProfile`:
+1. Создавался профиль `StartupProfile` или `InvestorProfile` (с учётом `role` или `representative_type`).
+2. Генерировался токен подтверждения email.
+3. Отправлялось письмо с инструкцией подтверждения.
+
+Пока что модели `StartupProfile` и `InvestorProfile` могут быть заглушками (потом подкорректируешь их под реальный код коллег).
+
+---
+
+## **Обновлённый `register` с пояснением**
+
+```python
+@action(detail=False, methods=['post'], url_path='register')
+def register(self, request):
+    """
+    Register a new user and create a StartupProfile or InvestorProfile.
+    Sends an email confirmation after registration.
+    """
+    serializer = UserRegistrationSerializer(data=request.data)
+
+    if serializer.is_valid():
+        user = serializer.save()  # Создаём UserProfile через существующий сериализатор
+
+        # Определяем, какой профиль создавать по роли/representative_type
+        role_name = user.role.role.lower() if user.role else None
+
+        if role_name == 'startup':
+            # TODO: заменить на реальные поля после готовности модели
+            from startups.models import StartupProfile
+            StartupProfile.objects.create(
+                id=user.id,
+                company_name="Placeholder Company",
+                description="Описание стартапа",
+                website="http://example.com",
+                views_count=0,
+                industry_id=1,  # заглушка
+                locations_id=1  # заглушка
+            )
+        elif role_name == 'investor':
+            from investors.models import InvestorProfile
+            InvestorProfile.objects.create(
+                id=user.id,
+                company_name="Placeholder Company",
+                website="http://example.com"
+            )
+
+        # Генерируем токен подтверждения email
+        from users.utils import generate_activation_token  # нужно реализовать эту функцию
+        token = generate_activation_token(user)
+
+        # Формируем ссылку для подтверждения
+        activation_url = f"{settings.FRONTEND_URL}/activate?token={token}"
+
+        # Отправляем письмо с подтверждением
+        send_mail(
+            subject='Підтвердіть вашу реєстрацію на CraftMerge',
+            message=f'Будь ласка, підтвердіть вашу електронну адресу, перейшовши за посиланням: {activation_url}',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+        )
+
+        return Response({
+            "message": "Реєстрація майже завершена. Перевірте email для підтвердження.",
+            "user_id": user.id,
+            "email": user.email,
+        }, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+```
+
+---
+
+### **Пояснение строк за строкой**
+
+1. `serializer = UserRegistrationSerializer(data=request.data)` — используем уже готовый сериализатор регистрации.
+2. `user = serializer.save()` — создаём `UserProfile` с хэшем пароля и валидацией.
+3. `role_name = user.role.role.lower() if user.role else None` — определяем роль пользователя для создания нужного профиля.
+4. `if role_name == 'startup': ...` — создаём `StartupProfile` (поля пока заглушки).
+5. `elif role_name == 'investor': ...` — создаём `InvestorProfile` (поля пока заглушки).
+6. `generate_activation_token(user)` — генерируем токен для подтверждения email. Нужно создать эту функцию в `users/utils.py`.
+7. `activation_url = f"{settings.FRONTEND_URL}/activate?token={token}"` — формируем ссылку для активации.
+8. `send_mail(...)` — отправляем письмо пользователю с инструкцией подтвердить email.
+9. `return Response({...}, status=201)` — возвращаем сообщение о почти завершённой регистрации.
+
+---
+
+💡 **Что делать дальше:**
+
+1. Создать в `users/utils.py` функцию `generate_activation_token(user)` для генерации токена подтверждения email.
+2. После готовности моделей `StartupProfile` и `InvestorProfile` заменить **заглушки** на реальные поля из базы.
+3. В дальнейшем — добавить API для подтверждения email (`activate?token=...`).
+
+---
+
+Если хочешь, я могу прямо сейчас написать **реализацию `generate_activation_token` и базовый пример подтверждения email через токен**, чтобы регистрация была полностью рабочей.
+
+Хочешь, чтобы я это сделал?
+

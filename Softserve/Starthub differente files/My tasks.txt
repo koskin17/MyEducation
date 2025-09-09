@@ -1,0 +1,574 @@
+У меня было задание на 3-ий спринт, которые я выполнил и код, который я добавил, выполняя задание:
+TASK#41 - Update Database Schema for Saved Profiles
+Define a new model InvestorStartup with fields for investor_id and startup_id.
+Use Django’s models.ForeignKey to link to the Investor and Startup models respectively.
+Add a DateTimeField to track when the investor saved the startup.
+
+TASK#42 - API Endpoint to Save/Follow a Startup
+Create a new endpoint in your Django views + in the view, check if the startup exists and if the investor has already saved it.
+Return a success response indicating the startup has been successfully saved.
+
+TASK#43 - API Endpoint to List and Manage Saved Startups
+Create an endpoint for listing saved startups + implement filtering options to sort or search through saved startups.
+Add an endpoint to unfollow a startup (e.g., DELETE).
+Ensure proper authentication and authorization checks are in place.
+
+Код:
+- в backend\profiles\models.py:
+ saved_projects = models.ManyToManyField(
+        "projects.StartupProject",
+        through="projects.SavedProject",
+        related_name="saved_entries",
+    )
+	
+в общий код:
+class InvestorProfile(models.Model):
+    """Profile for an investor, including company info and website."""
+
+    user = models.OneToOneField(  # Change user = models.ForeignKey on user = models.OneToOneField in class InvestorProfile in profiles/models because Django does not automatically create the user.investorprofile attribute for ForeignKey
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="investorprofile",
+    )
+    company_name = models.CharField(max_length=150, blank=True)
+    website = models.URLField(blank=True)
+
+    saved_projects = models.ManyToManyField(
+        "projects.StartupProject",
+        through="projects.SavedProject",
+        related_name="saved_entries",
+    )
+
+    def __str__(self):
+        return self.company_name or self.user.username
+		
+- в backend\projects\models.py:
+class Status(models.TextChoices):
+        PENDING = "PENDING", "Pending"
+        FUNDED = "FUNDED", "Funded"
+		
+и 
+status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
+	
+и
+class SavedProject(models.Model):
+    """Intermediate table for represents a project saved by investor (many-to-many relation)."""
+
+    investor = models.ForeignKey(
+        InvestorProfile,
+        on_delete=models.CASCADE,
+        related_name="investor_saved_projects",
+    )
+    project = models.ForeignKey(
+        StartupProject, on_delete=models.CASCADE, related_name="saved_by_investors"
+    )
+    saved_at = models.DateTimeField(
+        auto_now_add=True, help_text="Date and time the project was saved"
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["investor", "project"], name="uniq_investor_project"
+            )  # one investor cannot save same project twice
+        ]
+        ordering = ["-saved_at"]
+        verbose_name = "Saved project"
+        verbose_name_plural = "Saved projects"
+
+    def __str__(self):
+        return f"{self.investor.company_name} saved project {self.project.subject} from {self.project.startup.company_name}"
+		
+в общий код:
+from django.db import models
+from django.conf import settings
+from profiles.models import StartupProfile, InvestorProfile
+
+
+class StartupProject(models.Model):
+    """Represents a project created by a startup, including investment details."""
+
+    class Status(models.TextChoices):
+        PENDING = "PENDING", "Pending"
+        FUNDED = "FUNDED", "Funded"
+
+    subject = models.CharField(max_length=150)
+    idea = models.TextField()
+    description = models.TextField(blank=True)
+    website = models.URLField(blank=True)
+    investment_needed = models.BooleanField(default=True)
+    views_count = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(
+        max_length=20,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
+    startup = models.ForeignKey(
+        StartupProfile, on_delete=models.CASCADE, related_name="projects"
+    )
+    investor = models.ForeignKey(
+        InvestorProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="investments",
+    )
+    funding_goal = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.subject
+
+    def total_funding(self):
+        return sum(sub.share for sub in self.subscriptions.all())
+
+    def remaining_funding(self):
+        if self.funding_goal is None:
+            return None
+        return self.funding_goal - self.total_funding()
+
+
+class SavedProject(models.Model):
+    """Intermediate table for represents a project saved by investor (many-to-many relation)."""
+
+    investor = models.ForeignKey(
+        InvestorProfile,
+        on_delete=models.CASCADE,
+        related_name="investor_saved_projects",
+    )
+    project = models.ForeignKey(
+        StartupProject, on_delete=models.CASCADE, related_name="saved_by_investors"
+    )
+    saved_at = models.DateTimeField(
+        auto_now_add=True, help_text="Date and time the project was saved"
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["investor", "project"], name="uniq_investor_project"
+            )  # one investor cannot save same project twice
+        ]
+        ordering = ["-saved_at"]
+        verbose_name = "Saved project"
+        verbose_name_plural = "Saved projects"
+
+    def __str__(self):
+        return f"{self.investor.company_name} saved project {self.project.subject} from {self.project.startup.company_name}"
+
+
+class Subscription(models.Model):
+    project = models.ForeignKey(
+        StartupProject, on_delete=models.CASCADE, related_name="subscriptions"
+    )
+    investor = models.ForeignKey(
+        InvestorProfile, on_delete=models.CASCADE, related_name="subscriptions"
+    )
+    share = models.DecimalField(max_digits=12, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.investor} -> {self.project} ({self.share})"
+
+
+class ProjectRevision(models.Model):
+    project = models.ForeignKey(
+        StartupProject, on_delete=models.CASCADE, related_name="revisions"
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True
+    )
+    changes = models.JSONField()
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Revision of {self.project.subject} at {self.updated_at}"
+
+- в backend\projects\views.py
+class ProjectViewSet(viewsets.ModelViewSet):
+    """ViewSet for listing, retrieving, and subscribing to projects."""
+
+    permission_classes = [IsAuthenticated, IsInvestor]
+    queryset = StartupProject.objects.all()
+    serializer_class = ProjectSerializer
+
+и
+def list(self, request, *args, **kwargs):
+        """Viewing projects by investors"""
+        queryset = self.get_queryset().order_by("-created_at")
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+		
+и
+def retrieve(self, request, *args, **kwargs):
+        project = self.get_object()
+
+        # View counter update
+        StartupProject.objects.filter(pk=project.pk).update(
+            views_count=F("views_count") + 1
+        )
+        project.refresh_from_db(fields=["views_count"])
+        serializer = self.get_serializer(project)
+
+        return Response(serializer.data)
+в общий код:
+from rest_framework import status, viewsets, generics, filters
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
+from django.db.models import F
+from django.db import transaction
+
+from django_filters.rest_framework import DjangoFilterBackend
+
+from profiles.models import InvestorProfile
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
+from .serializers import ProjectSerializer, SubscriptionSerializer
+from .models import StartupProject, Subscription, ProjectRevision
+from .permissions import IsInvestor, IsStartup
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    """ViewSet for listing, retrieving, and subscribing to projects."""
+
+    permission_classes = [IsAuthenticated, IsInvestor]
+    queryset = StartupProject.objects.all()
+    serializer_class = ProjectSerializer
+
+    # Filters for base List
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    search_fields = ["subject", "idea", "description", "startup__company_name"]
+    ordering_fields = ["created_at", "views_count", "funding_goal"]
+
+    def get_permissions(self):
+        if self.action in ["create"]:
+            permission_classes = [IsAuthenticated, IsStartup]
+        elif self.action in ["list", "retrieve", "save", "unsave"]:
+            permission_classes = [IsAuthenticated, IsInvestor]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+    def perform_create(self, serializer):
+        """Creation a project is automatically link it to a startup"""
+        startup_profile = getattr(self.request.user, "startupprofile", None)
+        if not startup_profile:
+            raise Exception("Startup profile not found for this user.")
+        serializer.save(startup=startup_profile)
+
+    def list(self, request, *args, **kwargs):
+        """Viewing projects by investors"""
+        queryset = self.get_queryset().order_by("-created_at")
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, *args, **kwargs):
+        project = self.get_object()
+
+        # View counter update
+        StartupProject.objects.filter(pk=project.pk).update(
+            views_count=F("views_count") + 1
+        )
+        project.refresh_from_db(fields=["views_count"])
+        serializer = self.get_serializer(project)
+
+        return Response(serializer.data)
+
+    # Follow for saving projects by investor
+    @action(detail=True, methods=["post"], url_path="save")
+    def save(self, request, pk=None):
+        """
+        POST  /api/startups/{pk}/save/
+        Allow an authenticated investor to follow (save) a startup project.
+        """
+
+        investor_profile = getattr(request.user, "investorprofile", None)
+        if not investor_profile:
+            return Response(
+                {"error": "Investor profile not found for this user."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project = self.get_object()
+
+        # Prevent duplicates
+        if investor_profile.saved_projects.filter(pk=project.pk).exists():
+            serializer = ProjectSerializer(project)
+            return Response(
+                {"message": "Project is already saved.", "project": serializer.data},
+                status=status.HTTP_200_OK,
+            )
+
+        # Atomic transaction to ensure database integrity
+        with transaction.atomic():
+            investor_profile.saved_projects.add(project)
+
+        serializer = ProjectSerializer(project)
+
+        return Response(
+            {
+                "message": f"Project {project.id} has been saved to your profile.",
+                "project": serializer.data,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+    # Unfollow / delete to remove a project from saved
+    @action(detail=True, methods=["post", "delete"], url_path="unsave")
+    def unsave(self, request, pk=None):
+        """
+        Allow an authenticated investor to unfollow (remove) a startup project.
+        supports POST /api/projects/{pk}/unsave/ and DELETE /api/projects/{pk}/unsave/
+        """
+
+        investor_profile = getattr(request.user, "investorprofile", None)
+        if not investor_profile:
+            return Response(
+                {"error": "Investor profile not found for this user."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project = self.get_object()
+
+        # Atomic transaction to ensure database integrity
+        with transaction.atomic():
+            investor_profile.saved_projects.remove(project)
+
+        serializer = ProjectSerializer(project)
+
+        if request.method == "DELETE":
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {
+                "message": f"Project {project.id} has been removed from your saved list.",
+                "project": serializer.data,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=True, methods=["post"])
+    def subscribe(self, request, pk=None):
+        try:
+            project = self.get_object()
+        except StartupProject.DoesNotExist:
+            return Response(
+                {"detail": "Project not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = SubscriptionSerializer(data=request.data)
+        if serializer.is_valid():
+            share = serializer.validated_data["share"]
+
+            if project.funding_goal is None:
+                return Response(
+                    {"error": "Project has no funding goal set."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            if project.remaining_funding() < share:
+                return Response(
+                    {"error": "Funding goal exceeded"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            subscription = serializer.save(
+                investor=request.user.investorprofile, project=project
+            )
+            return Response(
+                SubscriptionSerializer(subscription).data,
+                status=status.HTTP_201_CREATED,
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=["post"])
+    def update_project(self, request, pk=None):
+        try:
+            project = StartupProject.objects.get(pk=pk, startup__user=request.user)
+        except StartupProject.DoesNotExist:
+            return Response(
+                {"detail": "Project not found or access denied."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = ProjectSerializer(project, data=request.data, partial=True)
+        if serializer.is_valid():
+            old_data = ProjectSerializer(project).data
+            serializer.save()
+            new_data = serializer.data
+
+            changes = {
+                field: {"old": old_data[field], "new": new_data[field]}
+                for field in new_data
+                if old_data[field] != new_data[field]
+            }
+
+            if changes:
+                ProjectRevision.objects.create(
+                    project=project, updated_by=request.user, changes=changes
+                )
+
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                f"startup_{project.startup.id}",
+                {"type": "project.update", "project": new_data},
+            )
+
+            return Response(
+                {"message": "Project updated successfully", "project": new_data},
+                status=status.HTTP_200_OK,
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SavedProjectsList(generics.ListAPIView):
+    """
+    GET /api/investor/saved-projects/
+    Forms a list of projects that the current investor has saved.
+    - search: GET /api/investor/saved-projects/?search=AI;
+    - ordering: GET /api/investor/saved-projects/?ordering=funding_goal.
+
+    Requires authentication and investor role.
+    Response: JSON list of saved projects.
+    """
+
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated, IsInvestor]
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+    search_fields = ["subject", "idea", "description", "startup__company_name"]
+    ordering_fields = ["created_at", "views_count", "funding_goal"]
+    ordering = ["-created_at"]
+
+    def get_queryset(self):
+        user = self.request.user
+        investor_profile = getattr(user, "investorprofile", None)
+
+        if not investor_profile:
+            raise PermissionDenied("Investor profile not found for this user.")
+
+        if not getattr(investor_profile, "is_active", True):
+            raise PermissionDenied("Account of user is not active.")
+
+        return investor_profile.saved_projects.all()
+
+---
+
+### 1️⃣ Что я сделал
+
+1. В модели **InvestorProfile** я добавил поле `saved_projects`, которое связывает инвестора и стартап-проекты через промежуточную таблицу.
+   * Для связи я использовал **ManyToManyField** с параметром `through="SavedProject"`.
+2. Создал новую модель **SavedProject**, которая:
+   * хранит связь между инвестором и проектом;
+   * имеет поле `saved_at`, фиксирующее дату и время добавления в избранное;
+   * содержит **UniqueConstraint**, чтобы один инвестор не мог сохранить один и тот же проект дважды.
+
+---
+
+### 3️⃣ Почему я сделал именно так
+* Я выбрал **промежуточную таблицу SavedProject**, а не простую ManyToMany, потому что нам нужно хранить дополнительную информацию (`saved_at`) и иметь строгий контроль уникальности.
+* Использовал **UniqueConstraint** — это защита на уровне базы данных, которая гарантирует, что не будет дублей, даже если где-то в коде будет ошибка.
+* Для API я применил **Django REST Framework actions** (`@action`) в `ProjectViewSet` для save/unsave — это удобно, потому что мы логически расширяем существующий ресурс проекта, а не плодим отдельные ViewSets.
+* Для получения списка сохранённых проектов я сделал отдельный **ListAPIView**, потому что это отдельная бизнес-задача: инвестор работает не со всеми проектами, а только с «избранными».
+* Все операции защищены авторизацией и ролевой моделью — только инвестор может сохранять проекты.
+
+* «В рамках задания #42 мне нужно было реализовать API-эндпоинт, который позволяет инвестору сохранять (подписываться на) стартап-проект и управлять этим списком, включая возможность отписки».
+
+---
+TASK#42 - API Endpoint to Save/Follow a Startup
+Create a new endpoint in your Django views + in the view, check if the startup exists and if the investor has already saved it.
+Return a success response indicating the startup has been successfully saved.
+
+### 2. Что именно я сделал
+2. **Изменение связи пользователя с профилем инвестора**
+   * Я заменил `ForeignKey` на `OneToOneField`, чтобы гарантировать, что у каждого пользователя-инвестора есть ровно один профиль.
+   * Это важно, потому что Django автоматически создаёт атрибут `user.investorprofile`, и код становится проще и безопаснее.
+
+3. **ViewSet для проектов (`ProjectViewSet`)**
+   * Добавил экшены `save` и `unsave`:
+     * `POST /api/projects/{pk}/save/` сохраняет проект инвестора.
+     * `DELETE /api/projects/{pk}/unsave/` или `POST /api/projects/{pk}/unsave/` удаляет проект из сохранённых.
+   * Реализовал проверки:
+     * наличие у пользователя профиля инвестора;
+     * предотвращение дубликатов при повторном сохранении;
+     * транзакции `transaction.atomic()` для целостности базы данных.
+
+---
+
+### 3. Почему я сделал именно так
+
+* **OneToOneField вместо ForeignKey**: это обеспечивает прямую, однозначную связь между пользователем и инвесторским профилем, упрощает доступ к данным.
+* **ManyToMany через промежуточную таблицу (`SavedProject`)**: гибкое решение, которое можно расширить без изменения структуры (например, добавить поле `saved_at`).
+* **Разделение логики**:
+  * в `ProjectViewSet` оставил действия, которые относятся к одному проекту (сохранить/удалить),
+  * в отдельном классе `SavedProjectsList` — список всех сохранённых. Это делает API чище и логичнее.
+* **Фильтры и поиск**: добавил, чтобы инвестор мог легко ориентироваться в большом списке сохранённых проектов.
+
+TASK#43 - API Endpoint to List and Manage Saved Startups
+Create an endpoint for listing saved startups + implement filtering options to sort or search through saved startups.
+Add an endpoint to unfollow a startup (e.g., DELETE).
+Ensure proper authentication and authorization checks are in place.
+
+---
+
+## 🎤 Речь для презентации
+
+### 2. Что именно я сделал
+
+1. **Создал эндпоинт для списка сохранённых проектов**
+   * `GET /api/investor/saved-projects/` — возвращает список всех проектов, которые инвестор добавил в сохранённые.
+   * Реализовал возможности:
+     * поиск (`?search=AI`),
+     * сортировка (`?ordering=funding_goal`),
+     * стандартная пагинация DRF.
+
+2. **Реализовал возможность удаления проекта из сохранённых**
+
+   * Добавил экшен `unsave` в `ProjectViewSet`:
+     * `DELETE /api/projects/{id}/unsave/` или `POST /api/projects/{id}/unsave/`.
+   * Инвестор может отписаться от проекта, и он исчезает из его списка сохранённых.
+
+3. **Добавил проверки и безопасность**
+   * Проверка, что у пользователя есть профиль инвестора.
+   * Проверка активности профиля.
+   * Использовал `transaction.atomic()` при добавлении/удалении, чтобы гарантировать целостность данных.
+   * Ограничил доступ:
+     * к списку сохранённых проектов имеют доступ только инвесторы,
+
+---
+
+### 3. Почему сделал именно так
+
+* **Отдельный класс `SavedProjectsList`**
+  * Я вынес список сохранённых проектов в отдельный класс, а не оставил его вну	три `ProjectViewSet`.
+  * Это сделало код чище и понятнее: `ProjectViewSet` отвечает за работу с одним проектом, а `SavedProjectsList` — за коллекцию сохранённых.
+
+* **Поиск и сортировка через DRF Filter Backend**
+  * Это стандартный, масштабируемый инструмент.
+  * Позволяет легко расширять фильтрацию в будущем, например, добавить фильтр по индустрии или по региону.
+
+* **Методы `save` и `unsave` внутри `ProjectViewSet`**
+  * Эти действия относятся к конкретному проекту, поэтому они логично расположены рядом с самим `ProjectViewSet`.
+
+* **Проверки профиля инвестора**
+  * Без профиля инвестора сохранение не имеет смысла.
+  * Благодаря этому API становится безопасным и не допускает некорректного использования.

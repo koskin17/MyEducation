@@ -1,0 +1,309 @@
+### 📁 `models.py`
+
+```python
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+class UserRole(models.Model):
+    role = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.role
+
+
+class UserProfileManager(BaseUserManager):
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError("Email is required")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+		Это ключевой момент:
+			- self.model — это модель, к которой привязан менеджер. В нашем случае — UserProfile.
+			- Django сам подставляет self.model = UserProfile при инициализации менеджера.
+			- extra_fields — это все остальные поля, которые ты передал: username, first_name, last_name, phone, role и т.д.
+			- **extra_fields — это распаковка словаря в аргументы конструктора модели.
+		Это позволяет гибко передавать любые поля, не перечисляя их вручную.
+		
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+		
+	## Почему в `UserProfileManager.create_user()` проверяется только `email`, а другие поля — нет?
+	* Тому що **email — це обов’язкове поле**, яке використовується як логін (`USERNAME_FIELD = 'email'`).
+	* Інші поля **вважаються додатковими** — вони або обов'язкові в `REQUIRED_FIELDS`, або валідуються пізніше, на рівні **serializer** або **форм**.
+	---
+	### 🤔 А навіщо тоді взагалі перевірка `email` в менеджері, якщо він і так валідовується в серіалізаторі?
+
+	**Добре питання!** Дійсно, перевірка `email` може бути:
+
+	* в серіалізаторі (`validate_email`)
+	* в менеджері (`if not email: raise ValueError(...)`)
+
+	#### ✅ Причины, почему проверка есть в `create_user()`:
+
+	1. **Безопасность на уровне модели**
+	   Якщо хтось викликає `UserProfile.objects.create_user(...)` **напряму**, в обхід serializer, то `create_user()` гарантує, що email обов’язково буде.
+	   👉 Це захист від прямого неправильного виклику.
+
+	2. **Вимога Django**
+	   Django очікує, що `create_user()` і `create_superuser()` будуть реалізовані правильно, з перевірками ключових полів.
+
+	3. **Серiалiзатор = зовнішній рівень**,
+	   а `UserProfileManager` — це **внутрішній, низькорівневий** код, який гарантує, що модель не зламається при будь-якому способі створення користувача.
+
+	---
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
+
+
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    phone = models.CharField(max_length=20, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(null=True, blank=True)
+    role = models.ForeignKey(UserRole, on_delete=models.SET_NULL, null=True)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserProfileManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    def __str__(self):
+        return self.email
+```
+
+---
+
+### 📁 `serializers.py`
+
+```python
+from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from .models import UserProfile
+
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
+	
+    class Meta:
+        model = UserProfile
+        fields = [
+            'username', 'email', 'password', 'confirm_password',
+            'first_name', 'last_name', 'phone', 'role'
+        ]
+
+    def validate_password(self, value):
+        validate_password(value)
+        return value
+
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError({"password": "Паролі не збігаються."})
+        return data
+		
+	def validate_email(self, value):
+        if UserProfile.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Електронна адреса вже використовується.")
+        return value
+
+    def validate_username(self, value):
+        if UserProfile.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Ім'я користувача вже зайняте.")
+        return value
+
+    def create(self, validated_data):
+        validated_data.pop('confirm_password')
+        password = validated_data.pop('password')
+        return UserProfile.objects.create_user(password=password, **validated_data)
+```
+
+---
+
+### 📁 `views.py`
+
+```python
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .models import UserProfile
+from .serializers import UserRegistrationSerializer
+
+
+class UserRegistrationView(generics.CreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny]
+```
+
+---
+
+### 📁 `urls.py`
+
+from django.urls import path
+from .views import UserRegistrationView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+urlpatterns = [
+    path('signup/', UserRegistrationView.as_view(), name='user-signup'),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+
+
+---
+
+## ❓ Чому не використовується `ListView`?
+
+`ListView` (і його REST-аналог `ListAPIView`) використовується **для виведення списків об'єктів** (GET-запити), а **реєстрація — це створення нового користувача** (POST-запит), тому тут:
+
+✅ Найкраще підходить `CreateAPIView` — це generic-клас, який:
+
+* реалізує метод `post()`
+* сам викликає `serializer.save()`
+* автоматично повертає `201 Created`
+
+Тому немає сенсу писати ручний `APIView`, якщо немає складної логіки.
+
+---
+
+## 🧪 Фінальні кроки
+
+```bash
+python manage.py makemigrations users
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+---
+
+## 🔚 Висновок
+
+🔵 Твій код — дуже грамотний і добре прокоментований.
+🟢 Моя рекомендація — об'єднати його з моїм варіантом для:
+
+* кращої читабельності (generic views)
+* кращої перевірки полів (`confirm_password`)
+
+## ✅ Додаю **повний блок по JWT Authentication**, як частину *кращого об'єднаного варіанту*:
+
+---
+
+### 📁 `settings.py` — JWT, REST та кастомний юзер
+
+```python
+INSTALLED_APPS += [
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'users',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+AUTH_USER_MODEL = 'users.UserProfile'  # 💡 Обов’язково до міграцій
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+```
+
+---
+
+### 📁 `urls.py` — JWT endpoints
+
+```python
+from django.urls import path
+from .views import UserRegistrationView
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+urlpatterns = [
+    path('signup/', UserRegistrationView.as_view(), name='user-signup'),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+```
+
+---
+
+## 🔑 Как работает теперь JWT аутентификация
+
+| Endpoint                    | Метод | Назначение                              |
+| --------------------------- | ----- | --------------------------------------- |
+| `/api/users/signup/`        | POST  | Регистрация нового пользователя         |
+| `/api/users/login/`         | POST  | Получение `access` и `refresh` токенов  |
+| `/api/users/token/refresh/` | POST  | Обновление `access` токена по `refresh` |
+
+### 🔐 Пример запроса на логин:
+
+```http
+POST /api/users/login/
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "YourPassword123"
+}
+```
+
+#### Ответ:
+
+```json
+{
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOi...",
+  "refresh": "eyJ0eXAiOiJKV1QiLCJh..."
+}
+```
+
+---
+
+## 🧪 Итоговая структура для тебя
+
+| Категория                           | Что реализовано и где               |
+| ----------------------------------- | ----------------------------------- |
+| Модель пользователя                 | `UserProfile` в `models.py`         |
+| Роль пользователя                   | `UserRole` в `models.py`            |
+| Менеджер пользователя               | `UserProfileManager`                |
+| JWT логика                          | `settings.py` + `urls.py`           |
+| Регистрация пользователя            | `UserRegistrationView`              |
+| Валидации email, username, password | В сериализаторе                     |
+| Стандарты Django                    | Всі базові best practices дотримані |
+
+---
+
+### 🧠 Якщо буде зберігання токенів у БД
+
+Коли ти захочеш зберігати JWT токени в базі та зв'язувати `last_login` з JWT, я підкажу як:
+
+* використовувати `rest_framework_simplejwt.token_blacklist`
+* створити middleware, який оновлює `last_login`
+* писати кастомний `TokenObtainPairView`, щоб логіка JWT була розширена
+
+---
+
+Хочеш — я можу тобі згенерувати Postman Collection для всіх endpoint'ів або описать Swagger документацію.
+
+Готовий допомогти з наступним кроком ✅

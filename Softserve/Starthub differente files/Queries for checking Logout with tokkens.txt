@@ -1,0 +1,152 @@
+Понял тебя! Вот подробная инструкция, как проверить работу твоих JWT-эндпоинтов и logout с blacklist с помощью **Postman** — учитывая, что у тебя в `urls.py` путь к `users.urls` подключён как `path('', include('users.urls'))`.
+
+---
+
+# Инструкция по тестированию JWT и logout с blacklist через Postman
+
+---
+
+## 1. Получение токенов (логин)
+
+* Метод: **POST**
+
+* URL: `http://localhost:8000/api/token/`
+  *(если в твоих urls.py настроено так, иначе проверь точный путь)*
+
+* Вкладка **Body** → **raw** → формат JSON:
+
+```json
+{
+  "username": "твой_логин",
+  "password": "твой_пароль"
+}
+```
+
+* Нажми **Send**
+
+**Ожидаемый ответ:**
+
+```json
+{
+  "refresh": "токен_обновления_здесь",
+  "access": "токен_доступа_здесь"
+}
+```
+
+---
+
+## 2. Использование access токена (пример защищённого запроса)
+
+* Метод: **GET**
+
+* URL: `http://localhost:8000/api/protected/` *(или другой защищённый эндпоинт)*
+
+* Вкладка **Headers**:
+
+| Key           | Value                            |
+| ------------- | -------------------------------- |
+| Authorization | Bearer **<твой\_access\_токен>** |
+
+* Нажми **Send**
+
+**Ожидаемый ответ:**
+Данные защищённого эндпоинта (например, профиль пользователя).
+
+---
+
+## 3. Logout (добавление refresh токена в blacklist)
+
+* Метод: **POST**
+
+* URL: `http://localhost:8000/logout/` *(путь, по которому у тебя настроен LogoutView; если подключён через `path('', include('users.urls'))` — просто `/logout/`)*
+
+* Вкладка **Headers**:
+
+| Key           | Value                            |
+| ------------- | -------------------------------- |
+| Authorization | Bearer **<твой\_access\_токен>** |
+
+* Вкладка **Body** → **raw** → формат JSON:
+
+```json
+{
+  "refresh": "твой_refresh_токен"
+}
+```
+
+* Нажми **Send**
+
+**Ожидаемый ответ:**
+
+```json
+{
+  "detail": "Logout successful."
+}
+```
+
+---
+
+## 4. Проверка, что refresh токен заблокирован (попытка обновить access токен)
+
+* Метод: **POST**
+
+* URL: `http://localhost:8000/api/token/refresh/`
+
+* Вкладка **Body** → **raw** → формат JSON:
+
+```json
+{
+  "refresh": "тот_же_refresh_токен_после_logout"
+}
+```
+
+* Нажми **Send**
+
+**Ожидаемый результат:**
+
+* Если blacklist работает, ты получишь ошибку примерно такого вида:
+
+```json
+{
+  "detail": "Token is blacklisted",
+  "code": "token_not_valid"
+}
+```
+
+* Если ошибок нет и возвращается новый access токен — значит blacklist не сработал.
+
+---
+
+# Как убедиться в корректности путей и URL
+
+* В твоём `config/urls.py` и `users/urls.py` проверь, что маршруты выглядят примерно так:
+
+```python
+# config/urls.py
+urlpatterns = [
+    # другие пути...
+    path('', include('users.urls')),  # значит, что пути из users.urls идут с корня
+]
+```
+
+```python
+# users/urls.py
+from django.urls import path
+from .views import LogoutView
+
+urlpatterns = [
+    path('logout/', LogoutView.as_view(), name='logout'),
+    # другие маршруты, например, логин и т.д.
+]
+```
+
+Это значит, что logout доступен по адресу:
+`http://localhost:8000/logout/`
+
+---
+
+Если хочешь, могу помочь составить готовые **Postman коллекции** с этими запросами — просто скажи.
+
+---
+
+Если есть вопросы — пиши!

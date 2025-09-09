@@ -1,0 +1,242 @@
+Ага, теперь всё понятно 👍
+Ошибка **`relation "users_userrole" does not exist`** и **`relation "users_userprofile" does not exist`** говорит о том, что у тебя **ещё не применены миграции** для приложения `users` (и скорее всего для других тоже).
+
+Django просто не видит таблицы в БД, поэтому ты и не можешь ни создать роли, ни пользователей.
+
+---
+
+### 🚀 Правильный порядок действий:
+
+1. **Останови контейнеры (на всякий случай):**
+
+```bash
+docker compose down
+```
+
+2. **Сделай миграции для всех приложений:**
+
+```bash
+docker compose exec web python manage.py makemigrations
+docker compose exec web python manage.py migrate
+```
+
+> Это создаст таблицы `users_userrole`, `users_userprofile`, `profiles_startupprofile`, `profiles_investorprofile`, `projects_startupproject` и т.д.
+
+3. **Теперь заходи в shell и выполняй скрипт создания данных.**
+
+---
+
+### 📜 Готовый скрипт для shell (после миграций)
+
+Выполняй **построчно**, не вставляй всё разом:
+
+```python
+from users.models import UserRole, UserProfile
+from profiles.models import StartupProfile, InvestorProfile
+from projects.models import StartupProject, SavedProject
+
+# 1. Создаём роли
+startup_role, _ = UserRole.objects.get_or_create(role="startup")
+investor_role, _ = UserRole.objects.get_or_create(role="investor")
+print("Roles:", startup_role, investor_role)
+
+# 2. Создаём пользователей
+s_user = UserProfile.objects.create_user(
+    email="startup@example.com",
+    username="startup1",
+    password="TestPass123!",
+    first_name="John",
+    last_name="Doe"
+)
+i_user = UserProfile.objects.create_user(
+    email="investor@example.com",
+    username="investor1",
+    password="TestPass123!",
+    first_name="Alice",
+    last_name="Smith"
+)
+
+# 3. Назначаем роли
+s_user.role = startup_role
+s_user.is_active = True
+s_user.save()
+
+i_user.role = investor_role
+i_user.is_active = True
+i_user.save()
+print("Users created:", s_user.id, i_user.id)
+
+# 4. Создаём профили
+sp = StartupProfile.objects.create(user=s_user, company_name="Test Startup")
+ip = InvestorProfile.objects.create(user=i_user, company_name="Investor Ventures")
+print("Profiles created:", sp.id, ip.id)
+
+# 5. Создаём проект
+proj = StartupProject.objects.create(
+    subject="AI Analytics Platform",
+    idea="We analyze big data with AI",
+    description="A SaaS platform for predictive analytics",
+    website="https://startup.example.com",
+    investment_needed=True,
+    status="PENDING",
+    startup=sp
+)
+print("Project created:", proj.id, proj.subject, "views_count:", proj.views_count)
+
+# 6. Инвестор сохраняет проект
+saved = SavedProject.objects.create(investor=ip, project=proj)
+print("SavedProject created:", saved.id)
+```
+
+Понял 👍
+Ошибка `"detail": "Method 'POST' not allowed."` означает, что в твоём `SavedProjectViewSet` **не разрешено создавать записи через POST**.
+Скорее всего, у тебя в `views.py` так:
+
+```python
+class SavedProjectViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = SavedProject.objects.all()
+    serializer_class = SavedProjectSerializer
+```
+
+👉 `ReadOnlyModelViewSet` разрешает только `list` и `retrieve`.
+Поэтому POST (создание) работать не будет.
+
+---
+
+## ✅ Как починить
+
+Чтобы в Postman можно было **сохранять проект инвестором**, нужно:
+
+1. В `views.py` заменить:
+
+   ```python
+   class SavedProjectViewSet(viewsets.ReadOnlyModelViewSet):
+   ```
+
+   на:
+
+   ```python
+   class SavedProjectViewSet(viewsets.ModelViewSet):
+   ```
+
+2. Ограничить queryset по текущему пользователю (чтобы один инвестор не видел чужие сохранения):
+
+   ```python
+   class SavedProjectViewSet(viewsets.ModelViewSet):
+       serializer_class = SavedProjectSerializer
+
+       def get_queryset(self):
+           return SavedProject.objects.filter(investor__user=self.request.user)
+
+       def perform_create(self, serializer):
+           investor = InvestorProfile.objects.get(user=self.request.user)
+           serializer.save(investor=investor)
+   ```
+
+3. В `serializers.py` убедиться, что поле `investor` в `SavedProjectSerializer` стоит **read\_only**, чтобы оно автоматически подтягивалось:
+
+   ```python
+   class SavedProjectSerializer(serializers.ModelSerializer):
+       class Meta:
+           model = SavedProject
+           fields = "__all__"
+           read_only_fields = ("id", "investor")
+   ```
+
+---
+
+## 🔄 Теперь переписываю правильные шаги для Postman
+
+### 🚀 Шаг 1. Авторизация
+
+**POST** → `http://127.0.0.1:8000/api/auth/login/`
+Body:
+
+```json
+{
+  "email": "investor@example.com",
+  "password": "TestPass123!"
+}
+```
+
+Сохрани `access`.
+
+---
+
+### 🚀 Шаг 2. Получить список проектов (как инвестор)
+
+**GET** → `http://127.0.0.1:8000/api/projects/`
+Headers:
+
+```
+Authorization: Bearer <access_token_investor>
+```
+
+---
+
+### 🚀 Шаг 3. Сохранить проект
+
+**POST** → `http://127.0.0.1:8000/api/projects/saved/`
+Headers:
+
+```
+Authorization: Bearer <access_token_investor>
+Content-Type: application/json
+```
+
+Body:
+
+```json
+{
+  "project": 1
+}
+```
+
+Ожидаемый ответ:
+
+```json
+{
+  "id": 1,
+  "project": 1,
+  "investor": 3
+}
+```
+
+---
+
+### 🚀 Шаг 4. Проверить список сохранённых проектов
+
+**GET** → `http://127.0.0.1:8000/api/projects/saved/`
+Headers:
+
+```
+Authorization: Bearer <access_token_investor>
+```
+
+---
+
+### 🚀 Шаг 5. Проверить свои проекты (как стартап)
+
+**POST** → `http://127.0.0.1:8000/api/auth/login/`
+Body:
+
+```json
+{
+  "email": "startup@example.com",
+  "password": "TestPass123!"
+}
+```
+
+Потом:
+**GET** → `http://127.0.0.1:8000/api/projects/my/`
+Headers:
+
+```
+Authorization: Bearer <access_token_startup>
+```
+
+---
+
+👉 После этих исправлений у тебя в Postman заработают все шаги.
+
+Хочешь, я сделаю тебе готовый **git diff** для `views.py` и `serializers.py`, чтобы ты только вставил и закоммитил?

@@ -1,0 +1,77 @@
+# TODO: убрать из модели весь Slug 
+    role = serializers.SlugRelatedField(
+        slug_field='role',
+        queryset=UserRole.objects.all()
+    )
+	### Коротко:
+	* Це поле дозволяє передавати **не id**, а **строкове значення** (slug) пов’язаної моделі.
+	* `slug_field='role'` означає: використай поле `role` з моделі `UserRole`.
+	* `queryset=UserRole.objects.all()` каже: шукай серед усіх ролей.
+	---
+	### Что делает это поле?
+	#### Без `SlugRelatedField`:
+	Ти повинен був би передавати `role_id`, наприклад:
+	```json
+	{ "role": 2 }
+	```
+	#### С `SlugRelatedField(slug_field='role')`:
+	Можна передавати просто назву ролі:
+	```json
+	{ "role": "стартапер" }
+	```
+	Django автоматично знайде в таблиці `UserRole` об’єкт, де `role="стартапер"` і зв’яже його.
+	---
+	### Что происходит внутри?
+	1. **Во время записи (`POST`)**:
+
+	   * Серіалізатор бачить: `"role": "стартапер"`
+	   * Django виконує запит:
+
+		 ```python
+		 UserRole.objects.get(role="стартапер")
+		 ```
+	   * І підставляє цей об’єкт як ForeignKey у модель `UserProfile`.
+
+	2. **Во время чтения (`GET`)**:
+
+	   * Якщо ти серіалізуєш користувача, то замість:
+
+		 ```json
+		 "role": 2
+		 ```
+
+		 ти отримаєш:
+
+		 ```json
+		 "role": "стартапер"
+		 ```
+	---
+	### Поведінка схожа на:
+	| Django field             | Призначення                         |
+	| ------------------------ | ----------------------------------- |
+	| `PrimaryKeyRelatedField` | Працює з ID пов'язаної моделі       |
+	| `SlugRelatedField`       | Працює з довільним унікальним полем |
+	---
+	### Важливо
+	Поле, яке ти вказуєш як `slug_field`, має бути **унікальним**, інакше буде помилка `MultipleObjectsReturned`.
+	---
+	## Пример:
+	### Модель:
+	```python
+	class UserRole(models.Model):
+		role = models.CharField(max_length=50, unique=True)
+	```
+	### Запрос:
+	```json
+	{
+	  "username": "john",
+	  "email": "john@example.com",
+	  "password": "12345678",
+	  "role": "інвестор"
+	}
+	```
+	### Что делает `SlugRelatedField`:
+	```python
+	UserRole.objects.get(role="інвестор")
+	```
+	І результат — `user.role_id = <id "інвестор">`.

@@ -1,0 +1,460 @@
+Проверка заполнения данным в БД:
+SELECT * FROM profiles_industry
+SELECT * FROM profiles_investorprofile
+SELECT * FROM profiles_location
+SELECT * FROM profiles_startupprofile
+SELECT * FROM projects_startupproject
+SELECT * FROM users_userprofile
+SELECT * FROM users_userrole
+
+
+# Часть A — Запуск проекта в Docker
+
+> Ниже команды для `docker compose` (V2). Если у тебя старый `docker-compose`, замени `docker compose` на `docker-compose`.
+
+1. Построить образы и поднять всё:
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+Подключись к контейнеру веб-приложения:
+
+docker compose exec web bash
+
+Внутри контейнера запусти:
+
+python manage.py makemigrations
+
+2. Прогнать миграции (замени `web` на имя твоего Django-сервиса, если другое):
+
+```bash
+docker compose exec web python manage.py migrate
+```
+
+3. (Опционально) собрать статику, если нужно:
+
+```bash
+docker compose exec web python manage.py populate_fake_data
+```
+
+4. Создать суперпользователя (для входа в админку):
+
+```bash
+docker compose exec web python manage.py createsuperuser \
+  --username admin --email admin@example.com
+# Введи пароль по запросу
+```
+
+docker compose exec web python manage.py shell
+
+
+Отлично! Давай сделаем это **правильно и красиво**. Я подготовлю полностью рабочую Postman-коллекцию с:
+
+* Созданием ролей (`investor`, `startup`)
+* Регистрацией пользователей с `is_active=True`
+* Авторизацией (JWT)
+* Созданием профилей (InvestorProfile и StartupProfile)
+* Созданием стартап-проекта
+* Сохранением проекта инвестором
+* Получением списка сохранённых проектов
+
+Всё будет в удобном для человека формате, с JSON-телами, понятными полями и переменными для токенов.
+
+Вот готовый JSON для импорта в Postman:
+
+```json
+{
+  "info": {
+    "name": "Full Backend Testing",
+    "_postman_id": "1a2b3c4d-5678-9101-1121-314151617181",
+    "description": "Полная коллекция для тестирования backend: роли, пользователи, профили, стартапы, сохранение проектов.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Roles",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"investor\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/roles/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "roles", ""]
+        }
+      }
+    },
+    {
+      "name": "Create Startup Role",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"role\": \"startup\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/roles/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "roles", ""]
+        }
+      }
+    },
+    {
+      "name": "Register Investor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"investor1\",\n  \"email\": \"investor1@example.com\",\n  \"password\": \"Passw0rd!\",\n  \"confirm_password\": \"Passw0rd!\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"is_active\": true,\n  \"representative_type\": \"investor\",\n  \"company_name\": \"Invest Co\",\n  \"website\": \"https://invest.example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/register/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "register", ""]
+        }
+      }
+    },
+    {
+      "name": "Register Startup",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"startup1\",\n  \"email\": \"startup1@example.com\",\n  \"password\": \"Passw0rd!\",\n  \"confirm_password\": \"Passw0rd!\",\n  \"first_name\": \"Alice\",\n  \"last_name\": \"Smith\",\n  \"is_active\": true,\n  \"representative_type\": \"startup\",\n  \"company_name\": \"Rocket Ltd\",\n  \"website\": \"https://rocket.example.com\",\n  \"industry_id\": 1,\n  \"location_id\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/register/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "register", ""]
+        }
+      }
+    },
+    {
+      "name": "Login Investor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"investor1@example.com\",\n  \"password\": \"Passw0rd!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/token/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "token", ""]
+        }
+      }
+    },
+    {
+      "name": "Login Startup",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"startup1@example.com\",\n  \"password\": \"Passw0rd!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/token/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "token", ""]
+        }
+      }
+    },
+    {
+      "name": "Create Startup Project",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{startup_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subject\": \"AI Drone\",\n  \"idea\": \"Autonomous AI drone for inspections\",\n  \"description\": \"Detailed project description\",\n  \"website\": \"https://rocket.example.com/drone\",\n  \"investment_needed\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/projects/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "projects", ""]
+        }
+      }
+    },
+    {
+      "name": "Investor Save Project",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{investor_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"project_id\": {{project_id}}\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/investors/save-project/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "investors", "save-project", ""]
+        }
+      }
+    },
+    {
+      "name": "Get Saved Projects",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{investor_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/investors/saved-projects/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "investors", "saved-projects", ""]
+        }
+      }
+    }
+  ]
+}
+```
+
+---
+
+### ✅ Инструкция по использованию
+
+1. **Импорт коллекции**
+
+   * В Postman → `File → Import → JSON` → выбрать файл с этим JSON.
+
+2. **Создание Environment**
+
+   * Назвать `Local Backend`.
+   * Создать переменные:
+
+     * `investor_token` — JWT инвестора
+     * `startup_token` — JWT стартапа
+     * `project_id` — id проекта
+	 
+Сейчас покажу шаг за шагом, как создать Environment в Postman и зачем он нужен. Это позволит тебе хранить переменные (`access_token`, `project_id`) и использовать их в запросах без ручного копирования.
+
+---
+
+### 1️⃣ Открыть управление Environment
+
+1. В Postman в правом верхнем углу нажми на **“Environments”** (или значок шестерёнки → **Manage Environments**).
+2. Нажми **“Add”** (Создать новое).
+
+---
+
+### 2️⃣ Настроить Environment
+
+* Дай Environment понятное имя, например: **Local Backend**.
+* Добавь переменные, которые будем использовать:
+
+| Variable         | Initial Value | Current Value | Примечание                       |
+| ---------------- | ------------- | ------------- | -------------------------------- |
+| `investor_token` | (пусто)       | (пусто)       | JWT токен инвестора после логина |
+| `startup_token`  | (пусто)       | (пусто)       | JWT токен стартапа после логина  |
+| `project_id`     | (пусто)       | (пусто)       | ID созданного проекта            |
+
+* Нажми **Save**.
+
+---
+
+### 3️⃣ Привязать Environment к коллекции
+
+* В правом верхнем углу Postman выбери Environment **Local Backend**.
+* Теперь все запросы, где используются переменные типа `{{investor_token}}`, будут автоматически подставлять значения из Environment.
+
+Понял 👍
+Давай разберёмся на пальцах — где именно в **Postman** находятся эти вкладки, и что с ними делать.
+
+---
+
+### 📍 Где вкладка **Tests** в Postman
+
+1. Открой любой запрос в своей коллекции (например, **Investor Login**).
+2. Смотри в **центре окна**, где у тебя Request: там есть несколько вкладок:
+
+   * **Params**
+   * **Authorization**
+   * **Headers**
+   * **Body**
+   * **Pre-request Script**
+   * **Tests** ← вот она тебе нужна
+
+👉 Вкладка **Tests** находится **справа от Body** (или после Pre-request Script).
+
+---
+
+### 📍 Как добавить туда скрипт
+
+1. Нажми на вкладку **Tests**.
+2. Там будет пустое поле для JavaScript-кода.
+3. Вставь туда скрипт, например, для **Investor Login**:
+
+```javascript
+// Сохраняем access токен инвестора
+if (pm.response.code === 200) {
+    var jsonData = pm.response.json();
+    pm.environment.set("investor_token", jsonData.access);
+}
+```
+
+4. Нажми **Save** (в правом верхнем углу).
+
+---
+
+### 📍 Для каких запросов это делать
+
+* В запросе **Investor Login** → вкладка **Tests** → скрипт для `investor_token`.
+* В запросе **Startup Login** → вкладка **Tests** → скрипт для `startup_token`.
+* В запросе **Create Project** → вкладка **Tests** → скрипт для `project_id`.
+
+---
+
+### 📍 Как это работает
+
+После того как ты сделаешь запрос:
+
+* Postman выполнит его и получит JSON-ответ.
+* Скрипт в **Tests** вытащит из ответа `access` или `id`.
+* Сохранит это значение в Environment (например `investor_token`).
+* Теперь в следующих запросах ты можешь писать `{{investor_token}}` — и Postman сам подставит туда токен.
+
+---
+
+### 4️⃣ Как использовать переменные в запросах
+
+* В запросе Authorization → Bearer Token → значение: `{{investor_token}}`
+* В теле запроса JSON: `"project_id": {{project_id}}`
+
+После выполнения запроса на логин или создание проекта, нужно будет сохранить значение в переменную:
+
+1. Перейти в **Tests** вкладку запроса.
+2. Добавить такой скрипт:
+
+```javascript
+// Сохраняем access токен инвестора
+if (pm.response.code === 200) {
+    var jsonData = pm.response.json();
+    pm.environment.set("investor_token", jsonData.access);
+}
+```
+
+Аналогично для стартапа и project\_id:
+
+```javascript
+// Сохраняем access токен стартапа
+if (pm.response.code === 200) {
+    var jsonData = pm.response.json();
+    pm.environment.set("startup_token", jsonData.access);
+}
+
+// Сохраняем ID проекта после создания
+if (pm.response.code === 201) {
+    var jsonData = pm.response.json();
+    pm.environment.set("project_id", jsonData.id);
+}
+```
+
+---
+
+3. **Выполнение шагов**
+
+   1. `Create Roles` и `Create Startup Role`
+   2. `Register Investor` и `Register Startup`
+   3. `Login Investor` → сохранить `access` в переменную `investor_token`
+   4. `Login Startup` → сохранить `access` в переменную `startup_token`
+   5. `Create Startup Project` → сохранить `id` проекта в `project_id`
+   6. `Investor Save Project`
+   7. `Get Saved Projects`
+
+---

@@ -1,0 +1,13 @@
+Email: admin@example.com
+Password: admin123
+
+"Add New Server"
+General:
+Name: StartHubDB (можно любое имя)
+Connection:
+Host name/address: db ✅
+Port: 5432
+Username: postgres
+Password: koskin17
+Save
+Servers → StartHubDB → Databases → StartHubDB → Schemas → public → Tables
