@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  padding: 2rem;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+h1, h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+li:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+#messages {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #fafafa;
+    scroll-behavior: smooth;
+}
+
+
+  .message {
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+  }
+
+  .read-status {
+    margin-left: 0.5em;
+    font-size: 0.9em;
+    color: #555;
+  }
+
+
+  #message-form {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #message-input {
+    flex: 1;
+    resize: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+.button {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: none;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: #333;
+}
+
+.button-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+

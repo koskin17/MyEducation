@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Conversations</title>
+  {% load static chat_extras %}
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body>
+
+<div class="button-bar">
+  <button id="logout-btn" class="button">Logout</button>
+</div>
+
+<div id="main-container">
+  <h1>Your Conversations</h1>
+
+  {% if rooms %}
+    <ul>
+      {% for room in rooms %}
+      <li>
+        {{ room.participants|get_other_user:request.user|default:"(Unknown User)" }}
+        <a class="button" href="{% url 'room' room.id %}">
+            Open conversation
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+  <p>You don’t have conversations yet.</p>
+  {% endif %}
+</div>
+
+<script type="module" src="{% static 'js/chat-auth.js' %}"></script>
+
+</body>
+</html>

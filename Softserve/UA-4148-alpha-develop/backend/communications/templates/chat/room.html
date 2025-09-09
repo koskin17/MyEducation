@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conversation</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body
+  id="chat-root"
+  data-user-id="{{ user.id }}"
+  data-other-user-id="{{ other_participant.id }}"
+  data-room-id="{{ room.id }}">
+
+  <h2>Conversation with {{ other_participant.first_name }} {{ other_participant.last_name }}</h2>
+
+  <div class="button-bar">
+    <button id="go-back-btn" class="button">← Back to Conversations</button>
+  </div>
+
+  <div id="messages" data-offset="0" data-loading="true">
+  </div>
+
+  <form id="message-form">
+    <textarea id="message-input" rows="2" placeholder="Type a message..." required autocomplete="off"></textarea>
+    <button type="submit" class="button">Send</button>
+  </form>
+
+<script type="module" src="{% static 'js/chat-room.js' %}"></script>
+</body>
+</html>

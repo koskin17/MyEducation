@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversations</title>
+  {% load static chat_extras %}
+  <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body>
+
+<div class="button-bar">
+  <button id="logout-btn" class="button">Logout</button>
+</div>
+
+<div id="main-container">
+  <h1>Choose a Startup to start conversation with:</h1>
+
+  <ul>
+    {% for s in startups %}
+    <li>
+      {{ s.first_name }} {{ s.last_name }}
+      {% with room_id=rooms|get_room_id:s.id %}
+        {% if room_id %}
+          <a class="button" href="{% url 'room' room_id %}">
+            Continue conversation
+          </a>
+        {% else %}
+          <a class="button" href="{% url 'start-conversation' s.id %}">
+            Start conversation
+          </a>
+        {% endif %}
+      {% endwith %}
+    </li>
+    {% empty %}
+      <li>No startups available for conversation.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script type="module" src="{% static 'js/chat-auth.js' %}"></script>
+
+</body>
+</html>
